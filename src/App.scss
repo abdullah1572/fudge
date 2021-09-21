@@ -1,0 +1,274 @@
+
+// @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+html{
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'DM Sans', 'sans-seri' !important;
+  background: #0E1526 !important;
+}
+ 
+  
+.row {
+    margin: 0;
+    padding: 0;
+}
+  
+.p-0 {
+    padding: 0px;
+}
+
+.p0 {
+  padding: 0px;
+}
+  
+  // All transitions
+  div,ul,a,p,h1,h2,h3,h4,h5,h6,span,button {
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+  }
+
+  textarea {
+      resize: none;
+      height: 60px;
+      width: 100%;
+  }
+  
+  a {
+    text-decoration: none !important;
+  }
+
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  div,p,h1,h2,h3,h4,h5,h6 {
+    margin: 0 0;
+    font-family: inherit !important;
+  }
+  
+  h1 {
+    font-size: 55px !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+
+  }
+
+  .grey{
+      color:  #777E90 !important;
+  }
+
+  hr {
+    border-top: 1px solid #353945;
+}
+
+
+  .ptb20{
+      padding: 20px 0;
+  }
+
+  h2 {
+    font-size: 40px !important;
+    font-style: normal !important;
+    font-weight: 900 !important;
+  }
+
+  p {
+      font-size: 16px !important;
+  }
+  
+  .btn-common {
+    margin: 10px 0;
+    padding: 10px 15px;
+    color: #fff !important;
+    text-decoration: none;
+    border: none;
+    font-size: 13px;
+    border: 1px solid #00CCFF;
+box-sizing: border-box;
+filter: drop-shadow(0px 1px 6px #3FFFFF);
+border-radius: 90px;
+    background-color: transparent;
+
+    &:hover {
+     color: #06678A !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     background-color: #fff;
+   }
+   &:active {
+    color: #06678A;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     background-color: #fff;
+   }
+   &:focus {
+     outline: none;
+   }
+}
+
+
+ .ptb {
+    padding: 128px 0;
+}
+
+.btn-red{
+  background: #AA3935;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+  box-sizing: border-box;
+    color: #fff;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+      color: #AA3935;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      background-color: #fff;
+    }
+
+}
+.btn-white{
+  background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+  box-sizing: border-box;
+  color: #AA3935;
+  padding: 8px 15px;
+  text-decoration: none;
+  font-size: 14px;
+  
+  &:hover {
+      color: #fff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      background-color: #AA3935;
+    }
+
+}
+
+
+.common {
+    color: #133572 ;
+}
+
+.green {
+    color: #6DFF39;
+}
+
+.red {
+color: #AA3935;
+}
+.white {
+    color: #fff;
+}
+
+.blue {
+    color:  #133572;
+}
+
+.navbar-toggle {
+  background-color: #333;
+
+  .icon-bar {
+    background-color: #eee;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .navbar-toggler {
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+}
+ 
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  h2 {
+    font-size: 2.5rem !important;
+    font-weight: bold;
+    
+  }
+
+  .ptb {
+    padding: 64px 0;
+  }
+
+  .xs-0 {
+    padding: 0px;
+  }
+
+  .main-blue {
+    .inner-content {
+        padding: 20px 0px !important;
+    }
+}
+
+}
+// 12 pro
+@media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      .nav-brand {
+        margin-left: 15px;
+      }
+      
+     
+      h1 {
+        font-size: 3.5rem !important;
+      }
+    
+      h2 {
+        font-size: 2.5rem !important;
+        font-weight: bold;
+      }
+    
+      .ptb {
+        padding: 20px 0;
+    }
+    }
+// 12 pro max 
+    @media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      .nav-brand {
+        margin-left: 15px;
+      }
+      
+     
+      h1 {
+        font-size: 3.5rem !important;
+      }
+    
+      h2 {
+        font-size: 2.5rem !important;
+        font-weight: bold;
+      }
+    
+      .ptb {
+        padding: 20px 0;
+    }
+    }

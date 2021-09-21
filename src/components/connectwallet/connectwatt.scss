@@ -1,0 +1,283 @@
+.dark{
+    .main-ter-off{
+        .right-side{
+            .imagess{
+                img{
+                    padding-top: 20px;
+                }
+            }
+            .checkboox{
+                padding-top: 40px;
+                padding-bottom: 20px;
+                    .form-check{
+                        margin-bottom: 20px;
+                        label{
+                            font-family: 'Poppins';
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 24px;
+                            color: #FCFCFD;
+                        }
+                        input{
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 4px;
+                            margin-right: 20px;
+                        
+                        }
+                        &:checked{
+                            background-color: red!important;
+                        }
+                    }
+            }
+            .cancel{
+                background-color: transparent;
+                border: 2px solid #353945;
+                box-sizing: border-box;
+                border-radius: 90px;
+                cursor: pointer;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 20px;
+                outline: none;
+                color: #FCFCFD;
+                padding: 16px 24px;
+                transition: 0.4s all ease-in-out;
+                margin-top: 18px;
+                &:hover{
+                    background: linear-gradient(180deg, #0090B4 0%, #103F91 100%);
+                    border: 2px solid #103F91;
+                }
+            }
+        }
+    }
+    .connectwallet{
+        .right-side{
+            .donot-have{
+                background-color: transparent;
+                border: 2px solid #353945;
+                box-sizing: border-box;
+                border-radius: 90px;
+                cursor: pointer;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 20px;
+                outline: none;
+                color: #FCFCFD;
+                padding: 16px 24px;
+                transition: .4s all ease-in-out;
+                margin-top: 18px;
+            }
+            h3{
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 40px;
+                line-height: 48px;
+                color: #FCFCFD;
+            }
+            p{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px!important;
+                line-height: 20px;
+                color: #777E91!important;
+                padding-bottom: 20px;
+               
+                span{
+                    color: #ffffff;
+                    padding-right: 10px;
+                 
+                }
+            }
+            .grey-div{
+                background-color: #27324F;
+                padding: 70px;
+                border-radius: 16px;
+                .black-div{
+                    background-color: #0E1526;
+                    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+                    border-radius: 12px;
+                    padding: 70px 0px 70px;
+                }
+            }
+        }
+        .main-row{
+            padding-top: 80px;
+            padding-bottom: 100px;
+            .main-left-scan{
+                padding-top: 40px;
+            }
+            .main-terms-office{
+                .coin-base-wallet{
+                    border: 2px solid #353945;
+                    box-sizing: border-box;
+                    border-radius: 16px;
+                    padding: 30px;
+                    .line-right-coinbase{
+                        padding-left: 140px;
+                        padding-right: 0px;
+                    }
+                }
+            }
+            .main-left-conect{
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                .button-connect-wallet{
+                    background-color: transparent;
+                    border: none;
+                    text-align: left;
+                    padding: 0px;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 24px;
+                    line-height: 32px;
+                    color: #fcfcfd;
+                    margin-bottom: 44px;
+                    img{
+                        padding-right: 32px;
+                    }
+                }
+                a{
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 24px;
+                    line-height: 32px;
+                    color: #fcfcfd;
+                    margin-bottom: 44px;
+                    img{
+                        padding-right: 32px;
+                    }
+                }
+            }
+        }
+        .image{
+            img{
+                width: 100%;
+            }
+        }   
+        .backtohome{
+            border-bottom: 1.5px solid #353945;
+            padding-bottom: 40px;
+            h2{
+                font-family: 'DM Sans';
+                padding-top: 40px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 48px;
+                line-height: 56px;
+                color: #FCFCFD;
+                img{
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .dark{
+        .connectwallet{
+            .main-row{
+                .main-terms-office{
+                    .coin-base-wallet{
+                        .line-right-coinbase{
+                            padding-left: 36px;
+                        }
+                    }
+                }
+            }
+            .right-side{
+                h3{
+                    font-size: 32px!important;
+                }
+            }
+        }
+    }   
+}
+
+@media (max-width: 991px) {
+    .dark{
+        .connectwallet{
+            .main-row{
+                .main-terms-office{
+                    .coin-base-wallet{
+                        .line-right-coinbase{
+                            float: right;
+                            padding-top: 20px;
+                        }
+                    }
+                }
+            }
+            .right-side{
+                h3{
+                    font-size: 32px!important;
+                }
+            }
+        }
+    }   
+}
+
+
+@media (max-width: 600px) {
+    .dark{
+        .connectwallet{
+            .right-side{
+                h3{
+                    font-size: 32px!important;
+                }
+            }
+            .main-row{
+                padding-top: 32px;
+                padding-bottom: 32px;
+                .main-display-hide{
+                    display: none;
+                }
+                .main-terms-office{
+                    .coin-base-wallet{
+                        .line-right-coinbase{
+                            padding-left: 40px;
+                        }
+                    }
+                }
+                .main-left-conect{
+                    a{
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                }
+            }
+            .backtohome{
+                h2{
+                    font-size: 24px!important;
+                }
+            }
+        }
+    }   
+}
+
+
+@media (max-width: 400px) {
+    .dark{
+        .connectwallet{
+            .right-side{
+               .grey-div{
+                   padding-right: 15px;
+                   padding-left: 15px;
+               }
+            }
+        }
+    }   
+}
+
+

@@ -1,0 +1,468 @@
+
+
+.dark{
+    .right-profile-slider{
+        padding-left: 20px;
+        .folowers{
+        
+            .followers-list{
+                .followers__item{
+                    display: flex;
+                    justify-content: space-between;
+                    border-bottom: 2px solid #353945;
+                    padding-bottom: 32px;
+                    &:not(:last-child){
+                        margin-bottom: 38px;
+                    }
+                    .followers__user{
+                        display: flex;
+                        .followers__avatar{
+                            width: 88px;
+                            height: 88px;
+                            border-radius: 50%;
+                            margin-right: 20px;
+                        }
+                        .followers__details{
+                            h4{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: #FCFCFD!important;
+                            }
+                            p{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: normal;
+                                font-size: 12px!important;
+                                line-height: 20px;
+                                color: #777E91!important;
+                                padding-bottom: 12px;
+                            }
+                            .follow-but{
+                                height: 32px;
+                                width: 67px;
+                                background: linear-gradient(180deg, #0090B4 0%, #103F91 100%);
+                                border-radius: 90px;
+                                font-family: 'DM Sans';
+                                font-style: normal;
+                                font-weight: bold;
+                                outline: none;
+                                font-size: 14px;
+                                line-height: 16px;
+                                color: #FCFCFD;
+                                border: none;
+                            }
+                        }
+                    }
+                    .followers__gallery{
+                        display: flex;
+                        .follower-pre{
+                            width: 112px;
+                            height: 88px;
+                            margin-left: 5px;
+                            img{
+                                border-radius: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .tab-content{
+            .item{
+                margin-bottom: 55px;
+            }
+            .card-width{
+                cursor: pointer;
+                .lower-textss{
+                    .main-button-fire{
+                        display: flex;
+                        padding-top: 12px;
+                        justify-content: space-between;
+                        align-items: center;
+                        li{
+                            h4{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: normal;
+                                font-size: 12px;
+                                line-height: 20px; 
+                                color: #777E90;
+                            }
+                            h3{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: normal;
+                                font-size: 12px!important;
+                                line-height: 20px;
+                                color: #777E90;
+                                span{
+                                    color: #FCFCFD;
+                                    font-weight: 600;
+                                    padding-left: 4px;
+                                }
+                            }
+                        }
+                    }
+                    .main-button-ul{
+                        padding-top: 20px;
+                        justify-content: space-between;
+                        align-items: center;
+                        li{
+                            h3{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: #FCFCFD!important;
+                            }
+                            .buttons{
+                                background-color: transparent;
+                                border: 2px solid #45B36B;
+                                box-sizing: border-box;
+                                border-radius: 4px;
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 12px;
+                                line-height: 12px;
+                                color: #45B36B;
+                                padding: 8px;
+                            }
+                        }
+                    }
+                    .main-buttons-span{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border-bottom: 2px solid #353945;
+                        padding-bottom: 20px;
+                        padding-top: 13px;
+                        li{
+                            h3{
+                                font-family: 'Poppins';
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 14px!important;
+                                line-height: 24px;
+                                color: #E6E8EC;
+                            }
+                        }
+                        .images{
+                            display: flex;
+                            justify-content: start;
+                            align-items: center;
+                            .max-width-seller-two{
+                                margin: -7px;
+                            }
+                        }
+                    }
+                }
+                border: none;
+                .upper-divs-triple{
+                    img{
+                        width: 100%;
+                        border-radius: 16px 16px 0px 0px;
+                    }
+                }
+                img{ 
+                }
+                border-radius: 16px 16px 16px 16px;
+                background-color: #0E1526;
+            }
+        }
+        .nav-tabs{
+            margin-top: 67px;
+            border-bottom: none;
+            margin-bottom: 32px;
+            .nav-item{
+                margin-bottom: 0px;
+                .nav-link.active{
+                    background: #E6E8EC;
+                    border-radius: 100px;
+                    padding: 8px 12px;
+                    color: #27324F;
+                }
+                .nav-link{
+                    border: none;
+                    background: transparent;
+                    font-family: 'DM Sans';
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #777E90;
+                    border-radius: 100px;
+                }
+            }
+        }
+    }
+    .profiles-back{
+        height: 326px;
+        width: 100%;
+        position: relative;
+        background-image: url("../../../src/Assets/profile-back.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        .action-button{
+            position: absolute;
+            right: 11.5%;
+            bottom: 40px;
+            .act-but{
+                border: 2px solid #777E91;
+                box-sizing: border-box;
+                border-radius: 90px;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                outline: none;
+                line-height: 16px;
+                cursor: pointer;
+                color: #FCFCFD;
+                background-color: transparent;
+                padding: 12px 16px;
+               margin-left: 16px;
+                img{
+                    padding-left: 12px;
+                }
+            }
+        }
+    }
+    .side-profilessss{
+        border: 1px solid #353945;
+        box-sizing: border-box;
+        box-shadow: 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
+        border-radius: 16px;
+        background: #27324F;
+        margin-top: -118px;
+        .main-image-d{
+            padding: 32px 32px;
+            h4{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 20px;
+                color: #777E91;
+                padding-top: 40px;
+            }
+            h2{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 24px!important;
+                line-height: 32px;
+                color: #FCFCFD;
+                padding-top: 20px;
+            }
+            h6{
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 16px;
+                padding-left: 14px;
+                color: #FCFCFD;
+                button{
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+            .linkkks{
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px!important;
+                line-height: 50px;
+                color: #FCFCFD;
+                padding-top: 30px;
+                cursor: pointer;
+                img{
+                    padding-right: 10px;
+                }
+            }
+            .socialss{
+                padding-top: 40px;
+                padding-bottom: 40px;
+                border-bottom: 2px solid #353945;
+                .link-main-oad{
+                    padding-right: 26px;
+                    padding-left: 26px;
+                }
+            }
+            p{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px!important;
+                line-height: 20px;
+                color: #777E91;
+                padding-top: 20px;  
+            }
+            .followw{
+                padding-top: 30px;
+                .fllow{
+                    background: linear-gradient(180deg, #0090B4 0%, #103F91 100%);
+                    border-radius: 90px;
+                    padding: 12px 16px;
+                    font-family: 'DM Sans';
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #FCFCFD;
+                    outline: none;
+                    border: none;
+                    margin-right: 4px;
+                    cursor: pointer;
+                }
+                .uplode{
+                    background: transparent;
+                    border: 2px solid #353945;
+                    box-sizing: border-box;
+                    border-radius: 40px;
+                    width: 40px;
+                    outline: none!important;
+                    box-shadow: none;
+                    border: none;
+                    cursor: pointer;
+                    height: 40px;
+                    margin-right: 4px;
+                }
+            }
+            .side-pf-img{
+                width: 160px;
+                height: 160px;
+            }
+        }
+    }
+}
+@media (max-width: 1199px) {
+    .dark{
+        .right-profile-slider{
+            padding-left: 4px;
+        }
+    } 
+    .folowers{
+        .followers__user{
+            .followers__details{
+                width: 142px;
+            }
+        }
+        .followers__wrap{
+            overflow-x: auto;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}
+@media (max-width: 991px) {
+    .dark{
+        .Profile-main-section{
+            .main-profile-pad{
+                padding: 0px;
+            }
+        }
+        .right-profile-slider{
+            padding-left: 0px;
+        }
+        .Profile-main-section{
+            .main-paddss{
+                padding: 0px;
+            }
+        }
+        .profiles-back{
+            .action-button{
+                bottom: 70px;
+            }
+        }
+        .side-profilessss{
+            margin-top: -33px;
+        }
+    }
+}
+@media (max-width: 600px) {
+    .dark{
+        .folowers{
+            .followers__item{
+                position: relative;
+                .followers__user{
+                    justify-content: start;
+                    align-items: center;
+                    .followers__avatar{
+                        width: 72px!important;
+                        height: 72px!important;
+                    }
+                }
+                .follow-but{
+                    position: absolute;
+                    right: 0;
+                    top: 34%;
+                    transform: translateY(-50%);
+                }
+            }
+            .followers__wrap{
+                display: none;
+            }
+        }
+        .Profile-main-section{
+            .main-paddss{
+                padding: 0px;
+            }
+            .right-profile-slider{
+                .nav{
+                    display: flex;
+                    overflow-y: scroll;
+                    flex-wrap: nowrap;
+                    white-space: nowrap;
+                    &::-webkit-scrollbar{
+                        display: none;
+                    }
+                }
+            }
+        }
+        .profiles-back{
+            .action-button{
+                bottom: 70px;
+                right: 11.5%;
+                
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .dark{
+        .profiles-back{
+            .action-button{
+                .act-but{
+                    margin-left: 7px;
+                }
+                right: 7.5%;
+            }
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .dark{
+        .profiles-back{
+            .action-button{
+                right: 0;
+                left: 0;
+                .act-but{
+                    margin: 0 30px;
+                    width: 80%;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}

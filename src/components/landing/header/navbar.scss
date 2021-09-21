@@ -1,0 +1,82 @@
+.main-navbar {
+    .formm-mm{
+        .input-bbb{
+            border: 2px solid #353945;
+            box-sizing: border-box;
+            border-radius: 8px;
+            background-color: transparent;
+            width: 256px;
+            height: 40px;
+            color: #FCFCFD;
+            margin-left: 49px;
+            outline: none;
+            box-shadow: none;
+            padding-right: 40px;
+            &::placeholder{
+                    font-family: 'Poppins';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 20px;
+                color: #777E91;
+            }
+        }
+        .search-barss{
+            background-color: transparent;
+            border: none;
+            margin-left: -57px;
+            box-shadow: none;
+        }
+    }
+    .form-inline {
+        .buttoooo{
+            margin-right: 20px;
+            margin-left: 15px;
+        }
+        .nav-buttoo{
+            background: transparent;
+            box-shadow: 0px 0px 4px rgba(63, 163, 255, 0.55);
+            border-radius: 90px;
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 16px;
+            padding: 12px 19px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            margin-right: 20px;
+            transition: .5s ease-in-out;
+            color: #FCFCFD;
+            border: 1px solid transparent;
+            &:hover{
+                border: 1px solid grey;
+            }
+        }
+        .buttonsss{
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        a {
+            padding: 0px 15px;
+            display: inline-block;
+        }
+    }
+}
+
+
+
+@media (max-width: 991px) {
+    .main-navbar {
+        .formm-mm{
+            .input-bbb{
+                margin-left: 0px;
+            }
+        }
+        .form-inline {
+            justify-content: center;
+        }
+    }
+}
