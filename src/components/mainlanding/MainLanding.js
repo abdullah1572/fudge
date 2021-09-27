@@ -56,7 +56,7 @@ const Bluemoon = () => {
             </div>
             <div class="col-sm-5">
                 <div class="inner-imgs">
-                    <img src="../../assets/pegify/landing-assets/header-image.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/header-image.png" alt="" class="img-fluid" />
                 </div>
             </div>
         </div>
@@ -64,9 +64,6 @@ const Bluemoon = () => {
 </section>
 
 <section class="explore ptb">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
-        <p style="color: white">Loading ... </p>
-    </ngx-spinner>
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -75,63 +72,63 @@ const Bluemoon = () => {
                     <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                         <li class="nav-item" active>
                             <a class=" btn-common-2 " id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                role="tab" aria-controls="pills-home" aria-selected="true" (click)="load()">All</a>
+                                role="tab" aria-controls="pills-home" aria-selected="true">All</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn-common-2" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
                                 role="tab" aria-controls="pills-profile" aria-selected="false"
-                                (click)="changecollection(1)">Art</a>
+                                >Art</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn-common-2" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
                                 role="tab" aria-controls="pills-contact" aria-selected="false"
-                                (click)="changecollection(2)">Photography</a>
+                               >Photography</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn-common-2" id="pills-meme-tab" data-toggle="pill" href="#pills-meme" role="tab"
-                                aria-controls="pills-meme" aria-selected="false" (click)="changecollection(3)">Games</a>
+                                aria-controls="pills-meme" aria-selected="false" >Games</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
                                 href="#pills-Photography" role="tab" aria-controls="pills-Photography"
-                                aria-selected="false" (click)="changecollection(4)">Sports</a>
+                                aria-selected="false" >Sports</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn-common-2" id="pills-sports-tab" data-toggle="pill" href="#pills-sports"
                                 role="tab" aria-controls="pills-sports" aria-selected="false"
-                                (click)="changecollection(5)">Memes</a>
+                                >Memes</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of allresdata">
+                                <div class="col-sm-3" >
                                     <div class="inner-card">
-                                        <div *ngIf="items.Creator.profileImage">
+                                        <div >
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                                         title="Creator">
-                                                        <img src="{{items.Creator.profileImage}}" alt=""
+                                                        <img src="" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check" />
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
-                                                        <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                        <img src="" alt="" class="img-fluid"
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check" />
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div *ngIf="!items.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -161,144 +158,200 @@ const Bluemoon = () => {
                                             </ul>
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
-                                            <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                            <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
+                                                />
 
-                                            <h4>{{items.name}}</h4>
+                                            <h4>itemname</h4>
                                         </div>
 
-                                        <h6 class="clr">{{items.price}} BNB</h6>
-                                        <hr>
+                                        <h6 class="clr">price BNB</h6>
+                                        <hr />
 
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp1(items?.id)">
+                                            <li class="list-inline-item">
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid" />
+                                                <span class="grey">itemlikes</span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp1(items?.id)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid" />
+                                                <span class="grey"> itemlike </span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
+                                 <div class="col-sm-3">
+                                    <div class="inner-card">
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                         </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-two.png" alt="" class="img-fluid mb10">
+                                        <img src="../../assets/pegify/landing-assets/nft-two.png" alt="" class="img-fluid mb10" />
 
                                         <h4>MAN X MACHINE</h4>
                                         <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
+                                        <hr />
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
                                                 <span class="grey"> 1.5k </span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
+                                    <div  class="inner-card">
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                         </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-three.png" alt="" class="img-fluid mb10">
+                                        <img src="../../assets/pegify/landing-assets/nft-three.png" alt="" class="img-fluid mb10" />
 
                                         <h4>MAN X MACHINE</h4>
                                         <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
+                                        <hr />
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
                                                 <span class="grey"> 1.5k </span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
+                                    <div class="inner-card">
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                         </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-four.png" alt="" class="img-fluid mb10">
+                                        <img src="../../assets/pegify/landing-assets/nft-four.png" alt="" class="img-fluid mb10" />
 
                                         <h4>MAN X MACHINE</h4>
                                         <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
                                                 <span class="grey"> 1.5k </span>
                                             </li>
                                         </ul>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
+                                    <div class="inner-card">
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                         </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10">
+                                        <img src="../../assets/pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
 
                                         <h4>MAN X MACHINE</h4>
                                         <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
+                                        <hr />
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                <span class="grey"> 1.5k </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inner-card">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="../../assets/pegify/landing-assets/nft-two.png" alt="" class="img-fluid mb10" />
+
+                                        <h4>MAN X MACHINE</h4>
+                                        <h6 class="clr">0.70 BNB</h6>
+                                        <hr />
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                <span class="grey"> 1.5k </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inner-card">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="../../assets/pegify/landing-assets/nft-three.png" alt="" class="img-fluid mb10" />
+
+                                        <h4>MAN X MACHINE</h4>
+                                        <h6 class="clr">0.70 BNB</h6>
+                                        <hr />
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
                                                 <span class="grey"> 1.5k </span>
                                             </li>
                                         </ul>
@@ -309,119 +362,59 @@ const Bluemoon = () => {
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid" />
+                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
                                             </li>
                                         </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-two.png" alt="" class="img-fluid mb10">
+                                        <img src="../../assets/pegify/landing-assets/nft-four.png" alt="" class="img-fluid mb10" />
 
                                         <h4>MAN X MACHINE</h4>
                                         <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
+                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid" />
                                                 <span class="grey"> 1.5k </span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
-                                                </div>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-three.png" alt="" class="img-fluid mb10">
-
-                                        <h4>MAN X MACHINE</h4>
-                                        <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
-                                                <span class="grey"> 1.5k </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div routerLink="/art-work" class="inner-card">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
-                                                </div>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="../../assets/Ellipse.svg" alt="" class="img-fluid">
-                                                    <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <img src="../../assets/pegify/landing-assets/nft-four.png" alt="" class="img-fluid mb10">
-
-                                        <h4>MAN X MACHINE</h4>
-                                        <h6 class="clr">0.70 BNB</h6>
-                                        <hr>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
-                                                <span class="grey"> 1.5k </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div> -->
+                            </div> 
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of typeCategories">
+                                <div class="col-sm-3">
                                     <div class="inner-card">
-                                        <div *ngIf="items.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                                         title="Creator">
-                                                        <img src="{{items.Creator.profileImage}}" alt=""
-                                                            class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                        <img src="" alt=""
+                                                            class="img-fluid" />
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check" />
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
-                                                        <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                        <img src="" alt="" class="img-fluid"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check" />
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div *ngIf="!items?.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -450,26 +443,24 @@ const Bluemoon = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div routerLink="/art-work/{{items.id}}/{{mydata}}">
-                                            <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                        <div >
+                                            <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
+                                                style="width: 200px; height: 200px;"/>
 
-                                            <h4>{{items.name}}</h4>
-                                            <h6 class="clr">{{items.price}} BNB</h6>
+                                            <h4>fdgfg</h4>
+                                            <h6 class="clr"> BNB</h6>
                                         </div>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">fgf </span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey"> gfgf </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -480,34 +471,34 @@ const Bluemoon = () => {
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of typeCategories">
+                                <div class="col-sm-3">
                                     <div  class="inner-card">
-                                        <div routerLink="/art-work/{{items.id}}/{{mydata}}">
-                                            <div *ngIf="items.Creator.profileImage">
+                                        <div>
+                                            <div >
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item">
                                                         <div class="inner-tile" data-toggle="tooltip"
                                                             data-placement="top" title="Creator">
-                                                            <img src="{{items.Creator.profileImage}}" alt=""
+                                                            <img src="" alt=""
                                                                 class="img-fluid"
-                                                                style="width: 50px; height: 50px; border-radius: 30px;">
+                                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                             <img src="../../assets/Vector.svg" alt=""
-                                                                class="img-fluid for-check">
+                                                                class="img-fluid for-check"/>
                                                         </div>
                                                     </li>
                                                     <li class="list-inline-item">
                                                         <div class="inner-tile2" data-toggle="tooltip"
                                                             data-placement="top" title="Owner">
-                                                            <img src="{{items.Owner.profileImage}}" alt=""
+                                                            <img src="" alt=""
                                                                 class="img-fluid"
-                                                                style="width: 50px; height: 50px; border-radius: 30px;">
+                                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                             <img src="../../assets/Vector.svg" alt=""
-                                                                class="img-fluid for-check">
+                                                                class="img-fluid for-check"/>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div *ngIf="!items.Creator.profileImage">
+                                            <div >
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item">
                                                         <div class="inner-tile" data-toggle="tooltip"
@@ -538,24 +529,22 @@ const Bluemoon = () => {
                                                 </ul>
                                             </div>
                                             <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                                style="width: 200px; height: 200px;"/>
 
-                                            <h4>{{items.name}}</h4>
-                                            <h6 class="clr">{{items.price}} BNB</h6>
+                                            <h4>ddfd</h4>
+                                            <h6 class="clr">df BNB</h6>
                                         </div>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp(items)">
+                                            <li class="list-inline-item">
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">vb </span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey"> bnb</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -565,32 +554,32 @@ const Bluemoon = () => {
                         </div>
                         <div class="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of typeCategories">
+                                <div class="col-sm-3" >
                                     <div class="inner-card">
-                                        <div *ngIf="items.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                                         title="Creator">
-                                                        <img src="{{items.Creator.profileImage}}" alt=""
+                                                        <img src="" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
-                                                        <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                        <img src="" alt="" class="img-fluid"
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div *ngIf="!items.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -621,24 +610,22 @@ const Bluemoon = () => {
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
                                             <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                                style="width: 200px; height: 200px;"/>
 
-                                            <h4>{{items.name}}</h4>
-                                            <h6 class="clr">{{items.price}} BNB</h6>
+                                            <h4>vhg</h4>
+                                            <h6 class="clr">fh BNB</h6>
                                         </div>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp(items)">
+                                            <li class="list-inline-item">
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">vb </span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp(items)">
+                                            <li class="list-inline-item">
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">vb </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -649,32 +636,32 @@ const Bluemoon = () => {
                         <div class="tab-pane fade" id="pills-Photography" role="tabpanel"
                             aria-labelledby="pills-Photography-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of typeCategories">
+                                <div class="col-sm-3">
                                     <div class="inner-card">
-                                        <div *ngIf="items.Creator.profileImage">
+                                        <div >
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                                         title="Creator">
-                                                        <img src="{{items.Creator.profileImage}}" alt=""
+                                                        <img src="" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
-                                                        <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                        <img src="" alt="" class="img-fluid"
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div *ngIf="!items.Creator.profileImage">
+                                        <div >
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -704,25 +691,23 @@ const Bluemoon = () => {
                                             </ul>
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
-                                            <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                            <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
+                                                style="width: 200px; height: 200px;"/>
 
-                                            <h4>{{items.name}}</h4>
-                                            <h6 class="clr">{{items.price}} BNB</h6>
+                                            <h4>cgfg</h4>
+                                            <h6 class="clr">cvv BNB</h6>
                                         </div>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">dgdg </span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">dgdg </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -732,32 +717,32 @@ const Bluemoon = () => {
                         </div>
                         <div class="tab-pane fade" id="pills-sports" role="tabpanel" aria-labelledby="pills-sports-tab">
                             <div class="row ptb20">
-                                <div class="col-sm-3" *ngFor="let items of typeCategories">
+                                <div class="col-sm-3" >
                                     <div class="inner-card">
-                                        <div *ngIf="items.Creator.profileImage">
+                                        <div>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                                         title="Creator">
                                                         <img src="{{items.Creator.profileImage}}" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
                                                         <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;">
+                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
                                                         <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check">
+                                                            class="img-fluid for-check"/>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div *ngIf="!items.Creator.profileImage">
+                                        <div >
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -787,25 +772,23 @@ const Bluemoon = () => {
                                             </ul>
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
-                                            <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;">
+                                            <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
+                                                style="width: 200px; height: 200px;"/>
 
-                                            <h4>{{items.name}}</h4>
-                                            <h6 class="clr">{{items.price}} BNB</h6>
+                                            <h4>ccc</h4>
+                                            <h6 class="clr">cvc BNB</h6>
                                         </div>
-                                        <hr>
+                                        <hr/>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item" *ngIf="!items.users.length"
-                                                (click)="likeapp(items)">
+                                            <li class="list-inline-item">
                                                 <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey">{{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey">fgg </span>
                                             </li>
-                                            <li class="list-inline-item" *ngIf="items.users.length"
-                                                (click)="unlikeapp(items)">
+                                            <li class="list-inline-item" >
                                                 <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid">
-                                                <span class="grey"> {{items.likes}} </span>
+                                                    class="img-fluid"/>
+                                                <span class="grey"> dfdf </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -838,7 +821,7 @@ const Bluemoon = () => {
                     <h2>GET YOUR VERY FIRST NFT!</h2>
                     <h4 class="grey">Here's how it's work</h4>
 
-                    <img src="../../assets/pegify/landing-assets/video.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/video.png" alt="" class="img-fluid"/>
                 </div>
             </div>
         </div>
@@ -850,7 +833,7 @@ const Bluemoon = () => {
         <div class="row">
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-liquidity-icon.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/peggs-liquidity-icon.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Liquidity</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -859,7 +842,7 @@ const Bluemoon = () => {
             </div>
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-stats-icon.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/peggs-stats-icon.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Stats</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -868,7 +851,7 @@ const Bluemoon = () => {
             </div>
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-volume.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/peggs-volume.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Volume</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -893,7 +876,7 @@ const Bluemoon = () => {
                             <div class="inner-icon">
                                 <a href="">
                                     <img src="../../assets/pegify/landing-assets/artist-social-facebook.png" alt=""
-                                        class="img-fluid">
+                                        class="img-fluid"/>
                                 </a>
                             </div>
                         </li>
@@ -901,7 +884,7 @@ const Bluemoon = () => {
                             <div class="inner-icon">
                                 <a href="">
                                     <img src="../../assets/pegify/landing-assets/artist-social-twitter.png" alt=""
-                                        class="img-fluid">
+                                        class="img-fluid"/>
                                 </a>
                             </div>
                         </li>
@@ -909,7 +892,7 @@ const Bluemoon = () => {
                             <div class="inner-icon">
                                 <a href="">
                                     <img src="../../assets/pegify/landing-assets/artist-social-dribbble.png" alt=""
-                                        class="img-fluid">
+                                        class="img-fluid"/>
                                 </a>
                             </div>
                         </li>
@@ -931,7 +914,7 @@ const Bluemoon = () => {
 
             <div class="col-sm-6">
                 <div class="inner-artist">
-                    <img src="../../assets/pegify/landing-assets/featured-artist-image.png" alt="" class="img-fluid">
+                    <img src="../../assets/pegify/landing-assets/featured-artist-image.png" alt="" class="img-fluid"/>
                 </div>
             </div>
         </div>
@@ -942,7 +925,7 @@ const Bluemoon = () => {
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <img src="../../assets/pegify/landing-assets/mobile-image.png" alt="" class="img-fluid">
+                <img src="../../assets/pegify/landing-assets/mobile-image.png" alt="" class="img-fluid"/>
             </div>
         </div>
     </div>
@@ -953,28 +936,28 @@ const Bluemoon = () => {
         <div class="row">
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/nft-icon.png" alt="" class="img-fuild">
+                    <img src="../../assets/pegify/landing-assets/nft-icon.png" alt="" class="img-fuild"/>
                     <h3>NFTS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/transaction-icon.png" alt="" class="img-fuild">
+                    <img src="../../assets/pegify/landing-assets/transaction-icon.png" alt="" class="img-fuild"/>
                     <h3>TRANSACTIONS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/artists-icon.png" alt="" class="img-fuild">
+                    <img src="../../assets/pegify/landing-assets/artists-icon.png" alt="" class="img-fuild"/>
                     <h3>ARTISTS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/members-icon.png" alt="" class="img-fuild">
+                    <img src="../../assets/pegify/landing-assets/members-icon.png" alt="" class="img-fuild"/>
                     <h3>MEMBERS</h3>
                     <h2>16246</h2>
                 </div>
@@ -989,30 +972,30 @@ const Bluemoon = () => {
             <div class="col-sm-12">
                 <h2> <span class="clr">LATEST</span> UPLOADS</h2>
                 <div class="row ptb20">
-                    <div class="col-sm-3" *ngFor="let latest of latestitems">
+                    <div class="col-sm-3" >
                         <div class="inner-card">
-                            <div *ngIf="latest?.Creator.profileImage">
+                            <div >
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                             title="Creator">
                                             <img src="{{latest?.Creator.profileImage}}" alt="" class="img-fluid"
-                                                style="width: 50px; height: 50px; border-radius: 30px;">
-                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
                                     </li>
                                     <li class="list-inline-item">
                                         <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                             title="Owner">
                                             <img src="{{latest?.Owner.profileImage}}" alt="" class="img-fluid"
-                                                style="width: 50px; height: 50px; border-radius: 30px;">
-                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check">
+                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div *ngIf="!latest?.Creator.profileImage">
+                            <div>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-tile" data-toggle="tooltip" data-placement="top"
@@ -1043,21 +1026,20 @@ const Bluemoon = () => {
                             </div>
                             <div routerLink="/art-work/{{latest.id}}/{{mydata}}">
                                 <img src="{{latest?.imageLink}}" alt="" class="img-fluid mb10  mx-auto d-block"
-                                    style="width: 200px; height: 200px;">
+                                    style="width: 200px; height: 200px;"/>
 
-                                <h4>{{latest?.name}}</h4>
-                                <h6 class="clr">{{latest?.price}} BNB</h6>
+                                <h4>fggf</h4>
+                                <h6 class="clr">fgf BNB</h6>
                             </div>
-                            <hr>
+                            <hr/>
                             <ul class="list-inline">
-                                <li class="list-inline-item" *ngIf="!latest.users.length" (click)="likeapp1(latest?.id)">
-                                    <img src="../../assets/pegify/heart-outline.png" alt="" class="img-fluid">
-                                    <span class="grey">{{latest.likes}} </span>
+                                <li class="list-inline-item" >
+                                    <img src="../../assets/pegify/heart-outline.png" alt="" class="img-fluid"/>
+                                    <span class="grey">fggf </span>
                                 </li>
-                                <li class="list-inline-item" *ngIf="latest.users.length"
-                                    (click)="unlikeapp1(latest?.id)">
-                                    <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid">
-                                    <span class="grey"> {{latest.likes}} </span>
+                                <li class="list-inline-item" >
+                                    <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid"/>
+                                    <span class="grey"> ffgg </span>
                                 </li>
                             </ul>
                         </div>
