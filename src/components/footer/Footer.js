@@ -5,8 +5,6 @@ const Footer = () => {
   
   return (
     <>
-
-
 <footer class="main-footer ptb">
     <div class="container">
         <div class="row">
