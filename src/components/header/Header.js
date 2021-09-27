@@ -9,7 +9,7 @@ const Header = () => {
 <header class="main-nav">
   <nav class="navbar navbar-expand-lg ">
     <a class="navbar-brand" href="#">
-      <img src="../../assets/pegify/landing-assets/logo.png" alt="" class="img-fluid" />
+      <img src="pegify/landing-assets/logo.png" alt="" class="img-fluid" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,12 @@ const Header = () => {
           <div >
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT</a>
           </div>
-          <div>
+          {/* <div>
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal" >DISCONNECT</a>
-          </div>
+          </div> */}
         </li>
 
-        <li class="nav-item">
+        {/* <li class="nav-item">
           <div class="dropdown">
             <div >
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -159,7 +159,7 @@ const Header = () => {
             </div>
 
           </div>
-        </li>
+        </li> */}
 
       </ul>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

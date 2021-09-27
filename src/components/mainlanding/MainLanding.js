@@ -1,6 +1,6 @@
 import React from 'react';
+import Header from '../header/Header';
 import './mainlanding.scss';
-import OwlCarousel from 'react-owl-carousel';
 const MainLanding = () => {
     const owl_option = {
 
@@ -38,7 +38,7 @@ const MainLanding = () => {
         <>
            <section class="main-banner">
     <div class="container">
-        {/* <app-header></app-header> */}
+        <Header/>
         <div class="row">
             <div class="col-sm-7">
                 <div class="inner-content  ptb">
@@ -56,7 +56,7 @@ const MainLanding = () => {
             </div>
             <div class="col-sm-5">
                 <div class="inner-imgs">
-                    <img src="../../assets/pegify/landing-assets/header-image.png" alt="" class="img-fluid" />
+                    <img src="pegify/landing-assets/header-image.png" alt="" class="img-fluid" />
                 </div>
             </div>
         </div>
@@ -821,7 +821,7 @@ const MainLanding = () => {
                     <h2>GET YOUR VERY FIRST NFT!</h2>
                     <h4 class="grey">Here's how it's work</h4>
 
-                    <img src="../../assets/pegify/landing-assets/video.png" alt="" class="img-fluid"/>
+                    <img src="pegify\landing-assets\video.png" alt="" class="img-fluid"/>
                 </div>
             </div>
         </div>
@@ -833,7 +833,7 @@ const MainLanding = () => {
         <div class="row">
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-liquidity-icon.png" alt="" class="img-fluid"/>
+                    <img src="pegify\landing-assets\peggs-liquidity-icon.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Liquidity</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -842,7 +842,7 @@ const MainLanding = () => {
             </div>
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-stats-icon.png" alt="" class="img-fluid"/>
+                    <img src="pegify\landing-assets\peggs-stats-icon.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Stats</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -851,7 +851,7 @@ const MainLanding = () => {
             </div>
             <div class="col-sm-4">
                 <div class="inner-side">
-                    <img src="../../assets/pegify/landing-assets/peggs-volume.png" alt="" class="img-fluid"/>
+                    <img src="pegify\landing-assets\peggs-volume.png" alt="" class="img-fluid"/>
                     <h4>PEGGS Volume</h4>
                     <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
@@ -875,7 +875,7 @@ const MainLanding = () => {
                         <li class="list-inline-item">
                             <div class="inner-icon">
                                 <a href="">
-                                    <img src="../../assets/pegify/landing-assets/artist-social-facebook.png" alt=""
+                                    <img src="pegify\landing-assets\artist-social-facebook.png" alt=""
                                         class="img-fluid"/>
                                 </a>
                             </div>
@@ -883,7 +883,7 @@ const MainLanding = () => {
                         <li class="list-inline-item">
                             <div class="inner-icon">
                                 <a href="">
-                                    <img src="../../assets/pegify/landing-assets/artist-social-twitter.png" alt=""
+                                    <img src="pegify\landing-assets\artist-social-twitter.png" alt=""
                                         class="img-fluid"/>
                                 </a>
                             </div>
@@ -891,7 +891,7 @@ const MainLanding = () => {
                         <li class="list-inline-item">
                             <div class="inner-icon">
                                 <a href="">
-                                    <img src="../../assets/pegify/landing-assets/artist-social-dribbble.png" alt=""
+                                    <img src="pegify\landing-assets\artist-social-dribbble.png" alt=""
                                         class="img-fluid"/>
                                 </a>
                             </div>
@@ -914,7 +914,7 @@ const MainLanding = () => {
 
             <div class="col-sm-6">
                 <div class="inner-artist">
-                    <img src="../../assets/pegify/landing-assets/featured-artist-image.png" alt="" class="img-fluid"/>
+                    <img src="pegify\landing-assets\featured-artist-image.png" alt="" class="img-fluid"/>
                 </div>
             </div>
         </div>
@@ -925,7 +925,7 @@ const MainLanding = () => {
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <img src="../../assets/pegify/landing-assets/mobile-image.png" alt="" class="img-fluid"/>
+                <img src="pegify\landing-assets\mobile-image.png" alt="" class="img-fluid"/>
             </div>
         </div>
     </div>
@@ -936,28 +936,28 @@ const MainLanding = () => {
         <div class="row">
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/nft-icon.png" alt="" class="img-fuild"/>
+                    <img src="pegify\landing-assets\nft-icon.png" alt="" class="img-fuild"/>
                     <h3>NFTS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/transaction-icon.png" alt="" class="img-fuild"/>
+                    <img src="pegify\landing-assets\transaction-icon.png" alt="" class="img-fuild"/>
                     <h3>TRANSACTIONS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/artists-icon.png" alt="" class="img-fuild"/>
+                    <img src="pegify\landing-assets\artists-icon.png" alt="" class="img-fuild"/>
                     <h3>ARTISTS</h3>
                     <h2>16246</h2>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="inner-content text-center">
-                    <img src="../../assets/pegify/landing-assets/members-icon.png" alt="" class="img-fuild"/>
+                    <img src="pegify\landing-assets\members-icon.png" alt="" class="img-fuild"/>
                     <h3>MEMBERS</h3>
                     <h2>16246</h2>
                 </div>
@@ -979,7 +979,7 @@ const MainLanding = () => {
                                     <li class="list-inline-item">
                                         <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                             title="Creator">
-                                            <img src="{{latest?.Creator.profileImage}}" alt="" class="img-fluid"
+                                            <img src="" alt="" class="img-fluid"
                                                />
                                             <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
@@ -987,7 +987,7 @@ const MainLanding = () => {
                                     <li class="list-inline-item">
                                         <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                             title="Owner">
-                                            <img src="{{latest?.Owner.profileImage}}" alt="" class="img-fluid"
+                                            <img src="" alt="" class="img-fluid"
                                                />
                                             <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
