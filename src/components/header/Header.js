@@ -1,7 +1,15 @@
+import React from 'react';
+import './header.scss';
+import OwlCarousel from 'react-owl-carousel';
+const Header = () => {
+  
+  return (
+    <>
+
 <header class="main-nav">
   <nav class="navbar navbar-expand-lg ">
     <a class="navbar-brand" href="#">
-      <img src="../../assets/pegify/landing-assets/logo.png" alt="" class="img-fluid">
+      <img src="../../assets/pegify/landing-assets/logo.png" alt="" class="img-fluid" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,76 +24,76 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/collection">COLLECTION</a>
         </li>
-        <!-- <li class="nav-item">
+        <li class="nav-item">
                 <a class="nav-link" routerLink="/profile">PROFILE</a>
-            </li> -->
+            </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/create">CREATE</a>
         </li>
         <li class="nav-item">
-          <div *ngIf="!connected">
+          <div >
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT</a>
           </div>
-          <div *ngIf="connected">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" (click)="disconnect()">DISCONNECT</a>
+          <div>
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" >DISCONNECT</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <div class="dropdown" *ngIf="connected">
-            <div *ngIf="mydata.profileImage">
+          <div class="dropdown">
+            <div >
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <img src="{{mydata?.profileImage}}" alt="" class="img-show"
-                  style="width: 65px; height: 65px; border-radius: 50%; ">
+                <img src="" alt="" class="img-show"
+                  />
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div class="row">
                   <div class="col-sm-12">
-                    <h5>{{mydata?.displayName}}</h5>
+                    <h5>asdasd</h5>
                     <ul class="list-inline">
                       <li class="list-inline-item">
-                        <span class="grey" style="font-size: 12px;">{{ SenderAddress }}</span>
+                        <span class="grey" style="font-size: 12px;">as</span>
                       </li>
 
-                      <!-- <li class="list-inline-item">
-                        <button class="grey" (click)="copyInputMessage(SenderAddress)">
-                          <img src="../../assets/copy.png" alt="" class="img-fluid">
+                     <li class="list-inline-item">
+                        <button class="grey">
+                          <img src="../../assets/copy.png" alt="" class="img-fluid" />
                         </button>
-                      </li> -->
+                      </li> 
                     </ul>
 
                     <div class="row ptb20">
                       <div class="col-sm-3">
                         <div class="inner-im text-center">
-                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid">
+                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid" />
                         </div>
                       </div>
                       <div class="col-sm-9">
                         <div class="inner-im">
                           <h6 class="grey">Balance</h6>
-                          <h5>{{balance | number}} <span class="clr">BNB</span></h5>
+                          <h5>asd <span class="clr">BNB</span></h5>
                         </div>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-sm-12">
-                        <!-- <button class="btn-common">Add Funds</button> -->
+                       <button class="btn-common">Add Funds</button> 
                       </div>
                     </div>
 
-                    <hr>
+                    <hr />
                     <a routerLink="/profile">My Profile</a>
-                    <hr>
+                    <hr />
                     <a routerLink="/edit-profile">Edit Profile</a>
-                    <!-- <hr> -->
-                    <!-- <div ><a>Disconnect Wallet</a></div> -->
+              <hr/>
+                    <div ><a>Disconnect Wallet</a></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="!mydata.profileImage">
+            <div>
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <svg width="60" height="60" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,15 +104,15 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div class="row">
                   <div class="col-sm-12">
-                    <h5>{{mydata?.displayName}}</h5>
+                    <h5>mydata</h5>
                     <ul class="list-inline">
                       <li class="list-inline-item">
-                        <span class="grey" style="font-size: 12px;">{{ SenderAddress }}</span>
+                        <span class="grey" style="font-size: 12px;">sender</span>
                       </li>
 
                       <li class="list-inline-item">
                         <a class="grey">
-                          <img src="../../assets/copy.png" alt="" class="img-fluid">
+                          <img src="../../assets/copy.png" alt="" class="img-fluid" />
                         </a>
                       </li>
                     </ul>
@@ -112,40 +120,39 @@
                     <div class="row ptb20">
                       <div class="col-sm-3">
                         <div class="inner-im text-center">
-                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid">
+                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid" />
                         </div>
                       </div>
                       <div class="col-sm-9">
                         <div class="inner-im">
                           <h6 class="grey">Balance</h6>
-                          <h5>{{balance}} <span class="clr">BNB</span></h5>
+                          <h5><span class="clr">BNB</span></h5>
                         </div>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-sm-12">
-                        <!-- <button class="btn-common">Add Funds</button> -->
+                         <button class="btn-common">Add Funds</button>
                       </div>
                     </div>
 
-                    <hr>
+                    <hr />
                     <ul>
                      
                       <li>
-                        <a routerLink="/profile">
+                        <a >
                         <div>
                           My Profile
                         </div>
                       </a>
                       </li>
                       <li>
-                        <a routerLink="/edit-profile">Edit Profile</a>
+                        <a >Edit Profile</a>
                       </li>
                     </ul>
-                    <hr>
-                    <!-- <hr> -->
-                    <!-- <div ><a>Disconnect Wallet</a></div> -->
+                    <hr />
+                     <div ><a>Disconnect Wallet</a></div> 
                   </div>
                 </div>
               </div>
@@ -159,8 +166,8 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <!-- <div class="modal-header">
-                </div> -->
+             <div class="modal-header">
+                </div>
             <div class="modal-body text-center">
               <div class="row">
                 <div class="col-sm-12">
@@ -173,29 +180,33 @@
                 <div class="row">
                   <div class="col-sm-12 text-center">
                     <div class="">
-                      <img src="../../assets/pegify/collection/metamask.png" class="img-fluid">
+                      <img src="../../assets/pegify/collection/metamask.png" class="img-fluid" />
                       <a>
                         <h4 class="">METAMASK</h4>
                         <P class=""><small>One of the most secure wallets with great flexibility</small> </P>
                       </a>
-                      <div *ngIf="!connected">
-                        <button class="btn-common" data-dismiss="modal" (click)="enableMetamask()">CONNECT</button>
+                      <div >
+                        <button class="btn-common" data-dismiss="modal" >CONNECT</button>
                       </div>
-                      <!-- <div >
+                      <div>
                               <button class="btn-common" data-dismiss="modal" >Disconnect </button>
-                            </div> -->
+                            </div> 
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- <div class="modal-footer">
+           <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
+                </div>
           </div>
         </div>
       </div>
     </div>
   </nav>
 </header>
+</>
+    )
+}
+export default Header;
