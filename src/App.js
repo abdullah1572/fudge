@@ -19,7 +19,7 @@ function App() {
   return (
     <>
         <Router>
-        <Header/>
+        {/* <Header/> */}
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           {/* <Route exact path='/uploaditem' component={UploadsItem}/>
