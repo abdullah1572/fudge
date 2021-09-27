@@ -148,7 +148,7 @@ const Create = () => {
 
             <div class="col-sm-3 d-none d-sm-block">
                 <h5>Preview</h5>
-             <div routerLink="/art-work" class="inner-card">
+             {/* <div routerLink="/art-work" class="inner-card">
                     <img src="../../assets/pegify/landing-assets/nft-one.png" alt=""
                         class="img-fluid mb10"/>
 
@@ -163,7 +163,7 @@ const Create = () => {
                             <span class="grey">Baylee</span>
                         </li>
                     </ul>
-                </div> 
+                </div>  */}
 
                 <div routerLink="/art-work" class="inner-card">
                     <div class="inner-tile">
@@ -174,7 +174,7 @@ const Create = () => {
                     <hr/>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img src="../../assets/pegify/landing-assets/artist-image-one.png" alt="" class="img-fluid"/>
+                            <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid"/>
                             &nbsp;
                             <span class="grey">Baylee</span>
                         </li>
