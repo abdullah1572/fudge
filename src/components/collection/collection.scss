@@ -1,0 +1,270 @@
+
+
+.collection{
+    
+
+    .inner-tabs{
+
+        .inner-search {
+            position: relative;
+
+            span.fa {
+                position: absolute;
+    left: 12px;
+    top: 45px;
+    font-size: 20px;
+            }
+
+            input {
+                height: 54px;
+                left: 0px;
+                line-height: 40px;
+                top: 25px;
+                background: #FFFFFF;
+                border: 1px solid #D1CCE0;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding-left: 35px;
+                margin-bottom: 10px;
+            }
+
+        }
+
+        .btn-common-2 {
+            padding: 10px 14px;
+        }
+        .ml-20{
+            margin-left: 490px;
+        }
+        .line{
+            height: 2px;
+            color: #CFCFD0, 100%;
+        }
+        .btn-common-01 {
+            background-color: black;
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-right: 10px;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            border: none;
+            cursor: pointer !important;
+        }
+        .inner-card {
+            border: 1px solid #CFCFD0;
+            border-radius: 18px;
+            padding: 10px 10px 10px 10px;
+            margin-bottom: 24px;
+            width: auto;
+            height: 416px;
+            .inner-tile {
+                position: relative;
+                .inner-tiless{
+                    width: 50px!important;
+                height: 50px !important;
+                border-radius: 50%!important;
+                }
+                .for-check {
+                    position: absolute;
+                    top: 31px;
+                    right: 7px;
+                }
+            }
+            .inner-tile2 {
+                position: relative;
+                right: 20px;
+                .inner-tiless{
+                    width: 50px!important;
+                height: 50px !important;
+                border-radius: 50%!important;
+                }
+                .for-check {
+                    position: absolute;
+                    top: 31px;
+                    right: 3px;
+                }
+            }
+            
+            .mb10 {
+                width: 100%;
+            }
+    
+            &:hover {
+                box-sizing: border-box;
+                box-shadow: 0px 4px 10px rgba(134, 103, 222, 0.3);
+                border-radius: 20px;
+            }
+          .mb10{
+              margin-bottom: 10px;
+          }
+        }
+    }
+
+        .custom-slider {
+            .ngx-slider
+            {
+                .ngx-slider-pointer {
+                    cursor: pointer;
+                    width: 32px;
+                    height: 32px;
+                    top: -14px;
+                    background-color: #575959!important;
+                    z-index: 3;
+                    border-radius: 16px;
+                }
+            } 
+          }
+       
+    }
+
+    .inner-drop {
+        .dropdown {
+            a.btn {
+        
+height: 54px;
+left: 0px;
+line-height: 40px;
+top: 25px;
+
+background: #FFFFFF;
+border: 1px solid #D1CCE0;
+box-sizing: border-box;
+border-radius: 10px;
+            }
+
+            .dropdown-menu {
+                background: #FFFFFF;
+border: 1px solid #D1CCE0;
+box-sizing: border-box;
+box-shadow: 0px 6px 12px rgba(134, 103, 222, 0.3);
+border-radius: 10px;
+padding: 10px;
+ a {
+     padding: 0px;
+ }
+            }
+        }
+    }
+
+@media only screen and (max-width: 600px) {
+    .collection{
+        .inner-tabs{
+
+            .nav-item {
+                margin-top: 30px;
+            }
+            .ml{
+                margin-top: 26px;
+            }
+            .ml2{
+                margin-top: 26px;
+            }
+
+
+            .inner-drop{
+                
+                .dropdown {
+                    a.btn {
+                        text-align: left;
+                
+        height: 54px;
+        left: 0px;
+        width: 100%;
+        line-height: 40px;
+        top: 25px;
+        
+        background: #FFFFFF;
+        border: 1px solid #D1CCE0;
+        box-sizing: border-box;
+        border-radius: 10px;
+                    }
+                }
+                // .dropdown-item {
+                //     display: block;
+                //     width: 350px;
+                //     padding: .25rem 1rem;
+                //     clear: both;
+                //     font-weight: 400;
+                //     color: #212529;
+                //     text-align: inherit;
+                //     text-decoration: none;
+                //     white-space: nowrap;
+                //     background-color: transparent;
+                //     border: 0;
+                // }
+                // .dropdown-toggle::after {
+                //     display: inline-block;
+                //     margin-left: 14.255em;
+                //     vertical-align: .255em;
+                //     content: "";
+                //     border-top: .3em solid;
+                //     border-right: .3em solid transparent;
+                //     border-bottom: 0;
+                //     border-left: .3em solid transparent;
+                // }
+            }
+
+            .custom-slider{
+                padding-top: 40px;
+            
+            }
+
+            .inner-card {
+                border: 1px solid #e1e1e2;
+                border-radius: 18px;
+                padding: 10px 10px 10px 13px;
+                margin-bottom: 10px;
+                // text-align: center;
+            }
+        }
+    }
+}
+
+// 12 pro max 
+    @media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) {
+        .inner-tabs{
+            .inner-drop{
+                .dropdown-toggle::after {
+                    display: inline-block;
+                    margin-left: 18.255em!important;
+                    vertical-align: 0.255em;
+                    content: "";
+                    border-top: 0.3em solid;
+                    border-right: 0.3em solid transparent;
+                    border-bottom: 0;
+                    border-left: 0.3em solid transparent;
+                }
+            }
+            .ml{
+                margin-top: 0px!important;
+            }
+            .ml2{
+                margin-top: 26px;
+            }
+
+
+        }
+    }
+
+    @media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) {
+        .inner-tabs{
+            .ml{
+                margin-top: 26px;
+            }
+            .ml2{
+                margin-top: 26px;
+            }
+
+
+        }
+    }

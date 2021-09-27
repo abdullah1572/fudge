@@ -1,6 +1,7 @@
 import React from 'react';
 import './header.scss';
 import OwlCarousel from 'react-owl-carousel';
+import { Link } from 'react-router-dom';
 const Header = () => {
   
   return (
@@ -19,16 +20,17 @@ const Header = () => {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="">HOME</a>
+        <Link class="nav-link" to="/">HOME</Link>
+          {/* <a class="nav-link" routerLink="">HOME</a> */}
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/collection">COLLECTION</a>
+          <Link class="nav-link" to="/collection">COLLECTION</Link>
         </li>
         <li class="nav-item">
                 <a class="nav-link" routerLink="/profile">PROFILE</a>
             </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/create">CREATE</a>
+        <Link class="nav-link" to="/createitem">CREATE</Link>
         </li>
         <li class="nav-item">
           <div >

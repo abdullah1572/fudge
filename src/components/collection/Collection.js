@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../header/Header';
-import './mainlanding.scss';
-const MainLanding = () => {
+import './collection.scss';
+const Collection = () => {
     const owl_option = {
 
         margin: 40,
@@ -15,13 +15,16 @@ const MainLanding = () => {
             0: {
                 items: 1,
 
+
             },
             400: {
                 items: 1,
 
+
             },
             600: {
                 items: 1,
+
 
             },
             700: {
@@ -33,38 +36,17 @@ const MainLanding = () => {
 
     return (
         <>
-            <section class="main-banner">
+            <section class="">
+    <div class="container">
+        <Header/>
+    </div>
+</section>
+            <section class="collection ptb">
                 <div class="container">
-                    <Header />
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <div class="inner-content  ptb">
-                                <h2 class="clr">Welcome to Pegify</h2>
-                                <h1>The #1 Community Based NFT Platform</h1>
-                                <p class="grey ptb20">Create, Sell, or Buy your NFTs with our biggest NFT Community</p>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <div class="inner-btn">
-                                            <button class="btn-common" routerLink="/collection">see collections</button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="inner-imgs">
-                                <img src="pegify/landing-assets/header-image.png" alt="" class="img-fluid" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="explore ptb">
-                <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>EXPLORE</h2>
+                            <h2 class="heading">COLLECTION</h2>
                             <div class="inner-tabs">
                                 <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                     <li class="nav-item" active>
@@ -96,6 +78,51 @@ const MainLanding = () => {
                                         >Memes</a>
                                     </li>
                                 </ul>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="inner-search">
+                                            <h6>SEARCH</h6>
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input type="text" class="form-control" placeholder="Search Pegify"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="inner-drop">
+                                            <h6>SORT BY</h6>
+                                            <select name="" id="" class="form-control" >
+                                                <option value="Recently Listed">Recently Listed</option>
+                                                <option value="Recently Created">Recently Created</option>
+                                                <option value="Low to High">Low to High</option>
+                                                <option value="High to Low">High to Low</option>
+                                            </select>
+                                            {/* <div class="dropdown show">
+                                                <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Recently Added
+                                                </a>
+
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item">Recent Added</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" >Recent sold</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item">Recent mint</a>
+                                                </div>
+                                            </div> / */}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="custom-slider">
+                                            <h6>PRICE RANGE</h6>
+                                            {/* <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"
+                                    (mouseup)="valueofprice()"></ngx-slider> */}
+                                        </div>
+
+                                    </div>
+                                </div>
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                         aria-labelledby="pills-home-tab">
@@ -792,283 +819,7 @@ const MainLanding = () => {
                                         </div>
                                     </div>
                                 </div>
-                            
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row ptb20">
-                        <div class="col-sm-12 text-center">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <button class="btn-common">Load more</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="getnft ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="inner-content text-center">
-                                <h2>GET YOUR VERY FIRST NFT!</h2>
-                                <h4 class="grey">Here's how it's work</h4>
-
-                                <img src="pegify\landing-assets\video.png" alt="" class="img-fluid" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="services ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-liquidity-icon.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Liquidity</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-stats-icon.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Stats</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-volume.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Volume</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="featured ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="inner-content">
-                                <h3 class="clr ptb20">FEATURED ARTIST</h3>
-                                <h2>Adijavar Maccaroni</h2>
-                                <p class="grey">I believe that love is difficult, but worth trying</p>
-
-                                <ul class="list-inline ptb20">
-                                    <li class="list-inline-item">
-                                        <div class="inner-icon">
-                                            <a href="">
-                                                <img src="pegify\landing-assets\artist-social-facebook.png" alt=""
-                                                    class="img-fluid" />
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <div class="inner-icon">
-                                            <a href="">
-                                                <img src="pegify\landing-assets\artist-social-twitter.png" alt=""
-                                                    class="img-fluid" />
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <div class="inner-icon">
-                                            <a href="">
-                                                <img src="pegify\landing-assets\artist-social-dribbble.png" alt=""
-                                                    class="img-fluid" />
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <div class="inner-btn">
-                                            <button class="btn-common">see collection</button>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <div class="inner-btn">
-                                            <button class="btn-common-2">follow</button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="inner-artist">
-                                <img src="pegify\landing-assets\featured-artist-image.png" alt="" class="img-fluid" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mobile ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <img src="pegify\landing-assets\mobile-image.png" alt="" class="img-fluid" />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="pink ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\nft-icon.png" alt="" class="img-fuild" />
-                                <h3>NFTS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\transaction-icon.png" alt="" class="img-fuild" />
-                                <h3>TRANSACTIONS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\artists-icon.png" alt="" class="img-fuild" />
-                                <h3>ARTISTS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\members-icon.png" alt="" class="img-fuild" />
-                                <h3>MEMBERS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="latest ptb">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2> <span class="clr">LATEST</span> UPLOADS</h2>
-                            <div class="row ptb20">
-                                {/* <div class="col-sm-3" >
-                        <div class="inner-card">
-                            <div >
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                            title="Creator">
-                                            <img src="" alt="" class="img-fluid"
-                                               />
-                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
-                                            title="Owner">
-                                            <img src="" alt="" class="img-fluid"
-                                               />
-                                            <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                            title="Creator">
-                                            <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                    fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                    fill="#35374A" />
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item" >
-                                        <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                fill="#35374A" />
-                                        </svg>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div routerLink="/art-work/{{latest.id}}/{{mydata}}">
-                                <img src="{{latest?.imageLink}}" alt="" class="img-fluid mb10  mx-auto d-block"
-                                   />
-
-                                <h4>fggf</h4>
-                                <h6 class="clr">fgf BNB</h6>
-                            </div>
-                            <hr/>
-                            <ul class="list-inline">
-                                <li class="list-inline-item" >
-                                    <img src="../../assets/pegify/heart-outline.png" alt="" class="img-fluid"/>
-                                    <span class="grey">fggf </span>
-                                </li>
-                                <li class="list-inline-item" >
-                                    <img src="../../assets/pegify/landing-assets/heart.png" alt="" class="img-fluid"/>
-                                    <span class="grey"> ffgg </span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
-                                <div class="col-sm-3">
-                                    <div class="inner-card">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                </div>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
-
-                                        <h4>MAN X MACHINE</h4>
-                                        <h6 class="clr">0.70 BNB</h6>
-                                        <hr />
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                                <span class="grey"> 1.5k </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="row ptb20">
@@ -1085,9 +836,8 @@ const MainLanding = () => {
                 </div>
             </section>
 
-            {/* <app-footer></app-footer> */}
         </>
     )
 }
 
-export default MainLanding;
+export default Collection;
