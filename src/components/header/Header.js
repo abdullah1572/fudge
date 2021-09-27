@@ -53,7 +53,7 @@ const Header = () => {
                     <h5>asdasd</h5>
                     <ul class="list-inline">
                       <li class="list-inline-item">
-                        <span class="grey" style="font-size: 12px;">as</span>
+                        <span class="grey" >as</span>
                       </li>
 
                      <li class="list-inline-item">
@@ -107,7 +107,7 @@ const Header = () => {
                     <h5>mydata</h5>
                     <ul class="list-inline">
                       <li class="list-inline-item">
-                        <span class="grey" style="font-size: 12px;">sender</span>
+                        <span class="grey" >sender</span>
                       </li>
 
                       <li class="list-inline-item">
@@ -183,7 +183,7 @@ const Header = () => {
                       <img src="../../assets/pegify/collection/metamask.png" class="img-fluid" />
                       <a>
                         <h4 class="">METAMASK</h4>
-                        <P class=""><small>One of the most secure wallets with great flexibility</small> </P>
+                        <p class=""><small>One of the most secure wallets with great flexibility</small> </p>
                       </a>
                       <div >
                         <button class="btn-common" data-dismiss="modal" >CONNECT</button>

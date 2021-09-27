@@ -1,7 +1,7 @@
 import React from 'react';
 import './mainlanding.scss';
 import OwlCarousel from 'react-owl-carousel';
-const Bluemoon = () => {
+const MainLanding = () => {
     const owl_option = {
 
         margin: 40,
@@ -38,7 +38,7 @@ const Bluemoon = () => {
         <>
            <section class="main-banner">
     <div class="container">
-        <app-header></app-header>
+        {/* <app-header></app-header> */}
         <div class="row">
             <div class="col-sm-7">
                 <div class="inner-content  ptb">
@@ -144,7 +144,7 @@ const Bluemoon = () => {
                                                         </svg>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item" style="margin-left: -22px;">
+                                                <li class="list-inline-item" >
                                                     <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -430,7 +430,7 @@ const Bluemoon = () => {
                                                         </svg>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item" style="margin-left: -22px;">
+                                                <li class="list-inline-item" >
                                                     <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -445,7 +445,7 @@ const Bluemoon = () => {
                                         </div>
                                         <div >
                                             <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;"/>
+                                                />
 
                                             <h4>fdgfg</h4>
                                             <h6 class="clr"> BNB</h6>
@@ -481,7 +481,7 @@ const Bluemoon = () => {
                                                             data-placement="top" title="Creator">
                                                             <img src="" alt=""
                                                                 class="img-fluid"
-                                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                                />
                                                             <img src="../../assets/Vector.svg" alt=""
                                                                 class="img-fluid for-check"/>
                                                         </div>
@@ -491,7 +491,7 @@ const Bluemoon = () => {
                                                             data-placement="top" title="Owner">
                                                             <img src="" alt=""
                                                                 class="img-fluid"
-                                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                                />
                                                             <img src="../../assets/Vector.svg" alt=""
                                                                 class="img-fluid for-check"/>
                                                         </div>
@@ -515,7 +515,7 @@ const Bluemoon = () => {
                                                             </svg>
                                                         </div>
                                                     </li>
-                                                    <li class="list-inline-item" style="margin-left: -22px;">
+                                                    <li class="list-inline-item" >
                                                         <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -528,8 +528,8 @@ const Bluemoon = () => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;"/>
+                                            <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
+                                                />
 
                                             <h4>ddfd</h4>
                                             <h6 class="clr">df BNB</h6>
@@ -563,7 +563,7 @@ const Bluemoon = () => {
                                                         title="Creator">
                                                         <img src="" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -572,7 +572,7 @@ const Bluemoon = () => {
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
                                                         <img src="" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -595,7 +595,7 @@ const Bluemoon = () => {
                                                         </svg>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item" style="margin-left: -22px;">
+                                                <li class="list-inline-item" >
                                                     <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -610,7 +610,7 @@ const Bluemoon = () => {
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
                                             <img src="{{items.imageLink}}" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;"/>
+                                                />
 
                                             <h4>vhg</h4>
                                             <h6 class="clr">fh BNB</h6>
@@ -645,7 +645,7 @@ const Bluemoon = () => {
                                                         title="Creator">
                                                         <img src="" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -654,7 +654,7 @@ const Bluemoon = () => {
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
                                                         <img src="" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                            />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -677,7 +677,7 @@ const Bluemoon = () => {
                                                         </svg>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item" style="margin-left: -22px;">
+                                                <li class="list-inline-item" >
                                                     <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -690,9 +690,9 @@ const Bluemoon = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div routerLink="/art-work/{{items.id}}/{{mydata}}">
+                                        <div >
                                             <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;"/>
+                                                />
 
                                             <h4>cgfg</h4>
                                             <h6 class="clr">cvv BNB</h6>
@@ -726,7 +726,7 @@ const Bluemoon = () => {
                                                         title="Creator">
                                                         <img src="{{items.Creator.profileImage}}" alt=""
                                                             class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                           />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -735,7 +735,7 @@ const Bluemoon = () => {
                                                     <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                                         title="Owner">
                                                         <img src="{{items.Owner.profileImage}}" alt="" class="img-fluid"
-                                                            style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                                           />
                                                         <img src="../../assets/Vector.svg" alt=""
                                                             class="img-fluid for-check"/>
                                                     </div>
@@ -758,7 +758,7 @@ const Bluemoon = () => {
                                                         </svg>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item" style="margin-left: -22px;">
+                                                <li class="list-inline-item">
                                                     <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -773,7 +773,7 @@ const Bluemoon = () => {
                                         </div>
                                         <div routerLink="/art-work/{{items.id}}/{{mydata}}">
                                             <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                style="width: 200px; height: 200px;"/>
+                                               />
 
                                             <h4>ccc</h4>
                                             <h6 class="clr">cvc BNB</h6>
@@ -980,7 +980,7 @@ const Bluemoon = () => {
                                         <div class="inner-tile" data-toggle="tooltip" data-placement="top"
                                             title="Creator">
                                             <img src="{{latest?.Creator.profileImage}}" alt="" class="img-fluid"
-                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                               />
                                             <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
                                     </li>
@@ -988,7 +988,7 @@ const Bluemoon = () => {
                                         <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
                                             title="Owner">
                                             <img src="{{latest?.Owner.profileImage}}" alt="" class="img-fluid"
-                                                style="width: 50px; height: 50px; border-radius: 30px;"/>
+                                               />
                                             <img src="../../assets/Vector.svg" alt="" class="img-fluid for-check"/>
                                         </div>
                                     </li>
@@ -1011,7 +1011,7 @@ const Bluemoon = () => {
                                             </svg>
                                         </div>
                                     </li>
-                                    <li class="list-inline-item" style="margin-left: -22px;">
+                                    <li class="list-inline-item" >
                                         <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -1026,7 +1026,7 @@ const Bluemoon = () => {
                             </div>
                             <div routerLink="/art-work/{{latest.id}}/{{mydata}}">
                                 <img src="{{latest?.imageLink}}" alt="" class="img-fluid mb10  mx-auto d-block"
-                                    style="width: 200px; height: 200px;"/>
+                                   />
 
                                 <h4>fggf</h4>
                                 <h6 class="clr">fgf BNB</h6>
@@ -1060,9 +1060,9 @@ const Bluemoon = () => {
     </div>
 </section>
 
-<app-footer></app-footer>
+{/* <app-footer></app-footer> */}
         </>
     )
 }
 
-export default Bluemoon;
+export default MainLanding ;
