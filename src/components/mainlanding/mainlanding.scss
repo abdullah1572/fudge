@@ -5,9 +5,18 @@
     background-size: cover;
 }
 
-
+.explore-land{
+    .inner-tabs {
+        .nav-pills {
+            border-bottom: none!important;
+        }
+    }
+}
+.explore-land .inner-tabs .nav-pills .nav-item .active{
+    padding-bottom: 10px;
+} 
 .explore {
-
+    
     .btn-common-2 {
         padding: 10px 14px;
     }

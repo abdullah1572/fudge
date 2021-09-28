@@ -10,7 +10,7 @@ const Header = () => {
 <header class="main-nav">
   <nav class="navbar navbar-expand-lg ">
     <a class="navbar-brand" href="#">
-      <img src="pegify/landing-assets/logo.png" alt="" class="img-fluid" />
+      <img src="pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +26,9 @@ const Header = () => {
         <li class="nav-item">
           <Link class="nav-link" to="/collection">COLLECTION</Link>
         </li>
-        <li class="nav-item">
-                <a class="nav-link" routerLink="/profile">PROFILE</a>
-            </li>
+        {/* <li class="nav-item">
+                <Link to="/profile" class="nav-link">PROFILE</Link>
+            </li> */}
         <li class="nav-item">
         <Link class="nav-link" to="/createitem">CREATE</Link>
         </li>
@@ -41,9 +41,9 @@ const Header = () => {
           </div> */}
         </li>
 
-        {/* <li class="nav-item">
+        <li class="nav-item">
           <div class="dropdown">
-            <div >
+            {/* <div >
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img src="" alt="" class="img-show"
@@ -94,7 +94,7 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div>
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -145,12 +145,12 @@ const Header = () => {
                       <li>
                         <a >
                         <div>
-                          My Profile
+                         <Link to="profile"> My Profile</Link>
                         </div>
                       </a>
                       </li>
                       <li>
-                        <a >Edit Profile</a>
+                      <Link to="profiledetail">Edit Profile</Link>
                       </li>
                     </ul>
                     <hr />
@@ -161,15 +161,15 @@ const Header = () => {
             </div>
 
           </div>
-        </li> */}
+        </li>
 
       </ul>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-             <div class="modal-header">
-                </div>
+             {/* <div class="modal-header">
+                </div> */}
             <div class="modal-body text-center">
               <div class="row">
                 <div class="col-sm-12">
@@ -182,7 +182,7 @@ const Header = () => {
                 <div class="row">
                   <div class="col-sm-12 text-center">
                     <div class="">
-                      <img src="../../assets/pegify/collection/metamask.png" class="img-fluid" />
+                      <img src="pegify/collection/metamask.png" class="img-fluid" />
                       <a>
                         <h4 class="">METAMASK</h4>
                         <p class=""><small>One of the most secure wallets with great flexibility</small> </p>
@@ -190,18 +190,18 @@ const Header = () => {
                       <div >
                         <button class="btn-common" data-dismiss="modal" >CONNECT</button>
                       </div>
-                      <div>
+                      {/* <div>
                               <button class="btn-common" data-dismiss="modal" >Disconnect </button>
-                            </div> 
+                            </div>  */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-           <div class="modal-footer">
+           {/* <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                </div> */}
           </div>
         </div>
       </div>

@@ -7,6 +7,11 @@ import Footer from './components/footer/Footer.js';
 import Header from './components/header/Header.js';
 import Collection from './components/collection/Collection';
 import Create from './components/create/Create';
+import Profile from './components/profile/Profile';
+import ProfileDetail from './components/profiledetail/Profike-Detail';
+import ArtWork from './components/artwork/ArkWork';
+import OwnerArtWork from './components/ownerartwork/OwnerArt';
+import OwnerProfile from './components/ownerprofile/OwnerProfile';
 function App() {
   return (
     <>
@@ -14,8 +19,12 @@ function App() {
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>
-         
+          <Route exact path='/profile' component={Profile}/> 
+          <Route exact path='/profiledetail' component={ProfileDetail}/> 
           <Route exact path='/createitem' component={Create}/> 
+          <Route exact path='/artwork' component={ArtWork}/> 
+          <Route exact path='/ownerart' component={OwnerArtWork}/> 
+          <Route exact path='/ownerprofile' component={OwnerProfile}/> 
         </Switch>
         <Footer/>
         </Router>
@@ -24,3 +33,6 @@ function App() {
 }
 
 export default App;
+
+
+

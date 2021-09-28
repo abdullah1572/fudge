@@ -1,7 +1,8 @@
 import React from 'react';
 import Header from '../header/Header';
-import './profile.scss';
-const Profile = () => {
+import './ownerprofile.scss';
+import { Link } from 'react-router-dom';
+const OwnerProfile = () => {
     const owl_option = {
 
         margin: 40,
@@ -151,9 +152,10 @@ const Profile = () => {
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        {/* <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row ptb20">
                             <div class="col-sm-3">
+                            <Link to="ownerart">
                                                 <div class="inner-card">
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
@@ -181,6 +183,7 @@ const Profile = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                </Link>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="inner-card">
@@ -270,11 +273,12 @@ const Profile = () => {
                                                 </div>
                                             </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div class="tab-pane fade  show active" id="pills-owned" role="tabpanel"
                             aria-labelledby="pills-owned-tab">
                             <div class="row ptb20">
                             <div class="col-sm-3">
+                            <Link to="ownerart">
                                                 <div class="inner-card">
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
@@ -302,6 +306,7 @@ const Profile = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                </Link>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="inner-card">
@@ -1160,4 +1165,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default OwnerProfile;

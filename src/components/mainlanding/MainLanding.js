@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../header/Header';
 import './mainlanding.scss';
 const MainLanding = () => {
@@ -60,7 +61,7 @@ const MainLanding = () => {
                 </div>
             </section>
 
-            <section class="explore ptb">
+            <section class="explore explore-land ptb">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
@@ -179,6 +180,7 @@ const MainLanding = () => {
                                     </div>
                                 </div> */}
                                             <div class="col-sm-3">
+                                                <Link to="artwork">
                                                 <div class="inner-card">
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
@@ -206,8 +208,10 @@ const MainLanding = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                </Link>
                                             </div>
                                             <div class="col-sm-3">
+                                            <Link to="artwork">
                                                 <div class="inner-card">
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
@@ -235,6 +239,7 @@ const MainLanding = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                </Link>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="inner-card">

@@ -1,0 +1,93 @@
+.create {
+    .inner-content {
+        background: #F9F9FA;
+border: 2px dashed #CFCFD0;
+box-sizing: border-box;
+border-radius: 20px;
+height: 390px;
+
+img {
+    margin: 10px;
+}
+    }
+
+    .remove {
+        font-family: Inter;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 22px;
+text-decoration-line: underline;
+color: rgba(134, 103, 222, 1);
+background: transparent;
+border: none;
+&:hover {
+    color: #000;
+}
+
+    }
+
+    .inner-inpt {
+        input {
+            background: #FFFFFF;
+border: 1px solid #D1CCE0;
+box-sizing: border-box;
+border-radius: 10px;
+height: 54px;
+        }
+    }
+    .form-control {
+        background: #FFFFFF;
+border: 1px solid #D1CCE0;
+box-sizing: border-box;
+border-radius: 10px;
+    }
+
+    textarea {
+        resize: none;
+        height: 246px;
+    }
+
+    .inner-cards {
+      
+      .mb10{
+          width: 100%;
+          margin-bottom: 10px;
+      }
+
+      input[type="file"] { 
+        opacity: 0; /* make transparent */
+        z-index: -1; /* move under anything else */
+       // position: absolute; /* don't let it take up space */
+      }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-banner {
+        .btn-common {
+            font-size: 14px !important;
+        }
+    }
+
+    
+    .create {
+        .inner-content {
+            background: #F9F9FA;
+    border: 2px dashed #CFCFD0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    height: 390px;
+    
+    img {
+        margin: 0px;
+    }
+    .inner-card {
+        text-align: center;
+      .mb10{
+          margin-bottom: 10px;
+      }
+    }
+        }
+    }
+}
