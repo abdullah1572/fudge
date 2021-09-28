@@ -100,9 +100,9 @@ const Create = () => {
                                 <div class="form-group">
                                     <div class="inner-drop">
                                         <h5>Categories</h5>
-                                        <select name="" id="" class="form-control"  name="categoryId" >
+                                        {/* <select name="" id="" class="form-control"  name="categoryId" >
                                             <option value="34"> </option>
-                                        </select>
+                                        </select> */}
                                          <div class="dropdown">
                                             <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

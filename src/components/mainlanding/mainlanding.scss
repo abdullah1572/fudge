@@ -13,10 +13,15 @@
     }
 }
 .explore-land .inner-tabs .nav-pills .nav-item .active{
-    padding-bottom: 10px;
+    padding-bottom: 10px!important;
+} 
+.explore-land .inner-tabs .nav-pills .nav-item a:hover{
+    padding-bottom: 10px!important;
 } 
 .explore {
-    
+    a{
+        text-decoration: none!important;
+    }
     .btn-common-2 {
         padding: 10px 14px;
     }
