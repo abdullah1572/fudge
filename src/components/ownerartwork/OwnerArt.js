@@ -124,7 +124,7 @@ const OwnerArtWork= () => {
                                     <div class="col-sm-12">
                                         <div class="owner" >
                                             <a>
-                                                <h6>Owner</h6>
+                                                <h6 className="black">Owner</h6>
 
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><img src="pegify/profile-assets/artist-image-four.png"
@@ -166,7 +166,7 @@ const OwnerArtWork= () => {
                                     <div class="col-sm-12">
                                         <div class="owner" >
                                             <a>
-                                                <h6>Creator</h6>
+                                                <h6 className="black">Creator</h6>
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><img src="pegify/profile-assets/artist-image-four.png"
                                                         class="img-fluid inner-imagess"

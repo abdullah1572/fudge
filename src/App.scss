@@ -39,6 +39,7 @@ textarea {
 
 a {
   text-decoration: none !important;
+  color: #000 !important;
 
   &:hover {
     color: #191A1C !important;
@@ -226,6 +227,10 @@ color: #f2b10f;
 font-weight: 600;
 font-style: normal;
 size: 16px;
+}
+
+.black {
+  color: #000;
 }
 
 .navbar-toggle {

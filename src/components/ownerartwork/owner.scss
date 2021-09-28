@@ -206,7 +206,7 @@ text-align: center;
                 }
             }
             .btn-common-1 {
-                background-color: #8667de;
+                background-color: #f2b10f;
                 color: #fff;
                //  background-color: #fff;
                 padding: 16px 20px 16px 20px;
@@ -218,7 +218,7 @@ text-align: center;
                 font-weight: 500;
                 border-radius: 36px;
                 width: 100%;
-                border: 1px solid #8667de;
+                border: 1px solid #f2b10f;
                 cursor: pointer !important;
                 img {
                     width: 28px;
@@ -228,12 +228,12 @@ text-align: center;
                 &:hover {
                  // border: 1px solid #8667de;
                  color: #fff;
-                 box-shadow: 0px 0px 10px 2px #8667de;
+                 box-shadow: 0px 0px 10px 2px #f2b10f;
                  background-color: #583FA1;
                }
                &:active {
                  color: #fff;
-                 background-color: #8667de;
+                 background-color: #f2b10f;
                  box-shadow: 0px 0px 10px 2px #888;
                }
                &:focus {
@@ -243,8 +243,8 @@ text-align: center;
            
             .btn-common-1.active {
                color: #fff;
-               box-shadow: 0px 0px 10px 2px #8667de;
-               background-color: #8667de;
+               box-shadow: 0px 0px 10px 2px #f2b10f;
+               background-color: #f2b10f;
             }
         }
     }
