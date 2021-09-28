@@ -104,7 +104,7 @@ h4 {
 
 
 .btn-common {
-   background-color: #8667de;
+   background-color: #f2b10f;
    color: #fff;
    padding: 16px 20px;
    border-radius: 35px;
@@ -115,8 +115,8 @@ h4 {
    font-weight: 500;
    line-height: 19px;
    width: 100%;
-   box-shadow: 0px 10px 14px rgba(134, 103, 222, 0.3);
-   border: 1px solid #8667de;
+   box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3);
+   border: 1px solid #f2b10f;
    cursor: pointer !important;
    img {
        width: 28px;
@@ -124,14 +124,14 @@ h4 {
    }
    
    &:hover {
-    // border: 1px solid #8667de;
+    // border: 1px solid #f2b10f;
     color: #fff;
-    box-shadow: 0px 10px 14px rgba(134, 103, 222, 0.3);
-    background-color: #583FA1;
+    box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3);
+    background-color: #f2b10f;
   }
   &:active {
     color: #fff !important;
-    background-color: #8667de;
+    background-color: #f2b10f;
   //   box-shadow: 0px 0px 10px 2px #888;
   }
   &:focus {
@@ -169,14 +169,14 @@ margin: 10px 8px;
 
 
 &:hover {
- border: 1px solid #9586C1;
+ border: 1px solid #f2b10f;
 //  color: #fff;
 //  box-shadow: 0px 10px 14px rgba(134, 103, 222, 0.3);
 //  background-color: #583FA1;
 }
 &:active {
  color: #fff !important;
- background-color: #8667de;
+ background-color: #f2b10f;
 //   box-shadow: 0px 0px 10px 2px #888;
 }
 &:focus {
@@ -187,13 +187,13 @@ margin: 10px 8px;
 
 .btn-common.active {
   color: #fff;
-  // box-shadow: 0px 0px 10px 2px #8667de;
-  background-color: #8667de;
+  // box-shadow: 0px 0px 10px 2px #f2b10f;
+  background-color: #f2b10f;
 }
 
 .btn-common-2.active {
 color: #fff;
-background-color: #8667de;
+background-color: #f2b10f;
 }
 
 .ptb {
@@ -222,7 +222,7 @@ border-radius: 30px;
 }
 
 .clr {
-color: #8667de;
+color: #f2b10f;
 font-weight: 600;
 font-style: normal;
 size: 16px;
