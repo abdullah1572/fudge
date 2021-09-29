@@ -1,4 +1,4 @@
-.main-banner{
+.art-work{
     font-family: 'Inter', sans-serif !important;
     .ptbb{
         padding: 35px 0;
@@ -23,7 +23,11 @@
         background: rgba(40, 31, 66, 0.8);
         backdrop-filter: blur(6px);
 
-}
+        .modal-content {
+            background-color: transparent;
+            border: none;
+        }
+    }
 
     .art-inner{
         .profile{
@@ -229,7 +233,7 @@ text-align: center;
                  // border: 1px solid #f2b10f;
                  color: #fff;
                  box-shadow: 0px 0px 10px 2px #f2b10f;
-                 background-color: #583FA1;
+                 background-color: #f2b10f;
                }
                &:active {
                  color: #fff;
@@ -310,7 +314,7 @@ text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-    .main-banner {
+    .art-work {
         .inner-btn{
           margin-bottom: 23px;
             .btn-common {

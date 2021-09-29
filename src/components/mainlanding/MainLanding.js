@@ -40,7 +40,7 @@ const MainLanding = () => {
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="inner-content  ptb">
-                                <h2 class="clr">Welcome to Pegify</h2>
+                                <h2 class="clr">Welcome to Fudge</h2>
                                 <h1>The #1 Community Based NFT Platform</h1>
                                 <p class="grey ptb20">Create, Sell, or Buy your NFTs with our biggest NFT Community</p>
                                 <ul class="list-inline">
@@ -835,7 +835,7 @@ const MainLanding = () => {
                         <div class="col-sm-4">
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\peggs-liquidity-icon.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Liquidity</h4>
+                                <h4>FUDGE Liquidity</h4>
                                 <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                     Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                                     took a galley of type and scrambled it to make a type specimen book.</p>
@@ -844,7 +844,7 @@ const MainLanding = () => {
                         <div class="col-sm-4">
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\peggs-stats-icon.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Stats</h4>
+                                <h4>FUDGE Stats</h4>
                                 <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                     Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                                     took a galley of type and scrambled it to make a type specimen book.</p>
@@ -853,7 +853,7 @@ const MainLanding = () => {
                         <div class="col-sm-4">
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\peggs-volume.png" alt="" class="img-fluid" />
-                                <h4>PEGGS Volume</h4>
+                                <h4>FUDGE Volume</h4>
                                 <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                     Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                                     took a galley of type and scrambled it to make a type specimen book.</p>

@@ -38,7 +38,7 @@ const ArtWork = () => {
     return (
         <>
 
-            <section class="main-banner">
+            <section class="art-work">
                 <div class="container">
                     <Header />
                     <div class="row ptb">
@@ -58,7 +58,7 @@ const ArtWork = () => {
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <img src="" class="img-fluid" />
+                                                            <img src="pegify/art-work/Rectangle12.png" class="img-fluid" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,7 +116,7 @@ const ArtWork = () => {
                                                 </ul>
                                             </div>
                                             <div class="main-para">
-                                                <p class="inner-para">This is Dummy NFT</p>
+                                                <p class="inner-para">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                                             </div>
                                         </div>
                                     </div>
