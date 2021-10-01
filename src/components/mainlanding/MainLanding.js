@@ -54,7 +54,7 @@ const MainLanding = () => {
                         </div>
                         <div class="col-sm-5">
                             <div class="inner-imgs">
-                                <img src="pegify/landing-assets/header-image.png" alt="" class="img-fluid" />
+                                <img src="pegify/landing-assets/header-image.svg" alt="" class="img-fluid" />
                             </div>
                         </div>
                     </div>
@@ -181,64 +181,64 @@ const MainLanding = () => {
                                 </div> */}
                                             <div class="col-sm-3">
                                                 <Link to="artwork">
-                                                <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+                                                    <div class="inner-card">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
+                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
+                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
 
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 class="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                                            <span class="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                        <h4>MAN X MACHINE</h4>
+                                                        <h6 class="clr">0.70 BNB</h6>
+                                                        <hr />
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                                <span class="grey"> 1.5k </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </Link>
                                             </div>
                                             <div class="col-sm-3">
-                                            <Link to="artwork">
-                                                <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+                                                <Link to="artwork">
+                                                    <div class="inner-card">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
+                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
+                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
 
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 class="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                                            <span class="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                        <h4>MAN X MACHINE</h4>
+                                                        <h6 class="clr">0.70 BNB</h6>
+                                                        <hr />
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                                <span class="grey"> 1.5k </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </Link>
                                             </div>
                                             <div class="col-sm-3">
@@ -797,7 +797,7 @@ const MainLanding = () => {
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
@@ -834,29 +834,24 @@ const MainLanding = () => {
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-liquidity-icon.png" alt="" class="img-fluid" />
-                                <h4>FUDGE Liquidity</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
+                                <img src="pegify\landing-assets\setup-wallet-icon.svg" alt="" class="img-fluid" />
+                                <h4>Setup your Wallet</h4>
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-stats-icon.png" alt="" class="img-fluid" />
-                                <h4>FUDGE Stats</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
+                                <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
+                                <h4>Add your NFT’s</h4>
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="inner-side">
-                                <img src="pegify\landing-assets\peggs-volume.png" alt="" class="img-fluid" />
-                                <h4>FUDGE Volume</h4>
-                                <p class="grey">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.</p>
+                                <img src="pegify\landing-assets\list-them-for-sale-icon.svg" alt="" class="img-fluid" />
+                                <h4>List Them for sale</h4>
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+
                             </div>
                         </div>
                     </div>
@@ -936,32 +931,49 @@ const MainLanding = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
+
+                        </div>
+                        <div class="col-sm-6">
                             <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\nft-icon.png" alt="" class="img-fuild" />
-                                <h3>NFTS</h3>
-                                <h2>16246</h2>
+                                <h2>Join The Fudge Community</h2>
+                                <p className="grey ptb20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed <br /> do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <div className="row">
+                                    <div className="col-sm-9 p-0">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <input type="" class="form-control" id="" placeholder="Your Email Address" />
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-3 p-0">
+                                        <button className="btn-common">SEND</button>
+                                    </div>
+                                </div>
+
+                                <ul class="list-inline ptb20">
+                                    <li class="list-inline-item">
+                                        <a href="">
+                                            <img src="pegify\landing-assets\discord-icon.png" alt="" class="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="">
+                                            <img src="pegify\landing-assets\twitter-icon.png" alt="" class="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="">
+                                            <img src="pegify\landing-assets\facebook-icon.png" alt="" class="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="">
+                                            <img src="pegify\landing-assets\instagram-icon.png" alt="" class="img-fluid" />
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\transaction-icon.png" alt="" class="img-fuild" />
-                                <h3>TRANSACTIONS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\artists-icon.png" alt="" class="img-fuild" />
-                                <h3>ARTISTS</h3>
-                                <h2>16246</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="inner-content text-center">
-                                <img src="pegify\landing-assets\members-icon.png" alt="" class="img-fuild" />
-                                <h3>MEMBERS</h3>
-                                <h2>16246</h2>
-                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -71,7 +71,7 @@
             border-radius: 20px;
         }
       .mb10{
-          margin-bottom: 10px;
+          margin: 10px 0;
       }
     }
 }
@@ -101,11 +101,31 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: #fff;
+ 
 
     .inner-content {
         padding: 10px;
 
+        .form-group {
+            input {
+height: 54px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border: 1.5px solid #E1E1E1;
+box-sizing: border-box;
+border-radius: 40px;
+            }
+        }
+        .btn-common {
+            // padding: 16px 20px;
+            // width: 247px;
+            // height: 54px;
+            // background: #8667DE;
+            // box-shadow: 0px 10px 14px rgb(134 103 222 / 30%);
+            // border-radius: 35px;
+        }
         img {
             margin-bottom: 20px;
         }
@@ -165,6 +185,11 @@
 
 .services {
     .inner-side {
+        background: #FFFFFF;
+        box-shadow: 0px 14px 34px rgb(0 0 0 / 2%);
+        border-radius: 20px;
+        padding: 20px 30px;
+        margin-bottom: 10px;
         img {
             padding: 0 0 30px;
         }

@@ -97,6 +97,33 @@ const Footer = () => {
                 </div>
             </div>
         </div>
+        <hr/>
+
+        <div className="row">
+            <div className="col-sm-6">
+                <div className="inner-contentss">
+                    <p className="grey">© 2021 FUDGE, All Rights Reserved</p>
+                </div>
+            </div>
+            <div className="col-sm-6">
+            <ul class="list-inline text-right">
+                        <li class="list-inline-item">
+                            <a href="">
+                                <p className="grey">Privacy Policy</p>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                        <p className="grey">|</p>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="">
+                            <p className="grey">Terms & Conditions</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+            </div>
+        </div>
     </div>
 </footer>
 </>
