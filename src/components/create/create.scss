@@ -181,20 +181,20 @@ border-radius: 10px;
     .create {
         .inner-content {
             background: #F9F9FA;
-    border: 2px dashed #CFCFD0;
-    box-sizing: border-box;
-    border-radius: 20px;
-    height: 390px;
+            border: 2px dashed #CFCFD0;
+            box-sizing: border-box;
+            border-radius: 20px;
+            height: 390px;
     
-    img {
-        margin: 0px;
-    }
-    .inner-card {
-        text-align: center;
-      .mb10{
-          margin-bottom: 10px;
-      }
-    }
+                img {
+                    margin: 0px;
+                }
+                .inner-card {
+                    text-align: center;
+                .mb10{
+                    margin-bottom: 10px;
+                }
+            }
         }
     }
 }
