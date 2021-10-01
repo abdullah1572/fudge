@@ -65,38 +65,47 @@ const MainLanding = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>EXPLORE</h2>
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <h2>EXPLORE</h2>
+                                </div>
+                            </div>
                             <div class="inner-tabs">
-                                <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
-                                    <li class="nav-item" active>
-                                        <a class=" btn-common-2 " id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                            role="tab" aria-controls="pills-home" aria-selected="true">All</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="btn-common-2" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                            role="tab" aria-controls="pills-profile" aria-selected="false"
-                                        >Art</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="btn-common-2" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                            role="tab" aria-controls="pills-contact" aria-selected="false"
-                                        >Photography</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="btn-common-2" id="pills-meme-tab" data-toggle="pill" href="#pills-meme" role="tab"
-                                            aria-controls="pills-meme" aria-selected="false" >Games</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
-                                            href="#pills-Photography" role="tab" aria-controls="pills-Photography"
-                                            aria-selected="false" >Sports</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="btn-common-2" id="pills-sports-tab" data-toggle="pill" href="#pills-sports"
-                                            role="tab" aria-controls="pills-sports" aria-selected="false"
-                                        >Memes</a>
-                                    </li>
-                                </ul>
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
+                                            <li class="nav-item" active>
+                                                <a class=" btn-common-2 " id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                                    role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="btn-common-2" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                                    role="tab" aria-controls="pills-profile" aria-selected="false"
+                                                >Art</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="btn-common-2" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                                                    role="tab" aria-controls="pills-contact" aria-selected="false"
+                                                >Photography</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="btn-common-2" id="pills-meme-tab" data-toggle="pill" href="#pills-meme" role="tab"
+                                                    aria-controls="pills-meme" aria-selected="false" >Games</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
+                                                    href="#pills-Photography" role="tab" aria-controls="pills-Photography"
+                                                    aria-selected="false" >Sports</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="btn-common-2" id="pills-sports-tab" data-toggle="pill" href="#pills-sports"
+                                                    role="tab" aria-controls="pills-sports" aria-selected="false"
+                                                >Memes</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                         aria-labelledby="pills-home-tab">
@@ -983,7 +992,12 @@ const MainLanding = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2> <span class="clr">LATEST</span> UPLOADS</h2>
+
+                            <div className="row">
+                                <div class="col-sm-12">
+                                    <h2> <span class="clr">LATEST</span> UPLOADS</h2>
+                                </div>
+                            </div>
                             <div class="row ptb20">
                                 {/* <div class="col-sm-3" >
                         <div class="inner-card">
@@ -1057,6 +1071,93 @@ const MainLanding = () => {
                             </ul>
                         </div>
                     </div> */}
+                                <div class="col-sm-3">
+                                    <div class="inner-card">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+
+                                        <h4>MAN X MACHINE</h4>
+                                        <h6 class="clr">0.70 BNB</h6>
+                                        <hr />
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                <span class="grey"> 1.5k </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inner-card">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+
+                                        <h4>MAN X MACHINE</h4>
+                                        <h6 class="clr">0.70 BNB</h6>
+                                        <hr />
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                <span class="grey"> 1.5k </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inner-card">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+
+                                        <h4>MAN X MACHINE</h4>
+                                        <h6 class="clr">0.70 BNB</h6>
+                                        <hr />
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                <span class="grey"> 1.5k </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div class="col-sm-3">
                                     <div class="inner-card">
                                         <ul class="list-inline">

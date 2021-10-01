@@ -4,7 +4,20 @@
     
 
     .inner-tabs{
-
+        .nav-pills {
+            .nav-item {
+                .btn-common-2{
+                    border: 1px solid #D1CCE0;
+              
+           
+    }
+    .active{
+        border: 1px solid #f2b10f;
+        color: white!important;
+        
+    }
+            }
+        }
         .inner-search {
             position: relative;
 
@@ -60,6 +73,7 @@
             padding: 10px 10px 10px 10px;
             margin-bottom: 24px;
             width: auto;
+            background: #ffffff;
             height: 416px;
             .inner-tile {
                 position: relative;
@@ -100,6 +114,7 @@
             }
           .mb10{
               margin-bottom: 10px;
+              margin-top: 10px;
           }
         }
     }
@@ -122,6 +137,10 @@
     }
 
     .inner-drop {
+        .form-control{
+            height: 54px;
+            border-radius: 10px;
+        }
         .dropdown {
             a.btn {
         

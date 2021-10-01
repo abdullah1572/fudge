@@ -85,7 +85,7 @@ const Collection = () => {
                                             <h6>SEARCH</h6>
                                             <div class="form-group has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
-                                                <input type="text" class="form-control" placeholder="Search Pegify"
+                                                <input type="text" class="form-control" placeholder="Search Fudge"
                                                 />
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@ const Collection = () => {
                                         <div class="inner-drop">
                                             <h6>SORT BY</h6>
                                             <select name="" id="" class="form-control" >
-                                                <option value="Recently Listed">Recently Listed</option>
+                                                <option value="Recently Listed">Recently</option>
                                                 <option value="Recently Created">Recently Created</option>
                                                 <option value="Low to High">Low to High</option>
                                                 <option value="High to Low">High to Low</option>

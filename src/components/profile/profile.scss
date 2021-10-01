@@ -111,11 +111,22 @@ thead {
         .nav-pills {
             border-bottom: 2.5px solid #E4E4E4;
             .nav-item {
+               
                 padding-right: 20px;
-
+            .btn-common-2{
+                border: 1px solid #D1CCE0;
+          
+       
+}
+.active{
+    border: 1px solid #f2b10f;
+    color: white!important;
+    
+}
                 .active {
-                    border-bottom: 2.5px solid #8667de;
+                    // border-bottom: 2.5px solid #8667de;
                     padding-bottom: 22px;
+               
                 }
 
                 a {
@@ -124,7 +135,8 @@ thead {
     font-weight: 500;
 
                     &:hover {
-                        border-bottom: 2.5px solid #8667de;
+                        // border-bottom: 2.5px solid #8667de;
+                     
     padding-bottom: 22px;
                     }
                 }
