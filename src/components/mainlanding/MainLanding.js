@@ -845,21 +845,21 @@ const MainLanding = () => {
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\setup-wallet-icon.svg" alt="" class="img-fluid" />
                                 <h4>Setup your Wallet</h4>
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                <p class="grey">Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.</p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
                                 <h4>Add your NFT’s</h4>
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                <p class="grey">Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.</p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\list-them-for-sale-icon.svg" alt="" class="img-fluid" />
                                 <h4>List Them for sale</h4>
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                <p class="grey">Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs, and we help you sell them!</p>
 
                             </div>
                         </div>
@@ -960,22 +960,22 @@ const MainLanding = () => {
                                 <ul class="list-inline ptb20">
                                     <li class="list-inline-item">
                                         <a href="">
-                                            <img src="pegify\landing-assets\discord-icon.png" alt="" class="img-fluid" />
+                                            <img src="pegify\socails\discord-icon.svg" alt="" class="img-fluid" />
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
                                         <a href="">
-                                            <img src="pegify\landing-assets\twitter-icon.png" alt="" class="img-fluid" />
+                                            <img src="pegify\socails\twitter-icon.svg" alt="" class="img-fluid" />
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
                                         <a href="">
-                                            <img src="pegify\landing-assets\facebook-icon.png" alt="" class="img-fluid" />
+                                            <img src="pegify\socails\facebook-icon.svg" alt="" class="img-fluid" />
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
                                         <a href="">
-                                            <img src="pegify\landing-assets\instagram-icon.png" alt="" class="img-fluid" />
+                                            <img src="pegify\socails\instagram-icon.svg" alt="" class="img-fluid" />
                                         </a>
                                     </li>
                                 </ul>
