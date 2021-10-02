@@ -26,7 +26,9 @@
 @media only screen and (max-width: 600px) {
     .main-footer{
         margin-top: 0px;
-
+        .text-right {
+            text-align: left !important;
+        }
         .inner-content {
             padding: 10px 0;
         

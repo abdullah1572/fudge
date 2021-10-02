@@ -807,14 +807,14 @@ const OwnerProfile = () => {
                                         <h4>ss</h4>
                                         <h6 class="grey">12 Followers</h6>
                                         <hr/>
-                                        <ul class="list-inline">
+                                        {/* <ul class="list-inline">
                                             <li class="list-inline-item" >
                                                 <button class="btn-common" >Unfollow</button>
                                             </li>
                                             <li class="list-inline-item">
                                                 <button class="btn-common" >Follow</button>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </div>
                                 </div>
                                 {/* <!-- <div class="col-sm-3">
@@ -992,14 +992,14 @@ const OwnerProfile = () => {
                                         <h4>sdsda</h4>
                                         <h6 class="grey">12 Followers</h6>
                                         <hr/>
-                                        <ul class="list-inline">
+                                        {/* <ul class="list-inline">
                                             <li class="list-inline-item" >
                                                 <button class="btn-common" >Unfollow</button>
                                             </li>
                                             <li class="list-inline-item" >
                                                 <button class="btn-common" >Follow</button>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </div>
                                 </div>
                             <div class="col-sm-3">

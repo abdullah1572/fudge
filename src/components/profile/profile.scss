@@ -44,7 +44,7 @@
 .explore {
 
     .inner-card {
-        border: 1px solid #CFCFD0;
+        box-shadow: 0px 4px 10px rgba(134, 103, 222, 0.3);
         border-radius: 18px;
         padding: 10px 10px 10px 10px;
         margin-bottom: 10px;
@@ -72,7 +72,7 @@
 
         &:hover {
             box-sizing: border-box;
-            box-shadow: 0px 4px 10px rgba(134, 103, 222, 0.3);
+            // box-shadow: 0px 4px 10px rgba(134, 103, 222, 0.3);
             border-radius: 20px;
         }
       .mb10{
@@ -119,8 +119,8 @@ thead {
        
 }
 .active{
-    border: 1px solid #f2b10f;
-    color: white!important;
+    border-bottom: 1px solid #f2b10f;
+    color: #f2b10f;
     
 }
                 .active {
