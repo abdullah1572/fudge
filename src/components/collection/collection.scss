@@ -76,6 +76,7 @@
             background: #ffffff;
             .inner-tile {
                 position: relative;
+                z-index: 9;
                 .inner-tiless{
                     width: 50px!important;
                 height: 50px !important;
