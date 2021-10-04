@@ -174,7 +174,7 @@ const Create = () => {
                     <hr/>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid"/>
+                            <img src="pegify/landing-assets/user-image.png" alt="" class="img-fluid"/>
                             &nbsp;
                             <span class="grey">Baylee</span>
                         </li>

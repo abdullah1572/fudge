@@ -10,7 +10,7 @@ const Footer = () => {
         <div class="row">
             <div class="col-sm-4">
                 <div class="inner-content">
-                    <a>
+                    <a href="/">
                         <img src="pegify\landing-assets\logo.svg" alt="" class="img-fluid" />
                     </a>
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../header/Header';
+import { Link } from 'react-router-dom';
 import './collection.scss';
 const Collection = () => {
     const owl_option = {
@@ -127,103 +128,88 @@ const Collection = () => {
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                         aria-labelledby="pills-home-tab">
                                         <div class="row ptb20">
-                                            {/* <div class="col-sm-3" >
-                                    <div class="inner-card">
-                                        <div >
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                                        title="Creator">
-                                                        <img src="" alt=""
-                                                            class="img-fluid"
-                                                            />
-                                                        <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check" />
-                                                    </div>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
-                                                        title="Owner">
-                                                        <img src="" alt="" class="img-fluid"
-                                                            />
-                                                        <img src="../../assets/Vector.svg" alt=""
-                                                            class="img-fluid for-check" />
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                                        title="Creator">
-                                                        <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                fill="#35374A" />
-                                                        </svg>
-                                                    </div>
-                                                </li>
-                                                <li class="list-inline-item" >
-                                                    <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                />
-
-                                            <h4>itemname</h4>
-                                        </div>
-
-                                        <h6 class="clr">price BNB</h6>
-                                        <hr />
-
-                                        <ul class="list-inline">
+                                     
+                                           <div class="col-sm-3">
+                                                <Link to="artwork">
+                                                    <div class="inner-card">
+                                                    <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                    class="img-fluid" />
-                                                <span class="grey">itemlikes</span>
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
                                             </li>
-                                            <li class="list-inline-item" >
-                                                <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                    class="img-fluid" />
-                                                <span class="grey"> itemlike </span>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
                                             </li>
                                         </ul>
-                                    </div>
-                                </div> */}
+                                        <img src="pegify/landing-assets/team-img-one.png" alt="" class="img-fluid mb10" />
+
+                                                        <h4>#11 EVOL Tech</h4>
+                                                        <h6 class="clr">0.70 BNB</h6>
+                                                        <hr />
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                                <span class="grey"> 1.5k </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <Link to="artwork">
+                                                    <div class="inner-card">
+                                                    <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/team-img-two.png" alt="" class="img-fluid mb10" />
+
+                                                        <h4>#11 EVOL Frank</h4>
+                                                        <h6 class="clr">0.70 BNB</h6>
+                                                        <hr />
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                                                <span class="grey"> 1.5k </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </Link>
+                                            </div>
                                             <div class="col-sm-3">
                                                 <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+                                                <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/team-img-three.png" alt="" class="img-fluid mb10" />
 
-                                                    <h4>MAN X MACHINE</h4>
+                                                    <h4>#11 EVOL Yayo</h4>
                                                     <h6 class="clr">0.70 BNB</h6>
                                                     <hr />
                                                     <ul class="list-inline">
@@ -236,81 +222,23 @@ const Collection = () => {
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
-
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 class="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                                            <span class="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
+                                                <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                                    <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
-
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 class="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                                            <span class="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                                    <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="inner-card">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" class="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" class="img-fluid mb10" />
+                                            </li>
+                                        </ul>
+                                        <img src="pegify/landing-assets/team-img-four.png" alt="" class="img-fluid mb10" />
 
-                                                    <h4>MAN X MACHINE</h4>
+                                                    <h4>#11 EVOL Blue</h4>
                                                     <h6 class="clr">0.70 BNB</h6>
                                                     <hr />
                                                     <ul class="list-inline">

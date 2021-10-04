@@ -12,8 +12,16 @@
         }
     }
 }
+
+.explore-land .inner-tabs .nav-pills .nav-item .btn-common-2{
+    border: 1px solid #D1CCE0;
+
+
+}
 .explore-land .inner-tabs .nav-pills .nav-item .active{
     padding-bottom: 10px!important;
+    border: 1px solid #f2b10f !important;
+    color: white!important;
 } 
 .explore-land .inner-tabs .nav-pills .nav-item a:hover{
     padding-bottom: 10px!important;

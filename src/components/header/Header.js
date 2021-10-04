@@ -9,7 +9,7 @@ const Header = () => {
 
 <header class="main-nav">
   <nav class="navbar navbar-expand-lg ">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img src="pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -100,10 +100,7 @@ const Header = () => {
             <div>
               <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <svg width="60" height="60" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z" fill="#F6F6F6" stroke="white" stroke-width="3"/>
-                  <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z" fill="#35374A"/>
-                  </svg>
+                <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div class="row">
@@ -116,7 +113,7 @@ const Header = () => {
 
                       <li class="list-inline-item">
                         <a class="grey">
-                          <img src="../../assets/copy.png" alt="" class="img-fluid" />
+                          <img src="assets/copy.png" alt="" class="img-fluid" />
                         </a>
                       </li>
                     </ul>
@@ -124,7 +121,7 @@ const Header = () => {
                     <div class="row ptb20">
                       <div class="col-sm-3">
                         <div class="inner-im text-center">
-                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid" />
+                          <img src="assets/bnb-logo.png" alt="" class="img-fluid" />
                         </div>
                       </div>
                       <div class="col-sm-9">
