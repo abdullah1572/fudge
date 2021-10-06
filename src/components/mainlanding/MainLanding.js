@@ -752,7 +752,7 @@ const MainLanding = () => {
                             <div class="inner-side">
                                 <img src="pegify\landing-assets\setup-wallet-icon.svg" alt="" class="img-fluid" />
                                 <h4>Setup your Wallet</h4>
-                                <p class="grey">Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.</p>
+                                <p class="grey">Once you’ve set up your wallet of choice, connect it to Fudge NFTs by clicking the wallet icon in the top right corner. Learn about the wallets we support.</p>
                             </div>
                         </div>
                         <div class="col-sm-4">
