@@ -1,37 +1,200 @@
-export const ContarctAction = (Useraccount, txiContract,amount,recipt) => async (
-    dispatch
-  ) => {
-     txiContract.methods
-      .balanceOf(Useraccount)
-      .call()
-      .then((balance) => { 
-        // console.log("balance",balance);    
+import axios from 'axios'
+export const useCollectionAction = () => async (dispatch) => {
+  
+  await axios.get('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/collection/getAllCollections')
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getTop3TokensOfCollection', { contractAddress: elem.contractAddress }).then((res) => {
+              elem.CollectionImage = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
         dispatch({
-          type: "BALANCE",
-          payload: balance,
+          type: "GETCOLLECTION",
+          payload: res.data.data,
         });
-      });
-      txiContract.methods
-      .calculateBNBReward(Useraccount)
-      .call()
-      .then((reward) => { 
-        // console.log("reward",reward);    
-        dispatch({
-          type: "USER_REWARD",
-          payload: reward,
-        });
-      });
+      }
+    })
+    .catch((err) => {
+      // console.log(err);
+      return false;
+    })
+};
 
-      // txiContract.methods.disruptiveTransfer(amount,recipt).send(
-      //   {
-      //   from: Useraccount,
-      //   amount,
-      //   recipt
-      // }).then((amount)=>{
-      //   dispatch({
-      //     type: "",
-      //     payload: amount,
-      //   })
-      // })
-              
-  };
+export const useToken = () => async (dispatch) => {
+  await axios.get('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getAllTokens')
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETALLTOKEN",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const SingleTokenDataFetch = (_id) => async (dispatch) => {
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getToken',{_id : _id})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "SINGLETOKENDATA",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const GetUserNFTS = (walletAddress) => async (dispatch) => {
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getTokensOfUser',{walletAddress : walletAddress.walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETUSERNFTS",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+export const GetUserData = (walletAddress) => async (dispatch) => {
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getUser',{walletAddress : walletAddress.walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETUSERDATA",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+
+export const SingleCollectionDataFetch = (contractAddress) => async (dispatch) => {
+
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getAllTokensOfCollectionAndCollectionData',{contractAddress : contractAddress.contractAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "SINGLECOLLECTIONDATA",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const AddFollower = (account,toFollow) => async (dispatch) => {
+  if(account && toFollow){
+    await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/addFollower',{walletAddress : account,toFollow:toFollow})
+      .then(async (res) => {
+        if (res.data.status) {
+          dispatch({
+            type: "ADDFOLLOWER",
+            payload: res.data.data,
+          });
+        }
+      })
+      .catch((err) => {
+        return false;
+      })
+  }
+  else{
+    alert("Both address required")
+  }
+};
+
+export const RemoveFollower = (account,toFollow) => async (dispatch) => {
+ 
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/removeFollower',{walletAddress : account,toFollow:toFollow.walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+     
+        dispatch({
+          type: "REMOVEFOLLOWER",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+    
+};
+
+
+export const GetAlreadyFollowed = (account,toFollow) => async (dispatch) => {
+  if(!account || !toFollow){
+    alert("both required")
+    return false
+  }
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getAlreadyFollowed',{walletAddress : account,toFollow:toFollow})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GetAlreadyFollowed",
+          payload:res.data.data
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+
+export const GetNumberOfFollowers = (walletAddress) => async (dispatch) => {
+  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getNumberOfFollowers',{walletAddress : walletAddress.walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETNUMBEROFFOLLOWERS",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+// export const GetFollowing = (walletAddress) => async (dispatch) => {
+
+//   await axios.post('http://192.168.18.40:5000/user/getFollowing',{walletAddress : walletAddress.walletAddress})
+//     .then(async (res) => {
+//       if (res.data.status) {
+//         dispatch({
+//           type: "GETFOLLOWING",
+//           payload: res.data.data,
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       return false;
+//     })
+// };
+
+
+
+
+
+
+

@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
-import { UserReducer } from "../Reducers/Index";
+import { CollectionReducer } from "../Reducers/Index";
 
 const rootReducer = combineReducers({
-  UserReducer,
+    CollectionReducer:CollectionReducer,
+ 
 });
 
 export default rootReducer;

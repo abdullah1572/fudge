@@ -310,3 +310,10 @@ h2 {
   }
 /* Importing Bootstrap SCSS file. */
 // @import '~bootstrap/scss/bootstrap';
+//inputs errors
+.inputErrors{
+  color: 	#FF6666 !important;
+  padding: 2px;
+  font-size: 18px;
+  // padding-left: 32px;
+ }

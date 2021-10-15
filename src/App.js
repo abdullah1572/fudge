@@ -11,11 +11,20 @@ import Profile from './components/profile/Profile';
 import ProfileDetail from './components/profiledetail/Profike-Detail';
 import ArtWork from './components/artwork/ArkWork';
 import OwnerArtWork from './components/ownerartwork/OwnerArt';
+import { ToastContainer} from 'react-toastify';
 import OwnerProfile from './components/ownerprofile/OwnerProfile';
+import 'react-toastify/dist/ReactToastify.css';
+import {useCollectionAction,useToken} from './redux/action'
+import {useDispatch} from 'react-redux'
+
 function App() {
+  const dispatch=useDispatch();
+  dispatch(useCollectionAction());
+  dispatch(useToken());
   return (
     <>
         <Router>
+        <ToastContainer/>
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>
