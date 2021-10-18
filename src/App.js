@@ -4,7 +4,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Footer from './components/footer/Footer.js';
-import Header from './components/header/Header.js';
+// import Header from './components/header/Header.js';
 import Collection from './components/collection/Collection';
 import Create from './components/create/Create';
 import Profile from './components/profile/Profile';
@@ -15,6 +15,7 @@ import { ToastContainer} from 'react-toastify';
 import OwnerProfile from './components/ownerprofile/OwnerProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import {useCollectionAction,useToken} from './redux/action'
+import Header from './components/header/Header.js';
 import {useDispatch} from 'react-redux'
 
 function App() {
@@ -25,11 +26,14 @@ function App() {
     <>
         <Router>
         <ToastContainer/>
+        <div class="container">
+        <Header/>
+    </div>
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>
           <Route exact path='/profile' component={Profile}/> 
-          <Route exact path='/profiledetail' component={ProfileDetail}/> 
+          <Route exact path='/profiledetail/:walletAddress' component={ProfileDetail}/> 
           <Route exact path='/createitem' component={Create}/> 
           <Route exact path='/artwork' component={ArtWork}/> 
           <Route exact path='/ownerart' component={OwnerArtWork}/> 

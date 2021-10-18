@@ -37,7 +37,7 @@ const Profile = () => {
 
 <section class="main-bg">
     <div class="container">
-        <Header/>
+        {/* <Header/> */}
     </div>
     <div class="container-fluid p0">
         <div class="row">

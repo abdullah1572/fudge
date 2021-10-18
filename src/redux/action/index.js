@@ -1,12 +1,13 @@
 import axios from 'axios'
+import { API_URL } from '../../ApiURL';
 export const useCollectionAction = () => async (dispatch) => {
   
-  await axios.get('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/collection/getAllCollections')
+  await axios.get(`${API_URL}/collection/getAllCollections`)
     .then(async (res) => {
       if (res.data.status) {
         try {
           for (let elem of res.data.data) {
-            await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getTop3TokensOfCollection', { contractAddress: elem.contractAddress }).then((res) => {
+            await axios.post(`${API_URL}/token/getTop3TokensOfCollection`, { contractAddress: elem.contractAddress }).then((res) => {
               elem.CollectionImage = res.data.data
             })
           }
@@ -27,9 +28,20 @@ export const useCollectionAction = () => async (dispatch) => {
 };
 
 export const useToken = () => async (dispatch) => {
-  await axios.get('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getAllTokens')
+  await axios.get(`${API_URL}/token/getAllTokens`)
     .then(async (res) => {
       if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            console.log("token id",elem.tokenID)
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
         dispatch({
           type: "GETALLTOKEN",
           payload: res.data.data,
@@ -42,7 +54,7 @@ export const useToken = () => async (dispatch) => {
 };
 
 export const SingleTokenDataFetch = (_id) => async (dispatch) => {
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getToken',{_id : _id})
+  await axios.post(`${API_URL}/token/getToken`,{_id : _id})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -57,7 +69,7 @@ export const SingleTokenDataFetch = (_id) => async (dispatch) => {
 };
 
 export const GetUserNFTS = (walletAddress) => async (dispatch) => {
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getTokensOfUser',{walletAddress : walletAddress.walletAddress})
+  await axios.post(`${API_URL}/token/getTokensOfUser`,{walletAddress : walletAddress.walletAddress})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -71,7 +83,7 @@ export const GetUserNFTS = (walletAddress) => async (dispatch) => {
     })
 };
 export const GetUserData = (walletAddress) => async (dispatch) => {
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getUser',{walletAddress : walletAddress.walletAddress})
+  await axios.post(`${API_URL}/user/getUser`,{walletAddress : walletAddress.walletAddress})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -88,7 +100,7 @@ export const GetUserData = (walletAddress) => async (dispatch) => {
 
 export const SingleCollectionDataFetch = (contractAddress) => async (dispatch) => {
 
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/token/getAllTokensOfCollectionAndCollectionData',{contractAddress : contractAddress.contractAddress})
+  await axios.post(`${API_URL}/token/getAllTokensOfCollectionAndCollectionData`,{contractAddress : contractAddress.contractAddress})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -104,7 +116,7 @@ export const SingleCollectionDataFetch = (contractAddress) => async (dispatch) =
 
 export const AddFollower = (account,toFollow) => async (dispatch) => {
   if(account && toFollow){
-    await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/addFollower',{walletAddress : account,toFollow:toFollow})
+    await axios.post(`${API_URL}/user/addFollower`,{walletAddress : account,toFollow:toFollow})
       .then(async (res) => {
         if (res.data.status) {
           dispatch({
@@ -124,7 +136,7 @@ export const AddFollower = (account,toFollow) => async (dispatch) => {
 
 export const RemoveFollower = (account,toFollow) => async (dispatch) => {
  
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/removeFollower',{walletAddress : account,toFollow:toFollow.walletAddress})
+  await axios.post(`${API_URL}/user/removeFollower`,{walletAddress : account,toFollow:toFollow.walletAddress})
     .then(async (res) => {
       if (res.data.status) {
      
@@ -146,7 +158,7 @@ export const GetAlreadyFollowed = (account,toFollow) => async (dispatch) => {
     alert("both required")
     return false
   }
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getAlreadyFollowed',{walletAddress : account,toFollow:toFollow})
+  await axios.post(`${API_URL}/user/getAlreadyFollowed`,{walletAddress : account,toFollow:toFollow})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -162,7 +174,7 @@ export const GetAlreadyFollowed = (account,toFollow) => async (dispatch) => {
 
 
 export const GetNumberOfFollowers = (walletAddress) => async (dispatch) => {
-  await axios.post('http://ec2-54-218-126-72.us-west-2.compute.amazonaws.com:5001/user/getNumberOfFollowers',{walletAddress : walletAddress.walletAddress})
+  await axios.post(`${API_URL}/user/getNumberOfFollowers`,{walletAddress : walletAddress.walletAddress})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({

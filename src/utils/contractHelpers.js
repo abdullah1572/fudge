@@ -8,6 +8,7 @@ import BlueMoonProAbi from './BlueMoonProAbi.json'
 import BlueMoonUniqueAbi from './BlueMoonUniqueAbi.json'
 import BlueMoonFreshAbi from './BlueMoonFreshAbi.json'
 import  FactoryBlueMoonAbi from './ FactoryBlueMoonAbi.json'
+import FudgeBuyAndSale from './FudgeBuyAndSale.json'
 
 const getContract = (abi, address, web3) => {
     const _web3 = web3 ?? web3NoAccount;
@@ -25,6 +26,9 @@ export const  BlueMoonFreshContract=(address,web3)=>{
 }
 export const  BlueMoonFactoryContract=(address,web3)=>{
     return getContract(FactoryBlueMoonAbi, address, web3)
+}
+export const  FudgeContract=(address,web3)=>{
+    return getContract(FudgeBuyAndSale, address, web3)
 }
 // export const daoProxyContract = (address, web3) => {
 //     return getContract(BlueMoonDAOProxyAbi, address, web3)

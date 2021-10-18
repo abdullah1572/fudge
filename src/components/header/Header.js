@@ -1,13 +1,16 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
 import useAuth from '../../hooks/useAuth';
+import Signature from '../../SignMessage/Signature';
 const Header = () => {
   const {account} = useWeb3React();
   const { login, logout } = useAuth();
-  console.log("account",account)
-
+  const { userSign } = Signature(account);
+ const disconnect=()=>{
+   logout()
+ }
   const connectMetaMask = () => {
     localStorage.setItem('injected', "injected")
     if (account) {
@@ -18,14 +21,18 @@ const Header = () => {
     }
   }
 
+  useEffect (async() => {
+    await userSign();
+  },[account])
+
   return (
     <>
 
       <header class="main-nav">
         <nav class="navbar navbar-expand-lg ">
-          <a class="navbar-brand" href="/">
+          <Link class="navbar-brand" to="/">
             <img src="pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
-          </a>
+          </Link>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="style-bar"></div>
@@ -48,15 +55,14 @@ const Header = () => {
               <li class="nav-item">
                 <Link class="nav-link" to="/createitem">CREATE</Link>
               </li>
+              {!account ?
               <li class="nav-item">
                 <div >
-                  <a class="nav-link" data-toggle="modal" data-target="#exampleModal">{account ?"DISCONNECT":"CONNECT"} </a>
+                  <a class="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT </a>
                 </div>
-                {/* <div>
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" >DISCONNECT</a>
-          </div> */}
               </li>
-
+                  :""}
+              {account &&
               <li class="nav-item">
                 <div class="dropdown">
                   {/* <div >
@@ -163,11 +169,14 @@ const Header = () => {
                               </a>
                             </li>
                             <li>
-                              <Link to="profiledetail">Edit Profile</Link>
+                              <Link to={`profiledetail/${account}`}>Edit Profile</Link>
                             </li>
                           </ul>
                           <hr />
-                          <div ><a>Disconnect Wallet</a></div>
+                          <div >
+                            {/* <a>Disconnect Wallet</a> */}
+                            <button type="button" onClick={disconnect}>Disconnect Wallet</button>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -175,6 +184,7 @@ const Header = () => {
 
                 </div>
               </li>
+}
 
             </ul>
 

@@ -9,7 +9,8 @@ let Environment = {
   BlueMoonPro:'0x9E6e6552aF59Bd091a7C2a81d480bC6977A9e7EE',
   BlueMoonUnique:'0x593A460fD8fac51fa138506D1001Ac4fA8ea2B08',
   BlueMoonFresh:'0x9dACD9eCFf076265Ce4930e3D714c8d7fb1608Dd',
-  FactoryBlueMoon:"0xcc5469B80733636cFF35641a8410c53b0bC1738F"
+  FactoryBlueMoon:"0xcc5469B80733636cFF35641a8410c53b0bC1738F",
+  Fudge:'0x8ab7e34387282B92436556f40c53B878DB93790E'
 
 };
 export default Environment;

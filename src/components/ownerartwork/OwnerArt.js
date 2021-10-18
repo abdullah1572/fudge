@@ -39,7 +39,7 @@ const OwnerArtWork= () => {
 
             <section class="main-banner">
                 <div class="container">
-                    <Header />
+                    {/* <Header /> */}
                     <div class="row ptb">
                         {/* <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
                 [fullScreen]="true"></div>

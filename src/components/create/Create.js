@@ -10,7 +10,7 @@ import environment from '../../utils/Environment';
 import './create.scss';
 const Create = () => {
     const {account}=useWeb3React();
-    const [dropDown, setDropDown] = useState('Category');
+    const [dropDown, setDropDown] = useState('Art');
     const [fileUrl, updateFileUrl] = useState(``);
     const { mintPro } = MintPro(fileUrl);
     const [allFormData, setAllFormData] = useState({
@@ -57,8 +57,6 @@ const Create = () => {
     console.log("file url",fileUrl)
     const handleSubmit = useCallback(async () => {
         formValidation();
-
-        console.log("submitted",allFormData.formData)
         if (account) {
                 if (allFormData.formData.userName === "" && allFormData.formData.description === "" && allFormData.formData.price==='' && fileUrl === '') {
                     toast.warning('Fill the required Fileds', {
@@ -153,7 +151,7 @@ const Create = () => {
 
             <section class="create">
                 <div class="container">
-                    <Header />
+                    {/* <Header /> */}
                     <div class="row  ptb">
                         <div class="col-sm-12">
                             <div class="inner-head">

@@ -1,6 +1,6 @@
 const initState = {
   GetAllCollection: [],
-  GetAllToken: [],
+  GetAllToken: [{user:[]}],
   GetSingletTokenData: [],
   GetSingleCollectionData: { tokens: [], collection: [] },
   GetUserData:[],

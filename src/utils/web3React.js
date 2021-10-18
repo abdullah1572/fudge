@@ -2,6 +2,8 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { BscConnector } from '@binance-chain/bsc-connector'
 import getNodeUrl from './getRpcUrl'
+import { Web3Provider } from "@ethersproject/providers";
+
 
 const ConnectorNames = {
     Injected: "injected",
@@ -40,7 +42,10 @@ export const connectorsByName = {
     [ConnectorNames.WalletConnect]: walletconnect,
     [ConnectorNames.BSC]: bscConnector,
 }
-
+export const getLibraryForSign = (provider) => {
+    const library = new Web3Provider(provider);
+    return library
+}
 export const getLibrary = (provider) => {
     return provider
 }

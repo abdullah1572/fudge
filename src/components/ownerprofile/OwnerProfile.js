@@ -36,9 +36,7 @@ const OwnerProfile = () => {
         <>
 
 <section class="main-bg">
-    <div class="container">
-        <Header/>
-    </div>
+    
     <div class="container-fluid p0">
         <div class="row">
             <div class="col-sm-12">
