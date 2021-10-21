@@ -1,5 +1,5 @@
 const initState = {
-  GetLatestNfts: [],
+  GetLatestUploadNfts: [{ users: [] ,creators:[],orders:[],likedby:[]}],
   GetAllToken: [{ users: [] ,creators:[],orders:[],likedby:[]}],
   GetSingletTokenData: [],
   GetSingleCollectionData: { tokens: [], collection: [] },
@@ -16,15 +16,15 @@ const initState = {
   Sports: [{ users: [] ,creators:[],orders:[],likedby:[]}],
   Memes: [{ users: [] ,creators:[],orders:[],likedby:[]}],
 
-  GetAllTokensOfCreator:[]
+  GetAllTokensOfCreator:[{ users: [] ,creators:[],orders:[],likedby:[]}]
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
   switch (type) {
-    case "GETCOLLECTION":
+    case "GetTop4TokensOfCollection":
       return {
         ...state,
-        GetLatestNfts: payload,
+        GetLatestUploadNfts: payload,
       };
     case "GetAllNftsAndDetals":
       return {

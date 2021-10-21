@@ -9,14 +9,12 @@ const ArtWork = () => {
 
     const [terms, setTerms] = useState(false);
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
-
+    console.log("single",single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
     }, [single?.creator?.walletAddress])
-    // console.log("single",single)
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
-    console.log("creator", creatorData)
     const handleChange = () => {
         if (terms) {
             setTerms(false)
@@ -28,15 +26,28 @@ const ArtWork = () => {
     }
     const [priceFormat, setPriceFormat] = useState('');
     const { FudgeBuy } = Buy(priceFormat, single?.order?.tokenID)
-
     const BuyNft = useCallback(async () => {
         const p = getPriceFormat(single?.order?.price)
         setPriceFormat(p)
         await FudgeBuy()
-
     })
-
     const MoreCreatorNfts = creatorData.map((elem) => {
+
+        const creator=elem?.creators.map((elem)=>{
+            return(
+                <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
+            )
+        })
+        const owner=elem?.users.map((elem)=>{
+            return(
+                <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
+            )
+        })
+        const price=elem.orders.map((elem)=>{
+            return(
+                <h6 class="clr">{elem?.price} BNB</h6>
+            )
+        })
         return (
             <div class="col-sm-3">
                 <Link to="artwork">
@@ -44,26 +55,24 @@ const ArtWork = () => {
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
-                                    <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                                    {creator}
                                 </div>
                             </li>
                             <li class="list-inline-item">
                                 <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
-                                    <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                                    {owner}
                                 </div>
                             </li>
                         </ul>
                         <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
-                        <h6 class="clr">{elem?.orders[0]?.price} BNB</h6>
+                        <h6 class="clr">{price}</h6>
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                                <span class="grey"> {elem?.numerOfLikes}</span>
                             </li>
                         </ul>
                     </div>
@@ -74,7 +83,6 @@ const ArtWork = () => {
 
     return (
         <>
-
             <section class="art-work">
                 <div class="container">
                     <div class="row ptb">
@@ -118,7 +126,7 @@ const ArtWork = () => {
                                     <div class="col-sm-12">
                                         <div class="profile">
                                             <div class="profile-heading">
-                                                <h2 class="inner-heading" >{single?.token?.userName}</h2>
+                                                <h2 class="inner-heading" >{single?.token?.nftName}</h2>
                                                 <h4 class="inner-para"> <span>{single?.order?.price} BNB</span></h4>
                                             </div>
                                             <div class="icons">
@@ -126,7 +134,7 @@ const ArtWork = () => {
                                                     <li class="list-inline-item" >
                                                         <img src="pegify/landing-assets/heart.png" alt=""
                                                             class="img-fluid" />
-                                                        <span class="grey"> 20</span>
+                                                        <span class="grey"> {single?.token?.numerOfLikes}</span>
                                                     </li>
                                                 </ul>
                                             </div>

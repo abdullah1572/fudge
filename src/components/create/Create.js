@@ -65,29 +65,25 @@ const Create = () => {
     const handleSubmit = useCallback(async () => {
         formValidation();
         if (account) {
-            if (allFormData.formData.nftName === "" && allFormData.formData.description === "" && allFormData.formData.price === '' && fileUrl === '') {
+            if (allFormData.formData.nftName === '' && allFormData.formData.description === '' && allFormData.formData.price === '' && fileUrl === '') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
                 });
-                return
+                return 
             }
 
             try {
                 if (allFormData.formData.putOnMarketplace) {
                     const tokenId = await mintPro();
                     setId(tokenId)
-                    const app = await ApproveAllTokenID();
+                    await ApproveAllTokenID();
                     try {
 
-                        const p = getPriceFormat(allFormData.formData.price)
-
-                        console.log("ppppppppppppppppppp", p)
-                        setPriceFormat(p)
+                        const price = getPriceFormat(allFormData.formData.price)
+                        setPriceFormat(price)
                         await FudgeSale();
                     }
-
-
                     catch (err) {
                         console.log("errrrrrrrrrrrrrrrrrrrrrrrr", err)
                     }
@@ -162,7 +158,7 @@ const Create = () => {
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20 }} width="400px" height="400px" />)}
+                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20 ,borderRadius:30}} width="400px" height="400px" />)}
                                         </div>
                                     </div>
                                 </div>

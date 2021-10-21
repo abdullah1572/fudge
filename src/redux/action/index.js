@@ -5,21 +5,11 @@ import { API_URL } from '../../ApiURL';
 
 export const GetTop4TokensOfCollection = () => async (dispatch) => {
   
-  await axios.get(`${API_URL}/collection/getAllCollections`)
+  await axios.get(`${API_URL}/token/getTop4TokensOfCollection`)
     .then(async (res) => {
       if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTop4TokensOfCollection`, { contractAddress: elem.contractAddress }).then((res) => {
-              elem.CollectionImage = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
         dispatch({
-          type: "GETCOLLECTION",
+          type: "GetTop4TokensOfCollection",
           payload: res.data.data,
         });
       }

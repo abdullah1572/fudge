@@ -91,7 +91,7 @@ const MainLanding = () => {
                         </ul>
                         <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                        <h4>{elem?.userName}</h4>
+                        <h4>{elem?.nftName}</h4>
                         <h6 class="clr">{price} </h6>
                         <hr />
                         <ul class="list-inline">
@@ -141,7 +141,7 @@ const MainLanding = () => {
                     </ul>
                     <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.userName}</h4>
+                    <h4>{elem?.nftName}</h4>
                     <h6 class="clr">{price} </h6>
                     <hr />
                     <ul class="list-inline">
@@ -192,7 +192,7 @@ const MainLanding = () => {
                     </ul>
                     <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.userName}</h4>
+                    <h4>{elem?.nftName}</h4>
                     <h6 class="clr">{price} </h6>
                     <hr />
                     <ul class="list-inline">
@@ -245,7 +245,7 @@ const MainLanding = () => {
                     </ul>
                     <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.userName}</h4>
+                    <h4>{elem?.nftName}</h4>
                     <h6 class="clr">{price} </h6>
                     <hr />
                     <ul class="list-inline">
@@ -296,7 +296,7 @@ const MainLanding = () => {
                     </ul>
                     <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.userName}</h4>
+                    <h4>{elem?.nftName}</h4>
                     <h6 class="clr">{price} </h6>
                     <hr />
                     <ul class="list-inline">
@@ -313,9 +313,23 @@ const MainLanding = () => {
 
 
 
-    const latestUpload= useSelector(state => state.CollectionReducer.GetLatestNfts)
-    // console.log("latestUpload",latestUpload)
-    const latest=latestUpload.map((elem)=>{
+    const latestUpload= useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
+    const latest=latestUpload?.map((elem)=>{
+        const creator=elem?.creators.map((elem)=>{
+            return(
+                <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
+            )
+        })
+        const owner=elem?.users.map((elem)=>{
+            return(
+                <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
+            )
+        })
+        const price=elem.orders.map((elem)=>{
+            return(
+                <h6 class="clr">{elem?.price} BNB</h6>
+            )
+        })
         return(
         <div class="col-sm-3">
         <Link to="artwork">
@@ -323,26 +337,24 @@ const MainLanding = () => {
                 <ul class="list-inline">
                     <li class="list-inline-item">
                         <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                            <img src="pegify/landing-assets/user-image.png" alt="" class="inner-tiless" />
-                            <img src="pegify/landing-assets/Vector.svg" alt="" class=" for-check" />
+                          {creator}
                         </div>
                     </li>
                     <li class="list-inline-item">
                         <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                            <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
-                            <img src="pegify/landing-assets/Vector.svg" alt="" class="img-fluid for-check" />
+                         {owner}
                         </div>
                     </li>
                 </ul>
-                <img src={elem?.image} alt="" class="img-fluid mb10 set_width_height" />
+                <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                <h4>#11 EVOL Frank</h4>
-                <h6 class="clr">0.70 BNB</h6>
+                <h4>{elem?.nftName}</h4>
+                <h6 class="clr">{price}</h6>
                 <hr />
                 <ul class="list-inline">
                     <li class="list-inline-item">
                         <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                        <span class="grey"> 1.5k </span>
+                        <span class="grey"> {elem?.numerOfLikes} </span>
                     </li>
                 </ul>
             </div>
