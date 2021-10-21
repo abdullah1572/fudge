@@ -40,8 +40,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                                <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                   <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -76,8 +79,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                            <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -112,8 +118,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                            <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -148,8 +157,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                            <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -186,8 +198,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                            <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -223,8 +238,11 @@ const MainLanding = () => {
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                <span class="grey"> 1.5k </span>
+                            <button className="for-style11">
+                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
+                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
+                                </button>
                             </li>
                         </ul>
                     </div>
