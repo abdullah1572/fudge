@@ -1,2 +1,0 @@
-(this.webpackJsonpopencanvas=this.webpackJsonpopencanvas||[]).push([[4],{252:function(n,c){},303:function(n,c){},305:function(n,c){},330:function(n,c){},332:function(n,c){},344:function(n,c){},345:function(n,c){},369:function(n,c){},371:function(n,c){}}]);
-//# sourceMappingURL=4.90e20115.chunk.js.map
