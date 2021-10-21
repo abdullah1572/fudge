@@ -14,6 +14,7 @@ const Profile = () => {
         dispatch(GetUserData(walletAddress));
     }, [walletAddress])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
+    console.log("userData",userData)
     const owl_option = {
 
         margin: 40,

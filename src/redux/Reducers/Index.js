@@ -1,6 +1,6 @@
 const initState = {
-  GetAllCollection: [],
-  GetAllToken: [{ user: [] }],
+  GetLatestNfts: [],
+  GetAllToken: [{ users: [] ,creators:[],orders:[],likedby:[]}],
   GetSingletTokenData: [],
   GetSingleCollectionData: { tokens: [], collection: [] },
   GetUserData: [],
@@ -10,12 +10,13 @@ const initState = {
   GetAlreadyFollowed: [],
   GetNumberOfFollowers: [],
   GetFollowing: [],
+  Art: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  PhotoGraphy: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  Games: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  Sports: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  Memes: [{ users: [] ,creators:[],orders:[],likedby:[]}],
 
-  Art: [{ user: [] }],
-  PhotoGraphy: [{ user: [] }],
-  Games: [{ user: [] }],
-  Sports: [{ user: [] }],
-  Memes: [{ user: [] }],
+  GetAllTokensOfCreator:[]
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -23,9 +24,9 @@ export const CollectionReducer = (state = initState, action) => {
     case "GETCOLLECTION":
       return {
         ...state,
-        GetAllCollection: payload,
+        GetLatestNfts: payload,
       };
-    case "GETALLTOKEN":
+    case "GetAllNftsAndDetals":
       return {
         ...state,
         GetAllToken: payload,
@@ -105,6 +106,13 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         Memes: payload,
       };
+
+      case "GetAllTokensOfCreator":
+        return {
+          ...state,
+          GetAllTokensOfCreator: payload,
+        };
+
     default:
       return state;
   }

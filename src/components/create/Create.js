@@ -40,9 +40,6 @@ const Create = () => {
     const [priceFormat,setPriceFormat]=useState('');
     const { ApproveAllTokenID } = ApproveForAll()
     const { FudgeSale } = Sale(id,priceFormat)
-    // console.log("((allFormData.formData.price)*(10**18))",((allFormData.formData.price)*(10**18)))
-    // console.log("price",allFormData.formData.price)
-    //  console.log("id==========================",id)
     const Item = [
         {
             itemList: 'Art'
