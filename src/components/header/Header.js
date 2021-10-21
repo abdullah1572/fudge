@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
 import useAuth from '../../hooks/useAuth';
 import Signature from '../../SignMessage/Signature';
+
 const Header = () => {
   const {account} = useWeb3React();
   const { login, logout } = useAuth();
@@ -31,7 +32,7 @@ const Header = () => {
       <header class="main-nav">
         <nav class="navbar navbar-expand-lg ">
           <Link class="navbar-brand" to="/">
-            <img src="pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
+            <img src="/pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
           </Link>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,7 +121,7 @@ const Header = () => {
                   <div>
                     <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                      <img src="pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                      <img src="/pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <div class="row">
@@ -141,7 +142,7 @@ const Header = () => {
                           <div class="row ptb20">
                             <div class="col-sm-3">
                               <div class="inner-im text-center">
-                                <img src="assets/bnb-logo.png" alt="" class="img-fluid" />
+                                <img src="/assets/bnb-logo.png" alt="" class="img-fluid" />
                               </div>
                             </div>
                             <div class="col-sm-9">
@@ -164,12 +165,12 @@ const Header = () => {
                             <li>
                               <a >
                                 <div>
-                                  <Link to="profile"> My Profile</Link>
+                                  <Link to={`/profile/${account}`}> My Profile</Link>
                                 </div>
                               </a>
                             </li>
                             <li>
-                              <Link to={`profiledetail/${account}`}>Edit Profile</Link>
+                              <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
                             </li>
                           </ul>
                           <hr />

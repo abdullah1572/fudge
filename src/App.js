@@ -28,11 +28,11 @@ function App() {
         <ToastContainer/>
         <div class="container">
         <Header/>
-    </div>
+        </div>
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>
-          <Route exact path='/profile' component={Profile}/> 
+          <Route exact path='/profile/:walletAddress' component={Profile}/> 
           <Route exact path='/profiledetail/:walletAddress' component={ProfileDetail}/> 
           <Route exact path='/createitem' component={Create}/> 
           <Route exact path='/artwork' component={ArtWork}/> 

@@ -1,15 +1,21 @@
 const initState = {
   GetAllCollection: [],
-  GetAllToken: [{user:[]}],
+  GetAllToken: [{ user: [] }],
   GetSingletTokenData: [],
   GetSingleCollectionData: { tokens: [], collection: [] },
-  GetUserData:[],
+  GetUserData: [],
   GetUserAllNFTS: [],
-  AddFollower:[],
-  RemoveFollower:[],
-  GetAlreadyFollowed:[],
-  GetNumberOfFollowers:[],
-  GetFollowing:[],
+  AddFollower: [],
+  RemoveFollower: [],
+  GetAlreadyFollowed: [],
+  GetNumberOfFollowers: [],
+  GetFollowing: [],
+
+  Art: [{ user: [] }],
+  PhotoGraphy: [{ user: [] }],
+  Games: [{ user: [] }],
+  Sports: [{ user: [] }],
+  Memes: [{ user: [] }],
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -24,7 +30,7 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetAllToken: payload,
       };
-    case "SINGLETOKENDATA":
+    case "GetTokenAndDetails":
       return {
         ...state,
         GetSingletTokenData: payload,
@@ -34,41 +40,70 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetSingleCollectionData: payload,
       };
-      case "GETUSERDATA":
-        return {
-          ...state,
-          GetUserData: payload,
-        };
+    case "GETUSERDATA":
+      return {
+        ...state,
+        GetUserData: payload,
+      };
     case "GETUSERNFTS":
       return {
         ...state,
         GetUserAllNFTS: payload,
       };
-      case "ADDFOLLOWER":
+    case "ADDFOLLOWER":
       return {
         ...state,
         payload,
       };
-      case "REMOVEFOLLOWER":
+    case "REMOVEFOLLOWER":
       return {
         ...state,
         RemoveFollower: payload,
       };
 
-      case "GetAlreadyFollowed":
-        return {
-          ...state,
-          GetAlreadyFollowed:payload,
-        };
-      case "GETNUMBEROFFOLLOWERS":
+    case "GetAlreadyFollowed":
+      return {
+        ...state,
+        GetAlreadyFollowed: payload,
+      };
+    case "GETNUMBEROFFOLLOWERS":
       return {
         ...state,
         GetNumberOfFollowers: payload,
       };
-      case "GETFOLLOWING":
+    case "GETFOLLOWING":
       return {
         ...state,
         GetFollowing: payload,
+      };
+
+    case "ART":
+      return {
+        ...state,
+        Art: payload,
+      };
+
+    case "PHOTOGRAPHY":
+      return {
+        ...state,
+        PhotoGraphy: payload,
+      };
+
+    case "GAMES":
+      return {
+        ...state,
+        Games: payload,
+      };
+
+    case "SPORTS":
+      return {
+        ...state,
+        Sports: payload,
+      };
+    case "MEMES":
+      return {
+        ...state,
+        Memes: payload,
       };
     default:
       return state;

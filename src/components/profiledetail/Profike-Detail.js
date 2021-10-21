@@ -26,11 +26,11 @@ const ProfileDetail = () => {
         formValidation()
         if(account){
             try{
-                if(allFormData.formData.displayName==='' && allFormData.formData.description==='' && fileUrl===''){
+                if(allFormData.formData.displayName ==='' && allFormData.formData.bio ==='' && fileUrl===''){
 
                     toast.warning("Fill the Required Fileds",{
                         position: "top-right",
-                        autoClose: 5000,
+                        autoClose: 2000,
                     })
                     return
                 }

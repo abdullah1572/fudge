@@ -13,7 +13,7 @@ export const MintPro = (uri) => {
         const  mint=  await contract.methods.mintPro(account,uri).send({ from: account })
         // console.log("mint",mint.events.Transfer.returnValues.tokenId)
         return mint.events.Transfer.returnValues.tokenId;
-    }, [account, contract])
+    }, [account, contract,uri])
 
     return { mintPro: MintProFun }
 }
@@ -28,7 +28,7 @@ export const MintUnique = (uri) => {
     const MintUniqueFun = useCallback(async () => {
         const  mint=  await contract.methods.mintUnique(account,uri).send({ from: account }).on('transactionHash', (tx) => { return tx.transactionHash });
         return mint.events.Transfer.returnValues.tokenId;;
-    }, [account, contract])
+    }, [account, contract,uri])
 
     return { mintUnique: MintUniqueFun }
 }
@@ -41,7 +41,7 @@ export const MintFresh = (uri) => {
     const MintFreshFun = useCallback(async () => {
         const  mint=  await contract.methods.mintFresh(account,uri).send({ from: account }).on('transactionHash', (tx) => { return tx.transactionHash });
         return mint.events.Transfer.returnValues.tokenId;
-    }, [account, contract])
+    }, [account, contract,uri])
 
     return { mintFresh: MintFreshFun }
 }
@@ -55,7 +55,7 @@ export const MintCustomCollection = (name,symbol) => {
         const  mint=  await contract.methods.deployNewCollection(account,name,symbol).send({ from: account });
         // console.log("mint",mint.events.newCollection.returnValues.contractAddress)
         return mint.events.newCollection.returnValues.contractAddress
-    }, [account, contract])
+    }, [account, contract,name,symbol])
 
     return { mintCustom: MintCustomCollection }
 }

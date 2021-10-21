@@ -33,7 +33,6 @@ export const useToken = () => async (dispatch) => {
       if (res.data.status) {
         try {
           for (let elem of res.data.data) {
-            console.log("token id",elem.tokenID)
             await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
             elem.NftData = res.data.data
             })
@@ -53,12 +52,12 @@ export const useToken = () => async (dispatch) => {
     })
 };
 
-export const SingleTokenDataFetch = (_id) => async (dispatch) => {
-  await axios.post(`${API_URL}/token/getToken`,{_id : _id})
+export const GetTokenAndDetails = (contractAddress,walletAddress,tokenID) => async (dispatch) => {
+  await axios.post(`${API_URL}/token/getTokenAndDetails`,{contractAddress: contractAddress,walletAddress:walletAddress,tokenID:tokenID })
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
-          type: "SINGLETOKENDATA",
+          type: "GetTokenAndDetails",
           payload: res.data.data,
         });
       }
@@ -67,6 +66,10 @@ export const SingleTokenDataFetch = (_id) => async (dispatch) => {
       return false;
     })
 };
+
+
+
+
 
 export const GetUserNFTS = (walletAddress) => async (dispatch) => {
   await axios.post(`${API_URL}/token/getTokensOfUser`,{walletAddress : walletAddress.walletAddress})
@@ -187,6 +190,136 @@ export const GetNumberOfFollowers = (walletAddress) => async (dispatch) => {
       return false;
     })
 };
+
+
+export const Art = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensOfArt`)
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
+        dispatch({
+          type: "ART",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const Photography = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensOfPhotography`)
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
+        dispatch({
+          type: "PHOTOGRAPHY",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const Games = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensOfGames`)
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
+        dispatch({
+          type: "GAMES",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+
+export const Sports = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensOfSports`)
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
+        dispatch({
+          type: "SPORTS",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const Memes = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensOfMemes`)
+    .then(async (res) => {
+      if (res.data.status) {
+        try {
+          for (let elem of res.data.data) {
+            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+            elem.NftData = res.data.data
+            })
+          }
+        }
+        catch (err) {
+          return false;
+        }
+        dispatch({
+          type: "MEMES",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+
+
 
 // export const GetFollowing = (walletAddress) => async (dispatch) => {
 

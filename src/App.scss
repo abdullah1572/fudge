@@ -104,7 +104,43 @@ h4 {
     display: inline-block;
 }
 
+.btn-common1{
+opacity: .4;
+background-color: #f2b10f;
+color: #fff;
+padding: 16px 20px;
+border-radius: 35px;
+text-decoration: none;
+margin-right: 10px;
+pointer-events: none;
+text-transform: uppercase;
+font-size: 16px;
+font-weight: 500;
+line-height: 19px;
+width: 100%;
+box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3);
+border: 1px solid #f2b10f;
+cursor: pointer !important;
+img {
+    width: 28px;
+    margin-left: 10px;
+}
 
+&:hover {
+ // border: 1px solid #f2b10f;
+ color: #fff;
+ box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3);
+ background-color: #f2b10f;
+}
+&:active {
+ color: #fff !important;
+ background-color: #f2b10f;
+//   box-shadow: 0px 0px 10px 2px #888;
+}
+&:focus {
+ outline: none;
+}
+}
 .btn-common {
    background-color: #f2b10f;
    color: #fff;
