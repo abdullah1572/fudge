@@ -1,13 +1,16 @@
 import axios from 'axios'
 import { API_URL } from '../../ApiURL';
-export const useCollectionAction = () => async (dispatch) => {
+
+
+
+export const GetTop4TokensOfCollection = () => async (dispatch) => {
   
   await axios.get(`${API_URL}/collection/getAllCollections`)
     .then(async (res) => {
       if (res.data.status) {
         try {
           for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTop3TokensOfCollection`, { contractAddress: elem.contractAddress }).then((res) => {
+            await axios.post(`${API_URL}/token/getTop4TokensOfCollection`, { contractAddress: elem.contractAddress }).then((res) => {
               elem.CollectionImage = res.data.data
             })
           }
@@ -27,22 +30,12 @@ export const useCollectionAction = () => async (dispatch) => {
     })
 };
 
-export const useToken = () => async (dispatch) => {
-  await axios.get(`${API_URL}/token/getAllTokens`)
+export const GetAllNftsAndDetails = () => async (dispatch) => {
+  await axios.get(`${API_URL}/token/getAllTokensAndDetails`)
     .then(async (res) => {
       if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
         dispatch({
-          type: "GETALLTOKEN",
+          type: "GetAllNftsAndDetals",
           payload: res.data.data,
         });
       }
@@ -51,6 +44,33 @@ export const useToken = () => async (dispatch) => {
       return false;
     })
 };
+
+
+
+// export const useToken = () => async (dispatch) => {
+//   await axios.get(`${API_URL}/token/getAllTokens`)
+//     .then(async (res) => {
+//       if (res.data.status) {
+//         try {
+//           for (let elem of res.data.data) {
+//             await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+//             elem.NftData = res.data.data
+//             })
+//           }
+//         }
+//         catch (err) {
+//           return false;
+//         }
+//         dispatch({
+//           type: "GETALLTOKEN",
+//           payload: res.data.data,
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       return false;
+//     })
+// };
 
 export const GetTokenAndDetails = (contractAddress,walletAddress,tokenID) => async (dispatch) => {
   await axios.post(`${API_URL}/token/getTokenAndDetails`,{contractAddress: contractAddress,walletAddress:walletAddress,tokenID:tokenID })
@@ -116,6 +136,24 @@ export const SingleCollectionDataFetch = (contractAddress) => async (dispatch) =
       return false;
     })
 };
+
+export const GetAllTokensOfCreator = (creatorAddress) => async (dispatch) => {
+
+  await axios.post(`${API_URL}/token/getAllTokensOfCreator`,{ creatorAddress : creatorAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GetAllTokensOfCreator",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+
 
 export const AddFollower = (account,toFollow) => async (dispatch) => {
   if(account && toFollow){
@@ -192,20 +230,36 @@ export const GetNumberOfFollowers = (walletAddress) => async (dispatch) => {
 };
 
 
+// export const Art = () => async (dispatch) => {
+//   await axios.get(`${API_URL}/token/getAllTokensOfArt`)
+//     .then(async (res) => {
+//       if (res.data.status) {
+//         try {
+//           for (let elem of res.data.data) {
+//             await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
+//             elem.NftData = res.data.data
+//             })
+//           }
+//         }
+//         catch (err) {
+//           return false;
+//         }
+//         dispatch({
+//           type: "ART",
+//           payload: res.data.data,
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       return false;
+//     })
+// };
+
+
 export const Art = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfArt`)
     .then(async (res) => {
       if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
         dispatch({
           type: "ART",
           payload: res.data.data,
@@ -216,21 +270,10 @@ export const Art = () => async (dispatch) => {
       return false;
     })
 };
-
 export const Photography = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfPhotography`)
     .then(async (res) => {
       if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
         dispatch({
           type: "PHOTOGRAPHY",
           payload: res.data.data,
@@ -244,27 +287,17 @@ export const Photography = () => async (dispatch) => {
 
 export const Games = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfGames`)
-    .then(async (res) => {
-      if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
-        dispatch({
-          type: "GAMES",
-          payload: res.data.data,
-        });
-      }
-    })
-    .catch((err) => {
-      return false;
-    })
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "GAMES",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
 };
 
 
@@ -272,16 +305,6 @@ export const Sports = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfSports`)
     .then(async (res) => {
       if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
         dispatch({
           type: "SPORTS",
           payload: res.data.data,
@@ -295,27 +318,17 @@ export const Sports = () => async (dispatch) => {
 
 export const Memes = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfMemes`)
-    .then(async (res) => {
-      if (res.data.status) {
-        try {
-          for (let elem of res.data.data) {
-            await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-            elem.NftData = res.data.data
-            })
-          }
-        }
-        catch (err) {
-          return false;
-        }
-        dispatch({
-          type: "MEMES",
-          payload: res.data.data,
-        });
-      }
-    })
-    .catch((err) => {
-      return false;
-    })
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "MEMES",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
 };
 
 

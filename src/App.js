@@ -14,14 +14,14 @@ import OwnerArtWork from './components/ownerartwork/OwnerArt';
 import { ToastContainer} from 'react-toastify';
 import OwnerProfile from './components/ownerprofile/OwnerProfile';
 import 'react-toastify/dist/ReactToastify.css';
-import {useCollectionAction,useToken} from './redux/action'
+import {GetTop4TokensOfCollection,GetAllNftsAndDetails} from './redux/action'
 import Header from './components/header/Header.js';
 import {useDispatch} from 'react-redux'
 
 function App() {
   const dispatch=useDispatch();
-  dispatch(useCollectionAction());
-  dispatch(useToken());
+  dispatch(GetTop4TokensOfCollection());
+  dispatch(GetAllNftsAndDetails());
   return (
     <>
         <Router>

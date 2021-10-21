@@ -207,7 +207,7 @@ const Header = () => {
                       <div class="row">
                         <div class="col-sm-12 text-center">
                           <div class="">
-                            <img src="pegify/collection/metamask.png" class="img-fluid" />
+                            <img src="/pegify/collection/metamask.png" class="img-fluid" />
                             <a>
                               <h4 class="">METAMASK</h4>
                               <p class=""><small>One of the most secure wallets with great flexibility</small> </p>
