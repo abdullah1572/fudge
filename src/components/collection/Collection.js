@@ -195,7 +195,7 @@ const Collection = () => {
                     </ul>
                     <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.userName}</h4>
+                    <h4>{elem?.nftName}</h4>
                     <h6 class="clr">{price} </h6>
                     <hr />
                     <ul class="list-inline">

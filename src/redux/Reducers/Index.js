@@ -1,6 +1,7 @@
+
 const initState = {
-  GetLatestUploadNfts: [{ users: [] ,creators:[],orders:[],likedby:[]}],
-  GetAllToken: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  GetLatestUploadNfts: [{ users: [], creators: [], orders: [], likedby: [] }],
+  GetAllToken: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetSingletTokenData: [],
   GetSingleCollectionData: { tokens: [], collection: [] },
   GetUserData: [],
@@ -10,13 +11,20 @@ const initState = {
   GetAlreadyFollowed: [],
   GetNumberOfFollowers: [],
   GetFollowing: [],
-  Art: [{ users: [] ,creators:[],orders:[],likedby:[]}],
-  PhotoGraphy: [{ users: [] ,creators:[],orders:[],likedby:[]}],
-  Games: [{ users: [] ,creators:[],orders:[],likedby:[]}],
-  Sports: [{ users: [] ,creators:[],orders:[],likedby:[]}],
-  Memes: [{ users: [] ,creators:[],orders:[],likedby:[]}],
+  Art: [{ users: [], creators: [], orders: [], likedby: [] }],
+  PhotoGraphy: [{ users: [], creators: [], orders: [], likedby: [] }],
+  Games: [{ users: [], creators: [], orders: [], likedby: [] }],
+  Sports: [{ users: [], creators: [], orders: [], likedby: [] }],
+  Memes: [{ users: [], creators: [], orders: [], likedby: [] }],
 
-  GetAllTokensOfCreator:[{ users: [] ,creators:[],orders:[],likedby:[]}]
+  GetAllTokensOfCreator: [{ users: [], creators: [], orders: [], likedby: [] }],
+
+  //user Profile apis
+  GetOwnedData: [{ users: [], creators: [], orders: [], likedby: [] }],
+  GetOnSaleData: [{ users: [], creators: [], orders: [], likedby: [] }],
+  GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
+  GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
+
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -107,12 +115,32 @@ export const CollectionReducer = (state = initState, action) => {
         Memes: payload,
       };
 
-      case "GetAllTokensOfCreator":
-        return {
-          ...state,
-          GetAllTokensOfCreator: payload,
-        };
+    case "GetAllTokensOfCreator":
+      return {
+        ...state,
+        GetAllTokensOfCreator: payload,
+      };
 
+    case "OWNED":
+      return {
+        ...state,
+        GetOwnedData: payload,
+      };
+    case "ONSALE":
+      return {
+        ...state,
+        GetOnSaleData: payload,
+      };
+    case "LIKED":
+      return {
+        ...state,
+        GetLikedData: payload,
+      };
+    case "CREATED":
+      return {
+        ...state,
+        GetCreatedData: payload,
+      };
     default:
       return state;
   }

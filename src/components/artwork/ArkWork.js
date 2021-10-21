@@ -9,7 +9,6 @@ const ArtWork = () => {
 
     const [terms, setTerms] = useState(false);
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
-    console.log("single",single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))

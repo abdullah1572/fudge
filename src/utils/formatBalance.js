@@ -11,7 +11,7 @@ export const getFullDisplayBalance = (balance, decimals) => {
 }
 
 
-export const getPriceFormat = (balance) => {
-    const displayBalance = new BigNumber(balance).multipliedBy(new BigNumber(10).pow(18))
+export const getPriceFormat = async(balance) => {
+    const displayBalance = await new BigNumber(balance).multipliedBy(new BigNumber(10).pow(18))
     return displayBalance
 }

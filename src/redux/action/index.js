@@ -343,6 +343,69 @@ export const Memes = () => async (dispatch) => {
 
 
 
+//user profile apis
 
 
 
+export const Owned = (walletAddress) => async (dispatch) => {
+  await axios.post(`${API_URL}/token/getOwnedTokensOfUserAndDetails`,{walletAddress:walletAddress})
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "OWNED",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
+};
+
+
+export const OnSale = (walletAddress) => async (dispatch) => {
+  await axios.post(`${API_URL}/token/getOnSaleTokensOfUserAndDetails`,{walletAddress:walletAddress})
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "ONSALE",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
+};
+
+
+export const Liked = (walletAddress) => async (dispatch) => {
+  await axios.post(`${API_URL}/token/getLikedTokensOfUserAndDetails`,{walletAddress:walletAddress})
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "LIKED",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
+};
+
+
+export const Created = (walletAddress) => async (dispatch) => {
+  await axios.post(`${API_URL}/token/getCreatedTokensOfUserAndDetails`,{walletAddress:walletAddress})
+  .then(async (res) => {
+    if (res.data.status) {
+      dispatch({
+        type: "CREATED",
+        payload: res.data.data,
+      });
+    }
+  })
+  .catch((err) => {
+    return false;
+  })
+};

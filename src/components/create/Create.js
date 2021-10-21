@@ -37,13 +37,10 @@ const Create = () => {
         return isValid;
     }
 
-    const [id, setId] = useState('')
-    const [priceFormat, setPriceFormat] = useState('');
+    const [tokenId, setTokenId] = useState('')
+    const [priceFormat, setPriceFormat] = useState(0);
     const { ApproveAllTokenID } = ApproveForAll()
-    const { FudgeSale } = Sale(id, priceFormat)
-    // console.log("((allFormData.formData.price)*(10**18))",((allFormData.formData.price)*(10**18)))
-    // console.log("price",allFormData.formData.price)
-    //  console.log("id==========================",id)
+    const { FudgeSale } = Sale(tokenId, priceFormat)
     const Item = [
         {
             itemList: 'Art'
@@ -65,7 +62,7 @@ const Create = () => {
     const handleSubmit = useCallback(async () => {
         formValidation();
         if (account) {
-            if (allFormData.formData.nftName === '' && allFormData.formData.description === '' && allFormData.formData.price === '' && fileUrl === '') {
+            if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' && fileUrl === '') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
@@ -75,13 +72,13 @@ const Create = () => {
 
             try {
                 if (allFormData.formData.putOnMarketplace) {
-                    const tokenId = await mintPro();
-                    setId(tokenId)
+                    const tokenID = await mintPro();
+                    setTokenId(tokenID)
                     await ApproveAllTokenID();
                     try {
-
-                        const price = getPriceFormat(allFormData.formData.price)
-                        setPriceFormat(price)
+                        // const price = await getPriceFormat(allFormData.formData.price)
+                        const getPrice = allFormData.formData.price
+                        setPriceFormat(getPrice)
                         await FudgeSale();
                     }
                     catch (err) {

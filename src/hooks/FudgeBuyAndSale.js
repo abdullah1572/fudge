@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import useWeb3 from './useWeb3';
 import environment from '../utils/Environment';
 import { FudgeContract,BlueMoonProContract} from '../utils/contractHelpers';
-
+import BigNumber from 'bignumber.js'
 
 export const Buy = (price,tokenId) => {
     const { account } = useWeb3React();
@@ -52,13 +52,18 @@ export const ApproveForAll = () => {
 
 
 export const Sale = (tokenId,price) => {
+
+    // const sendPrice=parseInt(price*(10**18))
+    const displayPrice=  new BigNumber(price).multipliedBy(new BigNumber(10).pow(18))
+
+    console.log("displayPrice",displayPrice)
     const { account } = useWeb3React();
     const web3 = useWeb3();
     const tokenAddress = environment.Fudge;
     const blueMoonUsecontract=environment.BlueMoonPro;
     const contract = FudgeContract(tokenAddress, web3)
     const FudgeSale = useCallback(async () => {
-        const  buy =  await contract.methods.setSalePrice(blueMoonUsecontract,tokenId,price).send({ from: account })
+        const  buy =  await contract.methods.setSalePrice(blueMoonUsecontract,tokenId,displayPrice).send({ from: account })
         // console.log("mint",mint.events.Transfer.returnValues.tokenId)
         return buy
     }, [account, contract,tokenId,price])
