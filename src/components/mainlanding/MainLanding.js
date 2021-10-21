@@ -349,7 +349,7 @@ const MainLanding = () => {
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
+        const price=elem.orders?.map((elem)=>{
             return(
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
