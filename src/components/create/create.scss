@@ -1,4 +1,4 @@
-.create {
+.creates {
     .inner-tile {
         width: 232px;
         width: 100%;
@@ -13,7 +13,7 @@
 border: 2px dashed #CFCFD0;
 box-sizing: border-box;
 border-radius: 20px;
-height: 390px;
+
 img.img-show {
     width: auto;
     height: 350px;
@@ -44,7 +44,7 @@ img {
     .inner-inpt {
         input {
             background: #FFFFFF;
-// border: 1px solid #D1CCE0;
+border: 1px solid #D1CCE0;
 box-sizing: border-box;
 border-radius: 10px;
 height: 54px;
@@ -60,11 +60,17 @@ height: 54px;
         }
 
         .switch {
+
+            .yoyo {
+                position: relative;
+    top: -19px;
+            }
             .switch {
                 position: relative;
                 display: inline-block;
                 width: 60px;
                 height: 34px;
+                left: 15px;
               }
               
               .switch input { 
@@ -145,6 +151,11 @@ border-radius: 10px;
       }
     }
 
+    .PrivateNotchedOutline-root-1 {
+    border: none;
+    border-radius: 12px;
+    }
+
     button#dropdownMenuButton {
         background: #FFFFFF;
     border: 1px solid #D1CCE0;
@@ -155,8 +166,13 @@ border-radius: 10px;
     text-align: left;
     }
    .button-discover-add{
-       background-color: transparent;
-       width: 100%;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #D1CCE0;
+    border-radius: 10px;
+    height: 54px;
+    text-align: left;
+    padding: 0 10px;
        
    }
 
@@ -189,7 +205,7 @@ border-radius: 10px;
             border: 2px dashed #CFCFD0;
             box-sizing: border-box;
             border-radius: 20px;
-            height: 390px;
+          
     
                 img {
                     margin: 0px;
