@@ -5,7 +5,7 @@ export const AddProfile = async (data) => {
     const addUser = await axios.post(`${API_URL}/user/addUser`, data)
         .then((res) => {
             // return res;
-            console.log("res",res)
+            console.log("res", res)
             try {
             } catch (err) {
                 console.log("err", err)
@@ -15,9 +15,9 @@ export const AddProfile = async (data) => {
     return addUser
 }
 
-export const EditProfile = async (data, file,walletAddress) => {
-    
-    const send = { ...data, ipfsImageUrl: file,walletAddress:walletAddress }
+export const EditProfile = async (data, file, walletAddress) => {
+
+    const send = { ...data, ipfsImageUrl: file, walletAddress: walletAddress }
     const editUser = await axios.post(`${API_URL}/user/editUser`, send)
         .then((res) => {
             try {
@@ -35,8 +35,8 @@ export const EditProfile = async (data, file,walletAddress) => {
 
 
 
-export const addToken = async (data,contractAddress, account,fileUrl,tokenId,category) => {
-    const send = { ...data, contractAddress: contractAddress,walletAddress: account, imageUrl: fileUrl,tokenID:tokenId ,category:category}
+export const addToken = async (data, contractAddress, account, fileUrl, tokenId, category) => {
+    const send = { ...data, contractAddress: contractAddress, walletAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category }
     await axios.post(`${API_URL}/token/addToken`, send)
         .then((res) => {
             return res;
@@ -45,8 +45,8 @@ export const addToken = async (data,contractAddress, account,fileUrl,tokenId,cat
         })
 }
 
-export const addTokenAndPutOnSale = async (data,contractAddress, account,fileUrl,tokenId,category) => {
-    const send = { ...data, contractAddress: contractAddress,walletAddress: account, ownerAddress: account , imageUrl: fileUrl,tokenID:tokenId ,category:category}
+export const addTokenAndPutOnSale = async (data, contractAddress, account, fileUrl, tokenId, category) => {
+    const send = { ...data, contractAddress: contractAddress, walletAddress: account, ownerAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category }
     await axios.post(`${API_URL}/token/addTokenAndPutOnSale`, send)
         .then((res) => {
             return res;
@@ -60,8 +60,8 @@ export const addTokenAndPutOnSale = async (data,contractAddress, account,fileUrl
 
 
 
-export const AddCollection = async (data, contractAddress , account, fileUrl1) => {
-    const send = { ...data, contractAddress: contractAddress, creator:account,image:fileUrl1 }
+export const AddCollection = async (data, contractAddress, account, fileUrl1) => {
+    const send = { ...data, contractAddress: contractAddress, creator: account, image: fileUrl1 }
     const editUser = await axios.post(`${API_URL}/collection/addCollection`, send)
         .then((res) => {
             console.log(res)
@@ -74,8 +74,8 @@ export const AddCollection = async (data, contractAddress , account, fileUrl1) =
     return editUser
 }
 
-export const placeBid = async (account,contractAddress, tokenID,amount) => {
-    const send = { bidderAddress:account,contractAddress: contractAddress,tokenID:tokenID,amount: parseFloat(amount) }
+export const placeBid = async (account, contractAddress, tokenID, amount) => {
+    const send = { bidderAddress: account, contractAddress: contractAddress, tokenID: tokenID, amount: parseFloat(amount) }
     await axios.post(`${API_URL}/bid/addBid`, send)
         .then((res) => {
             return res;
@@ -83,3 +83,18 @@ export const placeBid = async (account,contractAddress, tokenID,amount) => {
             console.log("err", err)
         })
 }
+
+
+
+export const AddSale = async (buyerAddress, sellerAddress, contractAddress, tokenID, price) => {
+
+    const send = { buyerAddress: buyerAddress, sellerAddress: sellerAddress, contractAddress: contractAddress, tokenID: tokenID, price: price }
+    await axios.post(`${API_URL}/sale/addSale`, send)
+        .then((res) => {
+            return res;
+        }).catch((err) => {
+            console.log("err", err)
+        })
+
+
+};

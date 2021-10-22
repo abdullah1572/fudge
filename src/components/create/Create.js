@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import Header from '../header/Header';
 import { IpfsStorage } from '../../IPFSStorage/ipfs'
 import { useWeb3React } from '@web3-react/core';
 import { addToken, addTokenAndPutOnSale } from '../../services/services';
@@ -9,11 +8,10 @@ import { toast } from 'react-toastify';
 import environment from '../../utils/Environment';
 import { ApproveForAll } from '../../hooks/FudgeBuyAndSale';
 import { Sale } from '../../hooks/FudgeBuyAndSale';
-import { getPriceFormat } from '../../utils/formatBalance';
 import './create.scss';
 const Create = () => {
     const { account } = useWeb3React();
-    const [dropDown, setDropDown] = useState('Art');
+    const [dropDown, setDropDown] = useState('Choose Category');
     const [fileUrl, updateFileUrl] = useState(``);
     const { mintPro } = MintPro(fileUrl);
     const [allFormData, setAllFormData] = useState({
@@ -26,21 +24,29 @@ const Create = () => {
         setAllFormData({ formData });
     }
     const [imageUrlError, setImageUrlError] = useState({});
+    const [chooseCategory, setChooseCategory] = useState({});
     const formValidation = () => {
         const imageUrlError = {};
+        const chooseCategory = {};
         let isValid = true;
         if (fileUrl === ``) {
             imageUrlError.urlError = "Image is Required";
             isValid = false;
         }
+        if (dropDown === 'Choose Category') {
+            chooseCategory.category = "Category is Required";
+            isValid = false;
+        }
         setImageUrlError(imageUrlError)
+        setChooseCategory(chooseCategory)
         return isValid;
     }
 
-    const [tokenId, setTokenId] = useState('')
-    const [priceFormat, setPriceFormat] = useState(0);
+    
+
+    // const [tokenId, setTokenId] = useState('')
     const { ApproveAllTokenID } = ApproveForAll()
-    const { FudgeSale } = Sale(tokenId, priceFormat)
+    const { FudgeSale } = Sale()
     const Item = [
         {
             itemList: 'Art'
@@ -62,7 +68,8 @@ const Create = () => {
     const handleSubmit = useCallback(async () => {
         formValidation();
         if (account) {
-            if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' && fileUrl === '') {
+            if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' || fileUrl === ''
+             || dropDown==='Choose Category') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
@@ -72,20 +79,26 @@ const Create = () => {
 
             try {
                 if (allFormData.formData.putOnMarketplace) {
+                    const getPrice = allFormData.formData.price
                     const tokenID = await mintPro();
-                    setTokenId(tokenID)
                     await ApproveAllTokenID();
                     try {
                         // const price = await getPriceFormat(allFormData.formData.price)
-                        const getPrice = allFormData.formData.price
-                        setPriceFormat(getPrice)
-                        await FudgeSale();
+                        // if(getPrice===0){
+                        //     toast.warning('Value mut be greater than 0', {
+                        //         position: "top-right",
+                        //         autoClose: 2000,
+                        //     });
+                        //     return
+                        // }
+                      
+                        await FudgeSale(tokenID, getPrice);
                     }
                     catch (err) {
                         console.log("errrrrrrrrrrrrrrrrrrrrrrrr", err)
                     }
 
-                    await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown);
+                    await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
                     toast.success('Created Item Successfully', {
                         position: "top-right",
                         autoClose: 2000,
@@ -118,6 +131,7 @@ const Create = () => {
             });
         }
     }, [ApproveAllTokenID, FudgeSale])
+
     async function onChange(e) {
         const file = e.target.files[0]
         IpfsStorage(file).then((res) => {
@@ -170,7 +184,7 @@ const Create = () => {
                                                         <label For="name">Price</label>
                                                         <TextValidator
                                                             fullWidth
-                                                            type="text"
+                                                            type="number"
                                                             name="price"
                                                             autoComplet="off"
                                                             value={allFormData.formData.price}
@@ -196,7 +210,7 @@ const Create = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Name field is required']}
+                                                    errorMessages={['NFT Name field is required']}
                                                 />
                                             </div>
 
@@ -225,13 +239,20 @@ const Create = () => {
                                                                
                                                             </button>
                                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                {/* <select> */}
+
                                                                 {Item.map((elem) => {
                                                                     return (
                                                                         <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
                                                                     )
                                                                 }
                                                                 )}
+                                                             
+
+                                                                {/* </select> */}
+                                                                
                                                             </div>
+                                                            {Object.keys(chooseCategory).map((key) => { return <p className="inputErrors">{chooseCategory[key]}</p> })}
                                                         </div>
                                                     </div>
 
@@ -248,8 +269,8 @@ const Create = () => {
                                                     placeholder="Enter Your Royalties..."
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Royalties field is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Royalties field is required']}
                                                 />
                                             </div>
 

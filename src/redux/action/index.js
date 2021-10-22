@@ -96,7 +96,7 @@ export const GetUserNFTS = (walletAddress) => async (dispatch) => {
     })
 };
 export const GetUserData = (walletAddress) => async (dispatch) => {
-  await axios.post(`${API_URL}/user/getUser`,{walletAddress : walletAddress.walletAddress})
+  await axios.post(`${API_URL}/user/getUser`,{walletAddress : walletAddress})
     .then(async (res) => {
       if (res.data.status) {
         dispatch({
@@ -409,3 +409,5 @@ export const Created = (walletAddress) => async (dispatch) => {
     return false;
   })
 };
+
+

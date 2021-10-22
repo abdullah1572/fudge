@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import Header from '../header/Header';
 import { Link } from 'react-router-dom';
-import { GetUserNFTS, GetUserData } from '../../redux/action';
+import { GetUserData } from '../../redux/action';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import './profile.scss';
@@ -9,16 +8,20 @@ import { Owned, OnSale, Liked, Created } from '../../redux/action';
 const Profile = () => {
 
     const { walletAddress } = useParams();
-    console.log("userData")
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetUserData(walletAddress));
+        dispatch(Owned(walletAddress))
     }, [walletAddress])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
-    // console.log("userData",userData)
-    const ownedData = useSelector(state => state.CollectionReducer.GetOwnedData);
+    console.log("userData", userData)
 
-    console.log("ownedData", ownedData)
+    const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
+
+    const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
+    const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
+
+    const ownedData = useSelector(state => state.CollectionReducer.GetOwnedData);
 
     const showOwnedData = ownedData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
@@ -75,7 +78,7 @@ const Profile = () => {
 
     const onSaleData = useSelector(state => state.CollectionReducer.GetOnSaleData);
 
-     console.log("onSaleData",onSaleData)
+    console.log("onSaleData", onSaleData)
     const showOnSaleData = onSaleData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
@@ -99,7 +102,7 @@ const Profile = () => {
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}                                  
+                                    {creator}
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -124,7 +127,7 @@ const Profile = () => {
             </div>
         )
     })
-   
+
 
     const likedData = useSelector(state => state.CollectionReducer.GetLikedData);
     const showLikedData = likedData.map((elem) => {
@@ -150,7 +153,7 @@ const Profile = () => {
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}                                  
+                                    {creator}
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -179,7 +182,7 @@ const Profile = () => {
 
     const createdData = useSelector(state => state.CollectionReducer.GetCreatedData);
 
-    console.log("createdData",createdData)
+    console.log("createdData", createdData)
     const showCreatedData = createdData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
@@ -203,7 +206,7 @@ const Profile = () => {
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}                                  
+                                    {creator}
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -230,9 +233,6 @@ const Profile = () => {
     })
 
 
-    
-   
-
     return (
         <>
 
@@ -253,9 +253,9 @@ const Profile = () => {
                     <div class="row ptb20">
                         <div class="col-sm-12 text-center">
                             <div class="inner-content">
-                                {userData?.ipfsImageUrl > 0 ?
-                                    <img src={userData?.ipfsImageUrl} alt="" width="130" height="150" style={{ borderRadius: '50%' }} />
-                                    : <div>
+
+                                <img src={userData?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
+                                {/* <div>
                                         <svg width="200" height="200" viewBox="0 0 56 56" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -265,32 +265,27 @@ const Profile = () => {
                                                 d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
                                                 fill="#35374A" />
                                         </svg>
-                                    </div>
-                                }
-                                {/* <div>
-                                    <img src="{{mydata?.profileImage}}" alt="" class="img-show"
-                                    />
-                                </div> */}
+                                    </div> */}
+
+
                                 <h2 class="pt-4">{userData?.displayName}</h2>
-                                <p class="ptb20">{userData?.displayName}</p>
+                                <p class="ptb20">{userData?.bio}</p>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
-                                            <a href="" target="_blank" class="facebook">
+                                            <a href={fbLink} target="_blank" class="facebook">
                                             </a>
                                         </div>
                                     </li>
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
-                                            <a href="" target="_blank" class="twitter">
-
+                                            <a href={twitterLink} target="_blank" class="twitter">
                                             </a>
                                         </div>
                                     </li>
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
-                                            <a href="" target="_blank" class="web">
-
+                                            <a href={instaLink} target="_blank" class="web">
                                             </a>
                                         </div>
                                     </li>
@@ -319,25 +314,26 @@ const Profile = () => {
                                         <a class=" for-tabs active" id="pills-owned-tab" data-toggle="pill" href="#pills-owned"
                                             onClick={() => dispatch(Owned(walletAddress))}
                                             role="tab" aria-controls="pills-owned" aria-selected="true" >Owned
-                                            <span class="grey">1</span> </a>
+                                            {/* <span class="grey">1</span>  */}
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class=" for-tabs" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                                          onClick={() => dispatch(OnSale(walletAddress))}
-                                            aria-controls="pills-home" aria-selected="true" >On Sale <span
-                                                class="grey">2</span></a>
+                                            onClick={() => dispatch(OnSale(walletAddress))}
+                                            aria-controls="pills-home" aria-selected="true" >On Sale
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="for-tabs" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                           onClick={() => dispatch(Liked(walletAddress))}
-                                            role="tab" aria-controls="pills-profile" aria-selected="false"
-                                        >Liked <span class="grey">3</span></a>
+                                            onClick={() => dispatch(Liked(walletAddress))}
+                                            role="tab" aria-controls="pills-profile" aria-selected="false" >Liked
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="for-tabs" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                           onClick={() => dispatch(Created(walletAddress))}
-                                            role="tab" aria-controls="pills-contact" aria-selected="false"
-                                        >Created <span class="grey">4</span></a>
+                                            onClick={() => dispatch(Created(walletAddress))}
+                                            role="tab" aria-controls="pills-contact" aria-selected="false">Created
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="for-tabs" id="pills-activity-tab" data-toggle="pill" href="#pills-activity"
@@ -345,30 +341,31 @@ const Profile = () => {
                                     </li>
                                     <li class="nav-item">
                                         <a class="for-tabs" id="pills-following-tab" data-toggle="pill" href="#pills-following"
-                                            role="tab" aria-controls="pills-following" aria-selected="false"
-                                        >Following <span class="grey">5</span> </a>
+                                            role="tab" aria-controls="pills-following" aria-selected="false" >Following
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="for-tabs" id="pills-follower-tab" data-toggle="pill" href="#pills-follower"
-                                            role="tab" aria-controls="pills-follower" aria-selected="false"
-                                        >Followers <span class="grey">6</span> </a>
+                                            role="tab" aria-controls="pills-follower" aria-selected="false">Followers
+
+                                        </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                         <div class="row ptb20">
 
-                                        {showOnSaleData.length>0 ? showOnSaleData:
-                                             <div>No Item</div>
+                                            {showOnSaleData.length > 0 ? showOnSaleData :
+                                                <div>No Item</div>
                                             }
-                                        
+
                                         </div>
                                     </div>
                                     <div class="tab-pane fade  show active" id="pills-owned" role="tabpanel"
                                         aria-labelledby="pills-owned-tab">
                                         <div class="row ptb20">
-                                            {showOwnedData.length>0?showOwnedData:
-                                             <div>No Item</div>
+                                            {showOwnedData.length > 0 ? showOwnedData :
+                                                <div>No Item</div>
                                             }
 
                                         </div>
@@ -376,10 +373,10 @@ const Profile = () => {
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">
                                         <div class="row ptb20">
-                                            
-                                             {showLikedData.length>0 ? showLikedData :
-                                             <div>No Item</div>
-                                             }     
+
+                                            {showLikedData.length > 0 ? showLikedData :
+                                                <div>No Item</div>
+                                            }
 
 
                                         </div>
@@ -388,10 +385,10 @@ const Profile = () => {
                                         aria-labelledby="pills-contact-tab">
                                         <div class="row ptb20">
 
-                                        {showCreatedData.length>0 ? showCreatedData :
-                                             <div>No Item</div>
-                                             }  
-                                         
+                                            {showCreatedData.length > 0 ? showCreatedData :
+                                                <div>No Item</div>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-activity" role="tabpanel"

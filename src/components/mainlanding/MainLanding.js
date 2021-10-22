@@ -2,52 +2,55 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Art, Photography, Games, Sports, Memes,GetTokenAndDetails } from '../../redux/action';
+import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
 const MainLanding = () => {
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
+    console.log("token",token)
     const dispatch = useDispatch();
     const display = token.map((elem) => {
-        const creator=elem.creators.map((elem)=>{
-            return(
+        const creator = elem.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
-                <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
+        const owner = elem?.users.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless" alt="" />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
         return (
             <div class="col-sm-3">
-                <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div class="inner-card image-width">
                         <ul class="list-inline ">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                  {creator}
+                             {creator}
+                                 
                                 </div>
                             </li>
                             <li class="list-inline-item ">
                                 <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
+                               {owner}
+                                
                                 </div>
                             </li>
                         </ul>
                         <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
-                       {price}
+                        {price}
                         <hr />
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <button className="for-style11">
-                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
                                     <span class="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
@@ -61,35 +64,35 @@ const MainLanding = () => {
 
     const artData = useSelector(state => state.CollectionReducer.Art)
     const art = artData.map((elem) => {
-       
-        const creator=elem?.creators.map((elem)=>{
-            return(
+
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
         return (
             <div class="col-sm-3">
-                <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div class="inner-card image-width">
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                      {creator}
+                                    {creator}
                                 </div>
                             </li>
                             <li class="list-inline-item">
                                 <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                {owner}
+                                    {owner}
                                 </div>
                             </li>
                         </ul>
@@ -101,8 +104,8 @@ const MainLanding = () => {
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <button className="for-style11">
-                                    <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                     <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
                                     <span class="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
@@ -116,110 +119,110 @@ const MainLanding = () => {
 
     const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
     const photography = PhotoGraphyData.map((elem) => {
-        const creator=elem?.creators.map((elem)=>{
-            return(
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
         return (
             <div class="col-sm-3">
-            <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
-                <div class="inner-card image-width">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                  {creator}
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                            {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <div class="inner-card image-width">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.nftName}</h4>
-                    <h6 class="clr">{price} </h6>
-                    <hr />
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button className="for-style11">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                 <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
-                                <span class="grey"> {elem?.numerOfLikes} </span>
+                        <h4>{elem?.nftName}</h4>
+                        <h6 class="clr">{price} </h6>
+                        <hr />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button className="for-style11">
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> {elem?.numerOfLikes} </span>
 
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </Link>
-        </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
         )
     })
 
     const GamesData = useSelector(state => state.CollectionReducer.Games)
     const games = GamesData.map((elem) => {
-        const creator=elem?.creators.map((elem)=>{
-            return(
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
-    
+
         return (
             <div class="col-sm-3">
-            <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
-                <div class="inner-card image-width">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                  {creator}
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                            {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <div class="inner-card image-width">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.nftName}</h4>
-                    <h6 class="clr">{price} </h6>
-                    <hr />
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button className="for-style11">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                 <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
-                                <span class="grey"> {elem?.numerOfLikes} </span>
+                        <h4>{elem?.nftName}</h4>
+                        <h6 class="clr">{price} </h6>
+                        <hr />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button className="for-style11">
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> {elem?.numerOfLikes} </span>
 
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </Link>
-        </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
         )
     })
 
@@ -227,167 +230,167 @@ const MainLanding = () => {
 
     const SportsData = useSelector(state => state.CollectionReducer.Sports)
     const sports = SportsData.map((elem) => {
-        const creator=elem?.creators.map((elem)=>{
-            return(
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
-    
+
         return (
             <div class="col-sm-3">
-            <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
-                <div class="inner-card image-width">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                  {creator}
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                            {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <div class="inner-card image-width">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.nftName}</h4>
-                    <h6 class="clr">{price} </h6>
-                    <hr />
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button className="for-style11">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                 <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
-                                <span class="grey"> {elem?.numerOfLikes} </span>
+                        <h4>{elem?.nftName}</h4>
+                        <h6 class="clr">{price} </h6>
+                        <hr />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button className="for-style11">
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> {elem?.numerOfLikes} </span>
 
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </Link>
-        </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
         )
     })
 
 
     const MemesData = useSelector(state => state.CollectionReducer.Memes)
     const memes = MemesData.map((elem) => {
-        const creator=elem?.creators.map((elem)=>{
-            return(
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
         return (
             <div class="col-sm-3">
-            <Link to="artwork" onClick={()=>dispatch(GetTokenAndDetails(elem.contractAddress,elem.walletAddress,elem.tokenID))}>
-                <div class="inner-card image-width">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                  {creator}
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                            {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
+                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <div class="inner-card image-width">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                    <h4>{elem?.nftName}</h4>
-                    <h6 class="clr">{price} </h6>
-                    <hr />
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button className="for-style11">
-                                <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                                 <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
-                                <span class="grey"> {elem?.numerOfLikes} </span>
+                        <h4>{elem?.nftName}</h4>
+                        <h6 class="clr">{price} </h6>
+                        <hr />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button className="for-style11">
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> {elem?.numerOfLikes} </span>
 
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </Link>
-        </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
         )
     })
 
 
 
-    const latestUpload= useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
-    const latest=latestUpload?.map((elem)=>{
-        const creator=elem?.creators.map((elem)=>{
-            return(
+    const latestUpload = useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
+    const latest = latestUpload?.map((elem) => {
+        const creator = elem?.creators.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class=" for-check" width="20px" height="20px" class="inner-tiless" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" class="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders?.map((elem)=>{
-            return(
+        const price = elem.orders?.map((elem) => {
+            return (
                 <h6 class="clr">{elem?.price} BNB</h6>
             )
         })
-        return(
-        <div class="col-sm-3">
-        <Link to="artwork">
-            <div class="inner-card image-width">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                          {creator}
-                        </div>
-                    </li>
-                    <li class="list-inline-item">
-                        <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                         {owner}
-                        </div>
-                    </li>
-                </ul>
-                <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
+        return (
+            <div class="col-sm-3">
+                <Link to="artwork">
+                    <div class="inner-card image-width">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" class="img-fluid mb10 set_width_height" />
 
-                <h4>{elem?.nftName}</h4>
-                <h6 class="clr">{price}</h6>
-                <hr />
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <button className="for-style11">
-                            <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" />
-                             <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
-                            <span class="grey"> 1.5k </span>
+                        <h4>{elem?.nftName}</h4>
+                        <h6 class="clr">{price}</h6>
+                        <hr />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button className="for-style11">
+                                    {/* <img src="pegify/landing-assets/heart.png" alt="" class="img-fluid" /> */}
+                                    <img src="pegify/heart-outline-icon.png" alt="" class="img-fluid" />
+                                    <span class="grey"> 1.5k </span>
 
-                        </button>
-                    </li>
-                </ul>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
             </div>
-        </Link>
-    </div>
         )
     })
 
@@ -465,43 +468,61 @@ const MainLanding = () => {
                                 </div>
 
                                 <div class="tab-content" id="pills-tabContent">
-                                    
+
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                               
+
                                         <div class="row ptb20">
-                                            {display}
+
+                                            {display.length > 0 ? display :
+                                                <div>No Item</div>
+                                            }
+
                                         </div>
-                                       
+
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                         <div class="row ptb20">
-                                            {art}
+
+                                            {art.length > 0 ? art :
+                                                <div>No Item</div>
+                                            }
+
                                         </div>
                                     </div>
 
-
                                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                                         <div class="row ptb20">
-                                            {photography}
+
+                                            {photography.length > 0 ? photography :
+                                                <div>No Item</div>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
                                         <div class="row ptb20">
-                                            {games}
+                                         
+                                            {games.length > 0 ? games :
+                                                <div>No Item</div>
+                                            }
+
 
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-Photography" role="tabpanel"
                                         aria-labelledby="pills-Photography-tab">
                                         <div class="row ptb20">
-
-                                            {sports}
+                                            {sports.length > 0 ? sports :
+                                                <div>No Item</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-sports" role="tabpanel" aria-labelledby="pills-sports-tab">
                                         <div class="row ptb20">
-                                            {memes}
+                                            {memes.length > 0 ? photography :
+                                                <div>No Item</div>
+                                            }
 
                                         </div>
                                     </div>
@@ -771,9 +792,9 @@ const MainLanding = () => {
                             </ul>
                         </div>
                     </div> */}
-                              
-                         {latest}
-                               
+
+                                {latest}
+
                             </div>
                         </div>
                     </div>

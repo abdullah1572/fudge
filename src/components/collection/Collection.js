@@ -402,113 +402,51 @@ const Collection = () => {
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                         aria-labelledby="pills-home-tab">
                                         <div class="row ptb20">
-                                             {display} 
+                                        {display.length > 0 ? display :
+                                                <div>No Item</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">
                                         <div class="row ptb20">
-                                            {art}
-                                            {/* <div class="col-sm-3">
-                                                <div class="inner-card">
-                                                    <div>
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item">
-                                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                                                    title="Creator">
-                                                                    <img src="" alt=""
-                                                                        class="img-fluid" />
-                                                                    <img src="../../assets/Vector.svg" alt=""
-                                                                        class="img-fluid for-check" />
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <div class="inner-tile2" data-toggle="tooltip" data-placement="top"
-                                                                    title="Owner">
-                                                                    <img src="" alt="" class="img-fluid" />
-                                                                    <img src="../../assets/Vector.svg" alt=""
-                                                                        class="img-fluid for-check" />
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div>
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item">
-                                                                <div class="inner-tile" data-toggle="tooltip" data-placement="top"
-                                                                    title="Creator">
-                                                                    <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                            fill="#35374A" />
-                                                                    </svg>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-inline-item" >
-                                                                <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                        fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                                    <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                        fill="#35374A" />
-                                                                </svg>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div >
-                                                        <img src="" alt="" class="img-fluid mb10 mx-auto d-block"
-                                                        />
-
-                                                        <h4>fdgfg</h4>
-                                                        <h6 class="clr"> BNB</h6>
-                                                    </div>
-                                                    <hr />
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item" >
-                                                            <img src="../../assets/pegify/heart-outline.png" alt=""
-                                                                class="img-fluid" />
-                                                            <span class="grey">fgf </span>
-                                                        </li>
-                                                        <li class="list-inline-item" >
-                                                            <img src="../../assets/pegify/landing-assets/heart.png" alt=""
-                                                                class="img-fluid" />
-                                                            <span class="grey"> gfgf </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> */}
-
+                                        {art.length > 0 ? art :
+                                                <div>No Item</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                         aria-labelledby="pills-contact-tab">
                                         <div class="row ptb20">
-                                                {photography}
+                                        {photography.length > 0 ? photography :
+                                                <div>No Item</div>
+                                            }
+
 
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
                                         <div class="row ptb20">
-                                             {games}
+                                        {games.length > 0 ? games :
+                                                <div>No Item</div>
+                                            }
+
 
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-Photography" role="tabpanel"
                                         aria-labelledby="pills-Photography-tab">
                                         <div class="row ptb20">
-                                              {sports}
+                                        {sports.length > 0 ? sports :
+                                                <div>No Item</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-sports" role="tabpanel" aria-labelledby="pills-sports-tab">
                                         <div class="row ptb20">
-  
-                                       {memes}
+                                        {memes.length > 0 ? photography :
+                                                <div>No Item</div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

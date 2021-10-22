@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import Header from '../header/Header';
+import React, { useState } from 'react';
 import './profiledetail.scss';
 import { IpfsStorage } from '../../IPFSStorage/ipfs';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -22,7 +21,7 @@ const ProfileDetail = () => {
         setAllFormData({ formData });
     }
 
-    const handleSubmit = useCallback(async () => {
+    const handleSubmit = async() => {
         formValidation()
         if(account){
             try{
@@ -70,7 +69,7 @@ const ProfileDetail = () => {
                 progress: undefined,
                 }); 
         }
-    })
+    }
 
 
     async function onChange(e) {
@@ -84,7 +83,7 @@ const ProfileDetail = () => {
         const imageUrlError = {};
         let isValid = true;
         if (fileUrl === ``) {
-            imageUrlError.urlError = "Image is Required";
+            imageUrlError.urlError = "Profile Image is Required";
             isValid = false;
         }
         setImageUrlError(imageUrlError)
@@ -93,38 +92,6 @@ const ProfileDetail = () => {
    const Remove=()=>{
     updateFileUrl('');
    }
-    console.log("fileurl", fileUrl)
-    const owl_option = {
-
-        margin: 40,
-        nav: true,
-        dots: false,
-        navText: ["<i class='fa fa-long-arrow-left'></i>", "<i class='fa fa-long-arrow-right'></i>"],
-        dotsEach: true,
-        loop: true,
-        autoplay: false,
-        responsive: {
-            0: {
-                items: 1,
-
-
-            },
-            400: {
-                items: 1,
-
-
-            },
-            600: {
-                items: 1,
-
-
-            },
-            700: {
-                items: 1,
-
-            },
-        },
-    };
 
     return (
         <>
@@ -160,7 +127,7 @@ const ProfileDetail = () => {
                                                 placeholder="Enter Name"
                                                 className="input-fields"
                                                 validators={['required']}
-                                                errorMessages={['DisplayName is required']}
+                                                errorMessages={['Name is required']}
                                             />
                                             {/* </div> */}
                                             <div class="form-group ptb20">
@@ -181,7 +148,7 @@ const ProfileDetail = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Name field is required']}
+                                                    errorMessages={['Bio  is required']}
                                                     // id="outlined-multiline-static"
                                                     multiline
                                                     rows={4}
@@ -204,7 +171,7 @@ const ProfileDetail = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Description field is required']}
+                                                    errorMessages={['Twitter Name is required']}
                                                 />
                                             </div>
                                             <div class="form-group ptb20">
@@ -221,7 +188,7 @@ const ProfileDetail = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Instagram field is required']}
+                                                    errorMessages={['Instagram Name is required']}
                                                 />
                                             </div>
                                             <div class="form-group ptb20">
@@ -238,7 +205,7 @@ const ProfileDetail = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Twitter field is required']}
+                                                    errorMessages={['Facebook Name is required']}
                                                 />
                                             </div>
 
@@ -256,7 +223,7 @@ const ProfileDetail = () => {
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
-                                                    errorMessages={['Twitter field is required']}
+                                                    errorMessages={['Telegram Channel Link is required']}
                                                 />
                                             </div>
                                             <div class="form-group ptb20">
@@ -272,8 +239,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your Email Address"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Twitter field is required']}
+                                                    validators={['required','isEmail']}
+                                                    errorMessages={['E-mail field is required', 'email is not valid']}
                                                 />
                                             </div>
                                             <ul class="list-inline">
@@ -310,13 +277,13 @@ const ProfileDetail = () => {
                                                     Upload Image <i class="fa fa-cloud-upload"></i>
                                                 </label>
                                                {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                                <input class="form-control" id="file" type="file" onChange={onChange} />
-                                    {fileUrl && (<img src={fileUrl}  width="400px" height="400px" />)}
+                                                <input className="form-control" id="file" type="file" onChange={onChange} />
+                                    {fileUrl && (<img src={fileUrl}  width="400px" height="400px" alt=""/>)}
                                             </div>
                                         </li>
                                         <div>
-                                            <li class="list-inline-item">
-                                                <button class="remove" type="submit" onClick={Remove}>Remove</button>
+                                            <li className="list-inline-item">
+                                                <button className="remove" type="submit" onClick={Remove}>Remove</button>
                                             </li>
                                         </div>
                                     </ul>
@@ -334,96 +301,3 @@ const ProfileDetail = () => {
 
 export default ProfileDetail;
 
-{/* <div class="row">
-<div class="col-sm-8">
-    <div class="row ptb20">
-        <div class="col-sm-12">
-            <div class="inner-inpt">
-                <form name="form" >
-                    <div class="form-group">
-                        <h5>Display Name</h5>
-                        <input type="text" class="form-control" name="displayName" placeholder="Enter Display Name" required />
-                        <div class="invalid-feedback">
-                            <div >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group ptb20">
-                        <h5>Bio</h5>
-                        <textarea class="form-control" name="bio" placeholder="Tell about yourself in a few words" required></textarea>
-                        <div class="invalid-feedback">
-                            <div >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group ptb20">
-                        <h5>Twitter Username</h5>
-                        <input type="type" class="form-control" name="twitter" placeholder="Enter your twitter username" />
-                    </div>
-                    <div class="form-group ptb20">
-                        <h5>Instagram</h5>
-                        <input type="type" class="form-control" name="instagram" placeholder="Enter your instagram username" />
-                    </div>
-                    <div class="form-group ptb20">
-                        <h5>Facebook Username</h5>
-                        <input type="type" class="form-control" name="facebook" placeholder="Enter your facebook username" />
-                    </div>
-
-                    <div class="form-group ptb20">
-                        <h5>Telegram Channel</h5>
-                        <input type="type" class="form-control" name="telegram" placeholder="Enter your telegram username" />
-                    </div>
-                    <div class="form-group ptb20">
-                        <h5>Email Address</h5>
-                        <input type="email" class="form-control" email name="email" placeholder="enter your Email Address" required />
-                        <div class="invalid-feedback">
-                            <div >
-                            </div>
-                            <div >
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button class="btn-common" type="submit">Save Changes</button>
-                        </li>
-                        <li class="list-inline-item">
-                            <button class="remove">Cancel</button>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-sm-4">
-    <div class="inner-cards ptb20 text-center">
-        <h5>User Image</h5>
-
-        <div class="row" >
-            <div>
-                <img src="data:image/png;base64,{{base64textString}}" alt="" class="img-show" />
-            </div>
-        </div>
-        <div >
-            <img src="{{data.profileImage}}" alt="" class="img-show" />
-        </div>
-        <ul class="list-inline ptb20">
-            <li class="list-inline-item">
-                <div>
-                    <label for="file" class="custom-file-upload btn-common-2">
-                        Upload Image <i class="fa fa-cloud-upload"></i>
-                    </label>
-                    <input class="form-control" id="file" type="file" />
-                </div>
-            </li>
-            <div>
-                <li class="list-inline-item">
-                    <button class="remove">Remove</button>
-                </li>
-            </div>
-        </ul>
-    </div>
-</div>
-</div> */}

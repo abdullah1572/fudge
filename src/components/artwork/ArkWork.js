@@ -2,13 +2,18 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Buy } from '../../hooks/FudgeBuyAndSale';
-import { getPriceFormat } from '../../utils/formatBalance';
 import { GetAllTokensOfCreator } from '../../redux/action';
+import { useWeb3React } from '@web3-react/core';
+import { toast } from 'react-toastify';
+import { AddSale } from '../../services/services';
+import environment from '../../utils/Environment';
+
 import './artwork.scss';
 const ArtWork = () => {
-
+   const {account}=useWeb3React();
     const [terms, setTerms] = useState(false);
-    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
+    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData) 
+    console.log("single",single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
@@ -23,13 +28,34 @@ const ArtWork = () => {
             setTerms(true)
         }
     }
-    const [priceFormat, setPriceFormat] = useState('');
-    const { FudgeBuy } = Buy(priceFormat, single?.order?.tokenID)
+    const { FudgeBuy } = Buy()
     const BuyNft = useCallback(async () => {
-        const p = getPriceFormat(single?.order?.price)
-        setPriceFormat(p)
-        await FudgeBuy()
-    })
+        if(account){
+         await FudgeBuy(single?.token?.tokenID,single?.order?.price);
+         await AddSale(account,single?.token?.walletAddress, environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price)
+        //  try{
+        //     if(tx){
+        //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
+        //         toast.success('Successfully Bought', {
+        //             position: "top-right",
+        //             autoClose: 2000,
+        //         });
+        //     }
+        //  }catch{
+        //        toast.error('Fail to Buy', {
+        //         position: "top-right",
+        //         autoClose: 2000,
+        //     });
+        //     return false
+        //  }
+
+        }else{
+            toast.error('Please Connect the wallet', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    },[FudgeBuy])
     const MoreCreatorNfts = creatorData.map((elem) => {
 
         const creator=elem?.creators.map((elem)=>{

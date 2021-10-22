@@ -25,6 +25,7 @@ const initState = {
   GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
 
+   
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -141,6 +142,10 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetCreatedData: payload,
       };
+  
+     
+  
+      
     default:
       return state;
   }
