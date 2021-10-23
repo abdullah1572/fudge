@@ -10,8 +10,15 @@ import { ApproveForAll } from '../../hooks/FudgeBuyAndSale';
 import { Sale } from '../../hooks/FudgeBuyAndSale';
 import './create.scss';
 import Header from '../header/Header';
+import { Backdrop } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
+import { GetAllNftsAndDetails } from '../../redux/action';
+import {useDispatch} from 'react-redux'
 const Create = () => {
+
+    const dispatch=useDispatch();
     const { account } = useWeb3React();
+    const [open, setOpen] = useState(false);
     const [dropDown, setDropDown] = useState('Choose Category');
     const [fileUrl, updateFileUrl] = useState(``);
     const { mintPro } = MintPro(fileUrl);
@@ -71,7 +78,7 @@ const Create = () => {
         formValidation();
         if (account) {
             if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' || fileUrl === ''
-                || dropDown === 'Choose Category') {
+                || dropDown === 'Choose Category' || allFormData.formData.royalties==='') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
@@ -95,6 +102,8 @@ const Create = () => {
                         // }
 
                         await FudgeSale(tokenID, getPrice);
+                        dispatch(GetAllNftsAndDetails());
+                        
                     }
                     catch (err) {
                         console.log("errrrrrrrrrrrrrrrrrrrrrrrr", err)
@@ -144,7 +153,7 @@ const Create = () => {
 
     return (
         <>
-
+             <Backdrop className="loader" sx={{ color: '#fff' }} open={open}><CircularProgress color="inherit" /></Backdrop>
             <section className="creates">
                 <div className="container">
                     <Header />
@@ -299,7 +308,10 @@ const Create = () => {
                             <div className="col-sm-3">
                                 <h5>Preview</h5>
                                 <div className="main-privew-div">
-                                    <h6>Upload file to preview you NFT</h6>
+                                {fileUrl ?
+                                   <img src={fileUrl} style={{ borderRadius: 20 }} width="220px" height="310px" />
+                                    :<h6>Upload file to preview you NFT</h6>
+                                }
                                 </div>
                             </div>
                         </div>

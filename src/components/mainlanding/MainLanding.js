@@ -121,7 +121,7 @@ const MainLanding = () => {
     const photography = PhotoGraphyData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless for-check" width="20px" height="20px" />
+                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px" />
             )
         })
         const owner = elem?.users.map((elem) => {
@@ -175,7 +175,7 @@ const MainLanding = () => {
     const games = GamesData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless for-check" width="20px" height="20px" />
+                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px" />
             )
         })
         const owner = elem?.users.map((elem) => {
@@ -232,7 +232,7 @@ const MainLanding = () => {
     const sports = SportsData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless for-check" width="20px" height="20px"  />
+                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px"  />
             )
         })
         const owner = elem?.users.map((elem) => {

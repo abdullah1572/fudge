@@ -1,4 +1,4 @@
-import React,{useCallback, useEffect} from 'react';
+import React,{useEffect} from 'react';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
@@ -13,7 +13,7 @@ const Header = () => {
    logout()
  }
   const connectMetaMask = () => {
-    localStorage.setItem('injected', "injected")
+    // localStorage.setItem('injected', "injected")
     if (account) {
       logout()
     } else {
@@ -21,12 +21,12 @@ const Header = () => {
   
     }
   }
-  const SignMessage=useCallback(async()=>{
-    await userSign();
-  },[userSign])
-  useEffect (() => {
-       SignMessage()
-  },[account,userSign,SignMessage])
+  // const SignMessage=useCallback(async()=>{
+  //   await userSign();
+  // },[userSign])
+  useEffect (async() => {
+       await userSign()
+  },[account])
 
   return (
     <>
@@ -61,7 +61,7 @@ const Header = () => {
               {!account ?
               <li className="nav-item">
                 <div >
-                  <Link class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
+                  <Link to="" class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
                 </div>
               </li>
                   :""}
