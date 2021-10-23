@@ -3,12 +3,13 @@ import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
 import useAuth from '../../hooks/useAuth';
-import Signature from '../../SignMessage/Signature';
+// import Signature from '../../SignMessage/Signature';
+import { AddProfile } from '../../services/services';
 
 const Header = () => {
   const {account} = useWeb3React();
   const { login, logout } = useAuth();
-  const { userSign } = Signature(account);
+  // const { userSign } = Signature(account);
  const disconnect=()=>{
    logout()
  }
@@ -17,16 +18,25 @@ const Header = () => {
     if (account) {
       logout()
     } else {
+      AddProfile(account)
       login("injected");
+    
   
     }
   }
+  console.log("account",account)
+  const SignMessage=async()=>{
+    await AddProfile({walletAddress:account})
+  }
+  useEffect (async() => {
+       await SignMessage()
+  },[account])
   // const SignMessage=useCallback(async()=>{
   //   await userSign();
   // },[userSign])
-  useEffect (async() => {
-       await userSign()
-  },[account])
+  // useEffect (async() => {
+  //      await userSign()
+  // },[account])
 
   return (
     <>

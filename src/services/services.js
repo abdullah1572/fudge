@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_URL } from '../ApiURL';
 
 export const AddProfile = async (data) => {
+    console.log("data",data)
     const addUser = await axios.post(`${API_URL}/user/addUser`, data)
         .then((res) => {
             // return res;
