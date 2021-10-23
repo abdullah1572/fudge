@@ -10,7 +10,7 @@ const Collection = () => {
     function valuetext(value) {
         return `${value}°C`;
     }
-    const [value, setValue] = React.useState([20, 37]);
+    const [value, setValue] = React.useState([15, 70]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

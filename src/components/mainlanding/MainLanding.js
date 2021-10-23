@@ -4,8 +4,17 @@ import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
 import Header from '../header/Header';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 const MainLanding = () => {
+    function valuetext(value) {
+        return `${value}°C`;
+    }
+    const [value, setValue] = React.useState([15, 70]);
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
     const dispatch = useDispatch();
     const display = token.map((elem,index) => {
@@ -161,7 +170,6 @@ const MainLanding = () => {
                                     {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
                                     <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
-
                                 </button>
                             </li>
                         </ul>
@@ -467,6 +475,21 @@ const MainLanding = () => {
                                         </ul>
                                     </div>
                                 </div>
+                                <div className="col-lg-12">
+                                <div className="custom-slider">
+                                            <h6>PRICE RANGE</h6>
+                                            <Box sx={{width:300}}>
+                                                <Slider
+                                                    getAriaLabel={() => 'Temperature range'}
+                                                    value={value}
+                                                    onChange={handleChange}
+                                                    valueLabelDisplay="auto"
+                                                    getAriaValueText={valuetext}
+                                                />
+                                            </Box>
+                                        </div>
+                                </div>
+                           
 
                                 <div className="tab-content" id="pills-tabContent">
 
