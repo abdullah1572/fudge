@@ -37,8 +37,11 @@
                 border: 1px solid #D1CCE0;
                 box-sizing: border-box;
                 border-radius: 10px;
-                padding-left: 35px;
+                padding-left: 45px;
                 margin-bottom: 10px;
+                &::placeholder{
+                    color: rgb(199, 196, 196);
+                }
             }
 
         }
@@ -133,7 +136,6 @@
                 }
             } 
           }
-       
     }
 
     .inner-drop {
@@ -300,4 +302,8 @@ padding: 10px;
 
     .MuiBox-root.css-0{
         margin-top: 12px;
+    }
+    .form-control-feedback{
+        color: rgb(199, 196, 196);
+       margin-left: 4px;
     }
