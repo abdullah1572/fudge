@@ -1,35 +1,35 @@
 import React from 'react';
 import './footer.scss';
-import OwlCarousel from 'react-owl-carousel';
+import { Link } from 'react-router-dom';
 const Footer = () => {
   
   return (
     <>
-<footer class="main-footer ptb">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="inner-content">
+<footer className="main-footer ptb">
+    <div className="container">
+        <div className="row">
+            <div className="col-sm-4">
+                <div className="inner-content">
                     <a href="/">
-                        <img src="pegify\landing-assets\logo.svg" alt="" class="img-fluid" />
+                        <img src="pegify\landing-assets\logo.svg" alt="" className="img-fluid" />
                     </a>
                 </div>
             </div>
-            <div class="col-sm-2">
-                <div class="inner-content">
+            <div className="col-sm-2">
+                <div className="inner-content">
                     <h5>Quick Links</h5>
                     <ul>
                         <li>
-                            <a>
+                            <Link to="/createitem">
                                 CREATE
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a>
-                                EXPLORE
-                            </a>
+                            <Link to="/collection">
+                                COLLECTION
+                            </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <a>
                                 HOW IT WORKS
                             </a>
@@ -38,12 +38,12 @@ const Footer = () => {
                             <a>
                                 SUPPORT
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="inner-content">
+            {/* <div className="col-sm-3">
+                <div className="inner-content">
                     <h5>Community</h5>
                     <ul>
                         <li>
@@ -68,29 +68,29 @@ const Footer = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="inner-content">
+            </div> */}
+            <div className="col-sm-3">
+                <div className="inner-content">
                     <h5>Follow</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a href="">
-                                <img src="pegify\socails\foot1.svg" alt="" class="img-fluid" />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <a href="https://www.google.com.pk/">
+                                <img src="pegify\socails\discord-icon.svg" alt="" className="img-fluid" target="_blank" />
                             </a>
                         </li>
-                        <li class="list-inline-item">
-                            <a href="">
-                                <img src="pegify\socails\foot2.svg" alt="" class="img-fluid" />
+                        <li className="list-inline-item">
+                            <a href="https://www.google.com.pk/">
+                                <img src="pegify\socails\twitter-icon.svg" alt="" className="img-fluid" target="_blank"/>
                             </a>
                         </li>
-                        <li class="list-inline-item">
-                            <a href="">
-                                <img src="pegify\socails\foot3.svg" alt="" class="img-fluid" />
+                        <li className="list-inline-item">
+                            <a href="https://www.google.com.pk/">
+                                <img src="pegify\socails\facebook-icon.svg" alt="" className="img-fluid" target="_blank" />
                             </a>
                         </li>
-                        <li class="list-inline-item">
-                            <a href="">
-                                <img src="pegify\socails\foot4.svg" alt="" class="img-fluid" />
+                        <li className="list-inline-item">
+                            <a href="https://www.google.com.pk/">
+                                <img src="pegify\socails\instagram-icon.svg" alt="" className="img-fluid" target="_blank" />
                             </a>
                         </li>
                     </ul>
@@ -106,19 +106,19 @@ const Footer = () => {
                 </div>
             </div>
             <div className="col-sm-6">
-            <ul class="list-inline text-right">
-                        <li class="list-inline-item">
-                            <a href="">
+            <ul className="list-inline text-right">
+                        <li className="list-inline-item">
+                            {/* <a href=""> */}
                                 <p className="grey">Privacy Policy</p>
-                            </a>
+                            {/* </a> */}
                         </li>
-                        <li class="list-inline-item">
+                        <li className="list-inline-item">
                         <p className="grey">|</p>
                         </li>
-                        <li class="list-inline-item">
-                            <a href="">
+                        <li className="list-inline-item">
+                            {/* <a href=""> */}
                             <p className="grey">Terms & Conditions</p>
-                            </a>
+                            {/* </a> */}
                         </li>
                         
                     </ul>

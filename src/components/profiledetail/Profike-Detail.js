@@ -95,26 +95,25 @@ const ProfileDetail = () => {
 
     return (
         <>
-
-            <section class="create">
+            <section className="create">
                 <ToastContainer/>
-                <div class="container">
+                <div className="container">
                     {/* <Header /> */}
-                    <div class="row  ptb">
-                        <div class="col-sm-12">
-                            <div class="inner-head">
+                    <div className="row  ptb">
+                        <div className="col-sm-12">
+                            <div className="inner-head">
                                 <h2>Edit Profile</h2>
                             </div>
                         </div>
                     </div>
                     <ValidatorForm className="form-contact">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="row ptb20">
-                                    <div class="col-sm-12">
-                                        <div class="inner-inpt">
+                        <div className="row">
+                            <div className="col-sm-8">
+                                <div className="row ptb20">
+                                    <div className="col-sm-12">
+                                        <div className="inner-inpt">
                                             {/* <form name="form" > */}
-                                            {/* <div class="form-group"> */}
+                                            {/* <div className="form-group"> */}
                                             <label For="name">Display Name</label>
                                             <TextValidator
                                                 fullWidth
@@ -130,10 +129,10 @@ const ProfileDetail = () => {
                                                 errorMessages={['Name is required']}
                                             />
                                             {/* </div> */}
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Bio</h5>
-                                                    <textarea class="form-control" name="bio" placeholder="Tell about yourself in a few words" required></textarea>
-                                                    <div class="invalid-feedback">
+                                                    <textarea className="form-control" name="bio" placeholder="Tell about yourself in a few words" required></textarea>
+                                                    <div className="invalid-feedback">
                                                         <div >
                                                         </div>
                                                     </div> */}
@@ -156,9 +155,9 @@ const ProfileDetail = () => {
 
                                                 />
                                             </div>
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Twitter Username</h5>
-                                                    <input type="type" class="form-control" name="twitter" placeholder="Enter your twitter username" /> */}
+                                                    <input type="type" className="form-control" name="twitter" placeholder="Enter your twitter username" /> */}
 
                                                 <label for="exampleInputdec">Twitter Username</label>
                                                 <TextValidator
@@ -174,9 +173,9 @@ const ProfileDetail = () => {
                                                     errorMessages={['Twitter Name is required']}
                                                 />
                                             </div>
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Instagram</h5>
-                                                    <input type="type" class="form-control" name="instagram" placeholder="Enter your instagram username" /> */}
+                                                    <input type="type" className="form-control" name="instagram" placeholder="Enter your instagram username" /> */}
                                                 <label for="exampleInputdec">Instagram Username</label>
                                                 <TextValidator
                                                     fullWidth
@@ -191,9 +190,9 @@ const ProfileDetail = () => {
                                                     errorMessages={['Instagram Name is required']}
                                                 />
                                             </div>
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Facebook Username</h5>
-                                                    <input type="type" class="form-control" name="facebook" placeholder="Enter your facebook username" /> */}
+                                                    <input type="type" className="form-control" name="facebook" placeholder="Enter your facebook username" /> */}
                                                 <label for="exampleInputdec">Facebook Username</label>
                                                 <TextValidator
                                                     fullWidth
@@ -209,9 +208,9 @@ const ProfileDetail = () => {
                                                 />
                                             </div>
 
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Telegram Channel</h5>
-                                                    <input type="type" class="form-control" name="telegram" placeholder="Enter your telegram username" /> */}
+                                                    <input type="type" className="form-control" name="telegram" placeholder="Enter your telegram username" /> */}
                                                 <label for="exampleInputdec">Telegram Channel</label>
                                                 <TextValidator
                                                     fullWidth
@@ -226,9 +225,9 @@ const ProfileDetail = () => {
                                                     errorMessages={['Telegram Channel Link is required']}
                                                 />
                                             </div>
-                                            <div class="form-group ptb20">
+                                            <div className="form-group ptb20">
                                                 {/* <h5>Email Address</h5>
-                                                    <input type="email" class="form-control" email name="email" placeholder="enter your Email Address" required /> */}
+                                                    <input type="email" className="form-control" email name="email" placeholder="enter your Email Address" required /> */}
                                                 <label for="exampleInputdec">Email Address</label>
                                                 <TextValidator
                                                     fullWidth
@@ -243,12 +242,12 @@ const ProfileDetail = () => {
                                                     errorMessages={['E-mail field is required', 'email is not valid']}
                                                 />
                                             </div>
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <button class="btn-common" type="submit" onClick={handleSubmit}>Save Changes</button>
+                                            <ul className="list-inline">
+                                                <li className="list-inline-item">
+                                                    <button className="btn-common" type="submit" onClick={handleSubmit}>Save Changes</button>
                                                 </li>
-                                                <li class="list-inline-item">
-                                                    <button class="remove">Cancel</button>
+                                                <li className="list-inline-item">
+                                                    <button className="remove">Cancel</button>
                                                 </li>
                                             </ul>
                                             {/* </form> */}
@@ -258,23 +257,23 @@ const ProfileDetail = () => {
                             </div>
 
 
-                            <div class="col-sm-4">
-                                <div class="inner-cards ptb20 text-center">
+                            <div className="col-sm-4">
+                                <div className="inner-cards ptb20 text-center">
                                     <h5>User Image</h5>
 
-                                    <div class="row" >
+                                    <div className="row" >
                                         <div>
-                                            <img src="data:image/png;base64,{{base64textString}}" alt="" class="img-show" />
+                                            <img src="data:image/png;base64,{{base64textString}}" alt="" className="img-show" />
                                         </div>
                                     </div>
                                     <div >
-                                        <img src="{{data.profileImage}}" alt="" class="img-show" />
+                                        <img src="{{data.profileImage}}" alt="" className="img-show" />
                                     </div>
-                                    <ul class="list-inline ptb20">
-                                        <li class="list-inline-item">
+                                    <ul className="list-inline ptb20">
+                                        <li className="list-inline-item">
                                             <div>
-                                                <label for="file" class="custom-file-upload btn-common-2">
-                                                    Upload Image <i class="fa fa-cloud-upload"></i>
+                                                <label for="file" className="custom-file-upload btn-common-2">
+                                                    Upload Image <i className="fa fa-cloud-upload"></i>
                                                 </label>
                                                {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
                                                 <input className="form-control" id="file" type="file" onChange={onChange} />

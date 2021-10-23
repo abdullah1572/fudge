@@ -26,7 +26,8 @@ const Create = () => {
     }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
-    const formValidation = () => {
+    const formValidation = useCallback(() =>{
+
         const imageUrlError = {};
         const chooseCategory = {};
         let isValid = true;
@@ -41,7 +42,7 @@ const Create = () => {
         setImageUrlError(imageUrlError)
         setChooseCategory(chooseCategory)
         return isValid;
-    }
+    },[fileUrl,dropDown])
 
 
 
@@ -131,7 +132,7 @@ const Create = () => {
                 autoClose: 2000,
             });
         }
-    }, [ApproveAllTokenID, FudgeSale])
+    }, [ApproveAllTokenID, FudgeSale,account,allFormData.formData,dropDown,fileUrl,formValidation,mintPro])
 
     async function onChange(e) {
         const file = e.target.files[0]

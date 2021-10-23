@@ -1,5 +1,5 @@
 {
-  "name": "opencanvas",
+  "name": "fudge",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,6 +24,7 @@
     "@web3-react/walletconnect-connector": "^6.2.4",
     "axios": "^0.22.0",
     "bignumber.js": "^9.0.1",
+    "eslint": "^7.11.0",
     "fontawesome": "^4.7.0",
     "i": "^0.3.6",
     "ipfs-http-client": "^53.0.1",

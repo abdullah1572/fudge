@@ -26,11 +26,8 @@ function App() {
     <>
         <Router>
         <ToastContainer/>
-        {/* <div class="container">
-        <Header/>
-        </div> */}
         <Switch>
-          <Route exact path='/' component={MainLanding}/>
+           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>
           <Route exact path='/profile/:walletAddress' component={Profile}/> 
           <Route exact path='/profiledetail/:walletAddress' component={ProfileDetail}/> 
