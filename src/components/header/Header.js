@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useCallback, useEffect} from 'react';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
@@ -21,90 +21,92 @@ const Header = () => {
   
     }
   }
-
-  useEffect (async() => {
+  const SignMessage=useCallback(async()=>{
     await userSign();
-  },[account])
+  },[userSign])
+  useEffect (() => {
+       SignMessage()
+  },[account,userSign,SignMessage])
 
   return (
     <>
 
-      <header class="main-nav">
-        <nav class="navbar navbar-expand-lg ">
-          <Link class="navbar-brand" to="/">
-            <img src="/pegify/landing-assets/logo.svg" alt="" class="img-fluid" />
+      <header className="main-nav">
+        <nav className="navbar navbar-expand-lg ">
+          <Link className="navbar-brand" to="/">
+            <img src="/pegify/landing-assets/logo.svg" alt="" className="img-fluid" />
           </Link>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="style-bar"></div>
-            <div class="style-bar"></div>
-            <div class="style-bar"></div>
+            <div className="style-bar"></div>
+            <div className="style-bar"></div>
+            <div className="style-bar"></div>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <Link class="nav-link" to="/">HOME</Link>
-                {/* <a class="nav-link" routerLink="">HOME</a> */}
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link className="nav-link" to="/">HOME</Link>
+                {/* <a className="nav-link" routerLink="">HOME</a> */}
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/collection">COLLECTION</Link>
+              <li className="nav-item">
+                <Link className="nav-link" to="/collection">COLLECTION</Link>
               </li>
-              {/* <li class="nav-item">
-                <Link to="/profile" class="nav-link">PROFILE</Link>
+              {/* <li className="nav-item">
+                <Link to="/profile" className="nav-link">PROFILE</Link>
             </li> */}
-              <li class="nav-item">
-                <Link class="nav-link" to="/createitem">CREATE</Link>
+              <li className="nav-item">
+                <Link className="nav-link" to="/createitem">CREATE</Link>
               </li>
               {!account ?
-              <li class="nav-item">
+              <li className="nav-item">
                 <div >
-                  <a class="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT </a>
+                  <a className="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT </a>
                 </div>
               </li>
                   :""}
               {account &&
-              <li class="nav-item">
-                <div class="dropdown">
+              <li className="nav-item">
+                <div className="dropdown">
                   {/* <div >
-              <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <img src="" alt="" class="img-show"
+                <img src="" alt="" className="img-show"
                   />
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div class="row">
-                  <div class="col-sm-12">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div className="row">
+                  <div className="col-sm-12">
                     <h5>asdasd</h5>
-                    <ul class="list-inline">
-                      <li class="list-inline-item">
-                        <span class="grey" >as</span>
+                    <ul className="list-inline">
+                      <li className="list-inline-item">
+                        <span className="grey" >as</span>
                       </li>
 
-                     <li class="list-inline-item">
-                        <button class="grey">
-                          <img src="../../assets/copy.png" alt="" class="img-fluid" />
+                     <li className="list-inline-item">
+                        <button className="grey">
+                          <img src="../../assets/copy.png" alt="" className="img-fluid" />
                         </button>
                       </li> 
                     </ul>
 
-                    <div class="row ptb20">
-                      <div class="col-sm-3">
-                        <div class="inner-im text-center">
-                          <img src="../../assets/bnb-logo.png" alt="" class="img-fluid" />
+                    <div className="row ptb20">
+                      <div className="col-sm-3">
+                        <div className="inner-im text-center">
+                          <img src="../../assets/bnb-logo.png" alt="" className="img-fluid" />
                         </div>
                       </div>
-                      <div class="col-sm-9">
-                        <div class="inner-im">
-                          <h6 class="grey">Balance</h6>
-                          <h5>asd <span class="clr">BNB</span></h5>
+                      <div className="col-sm-9">
+                        <div className="inner-im">
+                          <h6 className="grey">Balance</h6>
+                          <h5>asd <span className="clr">BNB</span></h5>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-sm-12">
-                       <button class="btn-common">Add Funds</button> 
+                    <div className="row">
+                      <div className="col-sm-12">
+                       <button className="btn-common">Add Funds</button> 
                       </div>
                     </div>
 
@@ -119,55 +121,51 @@ const Header = () => {
               </div>
             </div> */}
                   <div>
-                    <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                      <img src="/pegify/landing-assets/user-image-two.png" alt="" class="img-fluid inner-tiless" />
+                      <img src="/pegify/landing-assets/user-image-two.png" alt="" className="img-fluid inner-tiless" />
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <div class="row">
-                        <div class="col-sm-12">
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <div className="row">
+                        <div className="col-sm-12">
                           <h5>mydata</h5>
-                          <ul class="list-inline">
-                            <li class="list-inline-item">
-                              <span class="grey" >sender</span>
+                          <ul className="list-inline">
+                            <li className="list-inline-item">
+                              <span className="grey" >sender</span>
                             </li>
 
-                            <li class="list-inline-item">
-                              <a class="grey">
-                                <img src="assets/copy.png" alt="" class="img-fluid" />
+                            <li className="list-inline-item">
+                              <a className="grey">
+                                <img src="/assets/copy.png" alt="" className="img-fluid" />
                               </a>
                             </li>
                           </ul>
 
-                          <div class="row ptb20">
-                            <div class="col-sm-3">
-                              <div class="inner-im text-center">
-                                <img src="/assets/bnb-logo.png" alt="" class="img-fluid" />
+                          <div className="row ptb20">
+                            <div className="col-sm-3">
+                              <div className="inner-im text-center">
+                                <img src="/assets/bnb-logo.png" alt="" className="img-fluid" />
                               </div>
                             </div>
-                            <div class="col-sm-9">
-                              <div class="inner-im">
-                                <h6 class="grey">Balance</h6>
-                                <h5><span class="clr">BNB</span></h5>
+                            <div className="col-sm-9">
+                              <div className="inner-im">
+                                <h6 className="grey">Balance</h6>
+                                <h5><span className="clr">BNB</span></h5>
                               </div>
                             </div>
                           </div>
 
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <button class="btn-common">Add Funds</button>
+                          <div className="row">
+                            <div className="col-sm-12">
+                              <button className="btn-common">Add Funds</button>
                             </div>
                           </div>
-
                           <hr />
                           <ul>
-
                             <li>
-                              <a >
                                 <div>
                                   <Link to={`/profile/${account}`}> My Profile</Link>
                                 </div>
-                              </a>
                             </li>
                             <li>
                               <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
@@ -175,7 +173,6 @@ const Header = () => {
                           </ul>
                           <hr />
                           <div >
-                            {/* <a>Disconnect Wallet</a> */}
                             <button type="button" onClick={disconnect}>Disconnect Wallet</button>
                             </div>
                         </div>
@@ -186,46 +183,44 @@ const Header = () => {
                 </div>
               </li>
 }
-
             </ul>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  {/* <div class="modal-header">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  {/* <div className="modal-header">
                 </div> */}
-                  <div class="modal-body text-center">
-                    <div class="row">
-                      <div class="col-sm-12">
+                  <div className="modal-body text-center">
+                    <div className="row">
+                      <div className="col-sm-12">
                         <h4>Connect Your Wallet</h4>
                         <p><small>Connect with one of available wallet providers or create a new wallet. What is a
                           wallet?</small></p>
                       </div>
                     </div>
-                    <div class="meta">
-                      <div class="row">
-                        <div class="col-sm-12 text-center">
-                          <div class="">
-                            <img src="/pegify/collection/metamask.png" class="img-fluid" />
+                    <div className="meta">
+                      <div className="row">
+                        <div className="col-sm-12 text-center">
+                          <div className="">
+                            <img src="/pegify/collection/metamask.png" className="img-fluid" alt="" />
                             <a>
-                              <h4 class="">METAMASK</h4>
-                              <p class=""><small>One of the most secure wallets with great flexibility</small> </p>
+                              <h4 className="">METAMASK</h4>
+                              <p className=""><small>One of the most secure wallets with great flexibility</small> </p>
                             </a>
                             <div >
-                              <button class="btn-common" data-dismiss="modal" type="button" onClick={connectMetaMask}>CONNECT</button>
+                              <button className="btn-common" data-dismiss="modal" type="button" onClick={connectMetaMask}>CONNECT</button>
                             </div>
                             {/* <div>
-                              <button class="btn-common" data-dismiss="modal" >Disconnect </button>
+                              <button className="btn-common" data-dismiss="modal" >Disconnect </button>
                             </div>  */}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  {/* <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  {/* <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary">Save changes</button>
                 </div> */}
                 </div>
               </div>

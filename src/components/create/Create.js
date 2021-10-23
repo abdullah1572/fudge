@@ -25,7 +25,8 @@ const Create = () => {
     }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
-    const formValidation = () => {
+    const formValidation = useCallback(() =>{
+
         const imageUrlError = {};
         const chooseCategory = {};
         let isValid = true;
@@ -40,7 +41,7 @@ const Create = () => {
         setImageUrlError(imageUrlError)
         setChooseCategory(chooseCategory)
         return isValid;
-    }
+    },[fileUrl,dropDown])
 
     
 
@@ -130,7 +131,7 @@ const Create = () => {
                 autoClose: 2000,
             });
         }
-    }, [ApproveAllTokenID, FudgeSale])
+    }, [ApproveAllTokenID, FudgeSale,account,allFormData.formData,dropDown,fileUrl,formValidation,mintPro])
 
     async function onChange(e) {
         const file = e.target.files[0]
@@ -154,9 +155,7 @@ const Create = () => {
                     </div>
                     <ValidatorForm className="form-contact">
                         <div className="row">
-
                             <div className="col-sm-9">
-
                                 <h5>Upload File</h5>
                                 <div className="inner-content text-center">
 
@@ -169,7 +168,7 @@ const Create = () => {
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20 ,borderRadius:30}} width="400px" height="400px" />)}
+                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20 ,borderRadius:30}} width="400px" height="400px"  alt=""/>)}
                                         </div>
                                     </div>
                                 </div>
