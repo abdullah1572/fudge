@@ -75,22 +75,22 @@ const Footer = () => {
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a href="">
-                                <img src="pegify\socails\discord-icon.svg" alt="" class="img-fluid" />
+                                <img src="pegify\socails\foot1.svg" alt="" class="img-fluid" />
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a href="">
-                                <img src="pegify\socails\twitter-icon.svg" alt="" class="img-fluid" />
+                                <img src="pegify\socails\foot2.svg" alt="" class="img-fluid" />
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a href="">
-                                <img src="pegify\socails\facebook-icon.svg" alt="" class="img-fluid" />
+                                <img src="pegify\socails\foot3.svg" alt="" class="img-fluid" />
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a href="">
-                                <img src="pegify\socails\instagram-icon.svg" alt="" class="img-fluid" />
+                                <img src="pegify\socails\foot4.svg" alt="" class="img-fluid" />
                             </a>
                         </li>
                     </ul>

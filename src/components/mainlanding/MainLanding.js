@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
+import Header from '../header/Header';
 const MainLanding = () => {
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    console.log("token",token)
+    console.log("token", token)
     const dispatch = useDispatch();
     const display = token.map((elem) => {
         const creator = elem.creators.map((elem) => {
@@ -31,14 +32,14 @@ const MainLanding = () => {
                         <ul class="list-inline ">
                             <li class="list-inline-item">
                                 <div class="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                             {creator}
-                                 
+                                    {creator}
+
                                 </div>
                             </li>
                             <li class="list-inline-item ">
                                 <div class="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                               {owner}
-                                
+                                    {owner}
+
                                 </div>
                             </li>
                         </ul>
@@ -398,16 +399,17 @@ const MainLanding = () => {
         <>
             <section class="main-banner">
                 <div class="container">
+                    <Header />
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="inner-content  ptb">
-                                <h2 class="clr">Welcome to Fudge</h2>
+                                <h2 class="">Welcome to Fudge</h2>
                                 <h1>The #1 Community Based NFT Platform</h1>
-                                <p class="grey ptb20">Create, Sell, or Buy your NFTs with our biggest NFT Community</p>
+                                <p class="">Create, Sell, or Buy your NFTs with our biggest NFT Community</p>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-btn">
-                                            <button class="btn-common" routerLink="/collection">see collections</button>
+                                            <button class="btn-newscoll" routerLink="/collection">SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button>
                                         </div>
                                     </li>
                                 </ul>
@@ -436,7 +438,7 @@ const MainLanding = () => {
                                     <div className="col-sm-12">
                                         <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                             <li class="nav-item" active>
-                                                <a class=" btn-common-2 " id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                                <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
                                                     role="tab" aria-controls="pills-home" aria-selected="true">All</a>
                                             </li>
                                             <li class="nav-item">
@@ -502,7 +504,7 @@ const MainLanding = () => {
                                     </div>
                                     <div class="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
                                         <div class="row ptb20">
-                                         
+
                                             {games.length > 0 ? games :
                                                 <div>No Item</div>
                                             }
@@ -562,26 +564,69 @@ const MainLanding = () => {
             <section class="services ptb">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\setup-wallet-icon.svg" alt="" class="img-fluid" />
-                                <h4>Setup your Wallet</h4>
-                                <p class="grey">Once you’ve set up your wallet of choice, connect it to Fudge NFTs by clicking the wallet icon in the top right corner. Learn about the wallets we support.</p>
+                        <div class="col-sm-12">
+                            <div className="main-head">
+                                <h2>Create And Sell Now</h2>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
-                                <h4>Add your NFT’s</h4>
-                                <p class="grey">Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="inner-side">
-                                <img src="pegify\landing-assets\list-them-for-sale-icon.svg" alt="" class="img-fluid" />
-                                <h4>List Them for sale</h4>
-                                <p class="grey">Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs, and we help you sell them!</p>
+                    </div>
+                    <div class="row">
 
+                        <div class="col-sm-4">
+                            <div class="box-hover-vv">
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="box-contents">
+                                    <div class="inner-side">
+                                        <img src="pegify\landing-assets\setup-wallet-icon.svg" alt="" class="img-fluid" />
+                                        <h4>Setup your Wallet</h4>
+                                        <p class="grey">Once you’ve set up your wallet of choice, connect it to Fudge NFTs by clicking the wallet icon in the top right corner. Learn about the wallets we support.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="box-hover-vv">
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="box-contents">
+                                    <div class="inner-side">
+                                        <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
+                                        <h4>Add your NFT’s</h4>
+                                        <p class="grey">Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="box-hover-vv">
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="hover-point"></div>
+                                <div class="box-contents">
+                                    <div class="inner-side">
+                                        <img src="pegify\landing-assets\list-them-for-sale-icon.svg" alt="" class="img-fluid" />
+                                        <h4>List Them for sale</h4>
+                                        <p class="grey">Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs, and we help you sell them!</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -593,9 +638,9 @@ const MainLanding = () => {
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="inner-content">
-                                <h3 class="clr ptb20">FEATURED ARTIST</h3>
+                                <h3 class="">FEATURED ARTIST</h3>
                                 <h2>Adijavar Maccaroni</h2>
-                                <p class="grey">I believe that love is difficult, but worth trying</p>
+                                <p class="">I believe that love is difficult, but worth trying</p>
 
                                 <ul class="list-inline ptb20">
                                     <li class="list-inline-item">
@@ -626,7 +671,7 @@ const MainLanding = () => {
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-btn">
-                                            <button class="btn-common">see collection</button>
+                                            <button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button>
                                         </div>
                                     </li>
                                     <li class="list-inline-item">

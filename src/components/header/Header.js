@@ -42,9 +42,9 @@ const Header = () => {
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <Link class="nav-link" to="/">HOME</Link>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item ">
+                <Link class="nav-link active" to="/">HOME</Link>
                 {/* <a class="nav-link" routerLink="">HOME</a> */}
               </li>
               <li class="nav-item">
@@ -59,7 +59,7 @@ const Header = () => {
               {!account ?
               <li class="nav-item">
                 <div >
-                  <a class="nav-link" data-toggle="modal" data-target="#exampleModal">CONNECT </a>
+                  <Link class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
                 </div>
               </li>
                   :""}

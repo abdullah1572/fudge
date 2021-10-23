@@ -26,9 +26,9 @@ function App() {
     <>
         <Router>
         <ToastContainer/>
-        <div class="container">
+        {/* <div class="container">
         <Header/>
-        </div>
+        </div> */}
         <Switch>
           <Route exact path='/' component={MainLanding}/>
           <Route exact path='/collection' component={Collection}/>

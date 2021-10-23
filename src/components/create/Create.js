@@ -9,6 +9,7 @@ import environment from '../../utils/Environment';
 import { ApproveForAll } from '../../hooks/FudgeBuyAndSale';
 import { Sale } from '../../hooks/FudgeBuyAndSale';
 import './create.scss';
+import Header from '../header/Header';
 const Create = () => {
     const { account } = useWeb3React();
     const [dropDown, setDropDown] = useState('Choose Category');
@@ -42,7 +43,7 @@ const Create = () => {
         return isValid;
     }
 
-    
+
 
     // const [tokenId, setTokenId] = useState('')
     const { ApproveAllTokenID } = ApproveForAll()
@@ -69,12 +70,12 @@ const Create = () => {
         formValidation();
         if (account) {
             if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' || fileUrl === ''
-             || dropDown==='Choose Category') {
+                || dropDown === 'Choose Category') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
                 });
-                return 
+                return
             }
 
             try {
@@ -91,7 +92,7 @@ const Create = () => {
                         //     });
                         //     return
                         // }
-                      
+
                         await FudgeSale(tokenID, getPrice);
                     }
                     catch (err) {
@@ -145,21 +146,19 @@ const Create = () => {
 
             <section className="creates">
                 <div className="container">
+                    <Header />
                     <div className="row  ptb">
                         <div className="col-sm-12">
                             <div className="inner-head">
-                                <h2>Create Item</h2>
+                                <h2>Lets create your NFT</h2>
                             </div>
                         </div>
                     </div>
                     <ValidatorForm className="form-contact">
                         <div className="row">
-
                             <div className="col-sm-9">
-
                                 <h5>Upload File</h5>
                                 <div className="inner-content text-center">
-
                                     <div className="row pt160" >
                                         <div className="col-sm-12">
                                             <h4 className="grey ptb20">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</h4>
@@ -169,15 +168,13 @@ const Create = () => {
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20 ,borderRadius:30}} width="400px" height="400px" />)}
+                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />)}
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="row ptb20">
                                     <div className="col-sm-9">
                                         <div className="inner-inpt">
-
                                             <div className="form-group">
                                                 <div className="inner-logo-b">
                                                     <div className="form-group main-text-feild-head">
@@ -186,7 +183,6 @@ const Create = () => {
                                                             fullWidth
                                                             type="number"
                                                             name="price"
-                                                            autoComplet="off"
                                                             value={allFormData.formData.price}
                                                             onChange={handleChange}
                                                             variant="outlined"
@@ -195,6 +191,16 @@ const Create = () => {
                                                             validators={['required']}
                                                             errorMessages={['Price is required']}
                                                         />
+                                                    </div>
+                                                    <div className="sdsdsd">
+                                                        <button className="button-discov" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Fudge  <i class="pl-2 fas fa-chevron-down"></i>
+                                                        </button>
+                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a className="dropdown-item" > <img src="pegify\landing-assets\bnbbb.png" alt="" className="widdd mr-2" />BNB</a>
+                                                       
+                                                        </div>
+                                                        {/* {Object.keys(chooseCategory).map((key) => { return <p className="inputErrors">{chooseCategory[key]}</p> })} */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,14 +212,13 @@ const Create = () => {
                                                     name="nftName"
                                                     value={allFormData.formData.nftName}
                                                     onChange={handleChange}
-                                                    placeholder="Enter Your Name..."
+                                                    placeholder="Enter The Name For Your NFT..."
                                                     className="input-fields"
                                                     variant="outlined"
                                                     validators={['required']}
                                                     errorMessages={['NFT Name field is required']}
                                                 />
                                             </div>
-
                                             <div className="form-group">
                                                 <label for="exampleInputdec">Description</label>
                                                 <TextValidator
@@ -236,7 +241,6 @@ const Create = () => {
                                                         <div className=" drop-recent">
                                                             <button className="button-discover-add" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 {dropDown}
-                                                               
                                                             </button>
                                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 {/* <select> */}
@@ -247,18 +251,14 @@ const Create = () => {
                                                                     )
                                                                 }
                                                                 )}
-                                                             
-
                                                                 {/* </select> */}
-                                                                
                                                             </div>
                                                             {Object.keys(chooseCategory).map((key) => { return <p className="inputErrors">{chooseCategory[key]}</p> })}
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                            <div className="form-group">
+                                            <div className="form-group  percentage-images">
                                                 <label for="exampleInputdec">Royalties</label>
                                                 <TextValidator
                                                     fullWidth
@@ -269,10 +269,14 @@ const Create = () => {
                                                     placeholder="Enter Your Royalties..."
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    // validators={['required']}
-                                                    // errorMessages={['Royalties field is required']}
+                                                // validators={['required']}
+                                                // errorMessages={['Royalties field is required']}
                                                 />
+                                                 <div className="mamam">
+                                            <i class="fas fa-percent"></i>
                                             </div>
+                                            </div>
+                                           
 
                                             <div className="switch">
                                                 <span className="yoyo">Put on marketplace</span>
@@ -289,6 +293,12 @@ const Create = () => {
                                             </ul>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-3">
+                                <h5>Preview</h5>
+                                <div className="main-privew-div">
+                                    <h6>Upload file to preview you NFT</h6>
                                 </div>
                             </div>
                         </div>

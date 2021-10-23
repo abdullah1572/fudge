@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import './collection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes,GetTokenAndDetails } from '../../redux/action';
+import Header from '../header/Header';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 const Collection = () => {
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
@@ -316,18 +319,19 @@ const Collection = () => {
        
     return (
         <>
-            <section class="">
+            <section class="container">
+            <Header/>
             </section>
             <section class="collection ptb">
                 <div class="container">
-
+                   
                     <div class="row">
                         <div class="col-sm-12">
                             <h2 class="heading">COLLECTION</h2>
                             <div class="inner-tabs">
                                 <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                     <li class="nav-item" active>
-                                        <a class=" btn-common-2 " id="pills-home-tab" data-toggle="pill" href="#pills-home" 
+                                        <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home" 
                                             role="tab" aria-controls="pills-home" aria-selected="true">All</a>
                                     </li>
                                     <li class="nav-item">
