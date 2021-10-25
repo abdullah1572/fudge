@@ -1,37 +1,37 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
 import useAuth from '../../hooks/useAuth';
 // import Signature from '../../SignMessage/Signature';
 import { AddProfile } from '../../services/services';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { GetUserData } from '../../redux/action';
 const Header = () => {
-  const {account} = useWeb3React();
+  const { account } = useWeb3React();
   const { login, logout } = useAuth();
   // const { userSign } = Signature(account);
   const userData = useSelector(state => state.CollectionReducer.GetUserData);
   const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(GetUserData(account));
-    }, [account,dispatch])
+  useEffect(() => {
+    dispatch(GetUserData(account));
+  }, [account, dispatch])
 
- const disconnect=()=>{
-   logout()
-   localStorage.setItem('flag', 'false')
- }
+  const disconnect = () => {
+    logout()
+    localStorage.setItem('flag', 'false')
+  }
   const connectMetaMask = () => {
-      login("injected");
-      localStorage.setItem('flag', 'true')
+    login("injected");
+    localStorage.setItem('flag', 'true')
   }
 
-  const SignMessage=async()=>{
-    await AddProfile({walletAddress:account})
+  const SignMessage = async () => {
+    await AddProfile({ walletAddress: account })
   }
-  useEffect (async() => {
-       await SignMessage()
-  },[account])
+  useEffect(async () => {
+    await SignMessage()
+  }, [account])
   // const SignMessage=useCallback(async()=>{
   //   await userSign();
   // },[userSign])
@@ -70,16 +70,19 @@ const Header = () => {
                 <Link className="nav-link" to="/createitem">CREATE</Link>
               </li>
               {!account ?
-              <li className="nav-item">
-                <div >
-                  <Link to="" class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
-                </div>
-              </li>
-                  :""}
+                <li className="nav-item">
+                  <div >
+                    <Link to="" class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
+                  </div>
+                </li>
+                : ""}
+              <h1 style={{ margin: "0", textAlign: "right" }}>
+                {account ? "🟢" :  "🔴"}
+              </h1>
               {account &&
-              <li className="nav-item">
-                <div className="dropdown">
-                  {/* <div >
+                <li className="nav-item">
+                  <div className="dropdown">
+                    {/* <div >
               <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img src="" alt="" className="img-show"
@@ -131,69 +134,69 @@ const Header = () => {
                 </div>
               </div>
             </div> */}
-                  <div>
-                    <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <img src={userData?.ipfsImageUrl} alt="" className="img-fluid inner-tiless" width="50px" height="50px" style={{borderRadius:'50%'}}/>
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <div className="row">
-                        <div className="col-sm-12">
-                          <h5>mydata</h5>
-                          <ul className="list-inline">
-                            <li className="list-inline-item">
-                              <span className="grey" >sender</span>
-                            </li>
+                    <div>
+                      <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src={userData?.ipfsImageUrl} alt="" className="img-fluid inner-tiless" width="50px" height="50px" style={{ borderRadius: '50%' }} />
+                      </a>
+                      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div className="row">
+                          <div className="col-sm-12">
+                            <h5>mydata</h5>
+                            <ul className="list-inline">
+                              <li className="list-inline-item">
+                                <span className="grey" >sender</span>
+                              </li>
 
-                            <li className="list-inline-item">
-                              <a className="grey">
-                                <img src="/assets/copy.png" alt="" className="img-fluid" />
-                              </a>
-                            </li>
-                          </ul>
+                              <li className="list-inline-item">
+                                <a className="grey">
+                                  <img src="/assets/copy.png" alt="" className="img-fluid" />
+                                </a>
+                              </li>
+                            </ul>
 
-                          <div className="row ptb20">
-                            <div className="col-sm-3">
-                              <div className="inner-im text-center">
-                                <img src="/assets/bnb-logo.png" alt="" className="img-fluid" />
+                            <div className="row ptb20">
+                              <div className="col-sm-3">
+                                <div className="inner-im text-center">
+                                  <img src="/assets/bnb-logo.png" alt="" className="img-fluid" />
+                                </div>
+                              </div>
+                              <div className="col-sm-9">
+                                <div className="inner-im">
+                                  <h6 className="grey">Balance</h6>
+                                  <h5><span className="clr">BNB</span></h5>
+                                </div>
                               </div>
                             </div>
-                            <div className="col-sm-9">
-                              <div className="inner-im">
-                                <h6 className="grey">Balance</h6>
-                                <h5><span className="clr">BNB</span></h5>
+
+                            <div className="row">
+                              <div className="col-sm-12">
+                                <button className="btn-common">Add Funds</button>
                               </div>
                             </div>
-                          </div>
-
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <button className="btn-common">Add Funds</button>
-                            </div>
-                          </div>
-                          <hr />
-                          <ul>
-                            <li>
+                            <hr />
+                            <ul>
+                              <li>
                                 <div>
                                   <Link to={`/profile/${account}`}> My Profile</Link>
                                 </div>
-                            </li>
-                            <li>
-                              <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
-                            </li>
-                          </ul>
-                          <hr />
-                          <div >
-                            <button type="button" className="btn-common" onClick={disconnect}>Disconnect Wallet</button>
+                              </li>
+                              <li>
+                                <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
+                              </li>
+                            </ul>
+                            <hr />
+                            <div >
+                              <button type="button" className="btn-common" onClick={disconnect}>Disconnect Wallet</button>
                             </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                </div>
-              </li>
-}
+                  </div>
+                </li>
+              }
             </ul>
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
