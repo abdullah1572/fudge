@@ -5,6 +5,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { EditProfile } from '../../services/services';
 import { useWeb3React } from '@web3-react/core'
 import { ToastContainer, toast } from 'react-toastify';
+import Header from '../header/Header';
 const ProfileDetail = () => {
     const {account} = useWeb3React();
     const [fileUrl, updateFileUrl] = useState(``);
@@ -98,7 +99,7 @@ const ProfileDetail = () => {
             <section className="create">
                 <ToastContainer/>
                 <div className="container">
-                    {/* <Header /> */}
+                    <Header />
                     <div className="row  ptb">
                         <div className="col-sm-12">
                             <div className="inner-head">

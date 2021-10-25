@@ -14,21 +14,24 @@ import { Backdrop } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import {useDispatch} from 'react-redux'
+import MyLoader from '../Loader/MyLoader';
 const Create = () => {
 
     const dispatch=useDispatch();
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
+    const [toggle, setToggle] = useState(false);
     const [dropDown, setDropDown] = useState('Choose Category');
+    const [fudgeDropDown, setFudgeDropDown] = useState('FUDGE');
     const [fileUrl, updateFileUrl] = useState(``);
     const { mintPro } = MintPro(fileUrl);
     const [allFormData, setAllFormData] = useState({
         formData: { price: '', nftName: '', description: '', royalties: '', putOnMarketplace: false },
     })
-    const handleChange = (event) => {
+    const handleChange = (e) => {
         const { formData } = allFormData;
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        formData[event.target.name] = value;
+        const value = e.target.type === 'checkbox' ? e.target.checked  : e.target.value;
+        formData[e.target.name] = value;
         setAllFormData({ formData });
     }
     const [imageUrlError, setImageUrlError] = useState({});
@@ -74,6 +77,17 @@ const Create = () => {
         }
     ]
 
+    const FudgeToken = [
+        {
+            token: 'BNB',
+            logo:'/pegify/bnb-logo.png'
+        },
+        {
+            token: 'FUDGE',
+            logo:'/pegify/fudge-logo1.png'
+        },
+    ]
+    // src/assets/bnb-logo.png
     const handleSubmit = useCallback(async () => {
         formValidation();
         if (account) {
@@ -85,35 +99,47 @@ const Create = () => {
                 });
                 return
             }
+            if(allFormData.formData.price==='0'){
+                toast.warning('Price Greater than 0', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                return
+            }
+            if(allFormData.formData.royalties==='0'){
+                toast.warning('Royalties Greater than 0', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                return
+            }
 
             try {
                 if (allFormData.formData.putOnMarketplace) {
                     const getPrice = allFormData.formData.price
+                     setOpen(true)
                     const tokenID = await mintPro();
-                    await ApproveAllTokenID();
-                    try {
-                        // const price = await getPriceFormat(allFormData.formData.price)
-                        // if(getPrice===0){
-                        //     toast.warning('Value mut be greater than 0', {
-                        //         position: "top-right",
-                        //         autoClose: 2000,
-                        //     });
-                        //     return
-                        // }
-
-                        await FudgeSale(tokenID, getPrice);
+                    if(tokenID){
+                        setOpen(false)
+                    }
+                    setOpen(true)
+                 const approve =   await ApproveAllTokenID();
+                //  console.log("approve",approve.status)
+                    if(approve.status){
+                        setOpen(false)
+                    }   
+                    setOpen(true)
+                     const sale =   await FudgeSale(tokenID, getPrice);
+                    //  console.log("sale======",sale)
+                    if(sale.status){
+                        setOpen(false)
+                       const addInDb= await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
+                        toast.success('Created Item Successfully', {
+                            position: "top-right",
+                            autoClose: 2000,
+                        });
                         dispatch(GetAllNftsAndDetails());
-                        
                     }
-                    catch (err) {
-                        console.log("errrrrrrrrrrrrrrrrrrrrrrrr", err)
-                    }
-
-                    await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
-                    toast.success('Created Item Successfully', {
-                        position: "top-right",
-                        autoClose: 2000,
-                    });
 
                 }
                 else {
@@ -128,6 +154,7 @@ const Create = () => {
 
             }
             catch (err) {
+                setOpen(false)
                 toast.error('Not Created', {
                     position: "top-right",
                     autoClose: 2000,
@@ -145,15 +172,22 @@ const Create = () => {
 
     async function onChange(e) {
         const file = e.target.files[0]
+        setToggle(true)
         IpfsStorage(file).then((res) => {
             updateFileUrl(res)
+            // setOpen(false)
         });
     }
 
 
+    console.log("allFormData.formData.royalties",allFormData.formData.royalties)
+
     return (
         <>
-             <Backdrop className="loader" sx={{ color: '#fff' }} open={open}><CircularProgress color="inherit" /></Backdrop>
+        <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait Transaction in Process</h1><CircularProgress color="inherit" />
+        
+        </Backdrop>
+    
             <section className="creates">
                 <div className="container">
                     <Header />
@@ -178,7 +212,8 @@ const Create = () => {
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            {fileUrl && (<img src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />)}
+                                            {!fileUrl ?  <MyLoader toggle={toggle}/>
+                                           : <img src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />}
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +228,9 @@ const Create = () => {
                                                             fullWidth
                                                             type="number"
                                                             name="price"
-                                                            value={allFormData.formData.price}
+                                                            min="0"
+                                                            // value={allFormData.formData.price}
+                                                            value={allFormData.formData.price && Math.max(0, allFormData.formData.price)}
                                                             onChange={handleChange}
                                                             variant="outlined"
                                                             placeholder="Enter Price"
@@ -204,10 +241,18 @@ const Create = () => {
                                                     </div>
                                                     <div className="sdsdsd">
                                                         <button className="button-discov" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Fudge  <i class="pl-2 fas fa-chevron-down"></i>
+                                                            {fudgeDropDown}  
+                                                            
+                                                            <i class="pl-2 fas fa-chevron-down"></i>
                                                         </button>
                                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a className="dropdown-item" > <img src="pegify\landing-assets\bnbbb.png" alt="" className="widdd mr-2" />BNB</a>
+                                                        {FudgeToken.map((elem) => {
+                                                                    return (
+                                                                        // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                                        <a className="dropdown-item items"   onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2"/>{elem.token}</a>
+                                                                    )
+                                                                }
+                                                                )}
                                                        
                                                         </div>
                                                         {/* {Object.keys(chooseCategory).map((key) => { return <p className="inputErrors">{chooseCategory[key]}</p> })} */}
@@ -251,7 +296,10 @@ const Create = () => {
                                                         <div className=" drop-recent">
                                                             <button className="button-discover-add" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 {dropDown}
+                                                                <i class="pl-2 fas fa-chevron-down ml-auto"></i>
                                                             </button>
+                                                          
+
                                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 {/* <select> */}
 
@@ -273,21 +321,22 @@ const Create = () => {
                                                 <TextValidator
                                                     fullWidth
                                                     type="number"
+                                                    min="0"
                                                     name="royalties"
-                                                    value={allFormData.formData.royalties}
+                                                    // value={allFormData.formData.royalties}
+                                                    value={allFormData.formData.royalties && Math.max(0, allFormData.formData.royalties)}
                                                     onChange={handleChange}
                                                     placeholder="Enter Your Royalties..."
                                                     className="input-fields"
                                                     variant="outlined"
-                                                // validators={['required']}
-                                                // errorMessages={['Royalties field is required']}
+                                                    validators={['required']}
+                                                    errorMessages={['Royalties Persentage is required']}
                                                 />
                                                  <div className="mamam">
                                             <i class="fas fa-percent"></i>
                                             </div>
                                             </div>
-                                           
-
+                                    
                                             <div className="switch">
                                                 <span className="yoyo">Put on marketplace</span>
                                                 <label className="switch">

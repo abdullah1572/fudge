@@ -17,8 +17,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import {GetTop4TokensOfCollection,GetAllNftsAndDetails} from './redux/action'
 import Header from './components/header/Header.js';
 import {useDispatch} from 'react-redux'
+import useEagerConnect from './hooks/useEagerConnect';
+
 
 function App() {
+  useEagerConnect();
   const dispatch=useDispatch();
   dispatch(GetTop4TokensOfCollection());
   dispatch(GetAllNftsAndDetails());

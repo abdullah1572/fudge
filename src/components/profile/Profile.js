@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import './profile.scss';
 import { Owned, OnSale, Liked, Created } from '../../redux/action';
+import Header from '../header/Header';
 const Profile = () => {
 
     const { walletAddress } = useParams();
@@ -39,7 +40,7 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork">
+                <Link to="/artwork">
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -95,7 +96,7 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork">
+                <Link to="/artwork">
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -146,7 +147,7 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork">
+                <Link to="/artwork">
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -180,7 +181,6 @@ const Profile = () => {
 
     const createdData = useSelector(state => state.CollectionReducer.GetCreatedData);
 
-    console.log("createdData", createdData)
     const showCreatedData = createdData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
@@ -199,7 +199,7 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork">
+                <Link to="/artwork">
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -236,6 +236,7 @@ const Profile = () => {
 
             <section className="main-bg">
                 <div className="container">
+                    <Header/>
                 </div>
                 <div className="container-fluid p0">
                     <div className="row">

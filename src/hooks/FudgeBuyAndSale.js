@@ -12,12 +12,7 @@ export const Buy = () => {
     const blueMoonUsecontract=environment.BlueMoonPro;
     const contract = FudgeContract(tokenAddress, web3)
     const FudgeBuy = useCallback(async (tokenId,price) => {
-        console.log("price========================",price)
-        console.log("id==================",tokenId)
-        // const priceToUse =  Web3.utils.toWei(price ,'ether')
         const priceToUse=(price*(10**18))
-        console.log("priceToUse",priceToUse)
-        // const convertPrice=priceToUse.toString()
         const  buy =  await contract.methods.buy(blueMoonUsecontract,tokenId).send({ from: account , value: priceToUse })
         return buy
     }, [account, contract,blueMoonUsecontract])
@@ -33,6 +28,7 @@ export const ApproveForAll = () => {
     const fudgeMarketplace = environment.Fudge;
     const approve = useCallback(async () => {
         const  approveAll =  await contract.methods.setApprovalForAll(fudgeMarketplace,true).send({ from: account})
+        // console.log("approve",approve)
         return approveAll
     }, [account, contract,fudgeMarketplace])
 

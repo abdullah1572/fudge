@@ -350,8 +350,30 @@ h2 {
 // @import '~bootstrap/scss/bootstrap';
 //inputs errors
 .inputErrors{
-  color: 	#FF6666 !important;
+  color: 	#f44336 !important;
   padding: 2px;
   font-size: 18px;
   // padding-left: 32px;
  }
+
+
+
+ //loader css
+ .MuiBackdrop-root {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 1 !important;
+  color: #fff;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.items{
+  display: inline-flex !important;
+}

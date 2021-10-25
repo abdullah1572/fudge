@@ -23,8 +23,6 @@ export const MintUnique = (uri) => {
     const web3 = useWeb3();
     const tokenAddress = environment.BlueMoonUnique;
     const contract = BlueMoonUniqueContract(tokenAddress, web3)
-
-
     const MintUniqueFun = useCallback(async () => {
         const  mint=  await contract.methods.mintUnique(account,uri).send({ from: account }).on('transactionHash', (tx) => { return tx.transactionHash });
         return mint.events.Transfer.returnValues.tokenId;;

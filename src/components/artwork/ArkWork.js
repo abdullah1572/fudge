@@ -6,6 +6,7 @@ import { GetAllTokensOfCreator } from '../../redux/action';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import { AddSale } from '../../services/services';
+import Header from '../header/Header';
 import environment from '../../utils/Environment';
 
 import './artwork.scss';
@@ -13,7 +14,6 @@ const ArtWork = () => {
    const {account}=useWeb3React();
     const [terms, setTerms] = useState(false);
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData) 
-    console.log("single",single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
@@ -29,7 +29,11 @@ const ArtWork = () => {
         }
     }
     const { FudgeBuy } = Buy()
+    // const BuyNow = ()=>{
+    //     window.$("#exampleModal1").modal('show');
+    // }
     const BuyNft = useCallback(async () => {
+        // window.$("#exampleModal1").modal('hide');
         if(account){
          await FudgeBuy(single?.token?.tokenID,single?.order?.price);
          await AddSale(account,single?.token?.walletAddress, environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price)
@@ -110,6 +114,7 @@ const ArtWork = () => {
         <>
             <section className="art-work">
                 <div className="container">
+                    <Header/>
                     <div className="row ptb">
                         <div className="col-sm-6">
                             <div className="art-image">
@@ -207,7 +212,7 @@ const ArtWork = () => {
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-                                            <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1">BUY NOW
+                                            <button className="btn-common-1" data-toggle="modal"  data-target="exampleModal1" >BUY NOW
                                                 FOR {single?.order?.price} BNB</button>
                                             <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import './collection.scss';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,23 @@ const Collection = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const [dropDown, setDropDown] = useState('Recently');
 
+    const sortBy = [
+      
+        {
+            itemList: 'Recently',
+        },
+        {
+            itemList: 'Recently Created',
+        },
+        {
+            itemList: 'Low to High'
+        },
+        {
+            itemList: 'High to Low'
+        }
+    ]
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
     const dispatch = useDispatch();
@@ -37,7 +53,7 @@ const Collection = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline ">
                             <li className="list-inline-item">
@@ -89,7 +105,7 @@ const Collection = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -140,7 +156,7 @@ const Collection = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -191,7 +207,7 @@ const Collection = () => {
 
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -243,7 +259,7 @@ const Collection = () => {
 
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -293,7 +309,7 @@ const Collection = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                     <div className="inner-card image-width">
                         <ul className="list-inline">
                             <li className="list-inline-item">
@@ -370,7 +386,7 @@ const Collection = () => {
                                 </ul>
                                 <hr />
                                 <div className="row">
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-5">
                                         <div className="inner-search">
                                             <h6>SEARCH</h6>
                                             <div className="form-group has-search">
@@ -380,15 +396,30 @@ const Collection = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-sm-2">
+                                    <div className="col-sm-3">
                                         <div className="inner-drop">
                                             <h6>SORT BY</h6>
-                                            <select name="" id="" className="form-control" >
-                                                <option value="Recently Listed">Recently</option>
+                                            <button className="button-discover-add_1" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {dropDown}
+                                                            </button>
+                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                {/* <select> */}
+
+                                                                {sortBy.map((elem) => {
+                                                                    return (
+                                                                        <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                                    )
+                                                                }
+                                                                )}
+                                                                {/* </select> */}
+                                                            </div>
+                                            {/* <select name="" id="" className="form-control" > */}
+                                                {/* <option value="Recently Listed">Recently</option>
                                                 <option value="Recently Created">Recently Created</option>
                                                 <option value="Low to High">Low to High</option>
-                                                <option value="High to Low">High to Low</option>
-                                            </select>
+                                                <option value="High to Low">High to Low</option> */}
+                                                
+                                            {/* </select> */}
                                             {/* <div className="dropdown show">
                                                 <a className="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Recently Added

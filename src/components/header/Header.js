@@ -5,26 +5,27 @@ import { useWeb3React } from '@web3-react/core'
 import useAuth from '../../hooks/useAuth';
 // import Signature from '../../SignMessage/Signature';
 import { AddProfile } from '../../services/services';
-
+import { useSelector,useDispatch } from 'react-redux';
+import { GetUserData } from '../../redux/action';
 const Header = () => {
   const {account} = useWeb3React();
   const { login, logout } = useAuth();
   // const { userSign } = Signature(account);
+  const userData = useSelector(state => state.CollectionReducer.GetUserData);
+  const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(GetUserData(account));
+    }, [account,dispatch])
+
  const disconnect=()=>{
    logout()
+   localStorage.setItem('flag', 'false')
  }
   const connectMetaMask = () => {
-    // localStorage.setItem('injected', "injected")
-    if (account) {
-      logout()
-    } else {
-      AddProfile(account)
       login("injected");
-    
-  
-    }
+      localStorage.setItem('flag', 'true')
   }
-  console.log("account",account)
+
   const SignMessage=async()=>{
     await AddProfile({walletAddress:account})
   }
@@ -133,7 +134,7 @@ const Header = () => {
                   <div>
                     <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                      <img src="/pegify/landing-assets/user-image-two.png" alt="" className="img-fluid inner-tiless" />
+                      <img src={userData?.ipfsImageUrl} alt="" className="img-fluid inner-tiless" width="50px" height="50px" style={{borderRadius:'50%'}}/>
                     </a>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <div className="row">
@@ -183,7 +184,7 @@ const Header = () => {
                           </ul>
                           <hr />
                           <div >
-                            <button type="button" onClick={disconnect}>Disconnect Wallet</button>
+                            <button type="button" className="btn-common" onClick={disconnect}>Disconnect Wallet</button>
                             </div>
                         </div>
                       </div>

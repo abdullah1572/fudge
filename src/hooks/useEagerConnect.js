@@ -10,10 +10,11 @@ const useEagerConnect = () => {
 
   useEffect(() => {
 
-    // const item = window.localStorage.getItem("flag")
-    // if (item === 'true') {
-    //   login("injected")
-    // }
+    const item = localStorage.getItem("flag")
+    // console.log("item",item)
+    if (item === 'true') {
+      login("injected")
+    }
     const connectorId = window.localStorage.getItem("connectorId")
 
     // Disable eager connect for BSC Wallet. Currently the BSC Wallet extension does not inject BinanceChain
