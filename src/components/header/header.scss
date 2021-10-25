@@ -19,13 +19,13 @@
         background: #F2B10F!important;
         box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3)!important;
         border-radius: 35px!important;
-        font-family: 'Inter'!important;
-        font-style: normal!important;
-        font-weight: bold!important;
+       
+    
+       
         font-size: 18px!important;
         line-height: 22px!important;
         color: #FFFFFF!important;
-        padding: 16px 20px!important;
+        padding: 15px 15px!important;
         margin-top: 6px;
     }
 .style-bar {
@@ -72,25 +72,25 @@
                 }
             }
 
-            h4 {
-                font-family: 'Inter';
-font-style: normal;
-font-weight: bold;
-font-size: 32px !important;
-line-height: 39px !important;
-/* identical to box height */
+//             h4 {
+//                 font-family: 'Inter';
+// font-style: normal;
+// font-weight: bold;
+// font-size: 32px !important;
+// line-height: 39px !important;
+// /* identical to box height */
 
 
-color: #191A1C;
-            }
+// color: #191A1C;
+//             }
 
-            h5 {
-                font-family: Inter;
-font-style: normal;
-font-weight: bold;
-font-size: 22px !important;
-line-height: 27px !important;
-            }
+//             h5 {
+//                 font-family: Inter;
+// font-style: normal;
+// font-weight: bold;
+// font-size: 22px !important;
+// line-height: 27px !important;
+//             }
 
 
             .meta{
@@ -132,9 +132,6 @@ line-height: 27px !important;
                 }
 
                 p {
-                    font-family: Inter;
-                    font-style: normal;
-                    font-weight: normal;
                     font-size: 14px !important;
                     line-height: 17px;
                 }
@@ -148,10 +145,8 @@ line-height: 27px !important;
       
 
         a {
-            font-family: Inter;
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
+font-weight: 300;
+// font-size: 16px;
 line-height: 50px;
 
 color: #171B1C;
