@@ -4,19 +4,23 @@ import { Link } from 'react-router-dom';
 import { GetUserData } from '../../redux/action';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useWeb3React } from '@web3-react/core';
 import './profile.scss';
 import { Owned, OnSale, Liked, Created } from '../../redux/action';
 import Header from '../header/Header';
 const Profile = () => {
 
     const { walletAddress } = useParams();
+    const {account}=useWeb3React()
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetUserData(walletAddress));
         dispatch(Owned(walletAddress))
-    }, [walletAddress,dispatch])
+    }, [walletAddress, dispatch])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
+    console.log("userdata", userData)
     const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
+    console.log("fbLink", fbLink)
     const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
     const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
 
@@ -132,7 +136,7 @@ const Profile = () => {
     const showLikedData = likedData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt=""  width="20px" height="20px" className="inner-tiless" />
+                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
             )
         })
         const owner = elem?.users.map((elem) => {
@@ -236,7 +240,7 @@ const Profile = () => {
 
             <section className="main-bg">
                 <div className="container">
-                    <Header/>
+                    <Header />
                 </div>
                 <div className="container-fluid p0">
                     <div className="row">
@@ -256,29 +260,36 @@ const Profile = () => {
                                 <p className="ptb20">{userData?.bio}</p>
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
+
                                         <div className="inner-icon">
-                                            <a href={fbLink} target="_blank" className="facebook" rel="noreferrer">
-                                            </a>
+                                            {userData?.facebookUserName &&
+                                                <a href={fbLink} target="_blank" className="facebook" rel="noreferrer">
+                                                </a>
+                                            }
                                         </div>
                                     </li>
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
-                                            <a href={twitterLink} target="_blank" className="twitter" rel="noreferrer">
-                                            </a>
+                                            {userData?.twitterUserName &&
+                                                <a href={twitterLink} target="_blank" className="twitter" rel="noreferrer">
+                                                </a>
+                                            }
                                         </div>
                                     </li>
-                                    <li className="list-inline-item">
+                                    {/* <li className="list-inline-item">
                                         <div className="inner-icon">
                                             <a href={instaLink} target="_blank" className="web" rel="noreferrer">
                                             </a>
                                         </div>
-                                    </li>
+                                    </li> */}
                                 </ul>
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
-                                        <div className="inner-icon">
-                                        <button className="btn-common">follow</button>
-                                        </div>
+                                        {walletAddress !== account &&
+                                            <div className="inner-icon">
+                                                <button className="btn-common">follow</button>
+                                            </div>
+                                        }
                                     </li>
                                 </ul>
                             </div>
@@ -385,7 +396,7 @@ const Profile = () => {
                                                             <div className="inner-drop">
                                                                 <div className="dropdown show">
                                                                     <h5>Event Type</h5>
-                                                                    <a  className="btn dropdown-toggle"  role="button"
+                                                                    <a className="btn dropdown-toggle" role="button"
                                                                         id="dropdownMenuLink" data-toggle="dropdown"
                                                                         aria-haspopup="true" aria-expanded="false">
                                                                         All

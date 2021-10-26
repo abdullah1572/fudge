@@ -5,14 +5,20 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { EditProfile } from '../../services/services';
 import { useWeb3React } from '@web3-react/core'
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Header from '../header/Header';
 const ProfileDetail = () => {
     const {account} = useWeb3React();
-    const [fileUrl, updateFileUrl] = useState(``);
+
+    const userData = useSelector(state => state.CollectionReducer.GetUserData);
+    console.log("userdata",userData)
+    const [fileUrl, updateFileUrl] = useState(userData?.ipfsImageUrl);
     const [allFormData, setAllFormData] = useState({
         formData: {
-            displayName: '', bio: '', twitterUserName: '', instagramUserName: '', facebookUserName: '',
-            telegramChannel: '', email: ''
+            displayName: userData?.displayName, bio: userData?.bio, twitterUserName: userData?.twitterUserName,
+             instagramUserName: userData?.instagramUserName, facebookUserName: userData?.facebookUserName,
+            telegramChannel: userData?.telegramChannel, email: userData?.email
         },
     })
     const handleChange = (event) => {
@@ -26,8 +32,7 @@ const ProfileDetail = () => {
         formValidation()
         if(account){
             try{
-                if(allFormData.formData.displayName ==='' && allFormData.formData.bio ==='' && fileUrl===''){
-
+                if(allFormData.formData.displayName === userData?.displayName  ){
                     toast.warning("Fill the Required Fileds",{
                         position: "top-right",
                         autoClose: 2000,
@@ -36,8 +41,8 @@ const ProfileDetail = () => {
                 }
                     await EditProfile(allFormData.formData, fileUrl,account)
                     toast.success('EditProfile !', {
-                        position: "top-right",
-                        autoClose: 2000,
+                        position: "top-center",
+                        autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
@@ -147,8 +152,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter Your Bio..."
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Bio  is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Bio  is required']}
                                                     // id="outlined-multiline-static"
                                                     multiline
                                                     rows={4}
@@ -170,8 +175,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your twitter username"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Twitter Name is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Twitter Name is required']}
                                                 />
                                             </div>
                                             <div className="form-group ptb20">
@@ -187,8 +192,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your instagram username"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Instagram Name is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Instagram Name is required']}
                                                 />
                                             </div>
                                             <div className="form-group ptb20">
@@ -204,8 +209,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your facebook username"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Facebook Name is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Facebook Name is required']}
                                                 />
                                             </div>
 
@@ -222,8 +227,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your telegram username"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required']}
-                                                    errorMessages={['Telegram Channel Link is required']}
+                                                    // validators={['required']}
+                                                    // errorMessages={['Telegram Channel Link is required']}
                                                 />
                                             </div>
                                             <div className="form-group ptb20">
@@ -239,8 +244,8 @@ const ProfileDetail = () => {
                                                     placeholder="Enter your Email Address"
                                                     className="input-fields"
                                                     variant="outlined"
-                                                    validators={['required','isEmail']}
-                                                    errorMessages={['E-mail field is required', 'email is not valid']}
+                                                    // validators={['required','isEmail']}
+                                                    // errorMessages={['E-mail field is required', 'email is not valid']}
                                                 />
                                             </div>
                                             <ul className="list-inline">
