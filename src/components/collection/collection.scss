@@ -319,3 +319,90 @@ padding: 10px;
         padding: 0 10px;
            
        }
+
+       .main-price-range-floa{
+        .dropdown-menu{
+            width: 100%;
+        }
+                .drop-downsss{
+                    width: 100%;
+    background: #FFFFFF;
+    border: 1px
+    solid #D1CCE0;
+    border-radius: 10px;
+    height: 54px;
+    text-align: left;
+    padding: 0 10px;
+    
+                }
+       }
+
+
+       .main-outer-fort{
+           display: flex;
+           padding: 20px;
+           .input-main{
+               border: 1px solid rgb(212, 208, 208);
+               display: flex;
+               justify-content: start;
+               align-items:  center;
+               padding: 10px 10px;
+               border-radius: 10px;
+               input{
+                   width: 100%;
+                   border: none;
+                   box-shadow: none;
+                   outline: none;
+                   padding: 0.375rem 0.45rem!important;
+               }
+             
+
+           }
+           .main-input-one{
+            margin-left: 10px;
+           }
+           .main-input-two{
+            margin-right: 0px;
+        }
+       }
+
+       .outer-buttons{
+           display: flex;
+           padding:  0px 20px 20px;
+           .button-one{
+               margin-right: 6px;
+            background-color: rgb(230, 230, 230);
+            color: rgba(4, 4, 5, 0.6);
+            height: 40px;
+            padding-left: 22px;
+            padding-right: 22px;
+            width: 100%;
+            border: 1px
+             solid transparent;
+                -webkit-box-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                justify-content: center;
+                border-radius: 40px;
+                font-size: 14px;
+                font-weight: 900;
+           }
+           .button-two{
+               margin-left: 6px;
+            background-color: rgb(230, 230, 230);
+            color: rgba(4, 4, 5, 0.6);
+            height: 40px;
+            padding-left: 22px;
+            padding-right: 22px;
+            width: 100%;
+            border: 1px
+             solid transparent;
+                -webkit-box-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                justify-content: center;
+                border-radius: 40px;
+                font-size: 14px;
+                font-weight: 900;
+           }
+       }

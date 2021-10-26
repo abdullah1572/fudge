@@ -13,7 +13,7 @@
                 padding-bottom: 29.5px;
                 a{
                     font-family: 'Poppins';
-                    font-style: normal;
+                    font-style: 300;
                     font-weight: 500!important;
                     font-size: 16px!important;
                     line-height: 24px;
@@ -35,7 +35,7 @@
                 padding-top: 29.5px;
                 a{
                     font-family: 'Poppins';
-                    font-style: normal;
+                    font-style: 300;
                     font-weight: 500!important;
                     font-size: 16px!important;
                     line-height: 24px;
@@ -68,9 +68,9 @@
                 box-sizing: border-box;
                 border-radius: 90px;
                 cursor: pointer;
-                font-family: 'DM Sans';
+                font-family: 'poppins';
                 font-style: normal;
-                font-weight: bold;
+                font-weight: 600;
                 font-size: 14px;
                 line-height: 16px;
                 outline: none;
@@ -97,7 +97,7 @@
             h1{
                 font-family: 'DM Sans';
                 font-style: normal;
-                font-weight: bold;
+                font-weight: 600;
                 font-size: 48px!important;
                 line-height: 56px;
                 color: #FCFCFD!important;
@@ -108,7 +108,7 @@
             P{
                 font-family: 'Poppins';
                 font-style: normal;
-                font-weight: normal;
+                font-weight: 300;
                 font-size: 14px!important;
                 line-height: 24px;
                 color:  #777E91!important;
@@ -127,16 +127,15 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-          
             .left-side-button{
                 .buttonss{
                     background-color: transparent;
                     border: 2px solid #353945;
                     box-sizing: border-box;
                     border-radius: 90px;
-                    font-family: 'DM Sans';
+                    font-family: 'poppins';
                     font-style: normal;
-                    font-weight: bold;
+                    font-weight: 600;
                     font-size: 14px;
                     cursor: pointer;
                     line-height: 16px;
