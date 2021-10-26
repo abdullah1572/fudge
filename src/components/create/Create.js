@@ -140,8 +140,8 @@ const Create = () => {
                         setOpen(false)
                         await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown,fudgeDropDown);
                         toast.success('Created Item Successfully', {
-                            position: "top-right",
-                            autoClose: 2000,
+                            position: "top-center",
+                            autoClose:5000,
                         });
                         dispatch(GetAllNftsAndDetails());
                     }
@@ -151,8 +151,8 @@ const Create = () => {
                     const tokenId = await mintPro();
                     await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown,fudgeDropDown);
                     toast.success('Created Item Successfully', {
-                        position: "top-right",
-                        autoClose: 2000,
+                        position: "top-center",
+                        autoClose: 5000,
                     });
 
                 }
@@ -161,8 +161,8 @@ const Create = () => {
             catch (err) {
                 setOpen(false)
                 toast.error('Not Created', {
-                    position: "top-right",
-                    autoClose: 2000,
+                    position: "top-center",
+                    autoClose: 5000,
                 });
             }
         }
@@ -170,7 +170,7 @@ const Create = () => {
         else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 5000,
             });
         }
     }, [ApproveAllTokenID, FudgeSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
@@ -185,7 +185,11 @@ const Create = () => {
     }
 
 
-    console.log("allFormData.formData.royalties", allFormData.formData.royalties)
+
+    const Remove=()=>{
+        updateFileUrl('');
+        setToggle(false)
+       }
 
     return (
         <>
@@ -210,21 +214,32 @@ const Create = () => {
                                 <div className="inner-content text-center">
                                     <div className="row pt160" >
                                         <div className="col-sm-12">
+                                            {fileUrl ?
+                                            <button type="button" onClick={Remove}>
+
+                                            <div className="icons-image-close">
+                                            <i class="far fa-times-circle"></i>
+                                        </div>
+                                            </button>:
+                                        <div>
+
                                             <h4 className="grey ptb20">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</h4>
+
                                             <label for="file" className="custom-file-upload btn-common-2">
                                                 UPLOAD FILE <i className="fa fa-cloud-upload"></i>
                                             </label>
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
+                                        </div>
+                                            }
+
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
                                             <div className="main-image-new-close">
                                                 {!fileUrl ? <MyLoader toggle={toggle} />
                                                     : <img className="img-uploader-mm" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />
 
                                                 }
-                                                <div className="icons-image-close">
-                                                    <i class="far fa-times-circle"></i>
-                                                </div>
+                                                
                                             </div>
 
                                         </div>

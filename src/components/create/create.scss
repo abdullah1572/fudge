@@ -259,7 +259,7 @@ border-radius: 10px;
     border: none;
     right: 14px;
     top: 45px;
-    z-index: 11;
+   
     background-color: #ffffff;
   .dropdown-menu{
       left: -61px!important;
@@ -269,8 +269,8 @@ border-radius: 10px;
       background-color: transparent;
       border: none;
       color: rgb(151, 149, 149);
-      position: relative;
-    z-index: -11;
+    //   position: relative;
+    // z-index: -11;
   }
 }
 
@@ -305,12 +305,9 @@ border-radius: 10px;
 
 .main-image-new-close{
     position: relative;
-    width: 400px;
-    height: 400px;
+    // width: 400px;
+    // height: 400px;
     margin: 0 auto;
-    img{
-        
-    }
     .icons-image-close{
         position: absolute;
         top: 0px;
