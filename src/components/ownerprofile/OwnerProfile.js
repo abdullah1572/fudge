@@ -1,12 +1,14 @@
 import React from 'react';
 import './ownerprofile.scss';
 import { Link } from 'react-router-dom';
+import Header from '../header/Header';
 const OwnerProfile = () => {
 
     return (
         <>
             <section className="main-bg">
                 <div className="container-fluid p0">
+                    <Header/>
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="inner-img">

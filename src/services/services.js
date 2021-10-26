@@ -36,8 +36,8 @@ export const EditProfile = async (data, file, walletAddress) => {
 
 
 
-export const addToken = async (data, contractAddress, account, fileUrl, tokenId, category) => {
-    const send = { ...data, contractAddress: contractAddress, walletAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category }
+export const addToken = async (data, contractAddress, account, fileUrl, tokenId, category,currency) => {
+    const send = { ...data, contractAddress: contractAddress, walletAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category,currency:currency }
     await axios.post(`${API_URL}/token/addToken`, send)
         .then((res) => {
             return res;
@@ -46,8 +46,8 @@ export const addToken = async (data, contractAddress, account, fileUrl, tokenId,
         })
 }
 
-export const addTokenAndPutOnSale = async (data, contractAddress, account, fileUrl, tokenId, category) => {
-    const send = { ...data, contractAddress: contractAddress, walletAddress: account, ownerAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category }
+export const addTokenAndPutOnSale = async (data, contractAddress, account, fileUrl, tokenId, category,currency) => {
+    const send = { ...data, contractAddress: contractAddress, walletAddress: account, ownerAddress: account, imageUrl: fileUrl, tokenID: tokenId, category: category,currency:currency }
     await axios.post(`${API_URL}/token/addTokenAndPutOnSale`, send)
         .then((res) => {
             return res;

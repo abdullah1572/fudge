@@ -8,7 +8,7 @@ import { AddProfile } from '../../services/services';
 import { useSelector, useDispatch } from 'react-redux';
 import { GetUserData } from '../../redux/action';
 const Header = () => {
-  const { account } = useWeb3React();
+  const { account,active } = useWeb3React();
   const { login, logout } = useAuth();
   // const { userSign } = Signature(account);
   const userData = useSelector(state => state.CollectionReducer.GetUserData);
@@ -76,9 +76,9 @@ const Header = () => {
                   </div>
                 </li>
                 : ""}
-              <h1 style={{ margin: "0", textAlign: "right" }}>
-                {account ? "🟢" :  "🔴"}
-              </h1>
+              <h3 style={{ margin: "0", textAlign: "right" }}>
+                {active ? "🟢" :  "🔴"}
+              </h3>
               {account &&
                 <li className="nav-item">
                   <div className="dropdown">

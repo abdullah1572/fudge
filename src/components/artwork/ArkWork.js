@@ -11,13 +11,14 @@ import environment from '../../utils/Environment';
 
 import './artwork.scss';
 const ArtWork = () => {
-   const {account}=useWeb3React();
+    const { account } = useWeb3React();
     const [terms, setTerms] = useState(false);
-    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData) 
+    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
+    console.log("single", single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
-    }, [single?.creator?.walletAddress,dispatch])
+    }, [single?.creator?.walletAddress, dispatch])
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const handleChange = () => {
         if (terms) {
@@ -34,46 +35,46 @@ const ArtWork = () => {
     // }
     const BuyNft = useCallback(async () => {
         // window.$("#exampleModal1").modal('hide');
-        if(account){
-         await FudgeBuy(single?.token?.tokenID,single?.order?.price);
-         await AddSale(account,single?.token?.walletAddress, environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price)
-        //  try{
-        //     if(tx){
-        //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
-        //         toast.success('Successfully Bought', {
-        //             position: "top-right",
-        //             autoClose: 2000,
-        //         });
-        //     }
-        //  }catch{
-        //        toast.error('Fail to Buy', {
-        //         position: "top-right",
-        //         autoClose: 2000,
-        //     });
-        //     return false
-        //  }
+        if (account) {
+            await FudgeBuy(single?.token?.tokenID, single?.order?.price);
+            await AddSale(account, single?.token?.walletAddress, environment.BlueMoonPro, single?.token?.tokenID, single?.order?.price)
+            //  try{
+            //     if(tx){
+            //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
+            //         toast.success('Successfully Bought', {
+            //             position: "top-right",
+            //             autoClose: 2000,
+            //         });
+            //     }
+            //  }catch{
+            //        toast.error('Fail to Buy', {
+            //         position: "top-right",
+            //         autoClose: 2000,
+            //     });
+            //     return false
+            //  }
 
-        }else{
+        } else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
                 autoClose: 2000,
             });
         }
-    },[FudgeBuy,account,single?.token?.walletAddress,single?.token?.tokenID,single?.order?.price])
-    const MoreCreatorNfts = creatorData.map((elem,index) => {
+    }, [FudgeBuy, account, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
+    const MoreCreatorNfts = creatorData.map((elem, index) => {
 
-        const creator=elem?.creators.map((elem)=>{
-            return(
-                <img src={elem?.ipfsImageUrl}  className="inner-tiless" width="20px" height="20px" alt=""/>
+        const creator = elem?.creators.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} className="inner-tiless" width="20px" height="20px" alt="" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
@@ -100,7 +101,8 @@ const ArtWork = () => {
                         <hr />
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                                {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
+                                <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                 <span className="grey"> {elem?.numerOfLikes}</span>
                             </li>
                         </ul>
@@ -114,7 +116,7 @@ const ArtWork = () => {
         <>
             <section className="art-work">
                 <div className="container">
-                    <Header/>
+                    <Header />
                     <div className="row ptb">
                         <div className="col-sm-6">
                             <div className="art-image">
@@ -137,7 +139,7 @@ const ArtWork = () => {
                                                 <li className="">
                                                     <div className="icon-1">
                                                         <button data-dismiss="modal">
-                                                            <img src="pegify/art-work/profile-img.png"  className="img-fluid img-1" alt="" />&nbsp;&nbsp;
+                                                            <img src="pegify/art-work/profile-img.png" className="img-fluid img-1" alt="" />&nbsp;&nbsp;
                                                             <span className="grey-1">Abdullah</span>
                                                         </button>
                                                     </div>
@@ -161,8 +163,9 @@ const ArtWork = () => {
                                             <div className="icons">
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item" >
-                                                        <img src="pegify/landing-assets/heart.png" alt=""
-                                                            className="img-fluid" />
+                                                        {/* <img src="pegify/landing-assets/heart.png" alt=""
+                                                            className="img-fluid" /> */}
+                                                        <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                                         <span className="grey"> {single?.token?.numerOfLikes}</span>
                                                     </li>
                                                 </ul>
@@ -186,7 +189,15 @@ const ArtWork = () => {
                                                             className="img-fluid inner-imagess"
                                                         />
                                                     </li>
-                                                    <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                    <li className="list-inline-item grey-1">
+                                                        {`${single?.token?.walletAddress.substring(0, 6)}...${single?.token?.walletAddress.substring(
+                                                                    single?.token?.walletAddress.length - 4
+                                                                )}`}
+                                                    </li>
+                                                    <li className="list-inline-item grey-1">
+                                                    {single?.user?.displayName}
+                                                    </li>
+
                                                 </ul>
 
                                             </Link>
@@ -203,6 +214,11 @@ const ArtWork = () => {
                                                         <img src={single?.user?.ipfsImageUrl} alt=""
                                                             className="img-fluid inner-imagess"
                                                         /></li>
+                                                        <li className="list-inline-item grey-1">
+                                                        {`${single?.token?.creatorAddress.substring(0, 6)}...${single?.token?.creatorAddress.substring(
+                                                                    single?.token?.creatorAddress.length - 4
+                                                                )}`}
+                                                    </li>
                                                     <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
                                                 </ul>
                                             </Link>
@@ -212,7 +228,7 @@ const ArtWork = () => {
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-                                            <button className="btn-common-1" data-toggle="modal"  data-target="exampleModal1" >BUY NOW
+                                            <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1" >BUY NOW
                                                 FOR {single?.order?.price} BNB</button>
                                             <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">

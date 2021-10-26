@@ -277,7 +277,7 @@ const Profile = () => {
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
-                                            {/* <!-- <button className="btn-common">follow</button> --> */}
+                                        <button className="btn-common">follow</button>
                                         </div>
                                     </li>
                                 </ul>

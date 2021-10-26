@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { API_URL } from '../../ApiURL';
-
-
-
+import { toast } from 'react-toastify';
 export const GetTop4TokensOfCollection = () => async (dispatch) => {
   
   await axios.get(`${API_URL}/token/getTop4TokensOfCollection`)
@@ -410,4 +408,49 @@ export const Created = (walletAddress) => async (dispatch) => {
   })
 };
 
+// Like AND UnLIKE
 
+
+export const LikeToken = (contractAddress,walletAddress,tokenID) => async (dispatch) => {
+  if(walletAddress!==undefined){
+    await axios.post(`${API_URL}/token/like`,{contractAddress: contractAddress,walletAddress:walletAddress,tokenID:tokenID })
+      .then(async (res) => {
+        if (res.data.status) {
+          dispatch({
+            type: "LIKE",
+            payload: res.data.data,
+          });
+        //   toast.success('Like this Nfts', {
+        //     position: "top-right",
+        //     autoClose: 2000,
+        // });
+        }
+      })
+      .catch((err) => {
+        return false;
+      })
+  }
+  else{
+    // alert("Please Connect wallet")
+    toast.error('Not logged in', {
+      position: "top-right",
+      autoClose: 2000,
+  });
+  }
+};
+
+export const UnLikeToken = (contractAddress,walletAddress,tokenID) => async (dispatch) => {
+
+  await axios.post(`${API_URL}/token/unlike`,{contractAddress: contractAddress,walletAddress:walletAddress,tokenID:tokenID })
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "UNLIKE",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};

@@ -15,10 +15,11 @@ import { CircularProgress } from '@material-ui/core';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import {useDispatch} from 'react-redux'
 import MyLoader from '../Loader/MyLoader';
+
 const Create = () => {
 
     const dispatch=useDispatch();
-    const { account } = useWeb3React();
+    const { account,active } = useWeb3React();
     const [open, setOpen] = useState(false);
     const [toggle, setToggle] = useState(false);
     const [dropDown, setDropDown] = useState('Choose Category');
@@ -33,6 +34,10 @@ const Create = () => {
         const value = e.target.type === 'checkbox' ? e.target.checked  : e.target.value;
         formData[e.target.name] = value;
         setAllFormData({ formData });
+    }
+    
+    const DropDownChange=(e)=>{
+        
     }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
@@ -133,7 +138,7 @@ const Create = () => {
                     //  console.log("sale======",sale)
                     if(sale.status){
                         setOpen(false)
-                       const addInDb= await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
+                        await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown,fudgeDropDown);
                         toast.success('Created Item Successfully', {
                             position: "top-right",
                             autoClose: 2000,
@@ -144,7 +149,7 @@ const Create = () => {
                 }
                 else {
                     const tokenId = await mintPro();
-                    await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown);
+                    await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown,fudgeDropDown);
                     toast.success('Created Item Successfully', {
                         position: "top-right",
                         autoClose: 2000,
@@ -184,7 +189,7 @@ const Create = () => {
 
     return (
         <>
-        <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait Transaction in Process</h1><CircularProgress color="inherit" />
+        <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1><CircularProgress color="inherit"  style={{marginLeft:20}}/>
         
         </Backdrop>
     
@@ -242,7 +247,7 @@ const Create = () => {
                                                     <div className="sdsdsd">
                                                         <button className="button-discov" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             {fudgeDropDown}  
-                                                            
+                                                            {/* <img src={fudgeDropDown}  /> */}
                                                             <i class="pl-2 fas fa-chevron-down"></i>
                                                         </button>
                                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

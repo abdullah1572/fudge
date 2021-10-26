@@ -1,31 +1,59 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
+import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails,LikeToken,UnLikeToken,GetAllNftsAndDetails } from '../../redux/action';
 import Header from '../header/Header';
 import Box from '@mui/material/Box';
+import { useWeb3React } from '@web3-react/core';
+
 import Slider from '@mui/material/Slider';
 const MainLanding = () => {
     function valuetext(value) {
         return `${value}°C`;
     }
     const [value, setValue] = React.useState([15, 70]);
-
+    const { account } = useWeb3React();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    
+   
+   const reRender=()=>{
+
+       dispatch(GetAllNftsAndDetails())
+   }
+
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
+    console.log("token",token)
+    const Like =(contractAddress,tokenID)=>{
+         dispatch(LikeToken(contractAddress,account,tokenID))
+         reRender()
+        }
+    const unLike =(contractAddress,tokenID)=>{
+        dispatch(UnLikeToken(contractAddress,account,tokenID))
+        // dispatch(GetAllNftsAndDetails())
+        reRender();
+   }
+    // useEffect(() => {
+    //    dispatch(GetAllNftsAndDetails())
+    // }, [account])
+    // const userLike = useSelector(state => state.CollectionReducer.GetUserLike)
+    // console.log("userLike",userLike)
     const dispatch = useDispatch();
-    const display = token.map((elem,index) => {
+    const display = token.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless"/>
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -33,40 +61,47 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+       
+        let userLike=elem?.likedBy?.find(e=>e.address===account)
+        console.log("userLike",userLike)
         return (
             <div className="col-sm-3" key={index}>
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline ">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                             {creator}
-                                 
-                                </div>
-                            </li>
-                            <li className="list-inline-item ">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                               {owner}
-                                
-                                </div>
-                            </li>
-                        </ul>
+
+                <div className="inner-card image-width">
+                    <ul className="list-inline ">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item ">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         {price}
                         <hr />
+                    </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                                {userLike?.address==undefined ||userLike== null  ?
+                                <button className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID)} >
+                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button>:
+                               <button className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID)} >
+                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
 
-                                </button>
+                            </button> 
+                        }
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                </div>
             </div>
         )
     })
@@ -74,14 +109,18 @@ const MainLanding = () => {
     const artData = useSelector(state => state.CollectionReducer.Art)
     const art = artData.map((elem) => {
 
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px" />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -91,20 +130,20 @@ const MainLanding = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -120,22 +159,26 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
 
     const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
     const photography = PhotoGraphyData.map((elem) => {
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px" />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -145,20 +188,20 @@ const MainLanding = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -173,22 +216,26 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
 
     const GamesData = useSelector(state => state.CollectionReducer.Games)
     const games = GamesData.map((elem) => {
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px" />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -199,20 +246,20 @@ const MainLanding = () => {
 
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -228,8 +275,8 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
@@ -238,14 +285,18 @@ const MainLanding = () => {
 
     const SportsData = useSelector(state => state.CollectionReducer.Sports)
     const sports = SportsData.map((elem) => {
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px"  />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -256,20 +307,20 @@ const MainLanding = () => {
 
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -285,8 +336,8 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
@@ -294,14 +345,18 @@ const MainLanding = () => {
 
     const MemesData = useSelector(state => state.CollectionReducer.Memes)
     const memes = MemesData.map((elem) => {
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless for-check" width="20px" height="20px"  />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -311,20 +366,20 @@ const MainLanding = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -340,8 +395,8 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
@@ -350,14 +405,18 @@ const MainLanding = () => {
 
     const latestUpload = useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
     const latest = latestUpload?.map((elem) => {
-        const creator = elem?.creators.map((elem) => {
+        const creator = elem.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="inner-tiless" width="20px" height="20px"/>
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
             )
         })
         const price = elem.orders?.map((elem) => {
@@ -367,20 +426,20 @@ const MainLanding = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="artwork">
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -396,8 +455,8 @@ const MainLanding = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             </div>
         )
     })
@@ -476,20 +535,20 @@ const MainLanding = () => {
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
-                                <div className="custom-slider">
-                                            <h6>PRICE RANGE</h6>
-                                            <Box sx={{width:300}}>
-                                                <Slider
-                                                    getAriaLabel={() => 'Temperature range'}
-                                                    value={value}
-                                                    onChange={handleChange}
-                                                    valueLabelDisplay="auto"
-                                                    getAriaValueText={valuetext}
-                                                />
-                                            </Box>
-                                        </div>
+                                    <div className="custom-slider">
+                                        <h6>PRICE RANGE</h6>
+                                        <Box sx={{ width: 300 }}>
+                                            <Slider
+                                                getAriaLabel={() => 'Temperature range'}
+                                                value={value}
+                                                onChange={handleChange}
+                                                valueLabelDisplay="auto"
+                                                getAriaValueText={valuetext}
+                                            />
+                                        </Box>
+                                    </div>
                                 </div>
-                           
+
 
                                 <div className="tab-content" id="pills-tabContent">
 
@@ -676,16 +735,16 @@ const MainLanding = () => {
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
                                             {/* <a href=""> */}
-                                                <img src="/pegify\landing-assets\artist-social-twitter.png" alt=""
-                                                    className="img-fluid" />
+                                            <img src="/pegify\landing-assets\artist-social-twitter.png" alt=""
+                                                className="img-fluid" />
                                             {/* </a> */}
                                         </div>
                                     </li>
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
                                             {/* <a href=""> */}
-                                                <img src="/pegify\landing-assets\artist-social-dribbble.png" alt=""
-                                                    className="img-fluid" />
+                                            <img src="/pegify\landing-assets\artist-social-dribbble.png" alt=""
+                                                className="img-fluid" />
                                             {/* </a> */}
                                         </div>
                                     </li>
@@ -748,22 +807,22 @@ const MainLanding = () => {
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
                                         {/* <a href=""> */}
-                                            <img src="pegify\socails\discord-icon.svg" alt="" className="img-fluid" />
+                                        <img src="pegify\socails\discord-icon.svg" alt="" className="img-fluid" />
                                         {/* </a> */}
                                     </li>
                                     <li className="list-inline-item">
                                         {/* <a href=""> */}
-                                            <img src="pegify\socails\twitter-icon.svg" alt="" className="img-fluid" />
+                                        <img src="pegify\socails\twitter-icon.svg" alt="" className="img-fluid" />
                                         {/* </a> */}
                                     </li>
                                     <li className="list-inline-item">
                                         {/* <a href=""> */}
-                                            <img src="pegify\socails\facebook-icon.svg" alt="" className="img-fluid" />
+                                        <img src="pegify\socails\facebook-icon.svg" alt="" className="img-fluid" />
                                         {/* </a> */}
                                     </li>
                                     <li className="list-inline-item">
                                         {/* <a href=""> */}
-                                            <img src="pegify\socails\instagram-icon.svg" alt="" className="img-fluid" />
+                                        <img src="pegify\socails\instagram-icon.svg" alt="" className="img-fluid" />
                                         {/* </a> */}
                                     </li>
                                 </ul>

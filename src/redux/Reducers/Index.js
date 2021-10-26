@@ -18,14 +18,14 @@ const initState = {
   Memes: [{ users: [], creators: [], orders: [], likedby: [] }],
 
   GetAllTokensOfCreator: [{ users: [], creators: [], orders: [], likedby: [] }],
-
   //user Profile apis
   GetOwnedData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetOnSaleData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-
-   
+  
+  GetLikeToken:[{likeToken:[],userLikes:[]}],
+  GetUnLikeToken:[{likeToken:[],userLikes:[]}],
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -142,8 +142,20 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetCreatedData: payload,
       };
-  
-     
+    
+      //Like and Unlike
+
+       case "LIKE":
+      return {
+        ...state,
+        GetLikeToken : payload,
+      };
+      case "UNLIKE":
+      return {
+        ...state,
+        GetUnLikeToken : payload,
+      };
+      
   
       
     default:

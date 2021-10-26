@@ -25,6 +25,7 @@ function App() {
   const dispatch=useDispatch();
   dispatch(GetTop4TokensOfCollection());
   dispatch(GetAllNftsAndDetails());
+  // dispatch(LikeUser());
   return (
     <>
         <Router>
