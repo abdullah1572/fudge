@@ -14,10 +14,7 @@ const ArtWork = () => {
     const { account } = useWeb3React();
     const [terms, setTerms] = useState(false);
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
-<<<<<<< HEAD
     console.log("single", single)
-=======
->>>>>>> 475a1ecad95843dea8c615c14051995b6d234ced
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
@@ -194,11 +191,11 @@ const ArtWork = () => {
                                                     </li>
                                                     <li className="list-inline-item grey-1">
                                                         {`${single?.token?.walletAddress.substring(0, 6)}...${single?.token?.walletAddress.substring(
-                                                                    single?.token?.walletAddress.length - 4
-                                                                )}`}
+                                                            single?.token?.walletAddress.length - 4
+                                                        )}`}
                                                     </li>
                                                     <li className="list-inline-item grey-1">
-                                                    {single?.user?.displayName}
+                                                        {single?.user?.displayName}
                                                     </li>
 
                                                 </ul>
@@ -217,10 +214,10 @@ const ArtWork = () => {
                                                         <img src={single?.user?.ipfsImageUrl} alt=""
                                                             className="img-fluid inner-imagess"
                                                         /></li>
-                                                        <li className="list-inline-item grey-1">
+                                                    <li className="list-inline-item grey-1">
                                                         {`${single?.token?.creatorAddress.substring(0, 6)}...${single?.token?.creatorAddress.substring(
-                                                                    single?.token?.creatorAddress.length - 4
-                                                                )}`}
+                                                            single?.token?.creatorAddress.length - 4
+                                                        )}`}
                                                     </li>
                                                     <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
                                                 </ul>
@@ -262,7 +259,7 @@ const ArtWork = () => {
                                                                 </div>
                                                                 <label className="label-newsss" for="exampleInputEmail1">Price</label>
                                                                 <div className="main-inpuits-modal">
-                                                              
+
                                                                     <div className="modal-input-ssds">
                                                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
                                                                     </div>
@@ -282,7 +279,7 @@ const ArtWork = () => {
                                                                 </div>
                                                             </div>
 
-< hr/>
+                                                            < hr />
 
                                                             <div className="row ptb20">
                                                                 <div className="col-sm-12">
