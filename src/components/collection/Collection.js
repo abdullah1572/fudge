@@ -438,7 +438,16 @@ const Collection = () => {
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
                                                             <input type="number" class="form-control " id="number" placeholder="From" />
-                                                            <div>BNB</div>
+                                                            {/* <div>
+                                                                <div class="dropdown">
+                                                                    <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        BNB
+                                                                    </button>
+                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtontwoy">
+                                                                        <a class="dropdown-item" href="#">FUDGE</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div> */}
                                                         </div>
                                                         <div className="input-main  main-input-one">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />

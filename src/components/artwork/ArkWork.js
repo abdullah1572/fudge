@@ -11,13 +11,13 @@ import environment from '../../utils/Environment';
 
 import './artwork.scss';
 const ArtWork = () => {
-   const {account}=useWeb3React();
+    const { account } = useWeb3React();
     const [terms, setTerms] = useState(false);
-    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData) 
+    const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
-    }, [single?.creator?.walletAddress,dispatch])
+    }, [single?.creator?.walletAddress, dispatch])
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const handleChange = () => {
         if (terms) {
@@ -34,46 +34,46 @@ const ArtWork = () => {
     // }
     const BuyNft = useCallback(async () => {
         // window.$("#exampleModal1").modal('hide');
-        if(account){
-         await FudgeBuy(single?.token?.tokenID,single?.order?.price);
-         await AddSale(account,single?.token?.walletAddress, environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price)
-        //  try{
-        //     if(tx){
-        //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
-        //         toast.success('Successfully Bought', {
-        //             position: "top-right",
-        //             autoClose: 2000,
-        //         });
-        //     }
-        //  }catch{
-        //        toast.error('Fail to Buy', {
-        //         position: "top-right",
-        //         autoClose: 2000,
-        //     });
-        //     return false
-        //  }
+        if (account) {
+            await FudgeBuy(single?.token?.tokenID, single?.order?.price);
+            await AddSale(account, single?.token?.walletAddress, environment.BlueMoonPro, single?.token?.tokenID, single?.order?.price)
+            //  try{
+            //     if(tx){
+            //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
+            //         toast.success('Successfully Bought', {
+            //             position: "top-right",
+            //             autoClose: 2000,
+            //         });
+            //     }
+            //  }catch{
+            //        toast.error('Fail to Buy', {
+            //         position: "top-right",
+            //         autoClose: 2000,
+            //     });
+            //     return false
+            //  }
 
-        }else{
+        } else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
                 autoClose: 2000,
             });
         }
-    },[FudgeBuy,account,single?.token?.walletAddress,single?.token?.tokenID,single?.order?.price])
-    const MoreCreatorNfts = creatorData.map((elem,index) => {
+    }, [FudgeBuy, account, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
+    const MoreCreatorNfts = creatorData.map((elem, index) => {
 
-        const creator=elem?.creators.map((elem)=>{
-            return(
-                <img src={elem?.ipfsImageUrl}  className="inner-tiless" width="20px" height="20px" alt=""/>
+        const creator = elem?.creators.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} className="inner-tiless" width="20px" height="20px" alt="" />
             )
         })
-        const owner=elem?.users.map((elem)=>{
-            return(
+        const owner = elem?.users.map((elem) => {
+            return (
                 <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
             )
         })
-        const price=elem.orders.map((elem)=>{
-            return(
+        const price = elem.orders.map((elem) => {
+            return (
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
@@ -114,7 +114,7 @@ const ArtWork = () => {
         <>
             <section className="art-work">
                 <div className="container">
-                    <Header/>
+                    <Header />
                     <div className="row ptb">
                         <div className="col-sm-6">
                             <div className="art-image">
@@ -137,7 +137,7 @@ const ArtWork = () => {
                                                 <li className="">
                                                     <div className="icon-1">
                                                         <button data-dismiss="modal">
-                                                            <img src="pegify/art-work/profile-img.png"  className="img-fluid img-1" alt="" />&nbsp;&nbsp;
+                                                            <img src="pegify/art-work/profile-img.png" className="img-fluid img-1" alt="" />&nbsp;&nbsp;
                                                             <span className="grey-1">Abdullah</span>
                                                         </button>
                                                     </div>
@@ -212,14 +212,16 @@ const ArtWork = () => {
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-                                            <button className="btn-common-1" data-toggle="modal"  data-target="exampleModal1" >BUY NOW
+                                            <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1" >BUY NOW
                                                 FOR {single?.order?.price} BNB</button>
+                                            {/* <button type="button" className="btn-common-1">Put On Market Place</button>
+                                                <button type="button" className="btn-common-1">Remove NFT</button> */}
                                             <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog" role="document">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h4 className="mx-auto">Checkout</h4>
+                                                            <h4 className="mx-auto">Sell NFT</h4>
                                                             <button type="button" className="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -227,109 +229,61 @@ const ArtWork = () => {
                                                         </div>
                                                         <div className="modal-body">
                                                             <div className="row ptb20">
-                                                                <div className="col-sm-4 main-margin-sho text-center">
-                                                                    <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
+                                                                <div className="col-sm-12 main-margin-sho text-center">
+                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
                                                                 </div>
-                                                                <div className="col-sm-8 main-margin-sho">
-                                                                    <div className="inner-man">
-                                                                        <h4>Prime</h4>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Owner</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Creator</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
+
+                                                            </div>
+
+                                                            <div className="headeeing pb-4">
+                                                                <h4>Abdullah</h4>
+                                                                <div className="iconsss d-flex justify-content-start align-items-center">
+                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
+                                                                    <h6>Baylee</h6>
+                                                                </div>
+                                                                <label className="label-newsss" for="exampleInputEmail1">Price</label>
+                                                                <div className="main-inpuits-modal">
+                                                              
+                                                                    <div className="modal-input-ssds">
+                                                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
+                                                                    </div>
+                                                                    <div className="bootstrap-drops-ss">
+                                                                        <div class="dropdown drop-downssde">
+                                                                            <button class="shdgs-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                BNB
+                                                                            </button>
+                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                <a class="dropdown-item" href="#">Action</a>
+                                                                                <a class="dropdown-item" href="#">Another action</a>
+                                                                                <a class="dropdown-item" href="#">Something else here</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-10 main-margin-sho">
-                                                                    <p className="grey">Item</p>
-                                                                </div>
-                                                                <div className="col-sm-2 main-margin-sho">
-                                                                    <p className="grey">Total</p>
-                                                                </div>
-                                                            </div>
-                                                            <hr />
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho" >
 
-                                                                    <p className="grey"><strong>Item Price</strong></p>
-                                                                </div>
+< hr/>
 
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Service Fees</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>0 BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Total</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span className="clr">{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <hr />
                                                             <div className="row ptb20">
                                                                 <div className="col-sm-12">
                                                                     <div className="custom-control custom-checkbox mr-sm-2">
-                                                                        <input type="checkbox" className="custom-control-input" value={terms}
-
-                                                                            onChange={handleChange}
+                                                                        <input type="checkbox" className="custom-control-input"
                                                                             id="customControlAutosizing" />
                                                                         &nbsp;
                                                                         <label className="custom-control-label"
-                                                                            for="customControlAutosizing"><small>I agree to Pegify's
+                                                                            for="customControlAutosizing"><small>I agree to Fudge
                                                                                 <span>Terms of Service</span></small></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-
                                                             <div className="row">
                                                                 <div className="col-sm-12 text-center">
                                                                     <ul className="list-inline">
-
-                                                                        <li className="list-inline-item"><button className={terms ? "btn-common" : "btn-common1"} onClick={BuyNft}>Proceed to Payment</button></li>
-                                                                        {/* <li className="pt-3"><a className="pt-3">Add Funds</a></li> */}
+                                                                        <li className="list-inline-item"><button className="btn-common"
+                                                                            data-toggle="modal" data-target="#exampleModal2">Proceed to
+                                                                            Payment</button></li>
                                                                         <div className="modal fade" id="exampleModal2" tabindex="-1"
                                                                             role="dialog" aria-labelledby="exampleModalLabel"
                                                                             aria-hidden="true">
@@ -366,6 +320,7 @@ const ArtWork = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

@@ -13,11 +13,11 @@ import Header from '../header/Header';
 import { Backdrop } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { GetAllNftsAndDetails } from '../../redux/action';
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import MyLoader from '../Loader/MyLoader';
 const Create = () => {
 
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
     const [toggle, setToggle] = useState(false);
@@ -30,13 +30,13 @@ const Create = () => {
     })
     const handleChange = (e) => {
         const { formData } = allFormData;
-        const value = e.target.type === 'checkbox' ? e.target.checked  : e.target.value;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         formData[e.target.name] = value;
         setAllFormData({ formData });
     }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
-    const formValidation = useCallback(() =>{
+    const formValidation = useCallback(() => {
 
         const imageUrlError = {};
         const chooseCategory = {};
@@ -52,7 +52,7 @@ const Create = () => {
         setImageUrlError(imageUrlError)
         setChooseCategory(chooseCategory)
         return isValid;
-    },[fileUrl,dropDown])
+    }, [fileUrl, dropDown])
 
 
 
@@ -80,11 +80,11 @@ const Create = () => {
     const FudgeToken = [
         {
             token: 'BNB',
-            logo:'/pegify/bnb-logo.png'
+            logo: '/pegify/bnb-logo.png'
         },
         {
             token: 'FUDGE',
-            logo:'/pegify/fudge-logo1.png'
+            logo: '/pegify/fudge-logo1.png'
         },
     ]
     // src/assets/bnb-logo.png
@@ -92,21 +92,21 @@ const Create = () => {
         formValidation();
         if (account) {
             if (allFormData.formData.nftName === '' || allFormData.formData.description === '' || allFormData.formData.price === '' || fileUrl === ''
-                || dropDown === 'Choose Category' || allFormData.formData.royalties==='') {
+                || dropDown === 'Choose Category' || allFormData.formData.royalties === '') {
                 toast.warning('Fill the required Fileds', {
                     position: "top-right",
                     autoClose: 2000,
                 });
                 return
             }
-            if(allFormData.formData.price==='0'){
+            if (allFormData.formData.price === '0') {
                 toast.warning('Price Greater than 0', {
                     position: "top-right",
                     autoClose: 2000,
                 });
                 return
             }
-            if(allFormData.formData.royalties==='0'){
+            if (allFormData.formData.royalties === '0') {
                 toast.warning('Royalties Greater than 0', {
                     position: "top-right",
                     autoClose: 2000,
@@ -117,23 +117,23 @@ const Create = () => {
             try {
                 if (allFormData.formData.putOnMarketplace) {
                     const getPrice = allFormData.formData.price
-                     setOpen(true)
+                    setOpen(true)
                     const tokenID = await mintPro();
-                    if(tokenID){
+                    if (tokenID) {
                         setOpen(false)
                     }
                     setOpen(true)
-                 const approve =   await ApproveAllTokenID();
-                //  console.log("approve",approve.status)
-                    if(approve.status){
+                    const approve = await ApproveAllTokenID();
+                    //  console.log("approve",approve.status)
+                    if (approve.status) {
                         setOpen(false)
-                    }   
+                    }
                     setOpen(true)
-                     const sale =   await FudgeSale(tokenID, getPrice);
+                    const sale = await FudgeSale(tokenID, getPrice);
                     //  console.log("sale======",sale)
-                    if(sale.status){
+                    if (sale.status) {
                         setOpen(false)
-                       const addInDb= await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
+                        const addInDb = await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown);
                         toast.success('Created Item Successfully', {
                             position: "top-right",
                             autoClose: 2000,
@@ -168,7 +168,7 @@ const Create = () => {
                 autoClose: 2000,
             });
         }
-    }, [ApproveAllTokenID, FudgeSale,account,allFormData.formData,dropDown,fileUrl,formValidation,mintPro])
+    }, [ApproveAllTokenID, FudgeSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
 
     async function onChange(e) {
         const file = e.target.files[0]
@@ -180,14 +180,14 @@ const Create = () => {
     }
 
 
-    console.log("allFormData.formData.royalties",allFormData.formData.royalties)
+    console.log("allFormData.formData.royalties", allFormData.formData.royalties)
 
     return (
         <>
-        <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait Transaction in Process</h1><CircularProgress color="inherit" />
-        
-        </Backdrop>
-    
+            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait Transaction in Process</h1><CircularProgress color="inherit" />
+
+            </Backdrop>
+
             <section className="creates">
                 <div className="container">
                     <Header />
@@ -212,8 +212,16 @@ const Create = () => {
                                             <input
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            {!fileUrl ?  <MyLoader toggle={toggle}/>
-                                           : <img className="img-uploader-mm" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />}
+                                            <div className="main-image-new-close">
+                                                {!fileUrl ? <MyLoader toggle={toggle} />
+                                                    : <img className="img-uploader-mm" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />
+
+                                                }
+                                                <div className="icons-image-close">
+                                                    <i class="far fa-times-circle"></i>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -241,19 +249,17 @@ const Create = () => {
                                                     </div>
                                                     <div className="sdsdsd">
                                                         <button className="button-discov" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            {fudgeDropDown}  
-                                                            
+                                                            {fudgeDropDown}
                                                             <i class="pl-2 fas fa-chevron-down"></i>
                                                         </button>
                                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        {FudgeToken.map((elem) => {
-                                                                    return (
-                                                                        // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
-                                                                        <a className="dropdown-item items"   onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2"/>{elem.token}</a>
-                                                                    )
-                                                                }
-                                                                )}
-                                                       
+                                                            {FudgeToken.map((elem) => {
+                                                                return (
+                                                                    // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                                    <a className="dropdown-item items" onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2" />{elem.token}</a>
+                                                                )
+                                                            }
+                                                            )}
                                                         </div>
                                                         {/* {Object.keys(chooseCategory).map((key) => { return <p className="inputErrors">{chooseCategory[key]}</p> })} */}
                                                     </div>
@@ -291,16 +297,13 @@ const Create = () => {
                                             </div>
                                             <div className="form-group">
                                                 <div className="inner-drop">
-                                                <label for="exampleInputdec">Categories</label>
-                                                    
+                                                    <label for="exampleInputdec">Categories</label>
                                                     <div className="recently-add">
-                                                        <div className=" drop-recent">
+                                                        <div className=" drop-recent main-creatre-decent">
                                                             <button className="button-discover-add" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 {dropDown}
                                                                 <i class="pl-2 fas fa-chevron-down ml-auto"></i>
                                                             </button>
-                                                          
-
                                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 {/* <select> */}
 
@@ -333,11 +336,11 @@ const Create = () => {
                                                     validators={['required']}
                                                     errorMessages={['Royalties Persentage is required']}
                                                 />
-                                                 <div className="mamam">
-                                            <i class="fas fa-percent"></i>
+                                                <div className="mamam">
+                                                    <i class="fas fa-percent"></i>
+                                                </div>
                                             </div>
-                                            </div>
-                                    
+
                                             <div className="switch">
                                                 <span className="yoyo">Put on marketplace</span>
                                                 <label className="switch">
@@ -358,10 +361,10 @@ const Create = () => {
                             <div className="col-sm-3">
                                 <h5>Preview</h5>
                                 <div className="main-privew-div">
-                                {fileUrl ?
-                                   <img src={fileUrl} style={{ borderRadius: 20 }} width="220px" height="310px" />
-                                    :<h6>Upload file to preview you NFT</h6>
-                                }
+                                    {fileUrl ?
+                                        <img src={fileUrl} style={{ borderRadius: 20 }} width="220px" height="310px" />
+                                        : <h6>Upload file to preview you NFT</h6>
+                                    }
                                 </div>
                             </div>
                         </div>
