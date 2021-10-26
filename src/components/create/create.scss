@@ -262,13 +262,15 @@ border-radius: 10px;
     z-index: 11;
     background-color: #ffffff;
   .dropdown-menu{
-      left: -36px!important;
+      left: -61px!important;
       text-align: center;
   }
   .button-discov{
       background-color: transparent;
       border: none;
       color: rgb(151, 149, 149);
+      position: relative;
+    z-index: -11;
   }
 }
 
@@ -293,4 +295,33 @@ border-radius: 10px;
 .img-uploader-mm{
     object-fit: cover;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.main-creatre-decent{
+    .dropdown-menu{
+        width: 95%;
+    }
+}
+
+.main-image-new-close{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    img{
+        
+    }
+    .icons-image-close{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        i{
+            font-size: 38px;
+            color: #f2b10f;
+        }
+    }
+}
+
+.icons-image-close{
+   
 }

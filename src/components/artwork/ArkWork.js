@@ -14,7 +14,10 @@ const ArtWork = () => {
     const { account } = useWeb3React();
     const [terms, setTerms] = useState(false);
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
+<<<<<<< HEAD
     console.log("single", single)
+=======
+>>>>>>> 475a1ecad95843dea8c615c14051995b6d234ced
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
@@ -230,12 +233,14 @@ const ArtWork = () => {
                                         <div className="inner-btn">
                                             <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1" >BUY NOW
                                                 FOR {single?.order?.price} BNB</button>
+                                            {/* <button type="button" className="btn-common-1">Put On Market Place</button>
+                                                <button type="button" className="btn-common-1">Remove NFT</button> */}
                                             <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog" role="document">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h4 className="mx-auto">Checkout</h4>
+                                                            <h4 className="mx-auto">Sell NFT</h4>
                                                             <button type="button" className="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -243,109 +248,61 @@ const ArtWork = () => {
                                                         </div>
                                                         <div className="modal-body">
                                                             <div className="row ptb20">
-                                                                <div className="col-sm-4 main-margin-sho text-center">
-                                                                    <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
+                                                                <div className="col-sm-12 main-margin-sho text-center">
+                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
                                                                 </div>
-                                                                <div className="col-sm-8 main-margin-sho">
-                                                                    <div className="inner-man">
-                                                                        <h4>Prime</h4>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Owner</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Creator</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
+
+                                                            </div>
+
+                                                            <div className="headeeing pb-4">
+                                                                <h4>Abdullah</h4>
+                                                                <div className="iconsss d-flex justify-content-start align-items-center">
+                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
+                                                                    <h6>Baylee</h6>
+                                                                </div>
+                                                                <label className="label-newsss" for="exampleInputEmail1">Price</label>
+                                                                <div className="main-inpuits-modal">
+                                                              
+                                                                    <div className="modal-input-ssds">
+                                                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
+                                                                    </div>
+                                                                    <div className="bootstrap-drops-ss">
+                                                                        <div class="dropdown drop-downssde">
+                                                                            <button class="shdgs-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                BNB
+                                                                            </button>
+                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                <a class="dropdown-item" href="#">Action</a>
+                                                                                <a class="dropdown-item" href="#">Another action</a>
+                                                                                <a class="dropdown-item" href="#">Something else here</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-10 main-margin-sho">
-                                                                    <p className="grey">Item</p>
-                                                                </div>
-                                                                <div className="col-sm-2 main-margin-sho">
-                                                                    <p className="grey">Total</p>
-                                                                </div>
-                                                            </div>
-                                                            <hr />
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho" >
 
-                                                                    <p className="grey"><strong>Item Price</strong></p>
-                                                                </div>
+< hr/>
 
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Service Fees</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>0 BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Total</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span className="clr">{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <hr />
                                                             <div className="row ptb20">
                                                                 <div className="col-sm-12">
                                                                     <div className="custom-control custom-checkbox mr-sm-2">
-                                                                        <input type="checkbox" className="custom-control-input" value={terms}
-
-                                                                            onChange={handleChange}
+                                                                        <input type="checkbox" className="custom-control-input"
                                                                             id="customControlAutosizing" />
                                                                         &nbsp;
                                                                         <label className="custom-control-label"
-                                                                            for="customControlAutosizing"><small>I agree to Pegify's
+                                                                            for="customControlAutosizing"><small>I agree to Fudge
                                                                                 <span>Terms of Service</span></small></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-
                                                             <div className="row">
                                                                 <div className="col-sm-12 text-center">
                                                                     <ul className="list-inline">
-
-                                                                        <li className="list-inline-item"><button className={terms ? "btn-common" : "btn-common1"} onClick={BuyNft}>Proceed to Payment</button></li>
-                                                                        {/* <li className="pt-3"><a className="pt-3">Add Funds</a></li> */}
+                                                                        <li className="list-inline-item"><button className="btn-common"
+                                                                            data-toggle="modal" data-target="#exampleModal2">Proceed to
+                                                                            Payment</button></li>
                                                                         <div className="modal fade" id="exampleModal2" tabindex="-1"
                                                                             role="dialog" aria-labelledby="exampleModalLabel"
                                                                             aria-hidden="true">
@@ -382,6 +339,7 @@ const ArtWork = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
