@@ -76,64 +76,10 @@ const Header = () => {
                   </div>
                 </li>
                 : ""}
-              <h1 style={{ margin: "0", textAlign: "right" }}>
-                {account ? "🟢" :  "🔴"}
-              </h1>
+            
               {account &&
                 <li className="nav-item">
                   <div className="dropdown">
-                    {/* <div >
-              <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="" alt="" className="img-show"
-                  />
-              </a>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div className="row">
-                  <div className="col-sm-12">
-                    <h5>asdasd</h5>
-                    <ul className="list-inline">
-                      <li className="list-inline-item">
-                        <span className="grey" >as</span>
-                      </li>
-
-                     <li className="list-inline-item">
-                        <button className="grey">
-                          <img src="../../assets/copy.png" alt="" className="img-fluid" />
-                        </button>
-                      </li> 
-                    </ul>
-
-                    <div className="row ptb20">
-                      <div className="col-sm-3">
-                        <div className="inner-im text-center">
-                          <img src="../../assets/bnb-logo.png" alt="" className="img-fluid" />
-                        </div>
-                      </div>
-                      <div className="col-sm-9">
-                        <div className="inner-im">
-                          <h6 className="grey">Balance</h6>
-                          <h5>asd <span className="clr">BNB</span></h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-sm-12">
-                       <button className="btn-common">Add Funds</button> 
-                      </div>
-                    </div>
-
-                    <hr />
-                    <a routerLink="/profile">My Profile</a>
-                    <hr />
-                    <a routerLink="/edit-profile">Edit Profile</a>
-              <hr/>
-                    <div ><a>Disconnect Wallet</a></div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
                     <div>
                       <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -168,7 +114,6 @@ const Header = () => {
                                 </div>
                               </div>
                             </div>
-
                             <div className="row">
                               <div className="col-sm-12">
                                 <button className="btn-common">Add Funds</button>
@@ -193,10 +138,16 @@ const Header = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </li>
               }
+            </ul>
+            <ul>
+              <li>
+              <div className="button_indicator ml-2" style={{ margin: "0", textAlign: "right" }}>
+                {account ? "🟢" :  "🔴"}
+              </div>
+              </li>
             </ul>
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
