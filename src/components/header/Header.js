@@ -132,7 +132,7 @@ const Header = () => {
                             </ul>
                             <hr />
                             <div >
-                              <button type="button" className="btn-common" onClick={disconnect}>Disconnect Wallet</button>
+                              <button type="button" className="btn-common color-buttonsss" onClick={disconnect}>Disconnect Wallet</button>
                             </div>
                           </div>
                         </div>

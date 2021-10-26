@@ -1,24 +1,16 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './collection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
 import Header from '../header/Header';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-const Collection = () => {
-    function valuetext(value) {
-        return `${value}°C`;
-    }
-    const [value, setValue] = React.useState([0.01, 20]);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+const Collection = () => {
+
     const [dropDown, setDropDown] = useState('Recently');
 
     const sortBy = [
-      
+
         {
             itemList: 'Recently',
         },
@@ -400,25 +392,25 @@ const Collection = () => {
                                         <div className="inner-drop">
                                             <h6>SORT BY</h6>
                                             <button className="button-discover-add_1" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                {dropDown}
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                {/* <select> */}
+                                                {dropDown}
+                                            </button>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                {/* <select> */}
 
-                                                                {sortBy.map((elem) => {
-                                                                    return (
-                                                                        <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
-                                                                    )
-                                                                }
-                                                                )}
-                                                                {/* </select> */}
-                                                            </div>
+                                                {sortBy.map((elem) => {
+                                                    return (
+                                                        <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                    )
+                                                }
+                                                )}
+                                                {/* </select> */}
+                                            </div>
                                             {/* <select name="" id="" className="form-control" > */}
-                                                {/* <option value="Recently Listed">Recently</option>
+                                            {/* <option value="Recently Listed">Recently</option>
                                                 <option value="Recently Created">Recently Created</option>
                                                 <option value="Low to High">Low to High</option>
                                                 <option value="High to Low">High to Low</option> */}
-                                                
+
                                             {/* </select> */}
                                             {/* <div className="dropdown show">
                                                 <a className="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -438,18 +430,28 @@ const Collection = () => {
                                     <div className="col-sm-4">
                                         <div className="custom-slider">
                                             <h6>PRICE RANGE</h6>
-                                            <Box sx={{ }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'Temperature range'}
-                                                    value={value}
-                                                    onChange={handleChange}
-                                                    valueLabelDisplay="auto"
-                                                    getAriaValueText={valuetext}
-                                                />
-                                            </Box>
+                                            <div class="dropdown main-price-range-floa">
+                                                <button class="drop-downsss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Choose Price $
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <div className="main-outer-fort">
+                                                        <div className="input-main main-input-two">
+                                                            <input type="number" class="form-control " id="number" placeholder="From" />
+                                                            <div>BNB</div>
+                                                        </div>
+                                                        <div className="input-main  main-input-one">
+                                                            <input type="number" class="form-control" id="number" placeholder="To" />
+                                                            <div>Fudge</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="outer-buttons">
+                                                        <button type="button" className="button-one">Clear</button>
+                                                        <button type="button" className="button-two">Apply</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                                 <div className="tab-content" id="pills-tabContent">
