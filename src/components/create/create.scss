@@ -10,6 +10,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        img{
+            object-fit: cover;
+            box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
+        }
         h6{
             font-size: 18px;
             font-family:'poppins';
@@ -284,4 +288,9 @@ border-radius: 10px;
     top: 48px;
     background-color: #ffffff;
     color: rgb(151, 149, 149);
+}
+
+.img-uploader-mm{
+    object-fit: cover;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

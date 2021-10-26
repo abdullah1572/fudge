@@ -213,7 +213,7 @@ const Create = () => {
                                                 className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
                                             {!fileUrl ?  <MyLoader toggle={toggle}/>
-                                           : <img src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />}
+                                           : <img className="img-uploader-mm" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />}
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +291,8 @@ const Create = () => {
                                             </div>
                                             <div className="form-group">
                                                 <div className="inner-drop">
-                                                    <h5>Categories</h5>
+                                                <label for="exampleInputdec">Categories</label>
+                                                    
                                                     <div className="recently-add">
                                                         <div className=" drop-recent">
                                                             <button className="button-discover-add" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
