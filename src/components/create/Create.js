@@ -154,13 +154,11 @@ const Create = () => {
                         position: "top-center",
                         autoClose: 5000,
                     });
-
                 }
-
             }
             catch (err) {
                 setOpen(false)
-                toast.error('Not Created', {
+                toast.error('User Denied Transaction', {
                     position: "top-center",
                     autoClose: 5000,
                 });

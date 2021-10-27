@@ -11,16 +11,14 @@ import Header from '../header/Header';
 const Profile = () => {
 
     const { walletAddress } = useParams();
-    const {account}=useWeb3React()
+    const { account } = useWeb3React()
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetUserData(walletAddress));
         dispatch(Owned(walletAddress))
     }, [walletAddress, dispatch])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
-    console.log("userdata", userData)
     const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
-    console.log("fbLink", fbLink)
     const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
     const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
 
@@ -50,14 +48,10 @@ const Profile = () => {
                             <li className="list-inline-item">
                                 <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
                                     {creator}
-                                    {/* <img src="/pegify/landing-assets/user-image.png" alt="" className="inner-tiless" />
-                                <img src="/pegify/landing-assets/Vector.svg" alt="" className=" for-check" /> */}
                                 </div>
                             </li>
                             <li className="list-inline-item">
                                 <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {/* <img src="/pegify/landing-assets/user-image-two.png" alt="" className="img-fluid inner-tiless" />
-                                <img src="/pegify/landing-assets/Vector.svg" alt="" className="img-fluid for-check" /> */}
                                     {owner}
                                 </div>
                             </li>

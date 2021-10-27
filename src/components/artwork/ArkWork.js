@@ -8,19 +8,24 @@ import { toast } from 'react-toastify';
 import { AddSale } from '../../services/services';
 import Header from '../header/Header';
 import environment from '../../utils/Environment';
+import { Backdrop } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 import './artwork.scss';
 const ArtWork = () => {
     const { account } = useWeb3React();
+    const [open, setOpen] = useState(false);
     const [terms, setTerms] = useState(false);
     const [fudgeDropDown, setFudgeDropDown] = useState('FUDGE');
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
+    const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
+
+    console.log("creatorData", creatorData)
     console.log("single", single)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
     }, [single?.creator?.walletAddress, dispatch])
-    const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const handleChange = () => {
         if (terms) {
             setTerms(false)
@@ -42,14 +47,49 @@ const ArtWork = () => {
             logo: '/pegify/fudge-logo1.png'
         },
     ]
-    // const BuyNow = ()=>{
-    //     window.$("#exampleModal1").modal('show');
-    // }
+    const OpenBuyModal = () => {
+        window.$("#checkout").modal('show');
+        window.$("#putonsale").modal('show');
+        window.$("#success").modal('show');
+
+    }
+
     const BuyNft = useCallback(async () => {
-        // window.$("#exampleModal1").modal('hide');
         if (account) {
-            await FudgeBuy(single?.token?.tokenID, single?.order?.price);
-            await AddSale(account, single?.token?.walletAddress, environment.BlueMoonPro, single?.token?.tokenID, single?.order?.price)
+
+
+            try {
+                window.$("#checkout").modal('hide');
+                setOpen(true)
+
+                const res = await FudgeBuy(single?.token?.tokenID, single?.order?.price);
+                console.log("res", res)
+                if (res.status) {
+                    await AddSale(account, single?.token?.walletAddress, environment.BlueMoonPro, single?.token?.tokenID, single?.order?.price)
+                    setOpen(false)
+                    toast.success('Buy Successfully', {
+                        position: "top-center",
+                        autoClose: 5000,
+                    });
+                }
+                else {
+                    setOpen(false)
+                    toast.error('Not Buy', {
+                        position: "top-center",
+                        autoClose: 5000,
+                    });
+
+                }
+
+
+            }
+            catch (err) {
+                setOpen(false)
+                toast.error('User Denied Transaction', {
+                    position: "top-center",
+                    autoClose: 5000,
+                });
+            }
             //  try{
             //     if(tx){
             //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
@@ -77,12 +117,16 @@ const ArtWork = () => {
 
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} className="inner-tiless" width="20px" height="20px" alt="" />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/profile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -124,12 +168,24 @@ const ArtWork = () => {
         )
     })
 
+
+    //Remove from
+
+    const RemoveFromMarket = () => {
+        console.log("yes=============")
+    }
+
     return (
         <>
+
+            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1><CircularProgress color="inherit" style={{ marginLeft: 20 }} />
+
+            </Backdrop>
             <section className="art-work">
                 <div className="container">
                     <Header />
                     <div className="row ptb">
+                        {/* This is first part start */}
                         <div className="col-sm-6">
                             <div className="art-image">
                                 <a href="#myModal" role="button" className="btn btn-primary" data-toggle="modal">
@@ -141,7 +197,7 @@ const ArtWork = () => {
                                                 <div className="container-fluid">
                                                     <div className="row">
                                                         <div className="col-sm-12">
-                                                            <img src="/pegify/art-work/Rectangle12.png" className="img-fluid" alt="" />
+                                                            <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,12 +207,11 @@ const ArtWork = () => {
                                                 <li className="">
                                                     <div className="icon-1">
                                                         <button data-dismiss="modal">
-                                                            <img src="pegify/art-work/profile-img.png" className="img-fluid img-1" alt="" />&nbsp;&nbsp;
-                                                            <span className="grey-1">Abdullah</span>
+                                                            <img src={single?.user?.ipfsImageUrl} className="img-fluid img-1" alt="" />&nbsp;&nbsp;
+                                                            <span className="grey-1">{single?.user?.displayName}</span>
                                                         </button>
                                                     </div>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
@@ -183,7 +238,6 @@ const ArtWork = () => {
                                                 </ul>
                                             </div>
                                             <div className="main-para">
-                                                {/* <p className="inner-para">Collection of 1000 generated and unique 🦊 in #pixelart and minted in #NFT single edition (1/1) on E...</p> */}
                                                 <p className="inner-para">{single?.token?.description}</p>
 
                                             </div>
@@ -238,287 +292,22 @@ const ArtWork = () => {
                                     </div>
                                 </div>
 
+                                {/* This is first part end */}
 
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-                                            <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1" >BUY NOW
-                                                FOR {single?.order?.price} BNB</button>
-                                            <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div className="modal-dialog" role="document">
-                                                    <div className="modal-content">
-                                                        <div className="modal-header">
-                                                            <h4 className="mx-auto">Checkout</h4>
-                                                            <button type="button" className="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div className="modal-body">
-                                                            <div className="row ptb20">
-                                                                <div className="col-sm-4 main-margin-sho text-center">
-                                                                    <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
-                                                                </div>
-                                                                <div className="col-sm-8 main-margin-sho">
-                                                                    <div className="inner-man">
-                                                                        <h4>Prime</h4>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Owner</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div >
-                                                                            <div className="owner" >
-                                                                                <Link to="ownerprofile">
-                                                                                    <h6>Creator</h6>
-                                                                                    <ul className="list-inline">
-                                                                                        <li className="list-inline-item">
-                                                                                            <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                                                className="img-fluid inner-imagess"
-                                                                                            /></li>
-                                                                                        <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
-                                                                                    </ul>
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-10 main-margin-sho">
-                                                                    <p className="grey">Item</p>
-                                                                </div>
-                                                                <div className="col-sm-2 main-margin-sho">
-                                                                    <p className="grey">Total</p>
-                                                                </div>
-                                                            </div>
-                                                            <hr />
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho" >
 
-                                                                    <p className="grey"><strong>Item Price</strong></p>
-                                                                </div>
+                                            {!single?.order && single?.token?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
+                                                single?.token?.walletAddress === account && single.order?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenBuyModal}>Put On Market Place</button> :
+                                                    single?.order && single?.token?.walletAddress !== account && single?.order?.price > 0 ?
+                                                        <button className="btn-common-1" data-toggle="modal" onClick={OpenBuyModal} >BUY NOW
+                                                            FOR {single?.order?.price} BNB</button>
 
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Service Fees</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span>0 BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <div className="row main-margin-sho">
-                                                                <div className="col-sm-9 main-margin-sho">
-
-                                                                    <p className="grey"><strong>Total</strong></p>
-                                                                </div>
-
-                                                                <div className="col-sm-3 main-margin-sho">
-                                                                    <h6><span className="clr">{single?.order?.price} BNB</span></h6>
-                                                                </div>
-
-                                                            </div>
-                                                            <hr />
-                                                            <div className="row ptb20">
-                                                                <div className="col-sm-12">
-                                                                    <div className="custom-control custom-checkbox mr-sm-2">
-                                                                        <input type="checkbox" className="custom-control-input" value={terms}
-
-                                                                            onChange={handleChange}
-                                                                            id="customControlAutosizing" />
-                                                                        &nbsp;
-                                                                        <label className="custom-control-label"
-                                                                            for="customControlAutosizing"><small>I agree to Pegify's
-                                                                                <span>Terms of Service</span></small></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div className="row">
-                                                                <div className="col-sm-12 text-center">
-                                                                    <ul className="list-inline">
-
-                                                                        <li className="list-inline-item"><button className={terms ? "btn-common" : "btn-common1"} onClick={BuyNft}>Proceed to Payment</button></li>
-                                                                        {/* <li className="pt-3"><a className="pt-3">Add Funds</a></li> */}
-                                                                        <div className="modal fade" id="exampleModal2" tabindex="-1"
-                                                                            role="dialog" aria-labelledby="exampleModalLabel"
-                                                                            aria-hidden="true">
-                                                                            <div className="modal-dialog" role="document">
-                                                                                <div className="modal-content">
-                                                                                    <div className="modal-header">
-                                                                                        <h4 className="mx-auto" >Success</h4>
-                                                                                        <button type="button" className="close"
-                                                                                            data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div className="modal-body">
-                                                                                        <div className="row ptb20">
-                                                                                            <div className="col-sm-12 text-center">
-                                                                                                <h4>Your NFT Has Been Purchased
-                                                                                                    Successfully</h4>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="modal-footer">
-                                                                                        <button type="button"
-                                                                                            className="btn btn-secondary"
-                                                                                            data-dismiss="modal">OK</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row ptbb">
-                                    <div className="col-sm-12">
-                                        <div className="inner-btn">
-                                            {/* <button className="btn-common-1" data-toggle="modal" data-target="#exampleModal1" >BUY NOW
-                                                FOR {single?.order?.price} BNB</button> */}
-                                            {/* <button type="button" className="btn-common-1">Put On Market Place</button>
-                                            <button type="button" className="btn-common-1">Remove NFT</button> */}
-                                            <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div className="modal-dialog" role="document">
-                                                    <div className="modal-content">
-                                                        <div className="modal-header">
-                                                            <h4 className="mx-auto">Sell NFT</h4>
-                                                            <button type="button" className="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div className="modal-body">
-                                                            <div className="row ptb20">
-                                                                <div className="col-sm-12 main-margin-sho text-center">
-                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="headeeing pb-4">
-                                                                <h4>Abdullah</h4>
-                                                                <div className="iconsss d-flex justify-content-start align-items-center">
-                                                                    <img src="pegify/art-work/img-9.png" className="img-fluid" />
-                                                                    <h6>Baylee</h6>
-                                                                </div>
-                                                                <label className="label-newsss" for="exampleInputEmail1">Price</label>
-                                                                <div className="main-inpuits-modal">
-
-                                                                    <div className="modal-input-ssds">
-                                                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
-                                                                    </div>
-                                                                    <div className="bootstrap-drops-ss">
-                                                                        <div class="dropdown drop-downssde">
-                                                                            <button class="shdgs-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                {fudgeDropDown}
-                                                                            </button>
-                                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                {/* <select> */}
-
-                                                                                {FudgeToken.map((elem) => {
-                                                                                    return (
-                                                                                        // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
-                                                                                        <a className="dropdown-item items" onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2" />{elem.token}</a>
-                                                                                    )
-                                                                                }
-                                                                                )}
-                                                                                {/* </select> */}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            < hr />
-
-                                                            <div className="row ptb20">
-                                                                <div className="col-sm-12">
-                                                                    <div className="custom-control custom-checkbox mr-sm-2">
-                                                                        <input type="checkbox" className="custom-control-input"
-                                                                            id="customControlAutosizing" />
-                                                                        &nbsp;
-                                                                        <label className="custom-control-label"
-                                                                            for="customControlAutosizing"><small>I agree to Fudge
-                                                                                <span>Terms of Service</span></small></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="row">
-                                                                <div className="col-sm-12 text-center">
-                                                                    <ul className="list-inline">
-                                                                        <li className="list-inline-item"><button className="btn-common"
-                                                                            data-toggle="modal" data-target="#exampleModal2">Proceed to
-                                                                            Payment</button></li>
-                                                                        <div className="modal fade" id="exampleModal2" tabindex="-1"
-                                                                            role="dialog" aria-labelledby="exampleModalLabel"
-                                                                            aria-hidden="true">
-                                                                            <div className="modal-dialog" role="document">
-                                                                                <div className="modal-content">
-                                                                                    <div className="modal-header">
-                                                                                        <h4 className="mx-auto" >Success</h4>
-                                                                                        <button type="button" className="close"
-                                                                                            data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div className="modal-body">
-                                                                                        <div className="row ptb20">
-                                                                                            <div className="col-sm-12 text-center">
-                                                                                                <h4>Your NFT Has Been Purchased
-                                                                                                    Successfully</h4>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="modal-footer">
-                                                                                        <button type="button"
-                                                                                            className="btn btn-secondary"
-                                                                                            data-dismiss="modal">OK</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                                        : single?.order && single?.token?.walletAddress === account && single?.order?.price > 0 ?
+                                                            <button type="button" className="btn-common-1" onClick={RemoveFromMarket}>
+                                                                Remove From Market Place</button> : null
+                                               }
                                         </div>
                                     </div>
                                 </div>
@@ -526,6 +315,279 @@ const ArtWork = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Buy Modal */}
+                <div className="inner-btn">
+                    <div className="modal fade" id="checkout" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h4 className="mx-auto">Checkout</h4>
+                                    <button type="button" className="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="row ptb20">
+                                        <div className="col-sm-4 main-margin-sho text-center">
+                                            <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
+                                        </div>
+                                        <div className="col-sm-8 main-margin-sho">
+                                            <div className="inner-man">
+                                                <h4>Prime</h4>
+                                                <div >
+                                                    <div className="owner" >
+                                                        <Link to="ownerprofile">
+                                                            <h6>Owner</h6>
+                                                            <ul className="list-inline">
+                                                                <li className="list-inline-item">
+                                                                    <img src={single?.user?.ipfsImageUrl} alt=""
+                                                                        className="img-fluid inner-imagess"
+                                                                    /></li>
+                                                                <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                            </ul>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div >
+                                                    <div className="owner" >
+                                                        <Link to="ownerprofile">
+                                                            <h6>Creator</h6>
+                                                            <ul className="list-inline">
+                                                                <li className="list-inline-item">
+                                                                    <img src={single?.user?.ipfsImageUrl} alt=""
+                                                                        className="img-fluid inner-imagess"
+                                                                    /></li>
+                                                                <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                            </ul>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row main-margin-sho">
+                                        <div className="col-sm-10 main-margin-sho">
+                                            <p className="grey">Item</p>
+                                        </div>
+                                        <div className="col-sm-2 main-margin-sho">
+                                            <p className="grey">Total</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row main-margin-sho">
+                                        <div className="col-sm-9 main-margin-sho" >
+
+                                            <p className="grey"><strong>Item Price</strong></p>
+                                        </div>
+
+                                        <div className="col-sm-3 main-margin-sho">
+                                            <h6><span>{single?.order?.price} BNB</span></h6>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="row main-margin-sho">
+                                        <div className="col-sm-9 main-margin-sho">
+
+                                            <p className="grey"><strong>Service Fees</strong></p>
+                                        </div>
+
+                                        <div className="col-sm-3 main-margin-sho">
+                                            <h6><span>0 BNB</span></h6>
+                                        </div>
+
+                                    </div>
+                                    <div className="row main-margin-sho">
+                                        <div className="col-sm-9 main-margin-sho">
+
+                                            <p className="grey"><strong>Total</strong></p>
+                                        </div>
+
+                                        <div className="col-sm-3 main-margin-sho">
+                                            <h6><span className="clr">{single?.order?.price} BNB</span></h6>
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <div className="row ptb20">
+                                        <div className="col-sm-12">
+                                            <div className="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" className="custom-control-input" value={terms}
+
+                                                    onChange={handleChange}
+                                                    id="customControlAutosizing" />
+                                                &nbsp;
+                                                <label className="custom-control-label"
+                                                    for="customControlAutosizing"><small>I agree to Fudge
+                                                        <span>Terms of Service</span></small></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm-12 text-center">
+                                            <ul className="list-inline">
+
+                                                <li className="list-inline-item"><button className={terms ? "btn-common" : "btn-common1"} onClick={BuyNft}>Proceed to Payment</button></li>
+                                                {/* <li className="pt-3"><a className="pt-3">Add Funds</a></li> */}
+                                                <div className="modal fade" id="exampleModal2" tabindex="-1"
+                                                    role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div className="modal-dialog" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h4 className="mx-auto" >Success</h4>
+                                                                <button type="button" className="close"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                <div className="row ptb20">
+                                                                    <div className="col-sm-12 text-center">
+                                                                        <h4>Your NFT Has Been Purchased
+                                                                            Successfully</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-dismiss="modal">OK</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Put on sale modal */}
+                <div className="modal fade" id="putonsale" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="mx-auto">Sell NFT</h4>
+                                <button type="button" className="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="row ptb20">
+                                    <div className="col-sm-12 main-margin-sho text-center">
+                                        <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
+                                    </div>
+
+                                </div>
+
+                                <div className="headeeing pb-4">
+                                    <h4>{single?.token?.description}</h4>
+                                    <div className="iconsss d-flex justify-content-start align-items-center">
+                                        <img src={single?.user?.ipfsImageUrl} className="img-fluid" />
+
+                                        <h6>{single?.user?.displayName}</h6>
+                                    </div>
+                                    <label className="label-newsss" for="exampleInputEmail1">Price</label>
+                                    <div className="main-inpuits-modal">
+
+                                        <div className="modal-input-ssds">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
+                                        </div>
+                                        <div className="bootstrap-drops-ss">
+                                            <div class="dropdown drop-downssde">
+                                                <button class="shdgs-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {fudgeDropDown}
+                                                </button>
+                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    {/* <select> */}
+
+                                                    {FudgeToken.map((elem) => {
+                                                        return (
+                                                            // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                            <a className="dropdown-item items" onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2" />{elem.token}</a>
+                                                        )
+                                                    }
+                                                    )}
+                                                    {/* </select> */}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                < hr />
+
+                                <div className="row ptb20">
+                                    <div className="col-sm-12">
+                                        <div className="custom-control custom-checkbox mr-sm-2">
+                                            <input type="checkbox" className="custom-control-input"
+                                                id="customControlAutosizing" />
+                                            &nbsp;
+                                            <label className="custom-control-label"
+                                                for="customControlAutosizing"><small>I agree to Fudge
+                                                    <span>Terms of Service</span></small></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-sm-12 text-center">
+                                        <ul className="list-inline">
+                                            <li className="list-inline-item"><button className="btn-common"
+                                                data-toggle="modal" data-target="#exampleModal2">Proceed to
+                                                Payment</button></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {/*paymement successful */}
+                <div className="modal fade" id="putonsale" tabindex="-1"
+                    role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="mx-auto" >Success</h4>
+                                <button type="button" className="close"
+                                    data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="row ptb20">
+                                    <div className="col-sm-12 text-center">
+                                        <h4>Your NFT Has Been Purchased
+                                            Successfully</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button"
+                                    className="btn btn-secondary"
+                                    data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </section>
 
             <section className="latest">

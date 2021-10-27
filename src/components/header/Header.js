@@ -7,6 +7,8 @@ import useAuth from '../../hooks/useAuth';
 import { AddProfile } from '../../services/services';
 import { useSelector, useDispatch } from 'react-redux';
 import { GetUserData } from '../../redux/action';
+import EthBalance from '../../hooks/EthBalance';
+
 const Header = () => {
   const { account,active } = useWeb3React();
   const { login, logout } = useAuth();
@@ -74,7 +76,7 @@ const Header = () => {
             {!account ?
                 <li className="nav-item">
                   <div >
-                    <Link to="" class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
+                    <button class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </button>
                   </div>
                 </li>
                 : ""}
