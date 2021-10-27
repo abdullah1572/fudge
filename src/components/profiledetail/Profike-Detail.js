@@ -114,7 +114,7 @@ const ProfileDetail = () => {
                     </div>
                     <ValidatorForm className="form-contact">
                         <div className="row">
-                            <div className="col-sm-8">
+                            <div className="col-sm-8 order-md-0 order-1">
                                 <div className="row ptb20">
                                     <div className="col-sm-12">
                                         <div className="inner-inpt">
@@ -263,7 +263,7 @@ const ProfileDetail = () => {
                             </div>
 
 
-                            <div className="col-sm-4">
+                            <div className="col-sm-4 order-md-1 order-0">
                                 <div className="inner-cards ptb20 text-center">
                                     <h5>User Image</h5>
 
