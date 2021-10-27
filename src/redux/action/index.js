@@ -218,32 +218,6 @@ export const GetNumberOfFollowers = (walletAddress) => async (dispatch) => {
 };
 
 
-// export const Art = () => async (dispatch) => {
-//   await axios.get(`${API_URL}/token/getAllTokensOfArt`)
-//     .then(async (res) => {
-//       if (res.data.status) {
-//         try {
-//           for (let elem of res.data.data) {
-//             await axios.post(`${API_URL}/token/getTokenAndDetails`, { contractAddress: elem.contractAddress,walletAddress:elem.walletAddress,tokenID:elem.tokenID }).then((res) => {
-//             elem.NftData = res.data.data
-//             })
-//           }
-//         }
-//         catch (err) {
-//           return false;
-//         }
-//         dispatch({
-//           type: "ART",
-//           payload: res.data.data,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       return false;
-//     })
-// };
-
-
 export const Art = () => async (dispatch) => {
   await axios.get(`${API_URL}/token/getAllTokensOfArt`)
     .then(async (res) => {
@@ -322,21 +296,37 @@ export const Memes = () => async (dispatch) => {
 
 
 
-// export const GetFollowing = (walletAddress) => async (dispatch) => {
+export const GetFollowersInUserProfile = (walletAddress) => async (dispatch) => {
 
-//   await axios.post('http://192.168.18.40:5000/user/getFollowing',{walletAddress : walletAddress.walletAddress})
-//     .then(async (res) => {
-//       if (res.data.status) {
-//         dispatch({
-//           type: "GETFOLLOWING",
-//           payload: res.data.data,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       return false;
-//     })
-// };
+  await axios.post(`${API_URL}/user/getFollowersAndDetails`,{walletAddress : walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETFOLLOWERS",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
+
+export const GetFollowingInUserProfile = (walletAddress) => async (dispatch) => {
+
+  await axios.post(`${API_URL}/user/getFollowingAndDetails`,{walletAddress : walletAddress})
+    .then(async (res) => {
+      if (res.data.status) {
+        dispatch({
+          type: "GETFOLLOWING",
+          payload: res.data.data,
+        });
+      }
+    })
+    .catch((err) => {
+      return false;
+    })
+};
 
 
 
