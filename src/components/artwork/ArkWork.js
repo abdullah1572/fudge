@@ -331,10 +331,10 @@ const ArtWork = () => {
                                 </div>
                                 <div className="modal-body">
                                     <div className="row ptb20">
-                                        <div className="col-sm-4 main-margin-sho text-center">
-                                            <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
+                                        <div className="col-sm-4  main-upper-modal-image text-center">
+                                            <img src={single?.token?.imageUrl} className="img-fluid wdimagessks" alt="" />
                                         </div>
-                                        <div className="col-sm-8 main-margin-sho">
+                                        <div className="col-sm-8 ">
                                             <div className="inner-man">
                                                 <h4>Prime</h4>
                                                 <div >
@@ -344,7 +344,7 @@ const ArtWork = () => {
                                                             <ul className="list-inline">
                                                                 <li className="list-inline-item">
                                                                     <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                        className="img-fluid inner-imagess"
+                                                                        className="img-fluid inner-imagessss"
                                                                     /></li>
                                                                 <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
                                                             </ul>
@@ -358,7 +358,7 @@ const ArtWork = () => {
                                                             <ul className="list-inline">
                                                                 <li className="list-inline-item">
                                                                     <img src={single?.user?.ipfsImageUrl} alt=""
-                                                                        className="img-fluid inner-imagess"
+                                                                        className="img-fluid inner-imagessss"
                                                                     /></li>
                                                                 <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
                                                             </ul>
@@ -483,7 +483,7 @@ const ArtWork = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <div className="row ptb20">
+                                <div className="row ptb20 justify-content-center">
                                     <div className="col-sm-12 main-margin-sho text-center">
                                         <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
                                     </div>
@@ -505,7 +505,7 @@ const ArtWork = () => {
                                         </div>
                                         <div className="bootstrap-drops-ss">
                                             <div class="dropdown drop-downssde">
-                                                <button class="shdgs-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="shdgs-dropss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     {fudgeDropDown}
                                                 </button>
                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -57,7 +57,7 @@ const Header = () => {
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav text-center ml-auto">
               <li class="nav-item ">
                 <Link class="nav-link active" to="/">HOME</Link>
                 {/* <a class="nav-link" routerLink="">HOME</a> */}
