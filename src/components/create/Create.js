@@ -18,8 +18,8 @@ import MyLoader from '../Loader/MyLoader';
 
 const Create = () => {
 
-    const dispatch=useDispatch();
-    const { account,active } = useWeb3React();
+    const dispatch = useDispatch();
+    const { account, active } = useWeb3React();
     const [open, setOpen] = useState(false);
     const [toggle, setToggle] = useState(false);
     const [dropDown, setDropDown] = useState('Choose Category');
@@ -35,9 +35,9 @@ const Create = () => {
         formData[e.target.name] = value;
         setAllFormData({ formData });
     }
-    
-    const DropDownChange=(e)=>{
-        
+
+    const DropDownChange = (e) => {
+
     }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
@@ -138,10 +138,10 @@ const Create = () => {
                     //  console.log("sale======",sale)
                     if (sale.status) {
                         setOpen(false)
-                        await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown,fudgeDropDown);
+                        await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown, fudgeDropDown);
                         toast.success('Created Item Successfully', {
                             position: "top-center",
-                            autoClose:5000,
+                            autoClose: 5000,
                         });
                         dispatch(GetAllNftsAndDetails());
                     }
@@ -149,7 +149,7 @@ const Create = () => {
                 }
                 else {
                     const tokenId = await mintPro();
-                    await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown,fudgeDropDown);
+                    await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown, fudgeDropDown);
                     toast.success('Created Item Successfully', {
                         position: "top-center",
                         autoClose: 5000,
@@ -186,17 +186,17 @@ const Create = () => {
 
 
 
-    const Remove=()=>{
+    const Remove = () => {
         updateFileUrl('');
         setToggle(false)
-       }
+    }
 
     return (
         <>
-        <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1><CircularProgress color="inherit"  style={{marginLeft:20}}/>
-        
-        </Backdrop>
-    
+            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1><CircularProgress color="inherit" style={{ marginLeft: 20 }} />
+
+            </Backdrop>
+
             <section className="creates">
                 <div className="container">
                     <Header />
@@ -209,44 +209,53 @@ const Create = () => {
                     </div>
                     <ValidatorForm className="form-contact">
                         <div className="row">
+                            <div className="col-sm-3 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+                                <h5>Preview</h5>
+                                <div className="main-privew-div">
+                                    {fileUrl ?
+                                        <img src={fileUrl} style={{ borderRadius: 20 }} width="220px" height="310px" />
+                                        : <h6>Upload file to preview you NFT</h6>
+                                    }
+                                </div>
+                            </div>
                             <div className="col-sm-9">
                                 <h5>Upload File</h5>
                                 <div className="inner-content text-center">
                                     <div className="row pt160" >
                                         <div className="col-sm-12">
                                             {fileUrl ?
-                                            <button type="button" onClick={Remove}>
+                                                <button type="button" className="close-iconsss" onClick={Remove}>
 
-                                            <div className="icons-image-close">
-                                            <i class="far fa-times-circle"></i>
-                                        </div>
-                                            </button>:
-                                        <div>
+                                                    <div className="icons-image-close">
+                                                        <i class="far fa-times-circle"></i>
+                                                    </div>
+                                                </button> :
+                                                <div>
 
-                                            <h4 className="grey ptb20">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</h4>
+                                                    <h4 className="grey ptb20">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</h4>
 
-                                            <label for="file" className="custom-file-upload btn-common-2">
-                                                UPLOAD FILE <i className="fa fa-cloud-upload"></i>
-                                            </label>
-                                            <input
-                                                className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
-                                        </div>
+                                                    <label for="file" className="custom-file-upload btn-common-2">
+                                                        UPLOAD FILE <i className="fa fa-cloud-upload"></i>
+                                                    </label>
+                                                    <input
+                                                        className="input-fields form-control" name="first" id="file" type="file" onChange={onChange} />
+                                                </div>
                                             }
 
                                             {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                            <div className="main-image-new-close">
+                                            <div className="">
                                                 {!fileUrl ? <MyLoader toggle={toggle} />
-                                                    : <img className="img-uploader-mm" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />
+                                                    : <img className="img-uploader-mm img-fluid" src={fileUrl} style={{ marginTop: 20, borderRadius: 30 }} width="400px" height="400px" />
 
                                                 }
-                                                
+
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row ptb20">
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-12 p-0">
                                         <div className="inner-inpt">
                                             <div className="form-group">
                                                 <div className="inner-logo-b">
@@ -269,7 +278,7 @@ const Create = () => {
                                                     </div>
                                                     <div className="sdsdsd">
                                                         <button className="button-discov" type="button" id="dropdownMenuButton " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            {fudgeDropDown}  
+                                                            {fudgeDropDown}
                                                             {/* <img src={fudgeDropDown}  /> */}
                                                             <i class="pl-2 fas fa-chevron-down"></i>
                                                         </button>
@@ -310,10 +319,13 @@ const Create = () => {
                                                     value={allFormData.formData.description}
                                                     onChange={handleChange}
                                                     placeholder="Enter Your Description..."
-                                                    className="input-fields"
+                                                    className="input-fields bg-white"
                                                     variant="outlined"
                                                     validators={['required']}
                                                     errorMessages={['Description field is required']}
+
+                                                    multiline
+                                                    rows={3}
                                                 />
                                             </div>
                                             <div className="form-group">
@@ -379,7 +391,7 @@ const Create = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-3">
+                            <div className="col-sm-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
                                 <h5>Preview</h5>
                                 <div className="main-privew-div">
                                     {fileUrl ?
