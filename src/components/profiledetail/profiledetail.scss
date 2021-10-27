@@ -1,4 +1,7 @@
 .create {
+    .MuiOutlinedInput-root{
+        border: none!important;
+    }
     .inner-content {
         background: #F9F9FA;
 border: 2px dashed #CFCFD0;
@@ -30,7 +33,7 @@ border: none;
     .inner-inpt {
         input {
             background: #FFFFFF;
-border: 1px solid #D1CCE0;
+
 box-sizing: border-box;
 border-radius: 10px;
 height: 54px;
@@ -90,4 +93,12 @@ border-radius: 10px;
     }
         }
     }
+}
+
+.image-edit-pro{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
 }

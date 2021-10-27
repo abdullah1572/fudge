@@ -283,7 +283,7 @@ const ProfileDetail = () => {
                                                 </label>
                                                {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
                                                 <input className="form-control" id="file" type="file" onChange={onChange} />
-                                                {fileUrl && (<img src={fileUrl}  width="400px" height="400px" alt=""/>)}
+                                                {fileUrl && (<img src={fileUrl}  className="image-edit-pro" alt=""/>)}
                                             </div>
                                         </li>
                                         <div>

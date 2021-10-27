@@ -69,14 +69,15 @@ const Header = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/createitem">CREATE</Link>
               </li>
-              {!account ?
+             
+            <div className="d-flex justify-content-center align-items-center">
+            {!account ?
                 <li className="nav-item">
                   <div >
                     <Link to="" class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </Link>
                   </div>
                 </li>
                 : ""}
-            
               {account &&
                 <li className="nav-item">
                   <div className="dropdown">
@@ -100,7 +101,6 @@ const Header = () => {
                                 </a>
                               </li>
                             </ul>
-
                             <div className="row ptb20">
                               <div className="col-sm-3">
                                 <div className="inner-im text-center">
@@ -141,13 +141,15 @@ const Header = () => {
                   </div>
                 </li>
               }
-            </ul>
-            <ul>
               <li>
               <div className="button_indicator ml-2" style={{ margin: "0", textAlign: "right" }}>
                 {account ? "🟢" :  "🔴"}
               </div>
               </li>
+              </div>
+            </ul>
+            <ul>
+              
             </ul>
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">

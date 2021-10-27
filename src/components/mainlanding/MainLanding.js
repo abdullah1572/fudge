@@ -534,7 +534,7 @@ const MainLanding = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col-lg-12">
+                                {/* <div className="col-lg-12">
                                     <div className="custom-slider">
                                         <h6>PRICE RANGE</h6>
                                         <Box sx={{ width: 300 }}>
@@ -547,7 +547,7 @@ const MainLanding = () => {
                                             />
                                         </Box>
                                     </div>
-                                </div>
+                                </div> */}
 
 
                                 <div className="tab-content" id="pills-tabContent">
@@ -633,7 +633,7 @@ const MainLanding = () => {
                         <div className="col-sm-12">
                             <div className="inner-content text-center">
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
-                                <h4 className="grey">Here's how it's work</h4>
+                                <h4 className="grey">Here how it's work</h4>
 
                                 <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" />
                             </div>
@@ -654,7 +654,7 @@ const MainLanding = () => {
                     <div class="row">
 
                         <div class="col-sm-4">
-                            <div class="box-hover-vv">
+                            <div class="box-hover-vv mb-5 mb-md-0">
                                 <div class="hover-point"></div>
                                 <div class="hover-point"></div>
                                 <div class="hover-point"></div>
@@ -673,7 +673,7 @@ const MainLanding = () => {
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="box-hover-vv">
+                            <div class="box-hover-vv mb-5 mb-md-0">
                                 <div class="hover-point"></div>
                                 <div class="hover-point"></div>
                                 <div class="hover-point"></div>
