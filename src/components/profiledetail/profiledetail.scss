@@ -5,26 +5,24 @@
     }
     .inner-content {
         background: #F9F9FA;
-border: 2px dashed #CFCFD0;
-box-sizing: border-box;
-border-radius: 20px;
-height: 390px;
-
+        border: 2px dashed #CFCFD0;
+        box-sizing: border-box;
+        border-radius: 20px;
+        height: 390px;
 img {
     margin: 10px;
 }
     }
-
     .remove {
         font-family: 'poppins';
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-text-decoration-line: underline;
-color: #f2b10f;
-background: transparent;
-border: none;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        text-decoration-line: underline;
+        color: #f2b10f;
+        background: transparent;
+        border: none;
 &:hover {
     color: #000;
 }
