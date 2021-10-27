@@ -4,6 +4,7 @@
         border: 2px dashed #CFCFD0;
         box-sizing: border-box;
         border-radius: 20px;
+        margin-bottom: 10px;
         height: 340px;
         padding: 20px;
         text-align: center;
@@ -36,6 +37,20 @@
         border: 2px dashed #CFCFD0;
         box-sizing: border-box;
         border-radius: 20px;
+        position: relative;
+
+        .close-iconsss {
+            position: absolute;
+    top: -18px;
+    right: 6px;
+    background: transparent;
+    border: none;
+
+    i {
+        font-size: 30px;
+    color: orange;
+    }
+        }
 
 img.img-show {
     width: auto;
@@ -54,9 +69,7 @@ input[type="file"] {
     width: 174px;
 }
 
-img {
-    margin: 10px;
-}
+
     }
 
     .inner-card {
@@ -296,7 +309,9 @@ border-radius: 10px;
     object-fit: cover;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-
+.bg-white {
+    background-color: #fff;
+}
 .main-creatre-decent{
     .dropdown-menu{
         width: 95%;
