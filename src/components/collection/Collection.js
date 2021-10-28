@@ -451,6 +451,7 @@ const Collection = () => {
                                             </div> / */}
                                         </div>
                                     </div>
+                                    <hr></hr>
                                     <div className="col-sm-4">
                                         <div className="custom-slider">
                                             <h6>PRICE RANGE</h6>
@@ -462,6 +463,7 @@ const Collection = () => {
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
                                                             <input type="number" class="form-control " id="number" placeholder="From" />
+                                                            <small>Fudge</small>
                                                             {/* <div>
                                                                 <div class="dropdown">
                                                                     <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -475,7 +477,7 @@ const Collection = () => {
                                                         </div>
                                                         <div className="input-main  main-input-one">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />
-                                                            <div>Fudge</div>
+                                                            <small>Fudge</small>
                                                         </div>
                                                     </div>
                                                     <div className="outer-buttons">

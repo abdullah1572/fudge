@@ -69,31 +69,46 @@ const Footer = () => {
                     </ul>
                 </div>
             </div> */}
-            <div className="col-sm-3">
+            <div className="col-sm-6">
                 <div className="inner-content">
                     <h5>Follow</h5>
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            <a href="https://www.google.com.pk/">
-                                <img src="pegify\socails\discord-icon.svg" alt="" className="img-fluid" target="_blank" />
-                            </a>
-                        </li>
-                        <li className="list-inline-item">
-                            <a href="https://www.google.com.pk/">
-                                <img src="pegify\socails\twitter-icon.svg" alt="" className="img-fluid" target="_blank"/>
-                            </a>
-                        </li>
-                        <li className="list-inline-item">
-                            <a href="https://www.google.com.pk/">
-                                <img src="pegify\socails\facebook-icon.svg" alt="" className="img-fluid" target="_blank" />
-                            </a>
-                        </li>
-                        <li className="list-inline-item">
-                            <a href="https://www.google.com.pk/">
-                                <img src="pegify\socails\instagram-icon.svg" alt="" className="img-fluid" target="_blank" />
-                            </a>
-                        </li>
-                    </ul>
+                    <ul className="list-inline ptb20">
+                                    <li className="list-inline-item">
+                                        <a href="https://t.me/joinchat/AMNMKB50Qkw5NjE0" target="_blank">
+                                        <img src="pegify\icons\telegram-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.youtube.com/channel/UCwemAO_Osvo-N13c1efBA1g" target="_blank">
+                                        <img src="pegify\icons\youtube-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.facebook.com/FUDGE-109913607947898" target="_blank">
+                                        <img src="pegify\icons\facebook-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://twitter.com/FudgeToken" target="_blank">
+                                        <img src="pegify\icons\twitter-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.instagram.com/fudgetoken/" target="_blank">
+                                        <img src="pegify\icons\instagram-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.linkedin.com/company/fudge-token/" target="_blank">
+                                        <img src="pegify\icons\linkedin-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.reddit.com/user/FudgeToken" target="_blank">
+                                        <img src="pegify\icons\reddit-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                </ul>
                 </div>
             </div>
         </div>
