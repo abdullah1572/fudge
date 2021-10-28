@@ -475,7 +475,7 @@ const MainLanding = () => {
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
                                         <div className="inner-btn">
-                                            <button className="btn-newscoll" routerLink="/collection">SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button>
+                                        <Link to="/collection"><button className="btn-newscoll" >SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                 </ul>
@@ -633,7 +633,7 @@ const MainLanding = () => {
                         <div className="col-sm-12">
                             <div className="inner-content text-center">
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
-                                <h4 className="grey">Here how it's work</h4>
+                                <h4 className="grey">Here's how it works</h4>
 
                                 <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" />
                             </div>
@@ -685,7 +685,7 @@ const MainLanding = () => {
                                 <div class="box-contents">
                                     <div class="inner-side">
                                         <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
-                                        <h4>Add your NFT’s</h4>
+                                        <h4>Add your NFTs</h4>
                                         <p class="grey">Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.</p>
                                     </div>
                                 </div>
@@ -752,7 +752,7 @@ const MainLanding = () => {
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-btn">
-                                            <button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button>
+                                        <Link to="/collection"><button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                     <li className="list-inline-item">
@@ -777,7 +777,7 @@ const MainLanding = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12 text-center">
-                            <img src="pegify\landing-assets\mobile-image.png" alt="" className="img-fluid" />
+                            <img src="pegify\landing-assets\mobile-image (1).png" alt="" className="img-fluid" />
                         </div>
                     </div>
                 </div>

@@ -317,7 +317,9 @@ padding: 10px;
         height: 54px;
         text-align: left;
         padding: 0 10px;
-           
+        .dropdown-menu{
+            width: 100%!important;
+        }
        }
 
        .main-price-range-floa{
