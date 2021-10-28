@@ -6,7 +6,7 @@
     .inner-content {
         padding-top: 170px;
         .btn-newscoll{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 400;
             font-size: 18px;
@@ -20,7 +20,7 @@
             color: #ffffff;
         }
         h2{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 36px;
@@ -30,7 +30,7 @@
            
         }
         h1{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 46px;
@@ -40,7 +40,7 @@
             padding-bottom: 22px;
         }
         p{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 18px;
@@ -48,6 +48,12 @@
             color: #575E66;
             padding-bottom: 40px;
         }
+    }
+}
+
+.main-price-range-floa {
+    .dropdown-menu {
+        z-index: 99999;
     }
 }
 
@@ -150,7 +156,7 @@
     background-size: cover;
     .inner-content{
         h3{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 26px!important;
@@ -161,7 +167,7 @@
             padding-top: 60px;
         }
         h2{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 46px!important;
@@ -171,7 +177,7 @@
             padding-bottom: 30px;
         }
         p{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 18px;
@@ -181,7 +187,7 @@
             padding-bottom: 18px!important;
         }
         .button-new-artust{
-            font-family: 'poppins';
+            font-family: 'poppins'!important;
             font-style: normal;
             font-weight: 600;
             font-size: 18px;

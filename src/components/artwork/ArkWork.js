@@ -5,7 +5,7 @@ import { Buy } from '../../hooks/FudgeBuyAndSale';
 import { GetAllTokensOfCreator } from '../../redux/action';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
-import { AddSale } from '../../services/services';
+import { AddSale,RemoveOrder,AddOrder } from '../../services/services';
 import Header from '../header/Header';
 import environment from '../../utils/Environment';
 import { Backdrop } from '@material-ui/core';
@@ -15,9 +15,9 @@ import { API_URL } from '../../ApiURL';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import './artwork.scss';
-import { AddOrder } from '../../services/services';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import { ApproveForAll, Sale} from '../../hooks/FudgeBuyAndSale';
+
 const ArtWork = () => {
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
@@ -45,7 +45,6 @@ const ArtWork = () => {
         try {
             await axios.post(`${API_URL}/token/getTokenAndDetailsOfSingleToken`, { contractAddress: contractAddress, tokenID: tokenId })
                 .then((res) => {
-                    console.log("response========edit>", res)
                     setSingleData(res.data.data)
                     // getDate(response.data.msg)
                     // toast.success('Project Approved Succesfully', {
@@ -125,14 +124,15 @@ const ArtWork = () => {
                 if (sale.status) {
                         setOpen(false)
                         await AddOrder(account, environment.BlueMoonPro,tokenId,price,fudgeDropDown);
-                        toast.success('Created Item Successfully', {
-                            position: "top-center",
-                            autoClose: 5000,
-                        });
-                         window.$("#success").modal('show');
-                         setPrice('')
-                        dispatch(GetAllNftsAndDetails());
+                        // toast.success('Created Item Successfully', {
+                        //     position: "top-center",
+                        //     autoClose: 5000,
+                        // });
+                     
                     }
+                    window.$("#success").modal('show');
+                    setPrice('')
+                dispatch(GetAllNftsAndDetails());
             }
             catch (err) {
                 setOpen(false)
@@ -153,12 +153,14 @@ const ArtWork = () => {
 
 
 
-
-
+    const buyModal=()=>{
+        window.$("#checkout").modal('show');
+    }
+  
     const BuyNft = useCallback(async () => {
         if (account) {
             try {
-                window.$("#checkout").modal('show');
+          
                 setOpen(true)
                 // window.$("#checkout").modal('hide');
 
@@ -170,6 +172,7 @@ const ArtWork = () => {
                         position: "top-center",
                         autoClose: 5000,
                     });
+                    setTerms(false)
                     dispatch(GetAllNftsAndDetails());
                 }
                 else {
@@ -211,6 +214,19 @@ const ArtWork = () => {
             });
         }
     }, [FudgeBuy, account, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
+
+
+ //Remove from market
+ const RemoveFromMarket = async () => {
+     setOpen(true)
+   const res =  await RemoveOrder(environment.BlueMoonPro,account,tokenId)
+   console.log("res===============del",res)
+   if(res.data.status){
+       setOpen(false)
+   }
+   window.$("#remove").modal('show');
+    dispatch(GetAllNftsAndDetails());
+}
 
 
     const MoreCreatorNfts = creatorData.map((elem, index) => {
@@ -269,12 +285,7 @@ const ArtWork = () => {
     })
 
 
-    //Remove from
-
-    const RemoveFromMarket = () => {
-        console.log("yes=============")
-    }
-
+   
     return (
         <>
 
@@ -410,7 +421,7 @@ const ArtWork = () => {
                                             {!singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
                                                 singleData[0]?.users?.walletAddress === account && singleData[0].orders[0]?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
                                                     singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress !== account && singleData[0]?.orders[0]?.price > 0 ?
-                                                        <button className="btn-common-1" data-toggle="modal" onClick={BuyNft} >BUY NOW
+                                                        <button className="btn-common-1" data-toggle="modal" onClick={buyModal} >BUY NOW
                                                             FOR {singleData[0]?.orders[0]?.price} BNB</button>
                                                         : singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account && singleData[0]?.orders[0]?.price > 0 ?
                                                             <button type="button" className="btn-common-1" onClick={RemoveFromMarket}>
@@ -680,6 +691,34 @@ const ArtWork = () => {
 
 
                 {/*paymement successful */}
+                <div className="modal fade" id="remove" tabindex="-1"
+                    role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="mx-auto" >Success</h4>
+                                <button type="button" className="close"
+                                    data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="row ptb20">
+                                    <div className="col-sm-12 text-center">
+                                        <h4>Your NFT Has Been Removed From Market Place.</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button"
+                                    className="btn btn-secondary"
+                                    data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="modal fade" id="success" tabindex="-1"
                     role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -695,8 +734,7 @@ const ArtWork = () => {
                             <div className="modal-body">
                                 <div className="row ptb20">
                                     <div className="col-sm-12 text-center">
-                                        <h4>Your NFT Has Been Purchased
-                                            Successfully</h4>
+                                        <h4>Your NFT Has Been Put On Market Place.</h4>
                                     </div>
                                 </div>
                             </div>

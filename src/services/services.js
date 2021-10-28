@@ -116,3 +116,21 @@ export const AddOrder = async (ownerAddress,contractAddress,tokenID,price,curren
 
 
 };
+
+
+//remove from market place
+
+export const RemoveOrder = async (contractAddress,ownerAddress,tokenID,) => {
+
+    const send = {contractAddress: contractAddress,ownerAddress:ownerAddress,tokenID: tokenID }
+ const del=   await axios.post(`${API_URL}/order/deleteOrder`, send)
+        .then((res) => {
+            return res;
+        }).catch((err) => {
+            console.log("err", err)
+        })
+
+   return del;
+};
+
+

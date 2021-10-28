@@ -61,6 +61,7 @@
             color: #fff;
             padding: 8px 10px;
             border-radius: 6px;
+            font-family: 'poppins'!important;
             text-decoration: none;
             margin-right: 10px;
             text-transform: uppercase;
@@ -317,7 +318,9 @@ padding: 10px;
         height: 54px;
         text-align: left;
         padding: 0 10px;
-           
+        .dropdown-menu{
+            width: 100%!important;
+        }
        }
 
        .main-price-range-floa{

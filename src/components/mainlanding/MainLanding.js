@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,15 +16,29 @@ const MainLanding = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+      const [likeSrc,setLikeSrc]=useState('/pegify/heart-outline-icon.png');
+      const [unLikeSrc,setUnikeSrc]=useState('/pegify/landing-assets/heart.png');
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    const Like =(contractAddress,tokenID)=>{
+    const Like =(contractAddress,tokenID, id)=>{
          dispatch(LikeToken(contractAddress,account,tokenID))
+        // setLikeSrc(window.$(`#${id}`).src= "/pegify/landing-assets/heart.png")
         }
-    const unLike =(contractAddress,tokenID)=>{
+    const unLike =(contractAddress,tokenID,id)=>{
         dispatch(UnLikeToken(contractAddress,account,tokenID))
+        
+        // window.$(`#${id}`).attr('src' , '/pegify/landing-assets/heart.png');
+        // setUnikeSrc("/pegify/heart-outline-icon.png")
+        
+        // setUnikeSrc()
+        // console.log('in unlike id' , x)
+        // x.src = "/pegify/landing-assets/heart.png"
         // dispatch(GetAllNftsAndDetails())
    }
+
+//    useEffect(() => {
+//      Like()
+//    }, [])
     // useEffect(() => {
     //    dispatch(GetAllNftsAndDetails())
     // }, [account])
@@ -78,13 +92,13 @@ const MainLanding = () => {
                     </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                {userLike?.address==undefined ||userLike== null  ?
-                                <button className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID)} >
-                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                                {!userLike?
+                                <button  className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID  )} >
+                                    <img id = {elem._id} src='/pegify/heart-outline-icon.png' alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button>:
-                               <button className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID)} >
-                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                               <button  className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID )} >
+                                <img id = {elem._id} src='/pegify/landing-assets/heart.png' alt="" className="img-fluid" />
                                 <span className="grey"> {elem?.numerOfLikes} </span>
 
                             </button> 
@@ -439,7 +453,7 @@ const MainLanding = () => {
                             <li className="list-inline-item">
                                 <button className="for-style11">
                                     {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                     <span className="grey"> 1.5k </span>
 
                                 </button>
@@ -465,7 +479,7 @@ const MainLanding = () => {
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
                                         <div className="inner-btn">
-                                            <button className="btn-newscoll" routerLink="/collection">SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button>
+                                        <Link to="/collection"><button className="btn-newscoll" >SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                 </ul>
@@ -491,7 +505,7 @@ const MainLanding = () => {
                             </div>
                             <div className="inner-tabs">
                                 <div className="row">
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-8">
                                         <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                             <li class="nav-item" active>
                                                 <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
@@ -524,6 +538,42 @@ const MainLanding = () => {
                                         </ul>
                                     </div>
                                 </div>
+                                <div className="col-sm-4">
+                                        <div className="custom-slider">
+                                            <h6>PRICE RANGE</h6>
+                                            <div class="dropdown main-price-range-floa">
+                                                <button class="drop-downsss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Choose Price $
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <div className="main-outer-fort">
+                                                        <div className="input-main main-input-two">
+                                                            <input type="number" class="form-control " id="number" placeholder="From" />
+                                                            <small>Fudge</small>
+                                                            {/* <div>
+                                                                <div class="dropdown">
+                                                                    <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        BNB
+                                                                    </button>
+                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtontwoy">
+                                                                        <a class="dropdown-item" href="#">FUDGE</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div> */}
+                                                        </div>
+                                                        <div className="input-main  main-input-one">
+                                                            <input type="number" class="form-control" id="number" placeholder="To" />
+                                                            <small>Fudge</small>
+                                                        </div>
+                                                    </div>
+                                                    <div className="outer-buttons">
+                                                        <button type="button" className="button-one">Clear</button>
+                                                        <button type="button" className="button-two">Apply</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {/* <div className="col-lg-12">
                                     <div className="custom-slider">
                                         <h6>PRICE RANGE</h6>
@@ -623,7 +673,7 @@ const MainLanding = () => {
                         <div className="col-sm-12">
                             <div className="inner-content text-center">
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
-                                <h4 className="grey">Here how it's work</h4>
+                                <h4 className="grey">Here's how it works</h4>
 
                                 <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" />
                             </div>
@@ -675,7 +725,7 @@ const MainLanding = () => {
                                 <div class="box-contents">
                                     <div class="inner-side">
                                         <img src="pegify\landing-assets\add-your-nfts-icon.svg" alt="" class="img-fluid" />
-                                        <h4>Add your NFT’s</h4>
+                                        <h4>Add your NFTs</h4>
                                         <p class="grey">Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.</p>
                                     </div>
                                 </div>
@@ -712,7 +762,6 @@ const MainLanding = () => {
                                 <h3 class="">FEATURED ARTIST</h3>
                                 <h2>Adijavar Maccaroni</h2>
                                 <p class="">I believe that love is difficult, but worth trying</p>
-
                                 <ul class="list-inline ptb20">
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
@@ -742,7 +791,7 @@ const MainLanding = () => {
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-btn">
-                                            <button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button>
+                                        <Link to="/collection"><button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                     <li className="list-inline-item">
@@ -767,7 +816,7 @@ const MainLanding = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12 text-center">
-                            <img src="pegify\landing-assets\mobile-image.png" alt="" className="img-fluid" />
+                            <img src="pegify\landing-assets\mobile-image (1).png" alt="" className="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -796,24 +845,39 @@ const MainLanding = () => {
 
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
-                                        {/* <a href=""> */}
-                                        <img src="pegify\socails\discord-icon.svg" alt="" className="img-fluid" />
-                                        {/* </a> */}
+                                        <a href="https://t.me/joinchat/AMNMKB50Qkw5NjE0" target="_blank">
+                                        <img src="pegify\icons\telegram-icon.svg" alt="" className="img-fluid" />
+                                        </a>
                                     </li>
                                     <li className="list-inline-item">
-                                        {/* <a href=""> */}
-                                        <img src="pegify\socails\twitter-icon.svg" alt="" className="img-fluid" />
-                                        {/* </a> */}
+                                        <a href="https://www.youtube.com/channel/UCwemAO_Osvo-N13c1efBA1g" target="_blank">
+                                        <img src="pegify\icons\youtube-icon.svg" alt="" className="img-fluid" />
+                                        </a>
                                     </li>
                                     <li className="list-inline-item">
-                                        {/* <a href=""> */}
-                                        <img src="pegify\socails\facebook-icon.svg" alt="" className="img-fluid" />
-                                        {/* </a> */}
+                                        <a href="https://www.facebook.com/FUDGE-109913607947898" target="_blank">
+                                        <img src="pegify\icons\facebook-icon.svg" alt="" className="img-fluid" />
+                                        </a>
                                     </li>
                                     <li className="list-inline-item">
-                                        {/* <a href=""> */}
-                                        <img src="pegify\socails\instagram-icon.svg" alt="" className="img-fluid" />
-                                        {/* </a> */}
+                                        <a href="https://twitter.com/FudgeToken" target="_blank">
+                                        <img src="pegify\icons\twitter-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.instagram.com/fudgetoken/" target="_blank">
+                                        <img src="pegify\icons\instagram-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.linkedin.com/company/fudge-token/" target="_blank">
+                                        <img src="pegify\icons\linkedin-icon.svg" alt="" className="img-fluid" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item">
+                                        <a href="https://www.reddit.com/user/FudgeToken" target="_blank">
+                                        <img src="pegify\icons\reddit-icon.svg" alt="" className="img-fluid" />
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
