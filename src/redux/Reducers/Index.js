@@ -23,9 +23,14 @@ const initState = {
   GetOnSaleData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-  
-  GetLikeToken:[{likeToken:[],userLikes:[]}],
-  GetUnLikeToken:[{likeToken:[],userLikes:[]}],
+
+  GetLikeToken: [{ likeToken: [], userLikes: [] }],
+  GetUnLikeToken: [{ likeToken: [], userLikes: [] }],
+
+  //get followers in profile
+  GetFollowersInProfile: [],
+  //get following in profile
+  GetFollowingInProfile: []
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -142,22 +147,36 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetCreatedData: payload,
       };
-    
-      //Like and Unlike
 
-       case "LIKE":
+    //Like and Unlike
+
+    case "LIKE":
       return {
         ...state,
-        GetLikeToken : payload,
+        GetLikeToken: payload,
       };
-      case "UNLIKE":
+    case "UNLIKE":
       return {
         ...state,
-        GetUnLikeToken : payload,
+        GetUnLikeToken: payload,
       };
-      
+
+      //get followers in profile
+      case "GETFOLLOWERS":
+        return {
+          ...state,
+          GetFollowersInProfile: payload,
+        };
+        case "GETFOLLOWING":
+          return {
+            ...state,
+            GetFollowingInProfile: payload,
+          };
   
-      
+
+
+
+
     default:
       return state;
   }

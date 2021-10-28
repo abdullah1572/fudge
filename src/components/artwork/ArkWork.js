@@ -49,10 +49,17 @@ const ArtWork = () => {
     ]
     const OpenBuyModal = () => {
         window.$("#checkout").modal('show');
-        window.$("#putonsale").modal('show');
-        window.$("#success").modal('show');
 
     }
+    const OpenPutOnsaleModal = () => {
+        window.$("#putonsale").modal('show');
+    }
+    // const OpenBuyModal = () => {
+    //     window.$("#checkout").modal('show');
+    //     window.$("#putonsale").modal('show');
+    //     window.$("#success").modal('show');
+
+    // }
 
     const BuyNft = useCallback(async () => {
         if (account) {
@@ -299,7 +306,7 @@ const ArtWork = () => {
                                         <div className="inner-btn">
 
                                             {!single?.order && single?.token?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
-                                                single?.token?.walletAddress === account && single.order?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenBuyModal}>Put On Market Place</button> :
+                                                single?.token?.walletAddress === account && single.order?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
                                                     single?.order && single?.token?.walletAddress !== account && single?.order?.price > 0 ?
                                                         <button className="btn-common-1" data-toggle="modal" onClick={OpenBuyModal} >BUY NOW
                                                             FOR {single?.order?.price} BNB</button>
