@@ -4,7 +4,6 @@ import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails,LikeToken,UnLikeToken,GetAllNftsAndDetails } from '../../redux/action';
 import Header from '../header/Header';
-import Box from '@mui/material/Box';
 import { useWeb3React } from '@web3-react/core';
 
 import Slider from '@mui/material/Slider';
@@ -17,23 +16,14 @@ const MainLanding = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    
-   
-   const reRender=()=>{
-
-       dispatch(GetAllNftsAndDetails())
-   }
 
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    console.log("token",token)
     const Like =(contractAddress,tokenID)=>{
          dispatch(LikeToken(contractAddress,account,tokenID))
-         reRender()
         }
     const unLike =(contractAddress,tokenID)=>{
         dispatch(UnLikeToken(contractAddress,account,tokenID))
         // dispatch(GetAllNftsAndDetails())
-        reRender();
    }
     // useEffect(() => {
     //    dispatch(GetAllNftsAndDetails())
@@ -80,7 +70,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         {price}
@@ -143,7 +133,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -201,7 +191,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -259,7 +249,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -320,7 +310,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -379,7 +369,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -439,7 +429,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>

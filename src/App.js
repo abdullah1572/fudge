@@ -38,7 +38,7 @@ function App() {
           <Route exact path='/profile/:walletAddress' component={Profile}/> 
           <Route exact path='/profiledetail/:walletAddress' component={ProfileDetail}/> 
           <Route exact path='/createitem' component={Create}/> 
-          <Route exact path='/artwork' component={ArtWork}/> 
+          <Route exact path='/artwork/:contractAddress/:tokenId' component={ArtWork}/> 
           <Route exact path='/ownerart' component={OwnerArtWork}/> 
           <Route exact path='/ownerprofile' component={OwnerProfile}/> 
         </Switch>

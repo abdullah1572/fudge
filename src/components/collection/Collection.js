@@ -62,7 +62,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         {price}
@@ -118,7 +118,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.userName}</h4>
@@ -173,7 +173,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.userName}</h4>
@@ -228,7 +228,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -284,7 +284,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.userName}</h4>
@@ -338,7 +338,7 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.userName}</h4>

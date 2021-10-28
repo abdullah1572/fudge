@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_URL } from '../ApiURL';
 
 export const AddProfile = async (data) => {
-    console.log("data",data)
+
     const addUser = await axios.post(`${API_URL}/user/addUser`, data)
         .then((res) => {
             // return res;
@@ -91,6 +91,23 @@ export const AddSale = async (buyerAddress, sellerAddress, contractAddress, toke
 
     const send = { buyerAddress: buyerAddress, sellerAddress: sellerAddress, contractAddress: contractAddress, tokenID: tokenID, price: price }
     await axios.post(`${API_URL}/sale/addSale`, send)
+        .then((res) => {
+            return res;
+        }).catch((err) => {
+            console.log("err", err)
+        })
+
+
+};
+
+
+
+//order
+
+export const AddOrder = async (ownerAddress,contractAddress,tokenID,price,currency) => {
+
+    const send = { ownerAddress: ownerAddress, contractAddress: contractAddress,tokenID: tokenID, price: price }
+    await axios.post(`${API_URL}/order/createOrder`, send)
         .then((res) => {
             return res;
         }).catch((err) => {

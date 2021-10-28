@@ -10,22 +10,69 @@ import Header from '../header/Header';
 import environment from '../../utils/Environment';
 import { Backdrop } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
-
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { API_URL } from '../../ApiURL';
+import axios from 'axios';
+import { useParams } from 'react-router';
 import './artwork.scss';
+import { AddOrder } from '../../services/services';
+import { GetAllNftsAndDetails } from '../../redux/action';
+import { ApproveForAll, Sale} from '../../hooks/FudgeBuyAndSale';
 const ArtWork = () => {
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
     const [terms, setTerms] = useState(false);
+    const { contractAddress, tokenId } = useParams();
     const [fudgeDropDown, setFudgeDropDown] = useState('FUDGE');
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
-
-    console.log("creatorData", creatorData)
-    console.log("single", single)
+    const { ApproveAllTokenID } = ApproveForAll()
+    const { FudgeSale } = Sale();
+    const [price, setPrice] = useState('')
+    const handleChange1 = (e) => {
+        setPrice(e.target.value);
+    }
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
     }, [single?.creator?.walletAddress, dispatch])
+
+
+    const [singleData, setSingleData] = useState([]);
+
+    console.log("singledata", singleData)
+    const GetSingleData = async () => {
+        try {
+            await axios.post(`${API_URL}/token/getTokenAndDetailsOfSingleToken`, { contractAddress: contractAddress, tokenID: tokenId })
+                .then((res) => {
+                    console.log("response========edit>", res)
+                    setSingleData(res.data.data)
+                    // getDate(response.data.msg)
+                    // toast.success('Project Approved Succesfully', {
+                    //     position: "top-right",
+                    //     autoClose: 2000,
+                    // });
+                });
+
+        }
+        catch (err) {
+            // toast.error('Project Not Approved', {
+            //     position: "bottom-center",
+            //     autoClose: 2000,
+            // });
+            // eslint-disable-next-line no-console
+            // console.log(err);
+            // alert("Invalid Address")
+
+
+        }
+    }
+
+    useEffect(() => {
+        GetSingleData()
+    }, [contractAddress, tokenId])
+
+
     const handleChange = () => {
         if (terms) {
             setTerms(false)
@@ -47,37 +94,83 @@ const ArtWork = () => {
             logo: '/pegify/fudge-logo1.png'
         },
     ]
-    const OpenBuyModal = () => {
-        window.$("#checkout").modal('show');
+    // const OpenBuyModal = () => {
+     
 
-    }
+    // }
     const OpenPutOnsaleModal = () => {
         window.$("#putonsale").modal('show');
     }
-    // const OpenBuyModal = () => {
-    //     window.$("#checkout").modal('show');
-    //     window.$("#putonsale").modal('show');
-    //     window.$("#success").modal('show');
 
-    // }
+
+    const PutOnSale = useCallback(async () => {
+        if (account) {
+            if (price === '') {
+                toast.warning('Fill the required Fileds', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                return
+            }
+            try {
+                window.$("#putonsale").modal('hide');
+                // window.$("#success").modal('show');
+                setOpen(true)
+                const approve = await ApproveAllTokenID();
+                if (approve.status) {
+                    setOpen(false)
+                }
+                setOpen(true)
+                const sale = await FudgeSale(tokenId, price);
+                if (sale.status) {
+                        setOpen(false)
+                        await AddOrder(account, environment.BlueMoonPro,tokenId,price,fudgeDropDown);
+                        toast.success('Created Item Successfully', {
+                            position: "top-center",
+                            autoClose: 5000,
+                        });
+                         window.$("#success").modal('show');
+                         setPrice('')
+                        dispatch(GetAllNftsAndDetails());
+                    }
+            }
+            catch (err) {
+                setOpen(false)
+                toast.error('User Denied Transaction', {
+                    position: "top-center",
+                    autoClose: 5000,
+                });
+            }
+        }
+
+        else {
+            toast.error('Please Connect the wallet', {
+                position: "top-right",
+                autoClose: 5000,
+            });
+        }
+    })
+
+
+
+
 
     const BuyNft = useCallback(async () => {
         if (account) {
-
-
             try {
-                window.$("#checkout").modal('hide');
+                window.$("#checkout").modal('show');
                 setOpen(true)
+                // window.$("#checkout").modal('hide');
 
-                const res = await FudgeBuy(single?.token?.tokenID, single?.order?.price);
-                console.log("res", res)
+                const res = await FudgeBuy(tokenId,singleData[0]?.orders[0]?.price);
                 if (res.status) {
-                    await AddSale(account, single?.token?.walletAddress, environment.BlueMoonPro, single?.token?.tokenID, single?.order?.price)
+                    await AddSale(account,singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId,singleData[0]?.orders[0]?.price)
                     setOpen(false)
                     toast.success('Buy Successfully', {
                         position: "top-center",
                         autoClose: 5000,
                     });
+                    dispatch(GetAllNftsAndDetails());
                 }
                 else {
                     setOpen(false)
@@ -87,8 +180,6 @@ const ArtWork = () => {
                     });
 
                 }
-
-
             }
             catch (err) {
                 setOpen(false)
@@ -120,6 +211,8 @@ const ArtWork = () => {
             });
         }
     }, [FudgeBuy, account, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
+
+
     const MoreCreatorNfts = creatorData.map((elem, index) => {
 
         const creator = elem?.creators.map((elem) => {
@@ -193,10 +286,11 @@ const ArtWork = () => {
                     <Header />
                     <div className="row ptb">
                         {/* This is first part start */}
+
                         <div className="col-sm-6">
                             <div className="art-image">
                                 <a href="#myModal" role="button" className="btn btn-primary" data-toggle="modal">
-                                    <img src={single?.token?.imageUrl} className="img-fluid" alt="" /></a>
+                                    <img src={singleData[0]?.imageUrl} className="img-fluid" alt="" /></a>
                                 <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div className="modal-dialog modal-full" role="document">
                                         <div className="modal-content" >
@@ -225,28 +319,29 @@ const ArtWork = () => {
                                 </div>
                             </div>
                         </div>
+
+
                         <div className="col-sm-6">
                             <div className="art-inner">
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="profile">
                                             <div className="profile-heading">
-                                                <h2 className="inner-heading" >{single?.token?.nftName}</h2>
-                                                <h4 className="inner-para"> <span>{single?.order?.price} BNB</span></h4>
+                                                <h2 className="inner-heading" >{singleData[0]?.nftName}</h2>
+                                                <h4 className="inner-para"> <span>{singleData[0]?.orders[0]?.price ? singleData[0]?.orders[0]?.price : 0} BNB</span></h4>
                                             </div>
                                             <div className="icons">
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item" >
-                                                        {/* <img src="pegify/landing-assets/heart.png" alt=""
-                                                            className="img-fluid" /> */}
+                                                        <img src="/pegify/landing-assets/heart.png" alt=""
+                                                            className="img-fluid" />
                                                         <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
-                                                        <span className="grey"> {single?.token?.numerOfLikes}</span>
+                                                        <span className="grey">{singleData[0]?.numerOfLikes}</span>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div className="main-para">
-                                                <p className="inner-para">{single?.token?.description}</p>
-
+                                                <p className="inner-para">{singleData[0]?.description}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -254,45 +349,53 @@ const ArtWork = () => {
                                 <div className="row ptb20">
                                     <div className="col-sm-12">
                                         <div className="owner" >
-                                            <Link to="ownerprofile">
+                                            <Link to={`/profile/${singleData[0]?.walletAddress}`}>
                                                 <h6>Owner</h6>
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
-                                                        <img src={single?.user?.ipfsImageUrl} alt=""
+                                                        <img src={singleData[0]?.users?.ipfsImageUrl} alt=""
                                                             className="img-fluid inner-imagess"
                                                         />
                                                     </li>
                                                     <li className="list-inline-item grey-1">
-                                                        {`${single?.token?.walletAddress.substring(0, 6)}...${single?.token?.walletAddress.substring(
-                                                            single?.token?.walletAddress.length - 4
-                                                        )}`}
+                                                        {singleData[0]?.walletAddress === undefined
+                                                            ? "..."
+                                                            : singleData[0]?.walletAddress === null
+                                                                ? "None"
+                                                                : `${singleData[0]?.walletAddress.substring(0, 6)}...${singleData[0]?.walletAddress.substring(
+                                                                    singleData[0]?.walletAddress.length - 4
+                                                                )}`}
                                                     </li>
                                                     <li className="list-inline-item grey-1">
-                                                        {single?.user?.displayName}
+                                                        {singleData[0]?.users?.displayName}
                                                     </li>
 
                                                 </ul>
-
                                             </Link>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="owner" >
-                                            <Link to="ownerprofile">
+                                            <Link to={`/profile/${singleData[0]?.creators?.creatorAddress}`}>
                                                 <h6>Creator</h6>
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
-                                                        <img src={single?.user?.ipfsImageUrl} alt=""
+                                                        <img src={singleData[0]?.creators?.ipfsImageUrl} alt=""
                                                             className="img-fluid inner-imagess"
                                                         /></li>
                                                     <li className="list-inline-item grey-1">
-                                                        {`${single?.token?.creatorAddress.substring(0, 6)}...${single?.token?.creatorAddress.substring(
-                                                            single?.token?.creatorAddress.length - 4
-                                                        )}`}
+                                                        {singleData[0]?.creators?.walletAddress === undefined
+                                                            ? "..."
+                                                            : singleData[0]?.creators?.walletAddress === null
+                                                                ? "None"
+                                                                : `${singleData[0]?.creators?.walletAddress.substring(0, 6)}...${singleData[0]?.creators?.walletAddress.substring(
+                                                                    account.length - 4
+                                                                )}`}
                                                     </li>
-                                                    <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                    <li className="list-inline-item grey-1">{singleData[0]?.creators?.displayName}</li>
                                                 </ul>
                                             </Link>
                                         </div>
@@ -304,17 +407,15 @@ const ArtWork = () => {
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-
-                                            {!single?.order && single?.token?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
-                                                single?.token?.walletAddress === account && single.order?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
-                                                    single?.order && single?.token?.walletAddress !== account && single?.order?.price > 0 ?
-                                                        <button className="btn-common-1" data-toggle="modal" onClick={OpenBuyModal} >BUY NOW
-                                                            FOR {single?.order?.price} BNB</button>
-
-                                                        : single?.order && single?.token?.walletAddress === account && single?.order?.price > 0 ?
+                                            {!singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
+                                                singleData[0]?.users?.walletAddress === account && singleData[0].orders[0]?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
+                                                    singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress !== account && singleData[0]?.orders[0]?.price > 0 ?
+                                                        <button className="btn-common-1" data-toggle="modal" onClick={BuyNft} >BUY NOW
+                                                            FOR {singleData[0]?.orders[0]?.price} BNB</button>
+                                                        : singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account && singleData[0]?.orders[0]?.price > 0 ?
                                                             <button type="button" className="btn-common-1" onClick={RemoveFromMarket}>
                                                                 Remove From Market Place</button> : null
-                                               }
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +440,7 @@ const ArtWork = () => {
                                 <div className="modal-body">
                                     <div className="row ptb20">
                                         <div className="col-sm-4  main-upper-modal-image text-center">
-                                            <img src={single?.token?.imageUrl} className="img-fluid wdimagessks" alt="" />
+                                            <img src={singleData[0]?.imageUrl} className="img-fluid wdimagessks" alt="" />
                                         </div>
                                         <div className="col-sm-8 ">
                                             <div className="inner-man">
@@ -350,10 +451,10 @@ const ArtWork = () => {
                                                             <h6>Owner</h6>
                                                             <ul className="list-inline">
                                                                 <li className="list-inline-item">
-                                                                    <img src={single?.user?.ipfsImageUrl} alt=""
+                                                                    <img src={singleData[0]?.users?.ipfsImageUrl} alt=""
                                                                         className="img-fluid inner-imagessss"
                                                                     /></li>
-                                                                <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                                <li className="list-inline-item grey-1">{singleData[0]?.users?.displayName}</li>
                                                             </ul>
                                                         </Link>
                                                     </div>
@@ -364,10 +465,10 @@ const ArtWork = () => {
                                                             <h6>Creator</h6>
                                                             <ul className="list-inline">
                                                                 <li className="list-inline-item">
-                                                                    <img src={single?.user?.ipfsImageUrl} alt=""
+                                                                    <img src={singleData[0]?.creators?.ipfsImageUrl} alt=""
                                                                         className="img-fluid inner-imagessss"
                                                                     /></li>
-                                                                <li className="list-inline-item grey-1">{single?.user?.displayName}</li>
+                                                                <li className="list-inline-item grey-1">{singleData[0]?.creators?.displayName}</li>
                                                             </ul>
                                                         </Link>
                                                     </div>
@@ -380,18 +481,17 @@ const ArtWork = () => {
                                             <p className="grey">Item</p>
                                         </div>
                                         <div className="col-sm-2 main-margin-sho">
-                                            <p className="grey">Total</p>
                                         </div>
                                     </div>
                                     <hr />
                                     <div className="row main-margin-sho">
-                                        <div className="col-sm-9 main-margin-sho" >
+                                        <div className="col-sm-9 " >
 
                                             <p className="grey"><strong>Item Price</strong></p>
                                         </div>
 
                                         <div className="col-sm-3 main-margin-sho">
-                                            <h6><span>{single?.order?.price} BNB</span></h6>
+                                            <h6><span>{singleData[0]?.orders[0]?.price} BNB</span></h6>
                                         </div>
 
                                     </div>
@@ -402,19 +502,19 @@ const ArtWork = () => {
                                             <p className="grey"><strong>Service Fees</strong></p>
                                         </div>
 
-                                        <div className="col-sm-3 main-margin-sho">
+                                        <div className="col-sm-3 ">
                                             <h6><span>0 BNB</span></h6>
                                         </div>
 
                                     </div>
                                     <div className="row main-margin-sho">
-                                        <div className="col-sm-9 main-margin-sho">
+                                        <div className="col-sm-9 ">
 
                                             <p className="grey"><strong>Total</strong></p>
                                         </div>
 
-                                        <div className="col-sm-3 main-margin-sho">
-                                            <h6><span className="clr">{single?.order?.price} BNB</span></h6>
+                                        <div className="col-sm-3 ">
+                                            <h6><span className="clr">{singleData[0]?.orders[0]?.price} BNB</span></h6>
                                         </div>
 
                                     </div>
@@ -454,7 +554,7 @@ const ArtWork = () => {
                                                             <div className="modal-body">
                                                                 <div className="row ptb20">
                                                                     <div className="col-sm-12 text-center">
-                                                                        <h4>Your NFT Has Been Purchased
+                                                                        <h4>Your NFT Put On Market 
                                                                             Successfully</h4>
                                                                     </div>
                                                                 </div>
@@ -480,93 +580,107 @@ const ArtWork = () => {
                 {/* Put on sale modal */}
                 <div className="modal fade" id="putonsale" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h4 className="mx-auto">Sell NFT</h4>
-                                <button type="button" className="close" data-dismiss="modal"
-                                    aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="row ptb20 justify-content-center">
-                                    <div className="col-sm-12 main-margin-sho text-center">
-                                        <img src={single?.token?.imageUrl} className="img-fluid" alt="" />
-                                    </div>
-
+                    <ValidatorForm className="form-contact">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h4 className="mx-auto">Sell NFT</h4>
+                                    <button type="button" className="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-
-                                <div className="headeeing pb-4">
-                                    <h4>{single?.token?.description}</h4>
-                                    <div className="iconsss d-flex justify-content-start align-items-center">
-                                        <img src={single?.user?.ipfsImageUrl} className="img-fluid" />
-
-                                        <h6>{single?.user?.displayName}</h6>
-                                    </div>
-                                    <label className="label-newsss" for="exampleInputEmail1">Price</label>
-                                    <div className="main-inpuits-modal">
-
-                                        <div className="modal-input-ssds">
-                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" />
+                                <div className="modal-body">
+                                    <div className="row ptb20 justify-content-center">
+                                        <div className="col-sm-12 main-margin-sho text-center">
+                                            <img src={singleData[0]?.imageUrl} className="img-fluid" alt="" />
                                         </div>
-                                        <div className="bootstrap-drops-ss">
-                                            <div class="dropdown drop-downssde">
-                                                <button class="shdgs-dropss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {fudgeDropDown}
-                                                </button>
-                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    {/* <select> */}
 
-                                                    {FudgeToken.map((elem) => {
-                                                        return (
-                                                            // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
-                                                            <a className="dropdown-item items" onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2" />{elem.token}</a>
-                                                        )
-                                                    }
-                                                    )}
-                                                    {/* </select> */}
+                                    </div>
+
+                                    <div className="headeeing pb-4">
+                                        <h4>{singleData[0]?.description}</h4>
+                                        <div className="iconsss d-flex justify-content-start align-items-center">
+                                            <img src={singleData[0]?.users?.ipfsImageUrl} className="img-fluid" />
+
+                                            <h6>{singleData[0]?.users?.displayName}</h6>
+                                        </div>
+                                        {/* <label className="label-newsss" for="exampleInputEmail1">Price</label> */}
+                                        <label For="name">Price</label>
+                                        <div className="main-inpuits-modal">
+                                            <div className="modal-input-ssds">
+                                                <TextValidator
+                                                    fullWidth
+                                                    type="number"
+                                                    // name="price"
+                                                    min="0"
+                                                    value={price}
+                                                    value={price && Math.max(0, price)}
+                                                    onChange={handleChange1}
+                                                    variant="outlined"
+                                                    placeholder="Enter Price"
+                                                    className="input-fields"
+                                                    validators={['required']}
+                                                    errorMessages={['Price is required']}
+                                                />
+                                                {/* <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter The Price Of The NFT" /> */}
+                                            </div>
+                                            <div className="bootstrap-drops-ss">
+                                                <div class="dropdown drop-downssde">
+                                                    <button class="shdgs-dropss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {fudgeDropDown}
+                                                    </button>
+                                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        {/* <select> */}
+
+                                                        {FudgeToken.map((elem) => {
+                                                            return (
+                                                                // <a className="dropdown-item" onClick={() => setDropDown(elem.itemList)}>{elem.itemList}</a>
+                                                                <a className="dropdown-item items" onClick={() => setFudgeDropDown(elem.token)}> <img src={elem.logo} alt="" className="widdd mr-2" />{elem.token}</a>
+                                                            )
+                                                        }
+                                                        )}
+                                                        {/* </select> */}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                </div>
-
-                                < hr />
-
-                                <div className="row ptb20">
-                                    <div className="col-sm-12">
-                                        <div className="custom-control custom-checkbox mr-sm-2">
-                                            <input type="checkbox" className="custom-control-input"
-                                                id="customControlAutosizing" />
-                                            &nbsp;
-                                            <label className="custom-control-label"
-                                                for="customControlAutosizing"><small>I agree to Fudge
-                                                    <span>Terms of Service</span></small></label>
                                         </div>
                                     </div>
-                                </div>
+                                    < hr />
+                                    {/* <div className="row ptb20">
+                                        <div className="col-sm-12">
+                                            <div className="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" className="custom-control-input" value={terms}
 
-                                <div className="row">
-                                    <div className="col-sm-12 text-center">
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item"><button className="btn-common"
-                                                data-toggle="modal" data-target="#exampleModal2">Proceed to
-                                                Payment</button></li>
+                                                onChange={handleChange}
+                                                    id="customControlAutosizing" />
+                                                &nbsp;
+                                                <label className="custom-control-label"
+                                                    for="customControlAutosizing"><small>I agree to Fudge
+                                                        <span>Terms of Service</span></small></label>
+                                            </div>
+                                        </div>
+                                    </div> */}
 
-                                        </ul>
+                                    <div className="row">
+                                        <div className="col-sm-12 text-center">
+                                            <ul className="list-inline">
+                                                <li className="list-inline-item">
+                                                    <button  className="btn-common"  type="submit"  onClick={PutOnSale}>PUT ON MARKET PLACE</button></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
-
                         </div>
-                    </div>
+                    </ValidatorForm>
                 </div>
 
 
                 {/*paymement successful */}
-                <div className="modal fade" id="putonsale" tabindex="-1"
+                <div className="modal fade" id="success" tabindex="-1"
                     role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div className="modal-dialog" role="document">

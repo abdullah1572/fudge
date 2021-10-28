@@ -15,7 +15,8 @@ import { CircularProgress } from '@material-ui/core';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import { useDispatch } from 'react-redux'
 import MyLoader from '../Loader/MyLoader';
-
+import Environment from '../../utils/Environment';
+ 
 const Create = () => {
 
     const dispatch = useDispatch();
@@ -36,9 +37,6 @@ const Create = () => {
         setAllFormData({ formData });
     }
 
-    const DropDownChange = (e) => {
-
-    }
     const [imageUrlError, setImageUrlError] = useState({});
     const [chooseCategory, setChooseCategory] = useState({});
     const formValidation = useCallback(() => {
@@ -191,7 +189,9 @@ const Create = () => {
 
     return (
         <>
-            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1><CircularProgress color="inherit" style={{ marginLeft: 20 }} />
+            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1>
+            {/* <CircularProgress color="inherit" style={{ marginLeft: 20 }} /> */}
+            <MyLoader toggle={open}/>
 
             </Backdrop>
 

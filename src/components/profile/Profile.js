@@ -6,17 +6,20 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 import './profile.scss';
-import { Owned, OnSale, Liked, Created,GetFollowersInUserProfile,GetFollowingInUserProfile,AddFollower,RemoveFollower } from '../../redux/action';
+import { Owned, OnSale, Liked, Created, GetFollowersInUserProfile, GetFollowingInUserProfile, AddFollower, RemoveFollower } from '../../redux/action';
 import Header from '../header/Header';
+import { useHistory } from "react-router-dom";
 const Profile = () => {
-
+    let history = useHistory();
+    console.log("history",history.pathname)
     const { walletAddress } = useParams();
     const { account } = useWeb3React()
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(GetUserData(walletAddress));
         dispatch(Owned(walletAddress))
-    }, [walletAddress, dispatch])
+        history.push(account)
+    }, [walletAddress, dispatch,account])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
     const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
     const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
@@ -230,60 +233,60 @@ const Profile = () => {
 
 
     const followersData = useSelector(state => state.CollectionReducer.GetFollowersInProfile);
-    
-    console.log("followersData",followersData)
+
+    console.log("followersData", followersData)
     const showFollowersData = followersData?.followers?.map((elem) => {
-      
+
         return (
             <div className="col-sm-3">
-            <div className="inner-follow text-center">
-                <img src={elem?.ipfsImageUrl}  alt=""  width="105" height="105" style={{borderRadius:'50%'}}/>
-            
-                <h4>{elem?.displayName}</h4>
-                <h6 className="grey">{elem?.followersCount} Followers</h6>
-                <hr />
-                <ul className="list-inline">
-                    <li className="list-inline-item">
-                        <button className="btn-common3">follow</button>
-                    </li>
-                </ul>
+                <div className="inner-follow text-center">
+                    <img src={elem?.ipfsImageUrl} alt="" width="105" height="105" style={{ borderRadius: '50%' }} />
+
+                    <h4>{elem?.displayName}</h4>
+                    <h6 className="grey">{elem?.followersCount} Followers</h6>
+                    <hr />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <button className="btn-common3">follow</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         )
     })
 
 
     const followingsData = useSelector(state => state.CollectionReducer.GetFollowingInProfile);
-    
-    console.log("followingsData",followingsData)
+
+    console.log("followingsData", followingsData)
     const showFollowingsData = createdData.map((elem) => {
-      
+
         return (
             <div className="col-sm-3">
-            <div className="inner-follow text-center">
-                <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                        fill="#F6F6F6" stroke="white" stroke-width="3" />
-                    <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                        d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                        fill="#35374A" />
-                </svg>
-                <h4>Baylee</h4>
-                <h6 className="grey">1.2k Followers</h6>
-                <hr />
-                <ul className="list-inline">
-                    <li className="list-inline-item">
-                        <button className="btn-common3">follow</button>
-                    </li>
-                </ul>
+                <div className="inner-follow text-center">
+                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
+                            fill="#F6F6F6" stroke="white" stroke-width="3" />
+                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
+                            fill="#35374A" />
+                    </svg>
+                    <h4>Baylee</h4>
+                    <h6 className="grey">1.2k Followers</h6>
+                    <hr />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <button className="btn-common3">follow</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         )
     })
- 
- 
+
+
 
 
     // const unFollowingData = useSelector(state => state.CollectionReducer.GetCreatedData);
@@ -339,7 +342,7 @@ const Profile = () => {
 
 
 
-     
+
 
     return (
         <>
@@ -393,11 +396,11 @@ const Profile = () => {
                                     <li className="list-inline-item">
                                         {walletAddress !== account ?
                                             <div className="inner-icon">
-                                                <button className="btn-common" type="button" onClick={()=>dispatch(AddFollower(account,userData?.walletAddress))}>follow</button>
-                                            </div>:
-                                              <div className="inner-icon">
-                                              <button className="btn-common" type="button" onClick={()=>dispatch(RemoveFollower(account,userData?.walletAddress))}>Unfollow</button>
-                                          </div>
+                                                <button className="btn-common" type="button" onClick={() => dispatch(AddFollower(account, userData?.walletAddress))}>follow</button>
+                                            </div> :
+                                            <div className="inner-icon">
+                                                <button className="btn-common" type="button" onClick={() => dispatch(RemoveFollower(account, userData?.walletAddress))}>Unfollow</button>
+                                            </div>
                                         }
                                     </li>
                                 </ul>
@@ -445,13 +448,13 @@ const Profile = () => {
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-following-tab" data-toggle="pill" href="#pills-following"
-                                        onClick={() => dispatch(GetFollowingInUserProfile(walletAddress))}
+                                            onClick={() => dispatch(GetFollowingInUserProfile(walletAddress))}
                                             role="tab" aria-controls="pills-following" aria-selected="false" >Following
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-follower-tab" data-toggle="pill" href="#pills-follower"
-                                        onClick={() => dispatch(GetFollowersInUserProfile(walletAddress))}
+                                            onClick={() => dispatch(GetFollowersInUserProfile(walletAddress))}
                                             role="tab" aria-controls="pills-follower" aria-selected="false">Followers
 
                                         </a>
@@ -630,11 +633,11 @@ const Profile = () => {
 
 
                                     <div className="tab-pane fade" id="pills-follower" role="tabpanel"
-     aria-labelledby="pills-follower-tab">
+                                        aria-labelledby="pills-follower-tab">
                                         <div className="row ptb20">
-                                            { showFollowersData?.length > 0 ? showFollowersData :
+                                            {showFollowersData?.length > 0 ? showFollowersData :
                                                 <div>No Item</div>
-                                            
+
                                             }
                                             {/* <div className="col-sm-3" >
                                                 <div className="inner-follow text-center">
@@ -666,7 +669,7 @@ const Profile = () => {
                                                     </ul>
                                                 </div>
                                             </div> */}
-                                         
+
                                             {/* <div className="col-sm-3">
                                                 <div className="inner-follow text-center">
                                                     <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
