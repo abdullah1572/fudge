@@ -722,7 +722,6 @@ const MainLanding = () => {
                                 <h3 class="">FEATURED ARTIST</h3>
                                 <h2>Adijavar Maccaroni</h2>
                                 <p class="">I believe that love is difficult, but worth trying</p>
-
                                 <ul class="list-inline ptb20">
                                     <li class="list-inline-item">
                                         <div class="inner-icon">

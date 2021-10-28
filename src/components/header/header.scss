@@ -19,6 +19,7 @@
         background: #F2B10F!important;
         box-shadow: 0px 10px 14px rgba(242, 177, 15, 0.3)!important;
         border-radius: 35px!important;
+        font-family: 'poppins';
        border: none;
     
        
@@ -146,9 +147,7 @@
 
         a {
 font-weight: 300;
-// font-size: 16px;
 line-height: 50px;
-
 color: #171B1C;
             cursor: pointer;
             &:hover {
