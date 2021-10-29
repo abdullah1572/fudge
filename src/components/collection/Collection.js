@@ -370,37 +370,57 @@ const Collection = () => {
                         <div class="col-sm-12">
                             <h2 class="heading">COLLECTION</h2>
                             <div class="inner-tabs">
-                                <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
-                                    <li class="nav-item" active>
-                                        <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                            role="tab" aria-controls="pills-home" aria-selected="true">All</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="btn-common-2" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" onClick={() => dispatch(Art())}
-                                            role="tab" aria-controls="pills-profile" aria-selected="false"
-                                        >Art</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="btn-common-2" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" onClick={() => dispatch(Photography())}
-                                            role="tab" aria-controls="pills-contact" aria-selected="false"
-                                        >Photography</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="btn-common-2" id="pills-meme-tab" data-toggle="pill" href="#pills-meme" role="tab" onClick={() => dispatch(Games())}
-                                            aria-controls="pills-meme" aria-selected="false" >Games</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
-                                            href="#pills-Photography" role="tab" aria-controls="pills-Photography" onClick={() => dispatch(Sports())}
-                                            aria-selected="false" >Sports</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="btn-common-2" id="pills-sports-tab" data-toggle="pill" href="#pills-sports" onClick={() => dispatch(Memes())}
-                                            role="tab" aria-controls="pills-sports" aria-selected="false"
-                                        >Memes</a>
-                                    </li>
-                                </ul>
+                                <div className="row">
+                                    <div className="col-sm-8">
+                                        <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
+                                            <li class="nav-item" active>
+                                                <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                                    role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="btn-common-2" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" onClick={() => dispatch(Art())}
+                                                    role="tab" aria-controls="pills-profile" aria-selected="false"
+                                                >Art</a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="btn-common-2" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" onClick={() => dispatch(Photography())}
+                                                    role="tab" aria-controls="pills-contact" aria-selected="false"
+                                                >Photography</a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="btn-common-2" id="pills-meme-tab" data-toggle="pill" href="#pills-meme" role="tab" onClick={() => dispatch(Games())}
+                                                    aria-controls="pills-meme" aria-selected="false" >Games</a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
+                                                    href="#pills-Photography" role="tab" aria-controls="pills-Photography" onClick={() => dispatch(Sports())}
+                                                    aria-selected="false" >Sports</a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="btn-common-2" id="pills-sports-tab" data-toggle="pill" href="#pills-sports" onClick={() => dispatch(Memes())}
+                                                    role="tab" aria-controls="pills-sports" aria-selected="false"
+                                                >Memes</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="col-sm-4">
+                                                        {/* <h6>Select Token</h6> */}
+                                                        <div className="main-outer-fort pl-0">
+                                                        
+                                                        <div className="switch ttt">
+                                                                    <span className="yoyo">BNB</span>
+                                                                    <label className="switch">
+                                                                        <input type="checkbox" name="putOnMarketplace"   className="custom-control-input" id="customSwitch2" />
+                                                                        <span className="slider round"></span>
+                                                                    </label>
+                                                                    <span className="yoyo">FUDGE</span>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                </div>
+
                                 <hr />
+                                
                                 <div className="row">
                                     <div className="col-sm-5">
                                         <div className="inner-search">
@@ -463,7 +483,7 @@ const Collection = () => {
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
                                                             <input type="number" class="form-control " id="number" placeholder="From" />
-                                                            <small>Fudge</small>
+                                                            
                                                             {/* <div>
                                                                 <div class="dropdown">
                                                                     <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -477,7 +497,7 @@ const Collection = () => {
                                                         </div>
                                                         <div className="input-main  main-input-one">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />
-                                                            <small>Fudge</small>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div className="outer-buttons">
@@ -488,6 +508,7 @@ const Collection = () => {
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div className="tab-content" id="pills-tabContent">
                                     <div className="tab-pane fade show active" id="pills-home" role="tabpanel"

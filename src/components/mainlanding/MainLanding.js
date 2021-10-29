@@ -1,9 +1,10 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails,LikeToken,UnLikeToken,GetAllNftsAndDetails } from '../../redux/action';
 import Header from '../header/Header';
+import Box from '@mui/material/Box';
 import { useWeb3React } from '@web3-react/core';
 
 import Slider from '@mui/material/Slider';
@@ -16,29 +17,24 @@ const MainLanding = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-      const [likeSrc,setLikeSrc]=useState('/pegify/heart-outline-icon.png');
-      const [unLikeSrc,setUnikeSrc]=useState('/pegify/landing-assets/heart.png');
+    
+   
+   const reRender=()=>{
 
-    const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    const Like =(contractAddress,tokenID, id)=>{
-         dispatch(LikeToken(contractAddress,account,tokenID))
-        // setLikeSrc(window.$(`#${id}`).src= "/pegify/landing-assets/heart.png")
-        }
-    const unLike =(contractAddress,tokenID,id)=>{
-        dispatch(UnLikeToken(contractAddress,account,tokenID))
-        
-        // window.$(`#${id}`).attr('src' , '/pegify/landing-assets/heart.png');
-        // setUnikeSrc("/pegify/heart-outline-icon.png")
-        
-        // setUnikeSrc()
-        // console.log('in unlike id' , x)
-        // x.src = "/pegify/landing-assets/heart.png"
-        // dispatch(GetAllNftsAndDetails())
+       dispatch(GetAllNftsAndDetails())
    }
 
-//    useEffect(() => {
-//      Like()
-//    }, [])
+    const token = useSelector(state => state.CollectionReducer.GetAllToken)
+    console.log("token",token)
+    const Like =(contractAddress,tokenID)=>{
+         dispatch(LikeToken(contractAddress,account,tokenID))
+         reRender()
+        }
+    const unLike =(contractAddress,tokenID)=>{
+        dispatch(UnLikeToken(contractAddress,account,tokenID))
+        // dispatch(GetAllNftsAndDetails())
+        reRender();
+   }
     // useEffect(() => {
     //    dispatch(GetAllNftsAndDetails())
     // }, [account])
@@ -84,7 +80,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                    <Link to="artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         {price}
@@ -92,13 +88,13 @@ const MainLanding = () => {
                     </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                {!userLike?
-                                <button  className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID  )} >
-                                    <img id = {elem._id} src='/pegify/heart-outline-icon.png' alt="" className="img-fluid" />
+                                {userLike?.address==undefined ||userLike== null  ?
+                                <button className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID)} >
+                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button>:
-                               <button  className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID )} >
-                                <img id = {elem._id} src='/pegify/landing-assets/heart.png' alt="" className="img-fluid" />
+                               <button className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID)} >
+                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
                                 <span className="grey"> {elem?.numerOfLikes} </span>
 
                             </button> 
@@ -147,7 +143,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -205,7 +201,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -263,7 +259,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -324,7 +320,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -383,7 +379,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -443,7 +439,7 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to="/artwork" onClick={() => dispatch(GetTokenAndDetails(elem.contractAddress, elem.walletAddress, elem.tokenID))}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -453,7 +449,7 @@ const MainLanding = () => {
                             <li className="list-inline-item">
                                 <button className="for-style11">
                                     {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
                                     <span className="grey"> 1.5k </span>
 
                                 </button>
@@ -505,7 +501,7 @@ const MainLanding = () => {
                             </div>
                             <div className="inner-tabs">
                                 <div className="row">
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-12">
                                         <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                             <li class="nav-item" active>
                                                 <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
@@ -538,7 +534,8 @@ const MainLanding = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col-sm-4">
+                                <div className="row">
+                                       <div className="col-sm-8">
                                         <div className="custom-slider">
                                             <h6>PRICE RANGE</h6>
                                             <div class="dropdown main-price-range-floa">
@@ -546,10 +543,8 @@ const MainLanding = () => {
                                                     Choose Price $
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <div className="main-outer-fort">
-                                                        <div className="input-main main-input-two">
+                                                        <div className="input-main main-outer-fort main-input-two p22">
                                                             <input type="number" class="form-control " id="number" placeholder="From" />
-                                                            <small>Fudge</small>
                                                             {/* <div>
                                                                 <div class="dropdown">
                                                                     <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -561,11 +556,10 @@ const MainLanding = () => {
                                                                 </div>
                                                             </div> */}
                                                         </div>
-                                                        <div className="input-main  main-input-one">
+                                                        <div className="input-main main-outer-fort main-input-one p22">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />
-                                                            <small>Fudge</small>
                                                         </div>
-                                                    </div>
+                                                      
                                                     <div className="outer-buttons">
                                                         <button type="button" className="button-one">Clear</button>
                                                         <button type="button" className="button-two">Apply</button>
@@ -574,6 +568,22 @@ const MainLanding = () => {
                                             </div>
                                         </div>
                                     </div>
+                                                <div className="col-sm-4">
+                                                        <h6>Select Token</h6>
+                                                        <div className="main-outer-fort pl-0">
+                                                        
+                                                        <div className="switch ttt">
+                                                                    <span className="yoyo">BNB</span>
+                                                                    <label className="switch">
+                                                                        <input type="checkbox" name="putOnMarketplace"  onChange={handleChange} className="custom-control-input" id="customSwitch2" />
+                                                                        <span className="slider round"></span>
+                                                                    </label>
+                                                                    <span className="yoyo">FUDGE</span>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+
+                                </div>
                                 {/* <div className="col-lg-12">
                                     <div className="custom-slider">
                                         <h6>PRICE RANGE</h6>
