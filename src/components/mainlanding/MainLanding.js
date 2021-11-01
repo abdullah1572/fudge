@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Art, Photography, Games, Sports, Memes, GetAllNftsAndDetails ,GetTop4TokensOfCollection} from '../../redux/action';
+import { Art, Photography, Games, Sports, Memes} from '../../redux/action';
 import Header from '../header/Header';
+import Box from '@mui/material/Box';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -797,7 +798,7 @@ const MainLanding = () => {
                             </div>
                             <div className="inner-tabs">
                                 <div className="row">
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-12">
                                         <ul class="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                             <li class="nav-item" active>
                                                 <a class=" btn-common-2 active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
