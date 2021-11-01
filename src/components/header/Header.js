@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core'
@@ -11,6 +11,8 @@ import EthBalance from '../../hooks/EthBalance';
 
 const Header = () => {
   const { account,active } = useWeb3React();
+
+  // const [balance,setBalance]=useState('')
   const { login, logout } = useAuth();
   // const { userSign } = Signature(account);
   const userData = useSelector(state => state.CollectionReducer.GetUserData);
@@ -34,6 +36,7 @@ const Header = () => {
   useEffect(async () => {
     await SignMessage()
   }, [account])
+
   // const SignMessage=useCallback(async()=>{
   //   await userSign();
   // },[userSign])

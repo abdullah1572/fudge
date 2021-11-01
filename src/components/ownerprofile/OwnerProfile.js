@@ -1,14 +1,207 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import './ownerprofile.scss';
+import axios from 'axios';
+import {API_URL} from '../../ApiURL'
 import { Link } from 'react-router-dom';
 import Header from '../header/Header';
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { Owned, OnSale, Liked, Created, GetFollowersInUserProfile, GetFollowingInUserProfile, AddFollower, RemoveFollower } from '../../redux/action';
 const OwnerProfile = () => {
+    const dispatch = useDispatch();
+    const { walletAddress } = useParams();
+    const [singleData, setSingleData] = useState([]);
+    const GetSingleData = async () => {
+        try {
+            await axios.post(`${API_URL}/user/getUser`, { walletAddress: walletAddress})
+                .then((res) => {
+                    setSingleData(res.data.data)
+                    // getDate(response.data.msg)
+                    // toast.success('Project Approved Succesfully', {
+                    //     position: "top-right",
+                    //     autoClose: 2000,
+                    // });
+                });
+
+        }
+        catch (err) {
+            // toast.error('Project Not Approved', {
+            //     position: "bottom-center",
+            //     autoClose: 2000,
+            // });
+        }
+    }
+
+   
+    useEffect(() => {
+        dispatch(Owned(walletAddress))
+        GetSingleData()
+    }, [walletAddress])
+
+    console.log("single Data===============",singleData)
+
+    const ownedData = useSelector(state => state.CollectionReducer.GetOwnedData);
+    const showOwnedData = ownedData.map((elem) => {
+        const creator = elem?.creators.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+            )
+        })
+        const owner = elem?.users.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+            )
+        })
+        const price = elem.orders.map((elem) => {
+            return (
+                <h6 className="clr">{elem?.price} BNB</h6>
+            )
+        })
+        return (
+            <div className="col-sm-3">
+                <Link to="/artwork">
+                    <div className="inner-card image-width">
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li className="list-inline-item">
+                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price}</h6>
+                        <hr />
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                                <span className="grey"> 1.5k </span>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
+        )
+    })
+
+
+    const onSaleData = useSelector(state => state.CollectionReducer.GetOnSaleData);
+
+    const showOnSaleData = onSaleData.map((elem) => {
+        const creator = elem?.creators.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+            )
+        })
+        const owner = elem?.users.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+            )
+        })
+        const price = elem.orders.map((elem) => {
+            return (
+                <h6 className="clr">{elem?.price} BNB</h6>
+            )
+        })
+        return (
+            <div className="col-sm-3">
+                <Link to="/artwork">
+                    <div className="inner-card image-width">
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li className="list-inline-item">
+                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price}</h6>
+                        <hr />
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                                <span className="grey"> 1.5k </span>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
+        )
+    })
+
+
+
+    const likedData = useSelector(state => state.CollectionReducer.GetLikedData);
+    const showLikedData = likedData.map((elem) => {
+        const creator = elem?.creators.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+            )
+        })
+        const owner = elem?.users.map((elem) => {
+            return (
+                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+            )
+        })
+        const price = elem.orders.map((elem) => {
+            return (
+                <h6 className="clr">{elem?.price} BNB</h6>
+            )
+        })
+        return (
+            <div className="col-sm-3">
+                <Link to="/artwork">
+                    <div className="inner-card image-width">
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li className="list-inline-item">
+                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price}</h6>
+                        <hr />
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
+                                <span className="grey"> 1.5k </span>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
+            </div>
+        )
+    })
 
     return (
         <>
             <section className="main-bg">
+                <div className="container">
+                      <Header/>
+                    </div>
                 <div className="container-fluid p0">
-                    <Header/>
+                  
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="inner-img">
@@ -21,7 +214,7 @@ const OwnerProfile = () => {
                     <div className="row ptb20">
                         <div className="col-sm-12 text-center">
                             <div className="inner-content">
-                                <div>
+                                {/* <div>
                                     <svg width="200" height="200" viewBox="0 0 56 56" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -31,13 +224,12 @@ const OwnerProfile = () => {
                                             d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
                                             fill="#35374A" />
                                     </svg>
-                                </div>
+                                </div> */}
                                 <div>
-                                    <img src="{{mydata?.profileImage}}" alt="" className="img-show"
-                                    />
+                                <img src={singleData?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
                                 </div>
-                                <h2 className="pt-4">ssdd</h2>
-                                <p className="ptb20">xzxz</p>
+                                <h2 className="pt-4">{singleData?.displayName}</h2>
+                                <p className="ptb20">{singleData?.bio}</p>
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
@@ -80,7 +272,9 @@ const OwnerProfile = () => {
                                 <ul className="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                     <li className="nav-item">
                                         <a className=" for-tabs active" id="pills-owned-tab" data-toggle="pill" href="#pills-owned"
-                                            role="tab" aria-controls="pills-owned" aria-selected="true" >Owned
+                                            role="tab" aria-controls="pills-owned" aria-selected="true" 
+                                            onClick={() => dispatch(Owned(walletAddress))}
+                                            >Owned
                                             <span className="grey">1</span> </a>
                                     </li>
                                     <li className="nav-item">
@@ -115,128 +309,23 @@ const OwnerProfile = () => {
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
                              
-                                    <div className="tab-pane fade  show active" id="pills-owned" role="tabpanel"
-                                        aria-labelledby="pills-owned-tab">
+                                    <div className="tab-pane fade " id="pills-owned" role="tabpanel"  aria-labelledby="pills-owned-tab">
                                         <div className="row ptb20">
-                                            <div className="col-sm-3">
-                                                <Link to="ownerart">
-                                                    <div className="inner-card">
-                                                        <ul className="list-inline">
-                                                            <li className="list-inline-item">
-                                                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" className="inner-tiless" />
-                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" className=" for-check" />
-                                                                </div>
-                                                            </li>
-                                                            <li className="list-inline-item">
-                                                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                    <img src="pegify/landing-assets/Ellipse.svg" alt="" className="img-fluid inner-tiless" />
-                                                                    <img src="pegify/landing-assets/Vector.svg" alt="" className="img-fluid for-check" />
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <img src="pegify/landing-assets/nft-one.png" alt="" className="img-fluid mb10" />
-
-                                                        <h4>MAN X MACHINE</h4>
-                                                        <h6 className="clr">0.70 BNB</h6>
-                                                        <hr />
-                                                        <ul className="list-inline">
-                                                            <li className="list-inline-item">
-                                                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                                                <span className="grey"> 1.5k </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </Link>
+                                            {showOwnedData.length > 0 ? showOwnedData :
+                                                <div>No Item</div>
+                                            }
                                             </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-card">
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" className="img-fluid mb10" />
-
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 className="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                                            <span className="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                     
+                                         
+                                    </div>
+                                    <div className="tab-pane fade  show active" id="pills-home" role="tabpanel"  aria-labelledby="pills-home-tab">
+                                        <div className="row ptb20">
+                                            {showOnSaleData.length > 0 ? showOnSaleData :
+                                                <div>No Item</div>
+                                            }
                                             </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-card">
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" className="img-fluid mb10" />
-
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 className="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                                            <span className="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-card">
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className=" for-check" />
-                                                            </div>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                                                <img src="pegify/landing-assets/Ellipse.svg" alt="" className="img-fluid inner-tiless" />
-                                                                <img src="pegify/landing-assets/Vector.svg" alt="" className="img-fluid for-check" />
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <img src="pegify/landing-assets/nft-one.png" alt="" className="img-fluid mb10" />
-
-                                                    <h4>MAN X MACHINE</h4>
-                                                    <h6 className="clr">0.70 BNB</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                                            <span className="grey"> 1.5k </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     
+                                         
                                     </div>
                                     <div className="tab-pane fade" id="pills-profile" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">

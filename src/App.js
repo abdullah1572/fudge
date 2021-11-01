@@ -19,7 +19,6 @@ import Header from './components/header/Header.js';
 import {useDispatch} from 'react-redux'
 import useEagerConnect from './hooks/useEagerConnect';
 
-
 function App() {
   useEagerConnect();
   const dispatch=useDispatch();
@@ -40,7 +39,8 @@ function App() {
           <Route exact path='/createitem' component={Create}/> 
           <Route exact path='/artwork/:contractAddress/:tokenId' component={ArtWork}/> 
           <Route exact path='/ownerart' component={OwnerArtWork}/> 
-          <Route exact path='/ownerprofile' component={OwnerProfile}/> 
+          <Route exact path='/ownerprofile/:walletAddress' component={OwnerProfile}/> 
+          <Route exact path='/creatorprofile/:walletAddress' component={OwnerProfile}/> 
         </Switch>
         <Footer/>
         </Router>

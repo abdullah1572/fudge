@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import useWeb3 from './useWeb3';
 import environment from '../utils/Environment';
-import { FudgeContract,BlueMoonProContract} from '../utils/contractHelpers';
+import { FudgeContract,BlueMoonProContract,FudgeNewContract} from '../utils/contractHelpers';
 import Web3 from 'web3';
 
 export const Buy = () => {
@@ -36,21 +36,38 @@ export const ApproveForAll = () => {
 }
 
 
-export const Sale = () => {
+export const BNBSalePrice = () => {
   
     const { account } = useWeb3React();
     const web3 = useWeb3();
     const tokenAddress = environment.Fudge;
     const blueMoonUsecontract=environment.BlueMoonPro;
     const contract = FudgeContract(tokenAddress, web3)
-    const FudgeSale = useCallback(async (tokenId , price) => {
+    const BNBSale = useCallback(async (tokenId , price) => {
         const priceToUse = Web3.utils.toWei(price , 'ether')
         const  sale =  await contract.methods.setSalePrice(blueMoonUsecontract, tokenId , priceToUse ).send({ from: account })
         return sale
     }, [account, contract,blueMoonUsecontract])
 
+    return { BNBSale:BNBSale}
+}
+
+export const FudgeSalePrice = () => {
+  
+    const { account } = useWeb3React();
+    const web3 = useWeb3();
+    const tokenAddress = environment.FudgeNewContractAddress;
+    const blueMoonUsecontract=environment.BlueMoonPro;
+    const contract = FudgeNewContract(tokenAddress, web3)
+    const FudgeSale = useCallback(async (tokenId , price) => {
+        const priceToUse = Web3.utils.toWei(price , 'ether')
+        const  sale =  await contract.methods.setSalePriceForFudge(blueMoonUsecontract, tokenId , priceToUse ).send({ from: account })
+        return sale
+    }, [account, contract,blueMoonUsecontract])
+
     return { FudgeSale:FudgeSale}
 }
+
 
 
 

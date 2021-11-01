@@ -1,61 +1,319 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails,LikeToken,UnLikeToken,GetAllNftsAndDetails } from '../../redux/action';
+import { Art, Photography, Games, Sports, Memes, GetAllNftsAndDetails ,GetTop4TokensOfCollection} from '../../redux/action';
 import Header from '../header/Header';
 import { useWeb3React } from '@web3-react/core';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { API_URL } from '../../ApiURL';
 
-import Slider from '@mui/material/Slider';
 const MainLanding = () => {
-    function valuetext(value) {
-        return `${value}°C`;
-    }
-    const [value, setValue] = React.useState([15, 70]);
+   
+    const dispatch = useDispatch();;
     const { account } = useWeb3React();
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-      const [likeSrc,setLikeSrc]=useState('/pegify/heart-outline-icon.png');
-      const [unLikeSrc,setUnikeSrc]=useState('/pegify/landing-assets/heart.png');
-
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    const Like =(contractAddress,tokenID, id)=>{
-         dispatch(LikeToken(contractAddress,account,tokenID))
-        // setLikeSrc(window.$(`#${id}`).src= "/pegify/landing-assets/heart.png")
-        }
-    const unLike =(contractAddress,tokenID,id)=>{
-        dispatch(UnLikeToken(contractAddress,account,tokenID))
-        
-        // window.$(`#${id}`).attr('src' , '/pegify/landing-assets/heart.png');
-        // setUnikeSrc("/pegify/heart-outline-icon.png")
-        
-        // setUnikeSrc()
-        // console.log('in unlike id' , x)
-        // x.src = "/pegify/landing-assets/heart.png"
-        // dispatch(GetAllNftsAndDetails())
-   }
+    const artData = useSelector(state => state.CollectionReducer.Art)
+    const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
+    const GamesData = useSelector(state => state.CollectionReducer.Games)
+    const SportsData = useSelector(state => state.CollectionReducer.Sports)
+    const MemesData = useSelector(state => state.CollectionReducer.Memes)
 
-//    useEffect(() => {
-//      Like()
-//    }, [])
-    // useEffect(() => {
-    //    dispatch(GetAllNftsAndDetails())
-    // }, [account])
-    // const userLike = useSelector(state => state.CollectionReducer.GetUserLike)
-    // console.log("userLike",userLike)
-    const dispatch = useDispatch();
-    const display = token.map((elem, index) => {
+    const [tokenData,setAllToken]=useState([]) 
+    const [artsData,setArtData]=useState([]) 
+    const [photographyData,setPhotographyData]=useState([]) 
+    const [gamesData,setGamesData]=useState([]) 
+    const [sportsData,setSportsData]=useState([]) 
+    const [memesData,setMemesData]=useState([]) 
+
+    useEffect(()=>{
+        setAllToken(token)
+        setArtData(artData)
+        setPhotographyData(PhotoGraphyData)
+        setGamesData(GamesData)
+        setSportsData(SportsData)
+        setMemesData(MemesData)
+    },[token,artData,PhotoGraphyData,GamesData,SportsData,MemesData])
+
+
+
+    const LikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = tokenData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setAllToken([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const UnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            console.log(contractAddress, walletAddress, tokenID)
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = artsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setAllToken([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+
+    const artLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = artsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setArtData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const artUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = tokenData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setArtData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const photoLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = photographyData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setPhotographyData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const photoUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = photographyData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setPhotographyData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+    
+
+    const gameLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = gamesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setGamesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const gameUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = gamesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setGamesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const sportLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = sportsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setSportsData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const sportUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = sportsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setSportsData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+    const memesLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = memesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMemesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const memesUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = memesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMemesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const display = tokenData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -65,12 +323,10 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
-       
-        let userLike=elem?.likedBy?.find(e=>e.address===account)
-        console.log("userLike",userLike)
+
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3" key={index}>
-
                 <div className="inner-card image-width">
                     <ul className="list-inline ">
                         <li className="list-inline-item">
@@ -90,39 +346,40 @@ const MainLanding = () => {
                         {price}
                         <hr />
                     </Link>
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                {!userLike?
-                                <button  className="for-style11" onClick={()=>Like(elem.contractAddress,elem.tokenID  )} >
-                                    <img id = {elem._id} src='/pegify/heart-outline-icon.png' alt="" className="img-fluid" />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>:
-                               <button  className="for-style11" onClick={() => unLike(elem.contractAddress, elem.tokenID )} >
-                                <img id = {elem._id} src='/pegify/landing-assets/heart.png' alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+    
 
-                            </button> 
-                        }
-                            </li>
-                        </ul>
+                                </button>
+                            }
+
+                        </li>
+                    </ul>
                 </div>
             </div>
         )
     })
 
-    const artData = useSelector(state => state.CollectionReducer.Art)
-    const art = artData.map((elem) => {
-
+ 
+    const art = artsData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -132,6 +389,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -147,40 +405,45 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
-                            </li>
-                        </ul>
-                    </Link>
+                            }
+                        </li>
+                    </ul>
                 </div>
             </div>
         )
     })
 
-    const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
-    const photography = PhotoGraphyData.map((elem) => {
+   
+    const photography = photographyData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -190,6 +453,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -205,39 +469,46 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
-                            </li>
-                        </ul>
                     </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => photoLikeToken(elem.contractAddress, account, elem.tokenID)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => photoUnlikeToken(elem.contractAddress, account, elem.tokenID)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
     })
 
-    const GamesData = useSelector(state => state.CollectionReducer.Games)
-    const games = GamesData.map((elem) => {
+ 
+    const games = gamesData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -247,7 +518,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
-
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -263,42 +534,45 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
-                            </li>
-                        </ul>
-                    </Link>
+                            }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
     })
 
-
-
-    const SportsData = useSelector(state => state.CollectionReducer.Sports)
-    const sports = SportsData.map((elem) => {
+    const sports = sportsData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -308,7 +582,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
-
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -324,41 +598,44 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                        {!userLike ?
+                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
-                            </li>
-                        </ul>
-                    </Link>
+                            }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
     })
 
-
-    const MemesData = useSelector(state => state.CollectionReducer.Memes)
-    const memes = MemesData.map((elem) => {
+    const memes = memesData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -368,6 +645,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -383,42 +661,47 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
+                        </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
+                            }
                             </li>
                         </ul>
-                    </Link>
+                   
                 </div>
             </div>
         )
     })
-
 
 
     const latestUpload = useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
-    const latest = latestUpload?.map((elem) => {
+    const latest = latestUpload?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -428,6 +711,7 @@ const MainLanding = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -443,27 +727,35 @@ const MainLanding = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link  to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
                         <hr />
+                        </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <button className="for-style11">
-                                    {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                    <img src="/pegify/heart-outline-icon.png" alt="" className="img-fluid" />
-                                    <span className="grey"> 1.5k </span>
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
+                            }
                             </li>
                         </ul>
-                    </Link>
+                
                 </div>
             </div>
         )
     })
+
+
 
     return (
         <>
@@ -479,7 +771,7 @@ const MainLanding = () => {
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
                                         <div className="inner-btn">
-                                        <Link to="/collection"><button className="btn-newscoll" >SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button></Link>
+                                            <Link to="/collection"><button className="btn-newscoll" >SEE COLLECTIONS<img src="pegify/landing-assets/coll1.png" alt="" className="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                 </ul>
@@ -539,18 +831,18 @@ const MainLanding = () => {
                                     </div>
                                 </div>
                                 <div className="col-sm-4">
-                                        <div className="custom-slider">
-                                            <h6>PRICE RANGE</h6>
-                                            <div class="dropdown main-price-range-floa">
-                                                <button class="drop-downsss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Choose Price $
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <div className="main-outer-fort">
-                                                        <div className="input-main main-input-two">
-                                                            <input type="number" class="form-control " id="number" placeholder="From" />
-                                                            <small>Fudge</small>
-                                                            {/* <div>
+                                    <div className="custom-slider">
+                                        <h6>PRICE RANGE</h6>
+                                        <div class="dropdown main-price-range-floa">
+                                            <button class="drop-downsss" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Choose Price $
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <div className="main-outer-fort">
+                                                    <div className="input-main main-input-two">
+                                                        <input type="number" class="form-control " id="number" placeholder="From" />
+                                                        <small>Fudge</small>
+                                                        {/* <div>
                                                                 <div class="dropdown">
                                                                     <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                         BNB
@@ -560,20 +852,20 @@ const MainLanding = () => {
                                                                     </div>
                                                                 </div>
                                                             </div> */}
-                                                        </div>
-                                                        <div className="input-main  main-input-one">
-                                                            <input type="number" class="form-control" id="number" placeholder="To" />
-                                                            <small>Fudge</small>
-                                                        </div>
                                                     </div>
-                                                    <div className="outer-buttons">
-                                                        <button type="button" className="button-one">Clear</button>
-                                                        <button type="button" className="button-two">Apply</button>
+                                                    <div className="input-main  main-input-one">
+                                                        <input type="number" class="form-control" id="number" placeholder="To" />
+                                                        <small>Fudge</small>
                                                     </div>
+                                                </div>
+                                                <div className="outer-buttons">
+                                                    <button type="button" className="button-one">Clear</button>
+                                                    <button type="button" className="button-two">Apply</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 {/* <div className="col-lg-12">
                                     <div className="custom-slider">
                                         <h6>PRICE RANGE</h6>
@@ -791,7 +1083,7 @@ const MainLanding = () => {
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <div class="inner-btn">
-                                        <Link to="/collection"><button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button></Link>
+                                            <Link to="/collection"><button class="button-new-artust">VIEW COLLECTION<img src="pegify/landing-assets/coll1.png" alt="" class="pl-3" /></button></Link>
                                         </div>
                                     </li>
                                     <li className="list-inline-item">
@@ -846,37 +1138,37 @@ const MainLanding = () => {
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
                                         <a href="https://t.me/joinchat/AMNMKB50Qkw5NjE0" target="_blank">
-                                        <img src="pegify\icons\telegram-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\telegram-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.youtube.com/channel/UCwemAO_Osvo-N13c1efBA1g" target="_blank">
-                                        <img src="pegify\icons\youtube-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\youtube-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.facebook.com/FUDGE-109913607947898" target="_blank">
-                                        <img src="pegify\icons\facebook-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\facebook-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://twitter.com/FudgeToken" target="_blank">
-                                        <img src="pegify\icons\twitter-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\twitter-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.instagram.com/fudgetoken/" target="_blank">
-                                        <img src="pegify\icons\instagram-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\instagram-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.linkedin.com/company/fudge-token/" target="_blank">
-                                        <img src="pegify\icons\linkedin-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\linkedin-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.reddit.com/user/FudgeToken" target="_blank">
-                                        <img src="pegify\icons\reddit-icon.svg" alt="" className="img-fluid" />
+                                            <img src="pegify\icons\reddit-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                 </ul>
@@ -900,81 +1192,9 @@ const MainLanding = () => {
                                 </div>
                             </div>
                             <div className="row ptb20">
-                                {/* <div className="col-sm-3" >
-                        <div className="inner-card">
-                            <div >
-                                <ul className="list-inline">
-                                    <li className="list-inline-item">
-                                        <div className="inner-tile" data-toggle="tooltip" data-placement="top"
-                                            title="Creator">
-                                            <img src="" alt="" className="img-fluid"
-                                               />
-                                            <img src="../../assets/Vector.svg" alt="" className="img-fluid for-check"/>
-                                        </div>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <div className="inner-tile2" data-toggle="tooltip" data-placement="top"
-                                            title="Owner">
-                                            <img src="" alt="" className="img-fluid"
-                                               />
-                                            <img src="../../assets/Vector.svg" alt="" className="img-fluid for-check"/>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <ul className="list-inline">
-                                    <li className="list-inline-item">
-                                        <div className="inner-tile" data-toggle="tooltip" data-placement="top"
-                                            title="Creator">
-                                            <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                    fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                    fill="#35374A" />
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li className="list-inline-item" >
-                                        <svg width="50" height="50" viewBox="0 0 56 56" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                fill="#35374A" />
-                                        </svg>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div routerLink="/art-work/{{latest.id}}/{{mydata}}">
-                                <img src="{{latest?.imageLink}}" alt="" className="img-fluid mb10  mx-auto d-block"
-                                   />
-
-                                <h4>fggf</h4>
-                                <h6 className="clr">fgf BNB</h6>
-                            </div>
-                            <hr/>
-                            <ul className="list-inline">
-                                <li className="list-inline-item" >
-                                    <img src="../../assets/pegify/heart-outline.png" alt="" className="img-fluid"/>
-                                    <span className="grey">fggf </span>
-                                </li>
-                                <li className="list-inline-item" >
-                                    <img src="../../assets/pegify/landing-assets/heart.png" alt="" className="img-fluid"/>
-                                    <span className="grey"> ffgg </span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
-
-                                {latest}
-
+                                {latest.length > 0 ? latest :
+                                                <div>No Item</div>
+                                            }
                             </div>
                         </div>
                     </div>

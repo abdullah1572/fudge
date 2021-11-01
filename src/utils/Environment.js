@@ -11,7 +11,11 @@ let Environment = {
   BlueMoonFresh:'0x9dACD9eCFf076265Ce4930e3D714c8d7fb1608Dd',
   FactoryBlueMoon:"0xcc5469B80733636cFF35641a8410c53b0bC1738F",
   
-  Fudge:'0x0Dd601d05ca9548390d4A6668b85F6Aeae5eb3F5'
+  Fudge:'0x0Dd601d05ca9548390d4A6668b85F6Aeae5eb3F5',
+
+  FudgeNewContractAddress:'0xFd84eC6371759d07829C574251b9FE98ac1932c0'
+
+
 
 };
 export default Environment;

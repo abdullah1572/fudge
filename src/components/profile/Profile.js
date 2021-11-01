@@ -11,7 +11,6 @@ import Header from '../header/Header';
 import { useHistory } from "react-router-dom";
 const Profile = () => {
     let history = useHistory();
-    console.log("history",history.pathname)
     const { walletAddress } = useParams();
     const { account } = useWeb3React()
     const dispatch = useDispatch();
@@ -19,8 +18,9 @@ const Profile = () => {
         dispatch(GetUserData(walletAddress));
         dispatch(Owned(walletAddress))
         history.push(account)
-    }, [walletAddress, dispatch,account])
+    }, [walletAddress, dispatch, account])
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
+
     const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
     const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
     const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
@@ -234,7 +234,6 @@ const Profile = () => {
 
     const followersData = useSelector(state => state.CollectionReducer.GetFollowersInProfile);
 
-    console.log("followersData", followersData)
     const showFollowersData = followersData?.followers?.map((elem) => {
 
         return (
@@ -257,28 +256,35 @@ const Profile = () => {
 
 
     const followingsData = useSelector(state => state.CollectionReducer.GetFollowingInProfile);
-
-    console.log("followingsData", followingsData)
-    const showFollowingsData = createdData.map((elem) => {
+    const showFollowingsData = followingsData.map((elem) => {
 
         return (
-            <div className="col-sm-3">
+            <div className="col-sm-3" >
                 <div className="inner-follow text-center">
-                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                            fill="#35374A" />
-                    </svg>
-                    <h4>Baylee</h4>
-                    <h6 className="grey">1.2k Followers</h6>
+                    <div >
+                        <svg width="135" height="135" viewBox="0 0 56 56" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
+                                fill="#F6F6F6" stroke="white" stroke-width="3" />
+                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
+                                fill="#35374A" />
+                        </svg>
+                    </div>
+                    <div >
+                        <img src="{{items?.profileImage}}" alt="" className="img-show"
+                        />
+                    </div>
+                    <h4>ss</h4>
+                    <h6 className="grey">12 Followers</h6>
                     <hr />
                     <ul className="list-inline">
+                        <li className="list-inline-item" >
+                            <button className="btn-common" >Unfollow</button>
+                        </li>
                         <li className="list-inline-item">
-                            <button className="btn-common3">follow</button>
+                            <button className="btn-common" >Follow</button>
                         </li>
                     </ul>
                 </div>
@@ -286,67 +292,8 @@ const Profile = () => {
         )
     })
 
-
-
-
-    // const unFollowingData = useSelector(state => state.CollectionReducer.GetCreatedData);
-
-    // const showCreatedData = createdData.map((elem) => {
-    //     const creator = elem?.creators.map((elem) => {
-    //         return (
-    //             <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
-    //         )
-    //     })
-    //     const owner = elem?.users.map((elem) => {
-    //         return (
-    //             <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
-    //         )
-    //     })
-    //     const price = elem.orders.map((elem) => {
-    //         return (
-    //             <h6 className="clr">{elem?.price} BNB</h6>
-    //         )
-    //     })
-    //     return (
-    //         <div className="col-sm-3">
-    //             <Link to="/artwork">
-    //                 <div className="inner-card image-width">
-    //                     <ul className="list-inline">
-    //                         <li className="list-inline-item">
-    //                             <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-    //                                 {creator}
-    //                             </div>
-    //                         </li>
-    //                         <li className="list-inline-item">
-    //                             <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-    //                                 {owner}
-    //                             </div>
-    //                         </li>
-    //                     </ul>
-    //                     <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
-    //                     <h4>{elem?.nftName}</h4>
-    //                     <h6 className="clr">{price}</h6>
-    //                     <hr />
-    //                     <ul className="list-inline">
-    //                         <li className="list-inline-item">
-    //                             <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-    //                             <span className="grey"> 1.5k </span>
-    //                         </li>
-    //                     </ul>
-    //                 </div>
-    //             </Link>
-    //         </div>
-    //     )
-    // })
-
-
-
-
-
     return (
         <>
-
             <section className="main-bg">
                 <div className="container">
                     <Header />
@@ -587,51 +534,18 @@ const Profile = () => {
                                                             </table>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-following" role="tabpanel"
                                         aria-labelledby="pills-following-tab">
                                         <div className="row ptb20">
-                                            <div className="col-sm-3" >
-                                                <div className="inner-follow text-center">
-                                                    <div >
-                                                        <svg width="135" height="135" viewBox="0 0 56 56" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                fill="#35374A" />
-                                                        </svg>
-                                                    </div>
-                                                    <div >
-                                                        <img src="{{items?.profileImage}}" alt="" className="img-show"
-                                                        />
-                                                    </div>
-                                                    <h4>ss</h4>
-                                                    <h6 className="grey">12 Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item" >
-                                                            <button className="btn-common" >Unfollow</button>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common" >Follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
+                                        {showFollowingsData?.length > 0 ? showFollowingsData :
+                                                <div>No Item</div>
+                                            }                          
                                         </div>
-
                                     </div>
-
-
                                     <div className="tab-pane fade" id="pills-follower" role="tabpanel"
                                         aria-labelledby="pills-follower-tab">
                                         <div className="row ptb20">
@@ -639,169 +553,8 @@ const Profile = () => {
                                                 <div>No Item</div>
 
                                             }
-                                            {/* <div className="col-sm-3" >
-                                                <div className="inner-follow text-center">
-                                                    <div>
-                                                        <svg width="200" height="200" viewBox="0 0 56 56" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                fill="#35374A" />
-                                                        </svg>
-                                                    </div>
-                                                    <div>
-                                                        <img src="{{items?.profileImage}}" alt="" className="img-show"
-                                                        />
-                                                    </div>
-                                                    <h4>sdsda</h4>
-                                                    <h6 className="grey">12 Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item" >
-                                                            <button className="btn-common" >Unfollow</button>
-                                                        </li>
-                                                        <li className="list-inline-item" >
-                                                            <button className="btn-common" >Follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> */}
-
-                                            {/* <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> */}
-                                            {/* <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> */}
                                         </div>
-
-                                        {/* <div className="row">
-                                            <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-3">
-                                                <div className="inner-follow text-center">
-                                                    <svg width="105" height="105" viewBox="0 0 56 56" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                            fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                            fill="#35374A" />
-                                                    </svg>
-                                                    <h4>Baylee</h4>
-                                                    <h6 className="grey">1.2k Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common3">follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div> */}
                                     </div>
-
                                 </div>
                             </div>
                         </div>

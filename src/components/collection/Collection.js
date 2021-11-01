@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './collection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Art, Photography, Games, Sports, Memes, GetTokenAndDetails } from '../../redux/action';
 import Header from '../header/Header';
+import { useWeb3React } from '@web3-react/core';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { API_URL } from '../../ApiURL';
 
 const Collection = () => {
 
@@ -24,20 +28,309 @@ const Collection = () => {
             itemList: 'High to Low'
         }
     ]
-
+    const dispatch = useDispatch();;
+    const { account } = useWeb3React();
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
-    const dispatch = useDispatch();
-    const display = token?.map((elem) => {
+    const artData = useSelector(state => state.CollectionReducer.Art)
+    const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
+    const GamesData = useSelector(state => state.CollectionReducer.Games)
+    const SportsData = useSelector(state => state.CollectionReducer.Sports)
+    const MemesData = useSelector(state => state.CollectionReducer.Memes)
+
+    const [tokenData,setAllToken]=useState([]) 
+    const [artsData,setArtData]=useState([]) 
+    const [photographyData,setPhotographyData]=useState([]) 
+    const [gamesData,setGamesData]=useState([]) 
+    const [sportsData,setSportsData]=useState([]) 
+    const [memesData,setMemesData]=useState([]) 
+
+    useEffect(()=>{
+        setAllToken(token)
+        setArtData(artData)
+        setPhotographyData(PhotoGraphyData)
+        setGamesData(GamesData)
+        setSportsData(SportsData)
+        setMemesData(MemesData)
+    },[token,artData,PhotoGraphyData,GamesData,SportsData,MemesData])
+
+
+
+    const LikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = tokenData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setAllToken([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const UnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            console.log(contractAddress, walletAddress, tokenID)
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = artsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setAllToken([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+
+    const artLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = artsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setArtData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const artUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = tokenData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setArtData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const photoLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = photographyData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setPhotographyData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const photoUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = photographyData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setPhotographyData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+    
+
+    const gameLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = gamesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setGamesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const gameUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = gamesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setGamesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const sportLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = sportsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setSportsData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const sportUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = sportsData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setSportsData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+    const memesLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+        if (walletAddress !== undefined) {
+         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = memesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMemesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+      
+    };
+
+    const memesUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = memesData;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMemesData([...temp])
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+    const display = tokenData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -47,8 +340,10 @@ const Collection = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
-            <div className="col-sm-3">
+            <div className="col-sm-3" key={index}>
                 <div className="inner-card image-width">
                     <ul className="list-inline ">
                         <li className="list-inline-item">
@@ -62,93 +357,46 @@ const Collection = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         {price}
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
                     </Link>
-                </div>
-            </div>
-        )
-    })
-
-
-
-    const artData = useSelector(state => state.CollectionReducer.Art)
-    const art = artData.map((elem) => {
-
-        const creator = elem.creators.map((elem) => {
-            return (
-                <Link to={`/profile/${elem.walletAddress}`}>
-                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
-                </Link>
-            )
-        })
-        const owner = elem?.users.map((elem) => {
-            return (
-                <Link to={`/profile/${elem.walletAddress}`}>
-                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
-                </Link>
-            )
-        })
-        const price = elem.orders.map((elem) => {
-            return (
-                <h6 className="clr">{elem?.price} BNB</h6>
-            )
-        })
-        return (
-            <div className="col-sm-3">
-                <div className="inner-card image-width">
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item">
-                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+    
+
+                                </button>
+                            }
+
                         </li>
                     </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
-                        <h4>{elem?.userName}</h4>
-                        <h6 className="clr">{price} </h6>
-                        <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
-                    </Link>
                 </div>
             </div>
         )
     })
 
-
-    const PhotoGraphyData = useSelector(state => state.CollectionReducer.PhotoGraphy)
-    const photography = PhotoGraphyData.map((elem) => {
+ 
+    const art = artsData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -158,61 +406,7 @@ const Collection = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
-        return (
-            <div className="col-sm-3">
-                <div className="inner-card image-width">
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item">
-                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
-                        <h4>{elem?.userName}</h4>
-                        <h6 className="clr">{price} </h6>
-                        <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
-                    </Link>
-                </div>
-            </div>
-        )
-    })
-
-    const GamesData = useSelector(state => state.CollectionReducer.Games)
-    const games = GamesData.map((elem) => {
-        const creator = elem.creators.map((elem) => {
-            return (
-                <Link to={`/profile/${elem.walletAddress}`}>
-                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
-                </Link>
-            )
-        })
-        const owner = elem?.users.map((elem) => {
-            return (
-                <Link to={`/profile/${elem.walletAddress}`}>
-                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
-                </Link>
-            )
-        })
-        const price = elem.orders.map((elem) => {
-            return (
-                <h6 className="clr">{elem?.price} BNB</h6>
-            )
-        })
-
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -234,31 +428,39 @@ const Collection = () => {
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
                     </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                        </li>
+                    </ul>
                 </div>
             </div>
         )
     })
 
-
-    const SportsData = useSelector(state => state.CollectionReducer.Sports)
-    const sports = SportsData.map((elem) => {
+   
+    const photography = photographyData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -268,7 +470,7 @@ const Collection = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
-
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -287,33 +489,43 @@ const Collection = () => {
                     <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
-                        <h4>{elem?.userName}</h4>
+                        <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
                     </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => photoLikeToken(elem.contractAddress, account, elem.tokenID)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => photoUnlikeToken(elem.contractAddress, account, elem.tokenID)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
     })
 
-    const MemesData = useSelector(state => state.CollectionReducer.Memes)
-    const memes = MemesData.map((elem) => {
+ 
+    const games = gamesData?.map((elem,index) => {
         const creator = elem.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
                 </Link>
             )
@@ -323,6 +535,7 @@ const Collection = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -341,21 +554,157 @@ const Collection = () => {
                     <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
-                        <h4>{elem?.userName}</h4>
+                        <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </li>
-                        </ul>
                     </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
     })
 
+    const sports = sportsData?.map((elem,index) => {
+        const creator = elem.creators.map((elem) => {
+            return (
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
+            )
+        })
+        const owner = elem?.users.map((elem) => {
+            return (
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
+            )
+        })
+        const price = elem.orders.map((elem) => {
+            return (
+                <h6 className="clr">{elem?.price} BNB</h6>
+            )
+        })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
+        return (
+            <div className="col-sm-3">
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price} </h6>
+                        <hr />
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                        {!userLike ?
+                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        )
+    })
+
+    const memes = memesData?.map((elem,index) => {
+        const creator = elem.creators.map((elem) => {
+            return (
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
+            )
+        })
+        const owner = elem?.users.map((elem) => {
+            return (
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                </Link>
+            )
+        })
+        const price = elem.orders.map((elem) => {
+            return (
+                <h6 className="clr">{elem?.price} BNB</h6>
+            )
+        })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
+        return (
+            <div className="col-sm-3">
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
+                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price} </h6>
+                        <hr />
+                        </Link>
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+
+                                </button>
+                            }
+                            </li>
+                        </ul>
+                   
+                </div>
+            </div>
+        )
+    })
 
 
     return (

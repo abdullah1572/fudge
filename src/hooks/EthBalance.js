@@ -20,7 +20,7 @@ const EthBalance = () => {
         }
     }, [account, web3, fastRefresh])
 
-    return balance
+    return balance;
 }
 
 export default EthBalance

@@ -16,7 +16,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import './artwork.scss';
 import { GetAllNftsAndDetails } from '../../redux/action';
-import { ApproveForAll, Sale} from '../../hooks/FudgeBuyAndSale';
+import { ApproveForAll, BNBSalePrice} from '../../hooks/FudgeBuyAndSale';
 
 const ArtWork = () => {
     const { account } = useWeb3React();
@@ -27,7 +27,7 @@ const ArtWork = () => {
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const { ApproveAllTokenID } = ApproveForAll()
-    const { FudgeSale } = Sale();
+    const { FudgeSale } = BNBSalePrice();
     const [price, setPrice] = useState('')
     const handleChange1 = (e) => {
         setPrice(e.target.value);
@@ -36,11 +36,7 @@ const ArtWork = () => {
     useEffect(() => {
         dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
     }, [single?.creator?.walletAddress, dispatch])
-
-
     const [singleData, setSingleData] = useState([]);
-
-    console.log("singledata", singleData)
     const GetSingleData = async () => {
         try {
             await axios.post(`${API_URL}/token/getTokenAndDetailsOfSingleToken`, { contractAddress: contractAddress, tokenID: tokenId })
@@ -59,11 +55,6 @@ const ArtWork = () => {
             //     position: "bottom-center",
             //     autoClose: 2000,
             // });
-            // eslint-disable-next-line no-console
-            // console.log(err);
-            // alert("Invalid Address")
-
-
         }
     }
 
@@ -129,10 +120,10 @@ const ArtWork = () => {
                         //     autoClose: 5000,
                         // });
                      
+                        dispatch(GetAllNftsAndDetails());
                     }
                     window.$("#success").modal('show');
                     setPrice('')
-                dispatch(GetAllNftsAndDetails());
             }
             catch (err) {
                 setOpen(false)
@@ -186,27 +177,13 @@ const ArtWork = () => {
             }
             catch (err) {
                 setOpen(false)
+                window.$("#checkout").modal('hide');
                 toast.error('User Denied Transaction', {
                     position: "top-center",
                     autoClose: 5000,
                 });
             }
-            //  try{
-            //     if(tx){
-            //         await dispatch(AddSale(account,environment.BlueMoonPro,single?.token?.tokenID,single?.order?.price))
-            //         toast.success('Successfully Bought', {
-            //             position: "top-right",
-            //             autoClose: 2000,
-            //         });
-            //     }
-            //  }catch{
-            //        toast.error('Fail to Buy', {
-            //         position: "top-right",
-            //         autoClose: 2000,
-            //     });
-            //     return false
-            //  }
-
+        
         } else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
@@ -220,12 +197,11 @@ const ArtWork = () => {
  const RemoveFromMarket = async () => {
      setOpen(true)
    const res =  await RemoveOrder(environment.BlueMoonPro,account,tokenId)
-   console.log("res===============del",res)
    if(res.data.status){
        setOpen(false)
    }
+   dispatch(GetAllNftsAndDetails());
    window.$("#remove").modal('show');
-    dispatch(GetAllNftsAndDetails());
 }
 
 
@@ -233,14 +209,14 @@ const ArtWork = () => {
 
         const creator = elem?.creators.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <Link to={`/profile/${elem.walletAddress}`}>
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                     <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
                 </Link>
             )
@@ -360,7 +336,7 @@ const ArtWork = () => {
                                 <div className="row ptb20">
                                     <div className="col-sm-12">
                                         <div className="owner" >
-                                            <Link to={`/profile/${singleData[0]?.walletAddress}`}>
+                                            <Link to={`/ownerprofile/${singleData[0]?.walletAddress}`}>
                                                 <h6>Owner</h6>
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
@@ -369,13 +345,14 @@ const ArtWork = () => {
                                                         />
                                                     </li>
                                                     <li className="list-inline-item grey-1">
-                                                        {singleData[0]?.walletAddress === undefined
+                                                        {singleData[0]?.walletAddress === undefined 
                                                             ? "..."
                                                             : singleData[0]?.walletAddress === null
                                                                 ? "None"
                                                                 : `${singleData[0]?.walletAddress.substring(0, 6)}...${singleData[0]?.walletAddress.substring(
                                                                     singleData[0]?.walletAddress.length - 4
                                                                 )}`}
+                                                            
                                                     </li>
                                                     <li className="list-inline-item grey-1">
                                                         {singleData[0]?.users?.displayName}
@@ -390,7 +367,7 @@ const ArtWork = () => {
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="owner" >
-                                            <Link to={`/profile/${singleData[0]?.creators?.creatorAddress}`}>
+                                            <Link to={`/creatorprofile/${singleData[0]?.creators?.creatorAddress}`}>
                                                 <h6>Creator</h6>
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
