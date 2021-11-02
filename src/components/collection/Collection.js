@@ -37,27 +37,27 @@ const Collection = () => {
     const SportsData = useSelector(state => state.CollectionReducer.Sports)
     const MemesData = useSelector(state => state.CollectionReducer.Memes)
 
-    const [tokenData,setAllToken]=useState([]) 
-    const [artsData,setArtData]=useState([]) 
-    const [photographyData,setPhotographyData]=useState([]) 
-    const [gamesData,setGamesData]=useState([]) 
-    const [sportsData,setSportsData]=useState([]) 
-    const [memesData,setMemesData]=useState([]) 
+    const [tokenData, setAllToken] = useState([])
+    const [artsData, setArtData] = useState([])
+    const [photographyData, setPhotographyData] = useState([])
+    const [gamesData, setGamesData] = useState([])
+    const [sportsData, setSportsData] = useState([])
+    const [memesData, setMemesData] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         setAllToken(token)
         setArtData(artData)
         setPhotographyData(PhotoGraphyData)
         setGamesData(GamesData)
         setSportsData(SportsData)
         setMemesData(MemesData)
-    },[token,artData,PhotoGraphyData,GamesData,SportsData,MemesData])
+    }, [token, artData, PhotoGraphyData, GamesData, SportsData, MemesData])
 
 
 
-    const LikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const LikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = tokenData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -74,10 +74,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const UnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const UnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             console.log(contractAddress, walletAddress, tokenID)
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
@@ -101,9 +101,9 @@ const Collection = () => {
 
 
 
-    const artLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const artLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = artsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -120,10 +120,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const artUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const artUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -145,9 +145,9 @@ const Collection = () => {
     };
 
 
-    const photoLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const photoLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = photographyData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -164,10 +164,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const photoUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const photoUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -187,11 +187,11 @@ const Collection = () => {
             });
         }
     };
-    
 
-    const gameLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+
+    const gameLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = gamesData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -208,10 +208,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const gameUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const gameUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -233,9 +233,9 @@ const Collection = () => {
     };
 
 
-    const sportLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const sportLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = sportsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -252,10 +252,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const sportUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const sportUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -276,9 +276,9 @@ const Collection = () => {
         }
     };
 
-    const memesLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const memesLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = memesData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -295,10 +295,10 @@ const Collection = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const memesUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const memesUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -366,14 +366,14 @@ const Collection = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
-    
+
 
                                 </button>
                             }
@@ -385,8 +385,8 @@ const Collection = () => {
         )
     })
 
- 
-    const art = artsData?.map((elem,index) => {
+
+    const art = artsData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -432,11 +432,11 @@ const Collection = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -449,8 +449,8 @@ const Collection = () => {
         )
     })
 
-   
-    const photography = photographyData?.map((elem,index) => {
+
+    const photography = photographyData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -514,8 +514,8 @@ const Collection = () => {
         )
     })
 
- 
-    const games = gamesData?.map((elem,index) => {
+
+    const games = gamesData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -561,11 +561,11 @@ const Collection = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -579,7 +579,7 @@ const Collection = () => {
         )
     })
 
-    const sports = sportsData?.map((elem,index) => {
+    const sports = sportsData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -623,12 +623,12 @@ const Collection = () => {
                     </Link>
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                        {!userLike ?
-                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -642,7 +642,7 @@ const Collection = () => {
         )
     })
 
-    const memes = memesData?.map((elem,index) => {
+    const memes = memesData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -684,23 +684,23 @@ const Collection = () => {
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        </Link>
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
                             }
-                            </li>
-                        </ul>
-                   
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
@@ -752,24 +752,24 @@ const Collection = () => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="col-sm-4">
-                                                        {/* <h6>Select Token</h6> */}
-                                                        <div className="main-outer-fort pl-0">
-                                                        
-                                                        <div className="switch ttt">
-                                                                    <span className="yoyo">BNB</span>
-                                                                    <label className="switch">
-                                                                        <input type="checkbox" name="putOnMarketplace"   className="custom-control-input" id="customSwitch2" />
-                                                                        <span className="slider round"></span>
-                                                                    </label>
-                                                                    <span className="yoyo">FUDGE</span>
-                                                                </div>
-                                                        </div>
-                                                    </div>
+                                    <div className="col-sm-4 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                        {/* <h6>Select Token</h6> */}
+                                        <div className="main-outer-fort pl-0">
+
+                                            <div className="switch ttt">
+                                                <span className="yoyo">BNB</span>
+                                                <label className="switch">
+                                                    <input type="checkbox" name="putOnMarketplace" className="custom-control-input" id="customSwitch2" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                                <span className="yoyo">FUDGE</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <hr />
-                                
+
                                 <div className="row">
                                     <div className="col-sm-5">
                                         <div className="inner-search">
@@ -821,6 +821,20 @@ const Collection = () => {
                                         </div>
                                     </div>
                                     <hr></hr>
+                                    <div className="col-sm-4 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+                                        {/* <h6>Select Token</h6> */}
+                                        <div className="main-outer-fort ptb20 pl-0">
+
+                                            <div className="switch ttt">
+                                                <span className="yoyo">BNB</span>
+                                                <label className="switch">
+                                                    <input type="checkbox" name="putOnMarketplace" className="custom-control-input" id="customSwitch2" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                                <span className="yoyo">FUDGE</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="col-sm-4">
                                         <div className="custom-slider">
                                             <h6>PRICE RANGE</h6>
@@ -832,7 +846,7 @@ const Collection = () => {
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
                                                             <input type="number" class="form-control " id="number" placeholder="From" />
-                                                            
+
                                                             {/* <div>
                                                                 <div class="dropdown">
                                                                     <button class="new-bnb-dr" type="button" id="dropdownMenuButtontwoy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -846,7 +860,7 @@ const Collection = () => {
                                                         </div>
                                                         <div className="input-main  main-input-one">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />
-                                                            
+
                                                         </div>
                                                     </div>
                                                     <div className="outer-buttons">
