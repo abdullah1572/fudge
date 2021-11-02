@@ -5,7 +5,6 @@ import { addToken, addTokenAndPutOnSale } from '../../services/services';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { MintPro } from '../../hooks/Mint';
 import { toast } from 'react-toastify';
-import environment from '../../utils/Environment';
 import { ApproveForAll } from '../../hooks/FudgeBuyAndSale';
 import { BNBSalePrice ,FudgeSalePrice} from '../../hooks/FudgeBuyAndSale';
 import './create.scss';
@@ -14,7 +13,7 @@ import { Backdrop } from '@material-ui/core';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import { useDispatch } from 'react-redux'
 import MyLoader from '../Loader/MyLoader';
-import Environment from '../../utils/Environment';
+import environment from '../../utils/Environment';
  
 const Create = () => {
 
@@ -132,20 +131,20 @@ const Create = () => {
                         setOpen(false)
                     }
                     setOpen(true)
-                    // if(fudgeDropDown==='FUDGE'){
-                    //     const fudgeSale= await FudgeSalePrice(tokenID, getPrice)
-                    //     if (fudgeSale.status) {
-                    //         setOpen(false)
-                    //         await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown, fudgeDropDown);
-                    //         toast.success('Created Item Successfully', {
-                    //             position: "top-center",
-                    //             autoClose: 5000,
-                    //         });
-                    //         dispatch(GetAllNftsAndDetails());
-                    //     }
+                    if(fudgeDropDown==='FUDGE'){
+                        const fudgeSale= await FudgeSale(tokenID, getPrice)
+                        if (fudgeSale.status) {
+                            setOpen(false)
+                            await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown, fudgeDropDown);
+                            toast.success('Created Item Successfully', {
+                                position: "top-center",
+                                autoClose: 5000,
+                            });
+                            dispatch(GetAllNftsAndDetails());
+                        }
 
-                    // }
-                    // else{
+                    }
+                    else{
                         const sale = await BNBSale(tokenID, getPrice);
                         if (sale.status) {
                             setOpen(false)
@@ -156,7 +155,7 @@ const Create = () => {
                             });
                             dispatch(GetAllNftsAndDetails());
                         }
-                    // }
+                    }
                    
 
                 }
@@ -171,6 +170,7 @@ const Create = () => {
             }
             catch (err) {
                 setOpen(false)
+                console.log("errrrrr==========",err)
                 toast.error('User Denied Transaction', {
                     position: "top-center",
                     autoClose: 5000,
@@ -184,7 +184,7 @@ const Create = () => {
                 autoClose: 5000,
             });
         }
-    }, [ApproveAllTokenID, BNBSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
+    }, [ApproveAllTokenID, BNBSale,FudgeSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
 
     async function onChange(e) {
         const file = e.target.files[0]

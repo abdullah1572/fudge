@@ -10,7 +10,7 @@ import axios from 'axios';
 import { API_URL } from '../../ApiURL';
 
 const Collection = () => {
-
+     
     const [dropDown, setDropDown] = useState('Recently');
 
     const sortBy = [
@@ -337,7 +337,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
 
@@ -403,7 +403,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -467,7 +467,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -532,7 +532,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -596,7 +596,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -659,7 +659,7 @@ const Collection = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -845,7 +845,7 @@ const Collection = () => {
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
-                                                            <input type="number" class="form-control " id="number" placeholder="From" />
+                                                            <input type="number" class="form-control " id="number" placeholder="From"  />
 
                                                             {/* <div>
                                                                 <div class="dropdown">

@@ -26,7 +26,8 @@ const MainLanding = () => {
     const [gamesData, setGamesData] = useState([])
     const [sportsData, setSportsData] = useState([])
     const [memesData, setMemesData] = useState([])
-
+ 
+    //  console.log("token Data",tokenData)
     useEffect(() => {
         setAllToken(token)
         setArtData(artData)
@@ -320,7 +321,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
 
@@ -386,7 +387,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -450,7 +451,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -515,7 +516,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -579,7 +580,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -642,7 +643,7 @@ const MainLanding = () => {
         })
         const price = elem.orders.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
@@ -708,7 +709,7 @@ const MainLanding = () => {
         })
         const price = elem.orders?.map((elem) => {
             return (
-                <h6 className="clr">{elem?.price} BNB</h6>
+                <h6 className="clr">{elem?.price} {elem?.currency}</h6>
             )
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)

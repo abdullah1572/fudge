@@ -106,7 +106,7 @@ export const AddSale = async (buyerAddress, sellerAddress, contractAddress, toke
 
 export const AddOrder = async (ownerAddress,contractAddress,tokenID,price,currency) => {
 
-    const send = { ownerAddress: ownerAddress, contractAddress: contractAddress,tokenID: tokenID, price: price }
+    const send = { ownerAddress: ownerAddress, contractAddress: contractAddress,tokenID: tokenID, price: price ,currency:currency}
     await axios.post(`${API_URL}/order/createOrder`, send)
         .then((res) => {
             return res;
@@ -132,35 +132,3 @@ export const RemoveOrder = async (contractAddress,ownerAddress,tokenID,) => {
 
    return del;
 };
-
-//follow and unfellow
-
-
-const AddFollower = (walletAddress, toFollow) => {
-    try {
-        axios.post(`${API_URL}/user/addFollower`, { walletAddress: walletAddress, toFollow: toFollow })
-            .then((res) => {
-                console.log("res,,,,,,,,", res)
-                // GetAlreadyFollowing()
-                // setAlreadyFollowing(res.data.dat)
-            });
-
-    }
-    catch (err) {
-        return false
-    }
-}
-
-const RemoveFollower = (walletAddress, toFollow) => {
-    try {
-        axios.post(`${API_URL}/user/removeFollower`, { walletAddress: walletAddress, toFollow: toFollow })
-            .then((res) => {
-                console.log("res in remove", res)
-                // setAlreadyFollowing(res.data.dat)
-            });
-
-    }
-    catch (err) {
-        return false
-    }
-}

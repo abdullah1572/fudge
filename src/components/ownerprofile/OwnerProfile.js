@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Header from '../header/Header';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useWeb3React } from '@web3-react/core';
 import {Owned, OnSale, Liked, Created, GetFollowersInUserProfile, GetFollowingInUserProfile, AddFollower, RemoveFollower } from '../../redux/action';
 const OwnerProfile = () => {
@@ -40,35 +41,63 @@ const OwnerProfile = () => {
     }
  
     const AddFollower = (walletAddress, toFollow) => {
-        try {
-            axios.post(`${API_URL}/user/addFollower`, { walletAddress: walletAddress, toFollow: toFollow })
-                .then((res) => {
-                    setAlreadyFollowing(true)
-                    // console.log("res,,,,,,,,", res)
-                    // GetAlreadyFollowing()
-                    // setAlreadyFollowing(res.data.dat)
-                });
+        if(account){
+            try {
+                axios.post(`${API_URL}/user/addFollower`, { walletAddress: walletAddress, toFollow: toFollow })
+                    .then((res) => {
+                        setAlreadyFollowing(true);
+                        // console.log("res,,,,,,,,", res)
+                        // GetAlreadyFollowing()
+                        // setAlreadyFollowing(res.data.dat)
+                        toast.success('add', {
+                            position: "top-right",
+                            autoClose: 2000,
+                        });
+                    });
+    
+            }
+            catch (err) {
+                return false
+            }
 
         }
-        catch (err) {
-            return false
+        else{
+            toast.error('Please Connect the wallet', {
+                position: "top-right",
+                autoClose: 2000,
+            });
         }
     }
 
     const RemoveFollower = (walletAddress, toFollow) => {
+        if(account){
         try {
             axios.post(`${API_URL}/user/removeFollower`, { walletAddress: walletAddress, toFollow: toFollow })
                 .then((res) => {
                     setAlreadyFollowing(false)
                     // console.log("res in remove", res)
                     // setAlreadyFollowing(res.data.dat)
+                    toast.success('remove', {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
                 });
 
         }
+    
         catch (err) {
             return false
         }
     }
+    else{
+        toast.error('Please Connect the wallet', {
+            position: "top-right",
+            autoClose: 2000,
+        });
+    }
+    }
+
+
 
     const fbLink = singleData[0]?.facebookUserName?.includes('https://') ? singleData[0]?.facebookUserName : `https://${singleData[0]?.facebookUserName}`;
     const twitterLink = singleData[0]?.twitterUserName?.includes('https://') ? singleData[0]?.twitterUserName : `https://${singleData[0]?.twitterUserName}`;
@@ -76,7 +105,7 @@ const OwnerProfile = () => {
      
     useEffect(() => {
         GetSingleData()
-        GetAlreadyFollowing(singleData?.walletAddress, account)
+            GetAlreadyFollowing(walletAddress)
         dispatch(Owned(walletAddress))
     }, [walletAddress,dispatch])
 
@@ -378,7 +407,7 @@ const OwnerProfile = () => {
                                 </ul> */}
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
-                                        {alreadyFollowing ?
+                                        {account && alreadyFollowing ?
                                             <div className="inner-icon">
                                                 <button className="btn-common" type="button" onClick={() => RemoveFollower(account, singleData?.walletAddress)}>Unfollow</button>
                                             </div> :
@@ -386,6 +415,7 @@ const OwnerProfile = () => {
                                                 <button className="btn-common" type="button" onClick={() => AddFollower(account, singleData?.walletAddress)}>Follow</button>
                                             </div>
                                         }
+                                    
                                     </li>
                                 </ul>
                             </div>

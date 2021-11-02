@@ -10,7 +10,7 @@ const initState = {
   RemoveFollower: [],
   GetAlreadyFollowed: [],
   GetNumberOfFollowers: [],
-  GetFollowing: [],
+  // GetFollowing: [],
   Art: [{ users: [], creators: [], orders: [], likedby: [] }],
   PhotoGraphy: [{ users: [], creators: [], orders: [], likedby: [] }],
   Games: [{ users: [], creators: [], orders: [], likedby: [] }],
@@ -23,9 +23,6 @@ const initState = {
   GetOnSaleData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
   GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-
-  GetLikeToken: [{ likeToken: [], userLikes: [] }],
-  GetUnLikeToken: [{ likeToken: [], userLikes: [] }],
 
   //get followers in profile
   GetFollowersInProfile: [],
@@ -86,12 +83,6 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetNumberOfFollowers: payload,
       };
-    case "GETFOLLOWING":
-      return {
-        ...state,
-        GetFollowing: payload,
-      };
-
     case "ART":
       return {
         ...state,
@@ -148,19 +139,6 @@ export const CollectionReducer = (state = initState, action) => {
         GetCreatedData: payload,
       };
 
-    //Like and Unlike
-
-    case "LIKE":
-      return {
-        ...state,
-        GetLikeToken: payload,
-      };
-    case "UNLIKE":
-      return {
-        ...state,
-        GetUnLikeToken: payload,
-      };
-
       //get followers in profile
       case "GETFOLLOWERS":
         return {
@@ -173,10 +151,6 @@ export const CollectionReducer = (state = initState, action) => {
             GetFollowingInProfile: payload,
           };
   
-
-
-
-
     default:
       return state;
   }
