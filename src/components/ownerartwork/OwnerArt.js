@@ -1,13 +1,13 @@
 import React from 'react';
 import './owner.scss';
+import Header from '../header/Header'
 const OwnerArtWork= () => {
 
     return (
         <>
-
             <section className="main-banner">
                 <div className="container">
-                    {/* <Header /> */}
+                    <Header />
                     <div className="row ptb">
                         <div className="col-sm-6">
                             <div className="art-image">

@@ -123,7 +123,7 @@ export const AddOrder = async (ownerAddress,contractAddress,tokenID,price,curren
 export const RemoveOrder = async (contractAddress,ownerAddress,tokenID,) => {
 
     const send = {contractAddress: contractAddress,ownerAddress:ownerAddress,tokenID: tokenID }
- const del=   await axios.post(`${API_URL}/order/deleteOrder`, send)
+      const del=   await axios.post(`${API_URL}/order/deleteOrder`, send)
         .then((res) => {
             return res;
         }).catch((err) => {
@@ -133,4 +133,34 @@ export const RemoveOrder = async (contractAddress,ownerAddress,tokenID,) => {
    return del;
 };
 
+//follow and unfellow
 
+
+const AddFollower = (walletAddress, toFollow) => {
+    try {
+        axios.post(`${API_URL}/user/addFollower`, { walletAddress: walletAddress, toFollow: toFollow })
+            .then((res) => {
+                console.log("res,,,,,,,,", res)
+                // GetAlreadyFollowing()
+                // setAlreadyFollowing(res.data.dat)
+            });
+
+    }
+    catch (err) {
+        return false
+    }
+}
+
+const RemoveFollower = (walletAddress, toFollow) => {
+    try {
+        axios.post(`${API_URL}/user/removeFollower`, { walletAddress: walletAddress, toFollow: toFollow })
+            .then((res) => {
+                console.log("res in remove", res)
+                // setAlreadyFollowing(res.data.dat)
+            });
+
+    }
+    catch (err) {
+        return false
+    }
+}

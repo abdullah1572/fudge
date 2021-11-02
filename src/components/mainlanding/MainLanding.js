@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './mainlanding.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Art, Photography, Games, Sports, Memes} from '../../redux/action';
+import { Art, Photography, Games, Sports, Memes } from '../../redux/action';
 import Header from '../header/Header';
-import Box from '@mui/material/Box';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_URL } from '../../ApiURL';
 
 const MainLanding = () => {
-   
+
     const dispatch = useDispatch();;
     const { account } = useWeb3React();
     const token = useSelector(state => state.CollectionReducer.GetAllToken)
@@ -21,27 +20,27 @@ const MainLanding = () => {
     const SportsData = useSelector(state => state.CollectionReducer.Sports)
     const MemesData = useSelector(state => state.CollectionReducer.Memes)
 
-    const [tokenData,setAllToken]=useState([]) 
-    const [artsData,setArtData]=useState([]) 
-    const [photographyData,setPhotographyData]=useState([]) 
-    const [gamesData,setGamesData]=useState([]) 
-    const [sportsData,setSportsData]=useState([]) 
-    const [memesData,setMemesData]=useState([]) 
+    const [tokenData, setAllToken] = useState([])
+    const [artsData, setArtData] = useState([])
+    const [photographyData, setPhotographyData] = useState([])
+    const [gamesData, setGamesData] = useState([])
+    const [sportsData, setSportsData] = useState([])
+    const [memesData, setMemesData] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         setAllToken(token)
         setArtData(artData)
         setPhotographyData(PhotoGraphyData)
         setGamesData(GamesData)
         setSportsData(SportsData)
         setMemesData(MemesData)
-    },[token,artData,PhotoGraphyData,GamesData,SportsData,MemesData])
+    }, [token, artData, PhotoGraphyData, GamesData, SportsData, MemesData])
 
 
 
-    const LikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const LikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = tokenData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -58,15 +57,15 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const UnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const UnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             console.log(contractAddress, walletAddress, tokenID)
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
-                    let temp = artsData;
+                    let temp = tokenData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
                     temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
                     setAllToken([...temp])
@@ -85,9 +84,9 @@ const MainLanding = () => {
 
 
 
-    const artLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const artLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = artsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -104,14 +103,14 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const artUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const artUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
-                    let temp = tokenData;
+                    let temp = artsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
                     temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
                     setArtData([...temp])
@@ -129,9 +128,9 @@ const MainLanding = () => {
     };
 
 
-    const photoLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const photoLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = photographyData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -148,10 +147,10 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const photoUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const photoUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -171,11 +170,11 @@ const MainLanding = () => {
             });
         }
     };
-    
 
-    const gameLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+
+    const gameLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = gamesData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -192,10 +191,10 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const gameUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const gameUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -217,9 +216,9 @@ const MainLanding = () => {
     };
 
 
-    const sportLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const sportLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = sportsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -236,10 +235,10 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const sportUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const sportUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -260,9 +259,9 @@ const MainLanding = () => {
         }
     };
 
-    const memesLikeToken = async(contractAddress, walletAddress, tokenID , index) => {
+    const memesLikeToken = async (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
-         axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
                     let temp = memesData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
@@ -279,10 +278,10 @@ const MainLanding = () => {
                 autoClose: 2000,
             });
         }
-      
+
     };
 
-    const memesUnlikeToken = (contractAddress, walletAddress, tokenID,index) => {
+    const memesUnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
@@ -350,14 +349,14 @@ const MainLanding = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
-    
+
 
                                 </button>
                             }
@@ -369,8 +368,8 @@ const MainLanding = () => {
         )
     })
 
- 
-    const art = artsData?.map((elem,index) => {
+
+    const art = artsData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -416,11 +415,11 @@ const MainLanding = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID , index)} >
+                                <button className="for-style11" onClick={() => artLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID , index)}>
+                                <button className="for-style11" onClick={() => artUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -433,8 +432,8 @@ const MainLanding = () => {
         )
     })
 
-   
-    const photography = photographyData?.map((elem,index) => {
+
+    const photography = photographyData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -498,8 +497,8 @@ const MainLanding = () => {
         )
     })
 
- 
-    const games = gamesData?.map((elem,index) => {
+
+    const games = gamesData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -545,11 +544,11 @@ const MainLanding = () => {
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                <button className="for-style11" onClick={() => gameLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => gameUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -563,7 +562,7 @@ const MainLanding = () => {
         )
     })
 
-    const sports = sportsData?.map((elem,index) => {
+    const sports = sportsData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -607,12 +606,12 @@ const MainLanding = () => {
                     </Link>
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                        {!userLike ?
-                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => sportLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => sportUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
@@ -626,7 +625,7 @@ const MainLanding = () => {
         )
     })
 
-    const memes = memesData?.map((elem,index) => {
+    const memes = memesData?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -668,23 +667,23 @@ const MainLanding = () => {
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price} </h6>
                         <hr />
-                        </Link>
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                <button className="for-style11" onClick={() => memesLikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => memesUnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
                             }
-                            </li>
-                        </ul>
-                   
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
@@ -692,7 +691,7 @@ const MainLanding = () => {
 
 
     const latestUpload = useSelector(state => state.CollectionReducer.GetLatestUploadNfts)
-    const latest = latestUpload?.map((elem,index) => {
+    const latest = latestUpload?.map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -734,23 +733,23 @@ const MainLanding = () => {
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
                         <hr />
-                        </Link>
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
                             {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID,index)} >
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
                                     <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
                                 </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID,index)}>
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
                                     <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
                                     <span className="grey"> {elem?.numerOfLikes} </span>
 
                                 </button>
                             }
-                            </li>
-                        </ul>
-                
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         )
@@ -968,7 +967,11 @@ const MainLanding = () => {
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
                                 <h4 className="grey">Here's how it works</h4>
 
-                                <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" />
+                                <iframe width="1241" height="698" src="https://www.youtube.com/embed/NNQLJcJEzv0" 
+                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                                clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                {/* <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" /> */}
                             </div>
                         </div>
                     </div>
@@ -1194,8 +1197,8 @@ const MainLanding = () => {
                             </div>
                             <div className="row ptb20">
                                 {latest.length > 0 ? latest :
-                                                <div>No Item</div>
-                                            }
+                                    <div>No Item</div>
+                                }
                             </div>
                         </div>
                     </div>

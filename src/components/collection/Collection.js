@@ -82,7 +82,7 @@ const Collection = () => {
             console.log(contractAddress, walletAddress, tokenID)
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
-                    let temp = artsData;
+                    let temp = tokenData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
                     temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
                     setAllToken([...temp])
@@ -127,7 +127,7 @@ const Collection = () => {
         if (walletAddress !== undefined) {
             axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
                 .then((res) => {
-                    let temp = tokenData;
+                    let temp = artsData;
                     temp[index].likedBy = res.data.data.likeToken.likedBy
                     temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
                     setArtData([...temp])

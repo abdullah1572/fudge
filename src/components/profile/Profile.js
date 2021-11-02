@@ -23,18 +23,23 @@ const Profile = () => {
 
     const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
     const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
-    const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
+    // const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
 
     const ownedData = useSelector(state => state.CollectionReducer.GetOwnedData);
-    const showOwnedData = ownedData.map((elem) => {
+    const showOwnedData = ownedData.map((elem, index) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
+
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -44,48 +49,57 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="/artwork">
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork">
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> 1.5k </span>
-                            </li>
-                        </ul>
-                    </div>
-                </Link>
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <button className="for-style11"  >
+                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                            <button className="for-style11" >
+                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         )
     })
 
     const onSaleData = useSelector(state => state.CollectionReducer.GetOnSaleData);
-
     const showOnSaleData = onSaleData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -95,33 +109,38 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="/artwork">
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork">
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> 1.5k </span>
-                            </li>
-                        </ul>
-                    </div>
-                </Link>
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                        <button className="for-style11"  >
+                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                            <button className="for-style11" >
+                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         )
     })
@@ -131,12 +150,16 @@ const Profile = () => {
     const showLikedData = likedData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
-                <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                    <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -146,33 +169,39 @@ const Profile = () => {
         })
         return (
             <div className="col-sm-3">
-                <Link to="/artwork">
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to="/artwork">
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
-                        <h4>{elem?.nftName}</h4>
-                        <h6 className="clr">{price}</h6>
-                        <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> 1.5k </span>
-                            </li>
-                        </ul>
-                    </div>
-                </Link>
+                    </Link>
+                    <h4>{elem?.nftName}</h4>
+                    <h6 className="clr">{price}</h6>
+                    <hr />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                        <button className="for-style11"  >
+                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                            <button className="for-style11" >
+                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         )
     })
@@ -183,12 +212,16 @@ const Profile = () => {
     const showCreatedData = createdData.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                 <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                </Link>
             )
         })
         const owner = elem?.users.map((elem) => {
             return (
+                <Link to={`/ownerprofile/${elem.walletAddress}`}>
                 <img src={elem?.ipfsImageUrl} alt="" className="img-fluid inner-tiless " />
+                </Link>
             )
         })
         const price = elem.orders.map((elem) => {
@@ -219,8 +252,14 @@ const Profile = () => {
                         <hr />
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <img src="/pegify/landing-assets/heart.png" alt="" className="img-fluid" />
-                                <span className="grey"> 1.5k </span>
+                            <button className="for-style11"  >
+                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
+                            <button className="for-style11" >
+                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                <span className="grey"> {elem?.numerOfLikes} </span>
+                            </button>
                             </li>
                         </ul>
                     </div>
@@ -256,6 +295,8 @@ const Profile = () => {
 
 
     const followingsData = useSelector(state => state.CollectionReducer.GetFollowingInProfile);
+
+    // console.log("followning data",followingsData)
     const showFollowingsData = followingsData.map((elem) => {
 
         return (
@@ -389,10 +430,10 @@ const Profile = () => {
                                             role="tab" aria-controls="pills-contact" aria-selected="false">Created
                                         </a>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <a className="for-tabs" id="pills-activity-tab" data-toggle="pill" href="#pills-activity"
                                             role="tab" aria-controls="pills-activity" aria-selected="false">Activity</a>
-                                    </li>
+                                    </li> */}
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-following-tab" data-toggle="pill" href="#pills-following"
                                             onClick={() => dispatch(GetFollowingInUserProfile(walletAddress))}
@@ -408,19 +449,19 @@ const Profile = () => {
                                     </li>
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
-                                    <div className="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <div className="tab-pane fade  show active" id="pills-owned" role="tabpanel"
+                                        aria-labelledby="pills-owned-tab">
                                         <div className="row ptb20">
-
-                                            {showOnSaleData.length > 0 ? showOnSaleData :
+                                            {showOwnedData.length > 0 ? showOwnedData :
                                                 <div>No Item</div>
                                             }
 
                                         </div>
                                     </div>
-                                    <div className="tab-pane fade  show active" id="pills-owned" role="tabpanel"
-                                        aria-labelledby="pills-owned-tab">
+                                    <div className="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                         <div className="row ptb20">
-                                            {showOwnedData.length > 0 ? showOwnedData :
+
+                                            {showOnSaleData.length > 0 ? showOnSaleData :
                                                 <div>No Item</div>
                                             }
 
@@ -447,7 +488,7 @@ const Profile = () => {
 
                                         </div>
                                     </div>
-                                    <div className="tab-pane fade" id="pills-activity" role="tabpanel"
+                                    {/* <div className="tab-pane fade" id="pills-activity" role="tabpanel"
                                         aria-labelledby="pills-activity-tab">
                                         <div className="row">
                                             <div className="col-sm-12">
@@ -537,13 +578,14 @@ const Profile = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="tab-pane fade" id="pills-following" role="tabpanel"
                                         aria-labelledby="pills-following-tab">
                                         <div className="row ptb20">
-                                        {showFollowingsData?.length > 0 ? showFollowingsData :
+                                            {/* {showFollowingsData?.length > 0 ? showFollowingsData :
                                                 <div>No Item</div>
-                                            }                          
+                                            } */}
+                                            {showFollowingsData}
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-follower" role="tabpanel"

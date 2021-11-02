@@ -307,7 +307,6 @@ const ArtWork = () => {
                             </div>
                         </div>
 
-
                         <div className="col-sm-6">
                             <div className="art-inner">
                                 <div className="row">
@@ -367,7 +366,7 @@ const ArtWork = () => {
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="owner" >
-                                            <Link to={`/creatorprofile/${singleData[0]?.creators?.creatorAddress}`}>
+                                            <Link to={`/creatorprofile/${singleData[0]?.creators?.walletAddress}`}>
                                                 <h6>Creator</h6>
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
