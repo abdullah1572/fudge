@@ -6,7 +6,6 @@ import useRefresh from './useRefresh'
 
 const EthBalance = () => {
     const [balance, setBalance] = useState(new BigNumber(0))
-    console.log("balance",balance)
     const { account } = useWeb3React()
     const web3 = useWeb3()
     const { fastRefresh } = useRefresh()
@@ -18,7 +17,7 @@ const EthBalance = () => {
         if (account) {
             fetchBalance()
         }
-    }, [account, web3, fastRefresh])
+    }, [account, web3, fastRefresh,balance])
 
     return balance;
 }

@@ -10,9 +10,10 @@ import { GetUserData } from '../../redux/action';
 import EthBalance from '../../hooks/EthBalance';
 
 const Header = () => {
-  const { account,active } = useWeb3React();
+  const { account, active } = useWeb3React();
 
-  // const [balance,setBalance]=useState('')
+  // const [balance,setBalance]=useState(EthBalance)
+  // console.log("balance",balance)
   const { login, logout } = useAuth();
   // const { userSign } = Signature(account);
   const userData = useSelector(state => state.CollectionReducer.GetUserData);
@@ -32,21 +33,20 @@ const Header = () => {
 
   const SignMessage = async () => {
     await AddProfile({ walletAddress: account })
+    EthBalance();
   }
   useEffect(async () => {
     await SignMessage()
-  }, [account])
 
-  // const SignMessage=useCallback(async()=>{
-  //   await userSign();
-  // },[userSign])
-  // useEffect (async() => {
-  //      await userSign()
-  // },[account])
+  }, [account])
+  const ethBalance = EthBalance()
+  // let balance=ethBalance.toNumber()/100**18;
+  const Balance = (ethBalance.toNumber() / 10 ** 18)
+
+  // console.log("ethBalance", ethBalance.toNumber() / 10**18)
 
   return (
     <>
-
       <header className="main-nav">
         <nav className="navbar navbar-expand-lg ">
           <Link className="navbar-brand" to="/">
@@ -63,98 +63,102 @@ const Header = () => {
             <ul class="navbar-nav text-center ml-auto">
               <li class="nav-item ">
                 <Link class="nav-link active" to="/">HOME</Link>
-                {/* <a class="nav-link" routerLink="">HOME</a> */}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/collection">COLLECTION</Link>
               </li>
-              {/* <li className="nav-item">
-                <Link to="/profile" className="nav-link">PROFILE</Link>
-            </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to="/createitem">CREATE</Link>
               </li>
-             
-            <div className="d-flex justify-content-center align-items-center">
-            {!account ?
-                <li className="nav-item">
-                  <div >
-                    <button class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </button>
-                  </div>
-                </li>
-                : ""}
-              {account &&
-                <li className="nav-item">
-                  <div className="dropdown">
-                    <div>
-                      <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <img src={userData?.ipfsImageUrl} alt="" className="img-fluid inner-tiless" width="50px" height="50px" style={{ borderRadius: '50%' }} />
-                      </a>
-                      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <div className="row">
-                          <div className="col-sm-12">
-                            <h5>mydata</h5>
-                            <ul className="list-inline">
-                              <li className="list-inline-item">
-                                <span className="grey" >sender</span>
-                              </li>
 
-                              <li className="list-inline-item">
-                                <a className="grey">
-                                  <img src="/assets/copy.png" alt="" className="img-fluid" />
-                                </a>
-                              </li>
-                            </ul>
-                            <div className="row ptb20">
-                              <div className="col-sm-3">
-                                <div className="inner-im text-center">
-                                  <img src="/assets/bnb-logo.png" alt="" className="img-fluid" />
+              <div className="d-flex justify-content-center align-items-center">
+                {!account ?
+                  <li className="nav-item">
+                    <div >
+                      <button class="nav-link buttons-connect" data-toggle="modal" data-target="#exampleModal">CONNECT </button>
+                    </div>
+                  </li>
+                  : ""}
+                {account &&
+                  <li className="nav-item">
+                    <div className="dropdown">
+                      <div>
+                        <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          <img src={userData?.ipfsImageUrl} alt="" className="img-fluid inner-tiless" width="50px" height="50px" style={{ borderRadius: '50%' }} />
+                        </a>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <div className="row">
+                            <div className="col-sm-12">
+                              <h5>{userData?.displayName}</h5>
+                              <ul className="list-inline">
+                                <li className="list-inline-item">
+                                  {account &&
+                                    <span className="grey" > {account === undefined
+                                      ? "..."
+                                      : account === null
+                                        ? "None"
+                                        : `${account.substring(0, 6)}...${account.substring(
+                                          account.length - 4
+                                        )}`}</span>
+                                  }
+                                </li>
+
+                                <li className="list-inline-item">
+                                  <a className="grey">
+                                    <img src="/assets/copy.png" alt="" className="img-fluid" />
+                                  </a>
+                                </li>
+                              </ul>
+                              <div className="row ptb20">
+                                <div className="col-sm-3">
+                                  <div className="inner-im text-center">
+                                    <img src="/assets/bnb-logo.png" alt="" className="img-fluid" />
+                                  </div>
+                                </div>
+                                <div className="col-sm-9">
+                                  <div className="inner-im">
+                                    {/* <h6 className="grey">Balance</h6> */}
+                                    <h5><span className="clr">{Balance.toFixed(6)} BNB</span></h5>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="col-sm-9">
-                                <div className="inner-im">
-                                  <h6 className="grey">Balance</h6>
-                                  <h5><span className="clr">BNB</span></h5>
+                              <div className="row">
+                                <div className="col-sm-12">
+                                  <button className="btn-common">Add Funds</button>
                                 </div>
                               </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-sm-12">
-                                <button className="btn-common">Add Funds</button>
+                              <hr />
+                              <ul>
+                                <li>
+                                  <div>
+                                    <Link to={`/profile/${account}`}> My Profile</Link>
+                                  </div>
+                                </li>
+                                <li>
+                                  <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
+                                </li>
+                              </ul>
+                              <hr />
+                              <div >
+                                <button type="button" className="btn-common color-buttonsss" onClick={disconnect}>Disconnect Wallet</button>
                               </div>
-                            </div>
-                            <hr />
-                            <ul>
-                              <li>
-                                <div>
-                                  <Link to={`/profile/${account}`}> My Profile</Link>
-                                </div>
-                              </li>
-                              <li>
-                                <Link to={`/profiledetail/${account}`}>Edit Profile</Link>
-                              </li>
-                            </ul>
-                            <hr />
-                            <div >
-                              <button type="button" className="btn-common color-buttonsss" onClick={disconnect}>Disconnect Wallet</button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </li>
+                }
+                <li>
+                  <div className="button_indicator ml-2" style={{ margin: "0", textAlign: "right" }}>
+                    {account ? "🟢" : "🔴"}
                   </div>
                 </li>
-              }
-              <li>
-              <div className="button_indicator ml-2" style={{ margin: "0", textAlign: "right" }}>
-                {account ? "🟢" :  "🔴"}
-              </div>
-              </li>
               </div>
             </ul>
             <ul>
-              
+
             </ul>
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">

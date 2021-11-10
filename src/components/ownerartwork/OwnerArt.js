@@ -81,7 +81,7 @@ const OwnerArtWork= () => {
                                                 <h6 className="black">Owner</h6>
 
                                                 <ul className="list-inline">
-                                                    <li className="list-inline-item"><img src="pegify/profile-assets/artist-image-four.png"
+                                                    <li className="list-inline-item"><img src="/pegify/profile-assets/artist-image-four.png"
                                                         className="img-fluid inner-imagess"
                                                     />
                                                     </li>
@@ -99,7 +99,7 @@ const OwnerArtWork= () => {
                                             <a>
                                                 <h6 className="black">Creator</h6>
                                                 <ul className="list-inline">
-                                                    <li className="list-inline-item"><img src="pegify/profile-assets/artist-image-four.png" alt=""
+                                                    <li className="list-inline-item"><img src="/pegify/profile-assets/artist-image-four.png" alt=""
                                                         className="img-fluid inner-imagess"
                                                     /></li>
                                                     <li className="list-inline-item grey-1">gfdg</li>

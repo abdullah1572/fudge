@@ -10,7 +10,7 @@ export const MintPro = (uri) => {
     const tokenAddress = environment.BlueMoonPro;
     const contract = BlueMoonProContract(tokenAddress, web3)
     const MintProFun = useCallback(async () => {
-        const  mint=  await contract.methods.mintPro(account,uri).send({ from: account })
+        const  mint=  await contract.methods.mint(account,uri).send({ from: account })
         // console.log("mint",mint.events.Transfer.returnValues.tokenId)
         return mint.events.Transfer.returnValues.tokenId;
     }, [account, contract,uri])

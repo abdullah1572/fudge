@@ -12,12 +12,11 @@ const ProfileDetail = () => {
     const {account} = useWeb3React();
 
     const userData = useSelector(state => state.CollectionReducer.GetUserData);
-    console.log("userdata",userData)
     const [fileUrl, updateFileUrl] = useState(userData?.ipfsImageUrl);
     const [allFormData, setAllFormData] = useState({
         formData: {
             displayName: userData?.displayName, bio: userData?.bio, twitterUserName: userData?.twitterUserName,
-             instagramUserName: userData?.instagramUserName, facebookUserName: userData?.facebookUserName,
+            instagramUserName: userData?.instagramUserName, facebookUserName: userData?.facebookUserName,
             telegramChannel: userData?.telegramChannel, email: userData?.email
         },
     })

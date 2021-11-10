@@ -1063,7 +1063,7 @@ const MainLanding = () => {
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
                                             <a href="">
-                                                <img src="pegify\landing-assets\artist-social-facebook.png" alt=""
+                                                <img src="/pegify/landing-assets/artist-social-facebook.png" alt=""
                                                     class="img-fluid" />
                                             </a>
                                         </div>
@@ -1071,7 +1071,7 @@ const MainLanding = () => {
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
                                             {/* <a href=""> */}
-                                            <img src="/pegify\landing-assets\artist-social-twitter.png" alt=""
+                                            <img src="/pegify/landing-assets/artist-social-twitter.png" alt=""
                                                 className="img-fluid" />
                                             {/* </a> */}
                                         </div>
@@ -1079,7 +1079,7 @@ const MainLanding = () => {
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
                                             {/* <a href=""> */}
-                                            <img src="/pegify\landing-assets\artist-social-dribbble.png" alt=""
+                                            <img src="/pegify/landing-assets/artist-social-dribbble.png" alt=""
                                                 className="img-fluid" />
                                             {/* </a> */}
                                         </div>
@@ -1102,7 +1102,7 @@ const MainLanding = () => {
 
                         <div className="col-sm-6">
                             <div className="inner-artist">
-                                <img src="pegify\landing-assets\featured-artist-image.png" alt="" className="img-fluid" />
+                                <img src="/pegify/landing-assets/featured-artist-image.png" alt="" className="img-fluid" />
                             </div>
                         </div>
                     </div>
@@ -1113,7 +1113,7 @@ const MainLanding = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12 text-center">
-                            <img src="pegify\landing-assets\mobile-image (1).png" alt="" className="img-fluid" />
+                            <img src="/pegify/landing-assets/mobile-image (1).png" alt="" className="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -1143,37 +1143,37 @@ const MainLanding = () => {
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
                                         <a href="https://t.me/joinchat/AMNMKB50Qkw5NjE0" target="_blank">
-                                            <img src="pegify\icons\telegram-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/telegram-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.youtube.com/channel/UCwemAO_Osvo-N13c1efBA1g" target="_blank">
-                                            <img src="pegify\icons\youtube-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/youtube-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.facebook.com/FUDGE-109913607947898" target="_blank">
-                                            <img src="pegify\icons\facebook-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/facebook-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://twitter.com/FudgeToken" target="_blank">
-                                            <img src="pegify\icons\twitter-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/twitter-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.instagram.com/fudgetoken/" target="_blank">
-                                            <img src="pegify\icons\instagram-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/instagram-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.linkedin.com/company/fudge-token/" target="_blank">
-                                            <img src="pegify\icons\linkedin-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/linkedin-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                     <li className="list-inline-item">
                                         <a href="https://www.reddit.com/user/FudgeToken" target="_blank">
-                                            <img src="pegify\icons\reddit-icon.svg" alt="" className="img-fluid" />
+                                            <img src="/pegify/icons/reddit-icon.svg" alt="" className="img-fluid" />
                                         </a>
                                     </li>
                                 </ul>

@@ -204,7 +204,7 @@
                 "type": "string"
             }
         ],
-        "name": "mintPro",
+        "name": "mint",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -250,19 +250,6 @@
             }
         ],
         "name": "ownerOf",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "ownerWalletAddress",
         "outputs": [
             {
                 "internalType": "address",

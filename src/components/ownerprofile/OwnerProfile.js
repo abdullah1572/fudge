@@ -349,6 +349,53 @@ const OwnerProfile = () => {
     })
 
 
+    const followersData = useSelector(state => state.CollectionReducer.GetFollowersInProfile);
+
+    const showFollowersData = followersData?.detailsOfFollowers?.map((elem) => {
+        return (
+            <div className="col-sm-3">
+                <div className="inner-follow text-center">
+                    <img src={elem?.ipfsImageUrl} alt="" width="100" height="100" style={{ borderRadius: '50%' }} />
+
+                    <h4>{elem?.displayName}</h4>
+                    <h6 className="grey">{elem?.followersCount} Followers</h6>
+                    <hr />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                               {alreadyFollowing ?
+                            <button className="btn-common3" onClick={()=>RemoveFollower(elem?.walletAddress,account)}>Unfollow</button>
+                            :
+                            <button className="btn-common3" onClick={()=>AddFollower(elem?.walletAddress,account)}>follow</button>
+                               }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        )
+    })
+
+
+    const followingsData = useSelector(state => state.CollectionReducer.GetFollowingInProfile);
+    const showFollowingsData = followingsData?.detailsOfFollowing?.map((elem) => {
+
+        return (
+            <div className="col-sm-3">
+            <div className="inner-follow text-center">
+                <img src={elem?.ipfsImageUrl} alt="" width="100" height="100" style={{ borderRadius: '50%' }} />
+                <h4>{elem?.displayName}</h4>
+                <h6 className="grey">{elem?.followersCount} Followers</h6>
+                <hr />
+                <ul className="list-inline">
+                    <li className="list-inline-item">   
+                        <button className="btn-common3" onClick={()=>RemoveFollower(elem?.walletAddress,account)}>Unfollow</button>             
+                    </li>
+                </ul>
+            </div>
+        </div>
+        )
+    })
+
+
     return (
         <>
             <section className="main-bg">
@@ -435,14 +482,16 @@ const OwnerProfile = () => {
                                             role="tab" aria-controls="pills-owned" aria-selected="true"
                                             onClick={() => dispatch(Owned(walletAddress))}
                                         >Owned
-                                            <span className="grey">1</span> </a>
+
+                                            
+                                             </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className=" for-tabs" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
                                             aria-controls="pills-home" aria-selected="true"
                                             onClick={() => dispatch(OnSale(walletAddress))}
-                                        >On Sale <span
-                                            className="grey">2</span></a>
+                                        >On Sale
+                                            </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"

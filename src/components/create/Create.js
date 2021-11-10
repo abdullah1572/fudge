@@ -244,9 +244,7 @@ const Create = () => {
                                                     </div>
                                                 </button> :
                                                 <div>
-
                                                     <h4 className="grey ptb20">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</h4>
-
                                                     <label for="file" className="custom-file-upload btn-common-2">
                                                         UPLOAD FILE <i className="fa fa-cloud-upload"></i>
                                                     </label>

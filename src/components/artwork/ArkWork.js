@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GetAllTokensOfCreator } from '../../redux/action';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
-import { AddSale,RemoveOrder,AddOrder } from '../../services/services';
+import { AddSale, RemoveOrder, AddOrder } from '../../services/services';
 import Header from '../header/Header';
 import environment from '../../utils/Environment';
 import { Backdrop } from '@material-ui/core';
@@ -15,7 +15,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import './artwork.scss';
 import { GetAllNftsAndDetails } from '../../redux/action';
-import { ApproveForAll, BNBSalePrice,ApproveForFudge,ByUningBnb,BuyUsingFudge,FudgeSalePrice} from '../../hooks/FudgeBuyAndSale';
+import { ApproveForAll, BNBSalePrice, ApproveForFudge, ByUningBnb, BuyUsingFudge, FudgeSalePrice } from '../../hooks/FudgeBuyAndSale';
 
 const ArtWork = () => {
     const { account } = useWeb3React();
@@ -26,9 +26,9 @@ const ArtWork = () => {
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
     const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const { ApproveAllTokenID } = ApproveForAll()
-    const {approveForFudge}=ApproveForFudge();
+    const { approveForFudge } = ApproveForFudge();
     const { BNBSale } = BNBSalePrice();
-    const {FudgeSale}=FudgeSalePrice()
+    const { FudgeSale } = FudgeSalePrice()
     const [price, setPrice] = useState('')
     const handleChange1 = (e) => {
         setPrice(e.target.value);
@@ -39,7 +39,7 @@ const ArtWork = () => {
     }, [single?.creator?.walletAddress, dispatch])
     const [singleData, setSingleData] = useState([]);
 
-    console.log("single data",singleData)
+    console.log("single data", singleData)
     const GetSingleData = async () => {
         try {
             await axios.post(`${API_URL}/token/getTokenAndDetailsOfSingleToken`, { contractAddress: contractAddress, tokenID: tokenId })
@@ -76,7 +76,7 @@ const ArtWork = () => {
         }
     }
     const { BNBBuy } = ByUningBnb()
-    const {FudgeBuy}=BuyUsingFudge();
+    const { FudgeBuy } = BuyUsingFudge();
 
     const FudgeToken = [
         {
@@ -89,7 +89,7 @@ const ArtWork = () => {
         },
     ]
     // const OpenBuyModal = () => {
-     
+
 
     // }
     const OpenPutOnsaleModal = () => {
@@ -110,52 +110,52 @@ const ArtWork = () => {
                 const approve = await ApproveAllTokenID();
                 window.$("#putonsale").modal('hide');
                 setOpen(true)
-                if(fudgeDropDown==="FUDGE"){
+                if (fudgeDropDown === "FUDGE") {
                     // window.$("#success").modal('show');
                     if (approve.status) {
                         setOpen(false)
                     }
                     setOpen(true)
-                    const fudgeSale= await FudgeSale(tokenId, singleData[0]?.orders[0]?.price)
+                    const fudgeSale = await FudgeSale(tokenId, singleData[0]?.orders[0]?.price)
                     if (fudgeSale.status) {
-                            setOpen(false)
-                            await AddOrder(account, environment.BlueMoonPro,tokenId,price,fudgeDropDown);
-                            // toast.success('Created Item Successfully', {
-                            //     position: "top-center",
-                            //     autoClose: 5000,
-                            // });
-                         
-                            dispatch(GetAllNftsAndDetails());
-                        }
-                        window.$("#success").modal('show');
-                        setPrice('')
+                        setOpen(false)
+                        await AddOrder(account, environment.BlueMoonPro, tokenId, price, fudgeDropDown);
+                        // toast.success('Created Item Successfully', {
+                        //     position: "top-center",
+                        //     autoClose: 5000,
+                        // });
+
+                        dispatch(GetAllNftsAndDetails());
+                    }
+                    window.$("#success").modal('show');
+                    setPrice('')
                 }
-                else{
+                else {
                     const sale = await BNBSale(tokenId, price);
-                            if (sale.status) {
-                                    setOpen(false)
-                                    await AddOrder(account, environment.BlueMoonPro,tokenId,price,fudgeDropDown);
-                                    // toast.success('Created Item Successfully', {
-                                    //     position: "top-center",
-                                    //     autoClose: 5000,
-                                    // });
-                                 
-                                    dispatch(GetAllNftsAndDetails());
-                                }
-                                window.$("#success").modal('show');
-                                setPrice('')
+                    if (sale.status) {
+                        setOpen(false)
+                        await AddOrder(account, environment.BlueMoonPro, tokenId, price, fudgeDropDown);
+                        // toast.success('Created Item Successfully', {
+                        //     position: "top-center",
+                        //     autoClose: 5000,
+                        // });
+
+                        dispatch(GetAllNftsAndDetails());
+                    }
+                    window.$("#success").modal('show');
+                    setPrice('')
                 }
             }
-                catch (err) {
-                    console.log("err",err)
-                    setOpen(false)
-                    toast.error('User Denied Transaction', {
-                        position: "top-center",
-                        autoClose: 5000,
-                    });
-                }
+            catch (err) {
+                console.log("err", err)
+                setOpen(false)
+                toast.error('User Denied Transaction', {
+                    position: "top-center",
+                    autoClose: 5000,
+                });
+            }
 
-            
+
             // else{
             //     try {
             //         window.$("#putonsale").modal('hide');
@@ -174,7 +174,7 @@ const ArtWork = () => {
             //                 //     position: "top-center",
             //                 //     autoClose: 5000,
             //                 // });
-                         
+
             //                 dispatch(GetAllNftsAndDetails());
             //             }
             //             window.$("#success").modal('show');
@@ -196,26 +196,26 @@ const ArtWork = () => {
                 autoClose: 5000,
             });
         }
-    },[BNBSale,FudgeSale])
+    }, [BNBSale, FudgeSale])
 
 
 
-    const buyModal=()=>{
+    const buyModal = () => {
         window.$("#checkout").modal('show');
     }
-  
+
     const BuyNft = useCallback(async () => {
         if (account) {
             try {
                 setOpen(true)
-                if(singleData[0]?.orders[0]?.currency==='FUDGE'){
+                if (singleData[0]?.orders[0]?.currency === 'FUDGE') {
                     window.$("#checkout").modal('hide');
-                    const FudgePrice=await approveForFudge(singleData[0]?.orders[0]?.price)
-                    if(FudgePrice.status){
-                       
+                    const FudgePrice = await approveForFudge(singleData[0]?.orders[0]?.price)
+                    if (FudgePrice.status) {
+
                         const res = await FudgeBuy(tokenId);
                         if (res.status) {
-                            await AddSale(account,singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId,singleData[0]?.orders[0]?.price)
+                            await AddSale(account, singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId, singleData[0]?.orders[0]?.price)
                             setOpen(false)
                             toast.success('Buy Successfully', {
                                 position: "top-center",
@@ -230,15 +230,15 @@ const ArtWork = () => {
                                 position: "top-center",
                                 autoClose: 5000,
                             });
-        
+
                         }
                     }
 
                 }
-                else{
-                    const res = await BNBBuy(tokenId,singleData[0]?.orders[0]?.price);
+                else {
+                    const res = await BNBBuy(tokenId, singleData[0]?.orders[0]?.price);
                     if (res.status) {
-                        await AddSale(account,singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId,singleData[0]?.orders[0]?.price)
+                        await AddSale(account, singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId, singleData[0]?.orders[0]?.price)
                         setOpen(false)
                         toast.success('Buy Successfully', {
                             position: "top-center",
@@ -253,40 +253,40 @@ const ArtWork = () => {
                             position: "top-center",
                             autoClose: 5000,
                         });
-    
+
                     }
                 }
-              
+
             }
             catch (err) {
                 setOpen(false)
-                console.log("err================",err)
+                console.log("err================", err)
                 window.$("#checkout").modal('hide');
                 toast.error('User Denied Transaction', {
                     position: "top-center",
                     autoClose: 5000,
                 });
             }
-        
+
         } else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
                 autoClose: 2000,
             });
         }
-    }, [BNBBuy,FudgeBuy, account,approveForFudge, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
+    }, [BNBBuy, FudgeBuy, account, approveForFudge, single?.token?.walletAddress, single?.token?.tokenID, single?.order?.price])
 
 
- //Remove from market
- const RemoveFromMarket = async () => {
-     setOpen(true)
-   const res =  await RemoveOrder(environment.BlueMoonPro,account,tokenId)
-   if(res.data.status){
-       setOpen(false)
-   }
-   dispatch(GetAllNftsAndDetails());
-   window.$("#remove").modal('show');
-}
+    //Remove from market
+    const RemoveFromMarket = async () => {
+        setOpen(true)
+        const res = await RemoveOrder(environment.BlueMoonPro, account, tokenId)
+        if (res.data.status) {
+            setOpen(false)
+        }
+        dispatch(GetAllNftsAndDetails());
+        window.$("#remove").modal('show');
+    }
 
 
     const MoreCreatorNfts = creatorData.map((elem, index) => {
@@ -345,7 +345,7 @@ const ArtWork = () => {
     })
 
 
-   
+
     return (
         <>
 
@@ -435,7 +435,7 @@ const ArtWork = () => {
                                                                 : `${singleData[0]?.walletAddress.substring(0, 6)}...${singleData[0]?.walletAddress.substring(
                                                                     singleData[0]?.walletAddress.length - 4
                                                                 )}`} */}
-                                                            
+
                                                     </li>
                                                     <li className="list-inline-item grey-1">
                                                         {singleData[0]?.users?.displayName}
@@ -478,8 +478,10 @@ const ArtWork = () => {
                                 <div className="row ptbb">
                                     <div className="col-sm-12">
                                         <div className="inner-btn">
-                                            {!singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account ? <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
-                                                singleData[0]?.users?.walletAddress === account && singleData[0].orders[0]?.price <= 0 ? <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
+                                            {!singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account ?
+                                                <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
+                                                singleData[0]?.users?.walletAddress === account && singleData[0].orders[0]?.price <= 0 ?
+                                                 <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
                                                     singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress !== account && singleData[0]?.orders[0]?.price > 0 ?
                                                         <button className="btn-common-1" data-toggle="modal" onClick={buyModal} >BUY NOW
                                                             FOR {singleData[0]?.orders[0]?.price} {singleData[0]?.orders[0]?.currency}</button>
@@ -625,7 +627,7 @@ const ArtWork = () => {
                                                             <div className="modal-body">
                                                                 <div className="row ptb20">
                                                                     <div className="col-sm-12 text-center">
-                                                                        <h4>Your NFT Put On Market 
+                                                                        <h4>Your NFT Put On Market
                                                                             Successfully</h4>
                                                                     </div>
                                                                 </div>
@@ -738,7 +740,7 @@ const ArtWork = () => {
                                         <div className="col-sm-12 text-center">
                                             <ul className="list-inline">
                                                 <li className="list-inline-item">
-                                                    <button  className="btn-common"  type="submit"  onClick={PutOnSale}>PUT ON MARKET PLACE</button></li>
+                                                    <button className="btn-common" type="submit" onClick={PutOnSale}>PUT ON MARKET PLACE</button></li>
                                             </ul>
                                         </div>
                                     </div>
