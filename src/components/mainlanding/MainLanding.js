@@ -943,7 +943,6 @@ const MainLanding = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -967,11 +966,9 @@ const MainLanding = () => {
                             <div className="inner-content text-center">
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
                                 <h4 className="grey">Here's how it works</h4>
-
-                                <iframe width="1241" height="698" src="https://www.youtube.com/embed/NNQLJcJEzv0" 
+                                <iframe className="main-images-ss" width="100%" height="550px" src="https://www.youtube.com/embed/NNQLJcJEzv0" 
                                 title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
                                 clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
                                 {/* <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" /> */}
                             </div>
                         </div>

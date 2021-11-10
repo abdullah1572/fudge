@@ -432,11 +432,15 @@ top: -15px;
 }
 
 @media only screen and (max-width: 600px) {
+    .main-images-ss{
+        height: 300px;
+    }
     .main-banner {
         .btn-common {
             font-size: 14px !important;
         }
     }
+
     .explore,.latest {
         .inner-tabs {
             li {
@@ -470,6 +474,8 @@ top: -15px;
         }
     }
 }
+
+
 
 
 // .set_width_height{
