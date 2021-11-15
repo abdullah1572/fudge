@@ -31,6 +31,11 @@ const Header = () => {
     localStorage.setItem('flag', 'true')
   }
 
+  const walletConnect=()=>{
+    localStorage.setItem('flag', 'true')
+    login("walletconnect");
+  }
+
   const SignMessage = async () => {
     await AddProfile({ walletAddress: account })
     EthBalance();
@@ -123,11 +128,11 @@ const Header = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="row">
+                              {/* <div className="row">
                                 <div className="col-sm-12">
                                   <button className="btn-common">Add Funds</button>
                                 </div>
-                              </div>
+                              </div> */}
                               <hr />
                               <ul>
                                 <li>
@@ -174,10 +179,9 @@ const Header = () => {
                           wallet?</small></p>
                       </div>
                     </div>
-                    <div className="meta">
+                    <div className="meta mb-4">
                       <div className="row">
                         <div className="col-sm-12 text-center">
-                          <div className="">
                             <img src="/pegify/collection/metamask.png" className="img-fluid" alt="" />
                             <a>
                               <h4 className="">METAMASK</h4>
@@ -186,11 +190,23 @@ const Header = () => {
                             <div >
                               <button className="btn-common" data-dismiss="modal" type="button" onClick={connectMetaMask}>CONNECT</button>
                             </div>
-                            {/* <div>
-                              <button className="btn-common" data-dismiss="modal" >Disconnect </button>
-                            </div>  */}
-                          </div>
                         </div>
+
+                      </div>
+                    </div>
+                    <div className="meta">
+                      <div className="row">
+                        <div className="col-sm-12 text-center">
+                            <img src="/pegify/collection/wallet-connect.png" className="img-fluid" alt="" />
+                            <a>
+                              <h4 className="">WALLETCONNECT</h4>
+                              <p className=""><small>One of the most secure wallets with great flexibility</small> </p>
+                            </a>
+                            <div >
+                              <button className="btn-common" data-dismiss="modal" type="button" onClick={walletConnect}>CONNECT</button>
+                            </div>
+                        </div>
+                      
                       </div>
                     </div>
                   </div>
