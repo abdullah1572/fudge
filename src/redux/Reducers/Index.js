@@ -6,28 +6,7 @@ const initState = {
   GetSingleCollectionData: { tokens: [], collection: [] },
   GetUserData: [],
   GetUserAllNFTS: [],
-  AddFollower: [],
-  RemoveFollower: [],
-  GetAlreadyFollowed: [],
-  GetNumberOfFollowers: [],
-  // GetFollowing: [],
-  Art: [{ users: [], creators: [], orders: [], likedby: [] }],
-  PhotoGraphy: [{ users: [], creators: [], orders: [], likedby: [] }],
-  Games: [{ users: [], creators: [], orders: [], likedby: [] }],
-  Sports: [{ users: [], creators: [], orders: [], likedby: [] }],
-  Memes: [{ users: [], creators: [], orders: [], likedby: [] }],
-
-  GetAllTokensOfCreator: [{ users: [], creators: [], orders: [], likedby: [] }],
-  //user Profile apis
-  GetOwnedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-  GetOnSaleData: [{ users: [], creators: [], orders: [], likedby: [] }],
-  GetLikedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-  GetCreatedData: [{ users: [], creators: [], orders: [], likedby: [] }],
-
-  //get followers in profile
-  GetFollowersInProfile: [],
-  //get following in profile
-  GetFollowingInProfile: []
+ 
 }
 export const CollectionReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
@@ -62,95 +41,8 @@ export const CollectionReducer = (state = initState, action) => {
         ...state,
         GetUserAllNFTS: payload,
       };
-    case "ADDFOLLOWER":
-      return {
-        ...state,
-        payload,
-      };
-    case "REMOVEFOLLOWER":
-      return {
-        ...state,
-        RemoveFollower: payload,
-      };
-
-    case "GetAlreadyFollowed":
-      return {
-        ...state,
-        GetAlreadyFollowed: payload,
-      };
-    case "GETNUMBEROFFOLLOWERS":
-      return {
-        ...state,
-        GetNumberOfFollowers: payload,
-      };
-    case "ART":
-      return {
-        ...state,
-        Art: payload,
-      };
-
-    case "PHOTOGRAPHY":
-      return {
-        ...state,
-        PhotoGraphy: payload,
-      };
-
-    case "GAMES":
-      return {
-        ...state,
-        Games: payload,
-      };
-
-    case "SPORTS":
-      return {
-        ...state,
-        Sports: payload,
-      };
-    case "MEMES":
-      return {
-        ...state,
-        Memes: payload,
-      };
-
-    case "GetAllTokensOfCreator":
-      return {
-        ...state,
-        GetAllTokensOfCreator: payload,
-      };
-
-    case "OWNED":
-      return {
-        ...state,
-        GetOwnedData: payload,
-      };
-    case "ONSALE":
-      return {
-        ...state,
-        GetOnSaleData: payload,
-      };
-    case "LIKED":
-      return {
-        ...state,
-        GetLikedData: payload,
-      };
-    case "CREATED":
-      return {
-        ...state,
-        GetCreatedData: payload,
-      };
-
-      //get followers in profile
-      case "GETFOLLOWERS":
-        return {
-          ...state,
-          GetFollowersInProfile: payload,
-        };
-        case "GETFOLLOWING":
-          return {
-            ...state,
-            GetFollowingInProfile: payload,
-          };
   
+   
     default:
       return state;
   }

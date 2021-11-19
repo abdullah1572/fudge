@@ -5,12 +5,9 @@ export const AddProfile = async (data) => {
 
     const addUser = await axios.post(`${API_URL}/user/addUser`, data)
         .then((res) => {
-            // return res;
-            console.log("res", res)
             try {
             } catch (err) {
-                console.log("err", err)
-                // return false;
+                return false;
             }
         })
     return addUser
@@ -22,10 +19,8 @@ export const EditProfile = async (data, file, walletAddress) => {
     const editUser = await axios.post(`${API_URL}/user/editUser`, send)
         .then((res) => {
             try {
-                console.log(res)
             } catch (err) {
-                console.log("err", err)
-                // return false;
+                return false;
             }
         })
     return editUser
@@ -42,7 +37,7 @@ export const addToken = async (data, contractAddress, account, fileUrl, tokenId,
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+          return false;
         })
 }
 
@@ -52,7 +47,7 @@ export const addTokenAndPutOnSale = async (data, contractAddress, account, fileU
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+            return false
         })
 }
 
@@ -65,11 +60,9 @@ export const AddCollection = async (data, contractAddress, account, fileUrl1) =>
     const send = { ...data, contractAddress: contractAddress, creator: account, image: fileUrl1 }
     const editUser = await axios.post(`${API_URL}/collection/addCollection`, send)
         .then((res) => {
-            console.log(res)
             try {
             } catch (err) {
-                console.log("err", err)
-                // return false;
+                return false;
             }
         })
     return editUser
@@ -81,7 +74,7 @@ export const placeBid = async (account, contractAddress, tokenID, amount) => {
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+            return false
         })
 }
 
@@ -94,7 +87,7 @@ export const AddSale = async (buyerAddress, sellerAddress, contractAddress, toke
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+            return false;
         })
 
 
@@ -111,7 +104,7 @@ export const AddOrder = async (ownerAddress,contractAddress,tokenID,price,curren
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+            return false
         })
 
 
@@ -127,7 +120,7 @@ export const RemoveOrder = async (contractAddress,ownerAddress,tokenID,) => {
         .then((res) => {
             return res;
         }).catch((err) => {
-            console.log("err", err)
+            return false
         })
 
    return del;

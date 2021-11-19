@@ -1,99 +1,213 @@
 
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GetUserData } from '../../redux/action';
 import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 import './profile.scss';
 import axios from 'axios';
 import { API_URL } from '../../ApiURL';
-import { toast } from 'react-toastify';
-import { Owned, OnSale, Liked, Created, GetFollowersInUserProfile, GetFollowingInUserProfile, AddFollower, RemoveFollower } from '../../redux/action';
 import Header from '../header/Header';
 import { useHistory } from "react-router-dom";
+import MyLoader from '../Loader/MyLoader';
+import { AddProfile } from '../../services/services';
+
 const Profile = () => {
     let history = useHistory();
     const { walletAddress } = useParams();
     const { account } = useWeb3React()
-    const dispatch = useDispatch();
-    const [alreadyFollowing, setAlreadyFollowing] = useState(Boolean);
-    const GetAlreadyFollowing =  (walletAddress, toFollow) => {
-        try {
-             axios.post(`${API_URL}/user/getAlreadyFollowed`, { walletAddress: walletAddress, toFollow: toFollow })
+    const [tocheck, setTocheck] = useState([]);
+    const [userDetail, setUserDetail] = useState()
+    const [open, setOpen] = useState(false);
+    const [followed, setFollowed] = useState()
+    const HasFollowed = async () => {
+
+        if (walletAddress && account) {
+            axios.post(`${API_URL}/user/getAlreadyFollowing`, { walletAddress: account, toFollow: walletAddress })
                 .then((res) => {
-                    setAlreadyFollowing(res.data.data)
-                });
-        }
-        catch (err) {
-            return false
+                    setFollowed(res.data.data)
+                }).catch((err) => {
+                    return false;
+                })
         }
     }
-    useEffect(() => {
-        dispatch(GetUserData(walletAddress));
-        dispatch(Owned(walletAddress))
-        GetAlreadyFollowing(walletAddress)
-        history.push(account)
-    }, [walletAddress, dispatch, account])
-    const userData = useSelector(state => state.CollectionReducer.GetUserData);
 
-    const fbLink = userData?.facebookUserName?.includes('https://') ? userData?.facebookUserName : `https://${userData?.facebookUserName}`;
-    const twitterLink = userData?.twitterUserName?.includes('https://') ? userData?.twitterUserName : `https://${userData?.twitterUserName}`;
+    const GetUserDetail = async (walletAddress) => {
+        AddProfile({ walletAddress: walletAddress })
+        axios.post(`${API_URL}/user/getUser`, { walletAddress: walletAddress })
+            .then((res) => {
+                //  console.log("res",res)
+                setUserDetail(res.data.data)
+            }).catch((err) => {
+
+                return false;
+            })
+    }
+
+    const [owned, setOwned] = useState([])
+    const getOwnedData = async () => {
+        axios.post(`${API_URL}/token/getOwnedTokensOfUserAndDetails`, { walletAddress: walletAddress })
+            .then((res) => {
+                setOwned(res.data.data)
+            })
+            .catch((err) => {
+                return false;
+            })
+    };
+    const [sale, setSale] = useState([]);
+
+    const Onsale = async () => {
+        setOpen(true)
+        axios.post(`${API_URL}/token/getOnSaleTokensOfUserAndDetails`, { walletAddress: walletAddress })
+            .then((res) => {
+                setSale(res.data.data)
+                setOpen(false)
+            }).catch((err) => {
+
+                return false;
+            })
+    }
+
+    const [likes, setLikes] = useState([]);
+
+    const GetLikesData = async () => {
+        setOpen(true)
+        axios.post(`${API_URL}/token/getLikedTokensOfUserAndDetails`, { walletAddress: walletAddress })
+            .then((res) => {
+                setLikes(res.data.data)
+                setOpen(false)
+            }).catch((err) => {
+                return false;
+            })
+    }
+
+    const [create, SetCreate] = useState([]);
+
+    const Created = () => {
+        setOpen(true)
+        axios.post(`${API_URL}/token/getCreatedTokensOfUserAndDetails`, { walletAddress: walletAddress })
+            .then((res) => {
+                SetCreate(res.data.data)
+                setOpen(false)
+            }).catch((err) => {
+
+                return false;
+            })
+    }
+
+    const [following, setFollowing] = useState([]);
+    const Followings = async () => {
+        setOpen(true)
+        axios.post(`${API_URL}/user/getFollowingAndDetails`, { walletAddress: walletAddress, account: account })
+            .then((res) => {
+                setFollowing(res.data.data.detailsOfFollowing)
+                setOpen(false)
+                tocheck(res.data.data.connectedAccount.following)
+            }).catch((err) => {
+                return false;
+            })
+    }
+    
+    const [followers, setFollowers] = useState([]);
+    const Followers = () => {
+        setOpen(true)
+        axios.post(`${API_URL}/user/getFollowersAndDetails`, { walletAddress: walletAddress, account: account })
+            .then((res) => {
+                setFollowers(res.data.data.detailsOfFollowers)
+                setOpen(false)
+                setTocheck(res?.data?.data?.connectedAccount?.following)
+            }).catch((err) => {
+
+                return false;
+            })
+    }
+
+    // const AddFollower = () => {
+    //     let toFollow = userDetail?.walletAddress;
+    //     if (account && toFollow) {
+    //         axios.post(`${API_URL}/user/addFollower`, { walletAddress: account, toFollow: toFollow })
+    //             .then(async (res) => {
+    //                 HasFollowed()
+    //             })
+    //             .catch((err) => {
+    //                 return false;
+    //             })
+    //     }
+    //     else {
+    //         alert("Both address required")
+    //     }
+    // }
+
+    const AddFollower1 = (e) => {
+        let toFollow = e;
+        if (account && toFollow) {
+            axios.post(`${API_URL}/user/addFollower`, { walletAddress: account, toFollow: toFollow })
+                .then(async (res) => {
+
+                    let temp = tocheck;
+                    temp.push({ address: toFollow });
+                    setTocheck(temp)
+                    Followers()
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            alert("Both address required")
+        }
+    }
+    const Remove1 = (e) => {
+        let toFollow = e;
+        if (account && toFollow) {
+            axios.post(`${API_URL}/user/removeFollower`, { walletAddress: account, toFollow: toFollow })
+                .then(async (res) => {
+                    let temp = tocheck.filter(e => {
+                        return e.address !== toFollow
+                    });
+                    setTocheck(temp)
+                    Followers()
+                    Followings()
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            alert("Both address required")
+        }
+    }
+
+    // const RemoveUnfollow = () => {
+    //     let toFollow = userDetail?.walletAddress;
+    //     if (account && toFollow) {
+    //         axios.post(`${API_URL}/user/removeFollower`, { walletAddress: account, toFollow: toFollow })
+    //             .then(async (res) => {
+    //                 HasFollowed()
+    //             })
+    //             .catch((err) => {
+    //                 return false;
+    //             })
+    //     }
+    //     else {
+    //         alert("Both address required")
+    //     }
+    // }
+    useEffect(() => {
+        GetUserDetail(walletAddress)
+        HasFollowed()
+        history.push(account)
+        getOwnedData()
+    }, [walletAddress, account])
+
+
+  
+
+    const fbLink = userDetail?.facebookUserName?.includes('https://') ? userDetail?.facebookUserName : `https://${userDetail?.facebookUserName}`;
+    const twitterLink = userDetail?.twitterUserName?.includes('https://') ? userDetail?.twitterUserName : `https://${userDetail?.twitterUserName}`;
     // const instaLink = userData?.instagramUserName?.includes('https://') ? userData?.instagramUserName : `https://${userData?.instagramUserName}`;
 
-    
-    const AddFollower = (walletAddress, toFollow) => {
-     
-            try {
-                axios.post(`${API_URL}/user/addFollower`, { walletAddress: walletAddress, toFollow: toFollow })
-                    .then((res) => {
-                        setAlreadyFollowing(true);
-                        // console.log("res,,,,,,,,", res)
-                        // GetAlreadyFollowing()
-                        // setAlreadyFollowing(res.data.dat)
-                        toast.success('add', {
-                            position: "top-right",
-                            autoClose: 2000,
-                        });
-                    });
-    
-            }
-            catch (err) {
-                toast.error('Not followed', {
-                    position: "top-right",
-                    autoClose: 2000,
-                });
-                return false
-            }
-    }
 
-    const RemoveFollower = (walletAddress, toFollow) => {
-        try {
-            axios.post(`${API_URL}/user/removeFollower`, { walletAddress: walletAddress, toFollow: toFollow })
-                .then((res) => {
-                    setAlreadyFollowing(false)
-                    // console.log("res in remove", res)
-                    // setAlreadyFollowing(res.data.dat)
-                    toast.success('remove', {
-                        position: "top-right",
-                        autoClose: 2000,
-                    });
-                });
-
-        }
-    
-        catch (err) {
-            toast.error('Not followed', {
-                position: "top-right",
-                autoClose: 2000,
-            });
-            return false
-        }
-    }
-   
-    
-    const ownedData = useSelector(state => state.CollectionReducer.GetOwnedData);
-    const showOwnedData = ownedData.map((elem, index) => {
+    const showOwnedData = owned?.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -114,6 +228,7 @@ const Profile = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -129,7 +244,7 @@ const Profile = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork">
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
                         <h4>{elem?.nftName}</h4>
@@ -138,14 +253,16 @@ const Profile = () => {
                     </Link>
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                            <button className="for-style11"  >
-                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
-                            <button className="for-style11" >
-                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
+                            {!userLike ?
+                                <button className="for-style11"  >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" >
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -153,8 +270,7 @@ const Profile = () => {
         )
     })
 
-    const onSaleData = useSelector(state => state.CollectionReducer.GetOnSaleData);
-    const showOnSaleData = onSaleData.map((elem) => {
+    const showOnSaleData = sale.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
                 <Link to={`/ownerprofile/${elem.walletAddress}`}>
@@ -174,6 +290,7 @@ const Profile = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -189,7 +306,7 @@ const Profile = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork">
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
@@ -197,14 +314,16 @@ const Profile = () => {
                     </Link>
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                            <button className="for-style11"  >
-                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
-                            <button className="for-style11" >
-                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
+                            {!userLike ?
+                                <button className="for-style11"  >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" >
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -213,8 +332,7 @@ const Profile = () => {
     })
 
 
-    const likedData = useSelector(state => state.CollectionReducer.GetLikedData);
-    const showLikedData = likedData.map((elem) => {
+    const showLikedData = likes.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -234,6 +352,7 @@ const Profile = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <div className="inner-card image-width">
@@ -249,23 +368,24 @@ const Profile = () => {
                             </div>
                         </li>
                     </ul>
-                    <Link to="/artwork">
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
+                        <h4>{elem?.nftName}</h4>
+                        <h6 className="clr">{price}</h6>
+                        <hr />
                     </Link>
-                    <h4>{elem?.nftName}</h4>
-                    <h6 className="clr">{price}</h6>
-                    <hr />
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                            <button className="for-style11"  >
-                                <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
-                            <button className="for-style11" >
-                                <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes} </span>
-                            </button>
+                            {!userLike ?
+                                <button className="for-style11"  >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" >
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -274,9 +394,7 @@ const Profile = () => {
     })
 
 
-    const createdData = useSelector(state => state.CollectionReducer.GetCreatedData);
-
-    const showCreatedData = createdData.map((elem) => {
+    const showCreatedData = create.map((elem) => {
         const creator = elem?.creators.map((elem) => {
             return (
                 <Link to={`/ownerprofile/${elem.walletAddress}`}>
@@ -296,6 +414,7 @@ const Profile = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3">
                 <Link to="/artwork">
@@ -312,21 +431,24 @@ const Profile = () => {
                                 </div>
                             </li>
                         </ul>
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
-                        <h4>{elem?.nftName}</h4>
-                        <h6 className="clr">{price}</h6>
-                        <hr />
+                        <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                            <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                            <h4>{elem?.nftName}</h4>
+                            <h6 className="clr">{price}</h6>
+                            <hr />
+                        </Link>
                         <ul className="list-inline">
                             <li className="list-inline-item">
-                                <button className="for-style11"  >
-                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
-                                <button className="for-style11" >
-                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
+                                {!userLike ?
+                                    <button className="for-style11"  >
+                                        <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                        <span className="grey"> {elem?.numerOfLikes} </span>
+                                    </button> :
+                                    <button className="for-style11" >
+                                        <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                        <span className="grey"> {elem?.numerOfLikes} </span>
+                                    </button>
+                                }
                             </li>
                         </ul>
                     </div>
@@ -335,13 +457,31 @@ const Profile = () => {
         )
     })
 
+    const showFollowingsData = following?.map((elem) => {
+        let follow = tocheck.find(e => e.address === elem.walletAddress)
 
+        return (
+            <div className="col-sm-3">
+                <div className="inner-follow text-center">
+                    <img src={elem?.ipfsImageUrl} alt="" width="100" height="100" style={{ borderRadius: '50%' }} />
+                    <h4>{elem?.displayName}</h4>
+                    <h6 className="grey">{elem?.followersCount} Followers</h6>
+                    <hr />
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                        {account === elem?.walletAddress ? '' : follow ?
+                         <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
+                          : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
+                          }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        )
+    })
 
-
-    const followersData = useSelector(state => state.CollectionReducer.GetFollowersInProfile);
-
-    const showFollowersData = followersData?.detailsOfFollowers?.map((elem) => {
-         console.log("elem in followers",elem)
+    const showFollowersData = followers?.map((elem) => {
+        let follow = tocheck.find(e => e.address === elem.walletAddress)
         return (
             <div className="col-sm-3">
                 <div className="inner-follow text-center">
@@ -352,38 +492,14 @@ const Profile = () => {
                     <hr />
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                               {alreadyFollowing ?
-                            <button className="btn-common3" onClick={()=>RemoveFollower(elem?.walletAddress,account)}>Unfollow</button>
-                            :
-                            <button className="btn-common3" onClick={()=>AddFollower(elem?.walletAddress,account)}>follow</button>
-                               }
+                        {account === elem.walletAddress ? '' : follow ?
+                         <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
+                          : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
+                          }
                         </li>
                     </ul>
                 </div>
             </div>
-        )
-    })
-
-
-    const followingsData = useSelector(state => state.CollectionReducer.GetFollowingInProfile);
-
-    console.log("followning data",followingsData)
-    const showFollowingsData = followingsData?.detailsOfFollowing?.map((elem) => {
-
-        return (
-            <div className="col-sm-3">
-            <div className="inner-follow text-center">
-                <img src={elem?.ipfsImageUrl} alt="" width="100" height="100" style={{ borderRadius: '50%' }} />
-                <h4>{elem?.displayName}</h4>
-                <h6 className="grey">{elem?.followersCount} Followers</h6>
-                <hr />
-                <ul className="list-inline">
-                    <li className="list-inline-item">   
-                        <button className="btn-common3" onClick={()=>RemoveFollower(elem?.walletAddress,account)}>Unfollow</button>             
-                    </li>
-                </ul>
-            </div>
-        </div>
         )
     })
 
@@ -406,14 +522,14 @@ const Profile = () => {
                     <div className="row ptb20">
                         <div className="col-sm-12 text-center">
                             <div className="inner-content">
-                                <img src={userData?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
-                                <h2 className="pt-4">{userData?.displayName}</h2>
-                                <p className="ptb20">{userData?.bio}</p>
+                                <img src={userDetail?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
+                                <h2 className="pt-4">{userDetail?.displayName}</h2>
+                                <p className="ptb20">{userDetail?.bio}</p>
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
 
                                         <div className="inner-icon">
-                                            {userData?.facebookUserName &&
+                                            {userDetail?.facebookUserName &&
                                                 <a href={fbLink} target="_blank" className="facebook" rel="noreferrer">
                                                 </a>
                                             }
@@ -421,7 +537,7 @@ const Profile = () => {
                                     </li>
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
-                                            {userData?.twitterUserName &&
+                                            {userDetail?.twitterUserName &&
                                                 <a href={twitterLink} target="_blank" className="twitter" rel="noreferrer">
                                                 </a>
                                             }
@@ -436,14 +552,6 @@ const Profile = () => {
                                 </ul>
                                 <ul className="list-inline ptb20">
                                     <li className="list-inline-item">
-                                        {/* {walletAddress !== account ?
-                                            <div className="inner-icon">
-                                                <button className="btn-common" type="button" onClick={() => dispatch(AddFollower(account, userData?.walletAddress))}>follow</button>
-                                            </div> :
-                                            <div className="inner-icon">
-                                                <button className="btn-common" type="button" onClick={() => dispatch(RemoveFollower(account, userData?.walletAddress))}>Unfollow</button>
-                                            </div>
-                                        } */}
                                     </li>
                                 </ul>
                             </div>
@@ -461,42 +569,37 @@ const Profile = () => {
                                 <ul className="nav nav-pills mb-3  ptb20" id="pills-tab" role="tablist">
                                     <li className="nav-item">
                                         <a className=" for-tabs active" id="pills-owned-tab" data-toggle="pill" href="#pills-owned"
-                                            onClick={() => dispatch(Owned(walletAddress))}
+                                            onClick={getOwnedData}
                                             role="tab" aria-controls="pills-owned" aria-selected="true" >Owned
-                                            {/* <span className="grey">1</span>  */}
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className=" for-tabs" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                                            onClick={() => dispatch(OnSale(walletAddress))}
+                                            onClick={Onsale}
                                             aria-controls="pills-home" aria-selected="true" >On Sale
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                            onClick={() => dispatch(Liked(walletAddress))}
+                                            onClick={GetLikesData}
                                             role="tab" aria-controls="pills-profile" aria-selected="false" >Liked
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                            onClick={() => dispatch(Created(walletAddress))}
+                                            onClick={Created}
                                             role="tab" aria-controls="pills-contact" aria-selected="false">Created
                                         </a>
                                     </li>
-                                    {/* <li className="nav-item">
-                                        <a className="for-tabs" id="pills-activity-tab" data-toggle="pill" href="#pills-activity"
-                                            role="tab" aria-controls="pills-activity" aria-selected="false">Activity</a>
-                                    </li> */}
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-following-tab" data-toggle="pill" href="#pills-following"
-                                            onClick={() => dispatch(GetFollowingInUserProfile(walletAddress))}
+                                            onClick={Followings}
                                             role="tab" aria-controls="pills-following" aria-selected="false" >Following
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="for-tabs" id="pills-follower-tab" data-toggle="pill" href="#pills-follower"
-                                            onClick={() => dispatch(GetFollowersInUserProfile(walletAddress))}
+                                            onClick={Followers}
                                             role="tab" aria-controls="pills-follower" aria-selected="false">Followers
 
                                         </a>
@@ -506,40 +609,41 @@ const Profile = () => {
                                     <div className="tab-pane fade  show active" id="pills-owned" role="tabpanel"
                                         aria-labelledby="pills-owned-tab">
                                         <div className="row ptb20">
-                                            {showOwnedData.length > 0 ? showOwnedData :
-                                                <div>No Item</div>
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showOwnedData.length > 0 ? showOwnedData :
+                                                    <div>No Item</div>
                                             }
-
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                         <div className="row ptb20">
-
-                                            {showOnSaleData.length > 0 ? showOnSaleData :
-                                                <div>No Item</div>
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showOnSaleData.length > 0 ? showOnSaleData :
+                                                    <div>No Item</div>
                                             }
-
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-profile" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">
                                         <div className="row ptb20">
-
-                                            {showLikedData.length > 0 ? showLikedData :
-                                                <div>No Item</div>
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showLikedData.length > 0 ? showLikedData :
+                                                    <div>No Item</div>
                                             }
-
-
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-contact" role="tabpanel"
                                         aria-labelledby="pills-contact-tab">
                                         <div className="row ptb20">
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showCreatedData.length > 0 ? showCreatedData :
+                                                    <div>No Item</div>
 
-                                            {showCreatedData.length > 0 ? showCreatedData :
-                                                <div>No Item</div>
                                             }
-
                                         </div>
                                     </div>
                                     {/* <div className="tab-pane fade" id="pills-activity" role="tabpanel"
@@ -636,44 +740,20 @@ const Profile = () => {
                                     <div className="tab-pane fade" id="pills-following" role="tabpanel"
                                         aria-labelledby="pills-following-tab">
                                         <div className="row ptb20">
-                                            {showFollowingsData?.length > 0 ? showFollowingsData :
-                                                <div>No Item</div>
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showFollowingsData?.length > 0 ? showFollowingsData :
+                                                    <div>No Item</div>
                                             }
-                                            {/* {showFollowingsData} */}
-                                            {/* <div className="col-sm-3" >
-                                                <div className="inner-follow text-center">
-                                                    <div >
-                                                        <svg width="135" height="135" viewBox="0 0 56 56" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M54 28C54 42.3594 42.3594 54 28 54C13.6406 54 2 42.3594 2 28C2 13.6406 13.6406 2 28 2C42.3594 2 54 13.6406 54 28Z"
-                                                                fill="#F6F6F6" stroke="white" stroke-width="3" />
-                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M28.0007 31.2448C23.6689 31.2448 15.0215 33.4188 15.0215 37.7344V40.9792H40.9798V37.7344C40.9798 33.4188 32.3325 31.2448 28.0007 31.2448ZM28.0007 28C31.5861 28 34.4902 25.0959 34.4902 21.5104C34.4902 17.9249 31.5861 15.0208 28.0007 15.0208C24.4152 15.0208 21.5111 17.9249 21.5111 21.5104C21.5111 25.0959 24.4152 28 28.0007 28Z"
-                                                                fill="#35374A" />
-                                                        </svg>
-                                                    </div>
-                                                    <h4>ss</h4>
-                                                    <h6 className="grey">12 Followers</h6>
-                                                    <hr />
-                                                    <ul className="list-inline">
-                                                        <li className="list-inline-item" >
-                                                            <button className="btn-common" >Unfollow</button>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <button className="btn-common" >Follow</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-follower" role="tabpanel"
                                         aria-labelledby="pills-follower-tab">
                                         <div className="row ptb20">
-                                            {showFollowersData?.length > 0 ? showFollowersData :
-                                                <div>No Item</div>
-
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                showFollowersData?.length > 0 ? showFollowersData :
+                                                    <div>No Item</div>
                                             }
                                         </div>
                                     </div>

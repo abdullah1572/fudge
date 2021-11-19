@@ -12,15 +12,16 @@ import EthBalance from '../../hooks/EthBalance';
 const Header = () => {
   const { account, active } = useWeb3React();
 
-  // const [balance,setBalance]=useState(EthBalance)
-  // console.log("balance",balance)
   const { login, logout } = useAuth();
-  // const { userSign } = Signature(account);
   const userData = useSelector(state => state.CollectionReducer.GetUserData);
   const dispatch = useDispatch();
   useEffect(() => {
+    getdata()
+  }, [account])
+  
+  const getdata=()=>{
     dispatch(GetUserData(account));
-  }, [account, dispatch])
+  }
 
   const disconnect = () => {
     logout()
@@ -45,10 +46,7 @@ const Header = () => {
 
   }, [account])
   const ethBalance = EthBalance()
-  // let balance=ethBalance.toNumber()/100**18;
   const Balance = (ethBalance.toNumber() / 10 ** 18)
-
-  // console.log("ethBalance", ethBalance.toNumber() / 10**18)
 
   return (
     <>

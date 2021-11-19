@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { GetAllTokensOfCreator } from '../../redux/action';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import { AddSale, RemoveOrder, AddOrder } from '../../services/services';
@@ -16,15 +15,17 @@ import { useParams } from 'react-router';
 import './artwork.scss';
 import { GetAllNftsAndDetails } from '../../redux/action';
 import { ApproveForAll, BNBSalePrice, ApproveForFudge, ByUningBnb, BuyUsingFudge, FudgeSalePrice } from '../../hooks/FudgeBuyAndSale';
+import MyLoader from '../Loader/MyLoader';
 
 const ArtWork = () => {
+
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
     const [terms, setTerms] = useState(false);
     const { contractAddress, tokenId } = useParams();
     const [fudgeDropDown, setFudgeDropDown] = useState('FUDGE');
     const single = useSelector(state => state.CollectionReducer.GetSingletTokenData)
-    const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
+    // const creatorData = useSelector(state => state.CollectionReducer.GetAllTokensOfCreator)
     const { ApproveAllTokenID } = ApproveForAll()
     const { approveForFudge } = ApproveForFudge();
     const { BNBSale } = BNBSalePrice();
@@ -34,17 +35,23 @@ const ArtWork = () => {
         setPrice(e.target.value);
     }
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(GetAllTokensOfCreator(single?.creator?.walletAddress))
-    }, [single?.creator?.walletAddress, dispatch])
     const [singleData, setSingleData] = useState([]);
 
-    console.log("single data", singleData)
+
+    const [count, setCount] = useState(12);
+    
+    const LoadMore = () => {
+        setCount(count + 4)
+    }
+
+    const [more, setMore] = useState([])
     const GetSingleData = async () => {
+        setOpen()
         try {
             await axios.post(`${API_URL}/token/getTokenAndDetailsOfSingleToken`, { contractAddress: contractAddress, tokenID: tokenId })
                 .then((res) => {
                     setSingleData(res.data.data)
+                    getMoreCreatorsNfts(res.data.data[0].creatorAddress)
                     // getDate(response.data.msg)
                     // toast.success('Project Approved Succesfully', {
                     //     position: "top-right",
@@ -58,13 +65,72 @@ const ArtWork = () => {
             //     position: "bottom-center",
             //     autoClose: 2000,
             // });
+            return false
         }
     }
+    const getMoreCreatorsNfts = async (creatorAddress) => {
+        axios.post(`${API_URL}/token/getAllTokensOfCreator`, { creatorAddress: creatorAddress })
+            .then((res) => {
+                setMore(res.data.data)
+            })
+            .catch((err) => {
+                return false;
+            })
+
+    }
+    const LikeToken = (contractAddress, walletAddress, tokenID, index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/like`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = more;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMore([...temp])
+                    // getDiscover()
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+
+    };
+
+
+
+    const UnlikeToken = (contractAddress, walletAddress, tokenID, index) => {
+        if (walletAddress !== undefined) {
+            axios.post(`${API_URL}/token/unlike`, { contractAddress: contractAddress, walletAddress: walletAddress, tokenID: tokenID })
+                .then((res) => {
+                    let temp = more;
+                    temp[index].likedBy = res.data.data.likeToken.likedBy
+                    temp[index].numerOfLikes = res.data.data.likeToken.numerOfLikes
+                    setMore([...temp])
+                    // getDiscover()
+                })
+                .catch((err) => {
+                    return false;
+                })
+        }
+        else {
+            toast.error('Not logged in', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
 
     useEffect(() => {
         GetSingleData()
     }, [contractAddress, tokenId])
-
+   
+    // console.log("creators",singleData[0]?.creatorAddress)
 
     const handleChange = () => {
         if (terms) {
@@ -212,7 +278,6 @@ const ArtWork = () => {
                     window.$("#checkout").modal('hide');
                     const FudgePrice = await approveForFudge(singleData[0]?.orders[0]?.price)
                     if (FudgePrice.status) {
-
                         const res = await FudgeBuy(tokenId);
                         if (res.status) {
                             await AddSale(account, singleData[0]?.walletAddress, environment.BlueMoonPro, tokenId, singleData[0]?.orders[0]?.price)
@@ -260,7 +325,6 @@ const ArtWork = () => {
             }
             catch (err) {
                 setOpen(false)
-                console.log("err================", err)
                 window.$("#checkout").modal('hide');
                 toast.error('User Denied Transaction', {
                     position: "top-center",
@@ -289,7 +353,7 @@ const ArtWork = () => {
     }
 
 
-    const MoreCreatorNfts = creatorData.map((elem, index) => {
+    const MoreCreatorNfts = more?.slice(0, count)?.map((elem, index) => {
 
         const creator = elem?.creators.map((elem) => {
             return (
@@ -310,36 +374,43 @@ const ArtWork = () => {
                 <h6 className="clr">{elem?.price} BNB</h6>
             )
         })
+        let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
             <div className="col-sm-3" key={index}>
-                <Link to="artwork">
-                    <div className="inner-card image-width">
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                    {creator}
-                                </div>
-                            </li>
-                            <li className="list-inline-item">
-                                <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                    {owner}
-                                </div>
-                            </li>
-                        </ul>
+                <div className="inner-card image-width">
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                {creator}
+                            </div>
+                        </li>
+                        <li className="list-inline-item">
+                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                {owner}
+                            </div>
+                        </li>
+                    </ul>
+                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
                         <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
                         <h4>{elem?.nftName}</h4>
                         <h6 className="clr">{price}</h6>
                         <hr />
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                {/* <img src="pegify/landing-assets/heart.png" alt="" className="img-fluid" /> */}
-                                <img src="pegify/heart-outline-icon.png" alt="" className="img-fluid" />
-                                <span className="grey"> {elem?.numerOfLikes}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </Link>
+                    </Link>
+                    <ul className="list-inline">
+                        <li className="list-inline-item">
+                            {!userLike ?
+                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
+                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button> :
+                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
+                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                    <span className="grey"> {elem?.numerOfLikes} </span>
+                                </button>
+                            }
+                        </li>
+                    </ul>
+                </div>
             </div>
         )
     })
@@ -481,7 +552,7 @@ const ArtWork = () => {
                                             {!singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress === account ?
                                                 <button type="button" className="btn-common-1" data-toggle="modal" data-target="#putonsale">Put On Market Place</button> :
                                                 singleData[0]?.users?.walletAddress === account && singleData[0].orders[0]?.price <= 0 ?
-                                                 <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
+                                                    <button type="button" className="btn-common-1" onClick={OpenPutOnsaleModal}>Put On Market Place</button> :
                                                     singleData[0]?.orders[0] && singleData[0]?.users?.walletAddress !== account && singleData[0]?.orders[0]?.price > 0 ?
                                                         <button className="btn-common-1" data-toggle="modal" onClick={buyModal} >BUY NOW
                                                             FOR {singleData[0]?.orders[0]?.price} {singleData[0]?.orders[0]?.currency}</button>
@@ -814,21 +885,27 @@ const ArtWork = () => {
             <section className="latest">
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-12">
-                            <h2> <span className="clr">MORE FROM</span> THIS CREATOR</h2>
-                            <div className="row ptb20">
-                                {MoreCreatorNfts}
-                            </div>
-                            <div className="row ptb20">
-                                <div className="col-sm-12 text-center">
-                                    <ul className="list-inline">
-                                        <li className="list-inline-item">
-                                            <button className="btn-common">Load more</button>
-                                        </li>
-                                    </ul>
+                        {MoreCreatorNfts.length > 0 &&
+                            <div className="col-sm-12">
+                                <h2> <span className="clr">MORE FROM</span> THIS CREATOR</h2>
+                                <div className="row ptb20">
+                                    {MoreCreatorNfts}
+                                </div>
+                                <div className="row ptb20">
+                                    <div className="col-sm-12 text-center">
+                                        <ul className="list-inline">
+                                            <li className="list-inline-item">
+                                                {more.length > count
+                                                    ? <button className="btn-common" onClick={LoadMore}>LOAD MORE</button>
+                                                    : <button className="btn-common" >No More Items</button>
+                                                }
+
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </section>
