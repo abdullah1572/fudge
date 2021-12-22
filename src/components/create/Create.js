@@ -6,7 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { MintPro } from '../../hooks/Mint';
 import { toast } from 'react-toastify';
 import { ApproveForAll } from '../../hooks/FudgeBuyAndSale';
-import { BNBSalePrice ,FudgeSalePrice} from '../../hooks/FudgeBuyAndSale';
+import { BNBSalePrice, FudgeSalePrice } from '../../hooks/FudgeBuyAndSale';
 import './create.scss';
 import Header from '../header/Header';
 import { Backdrop } from '@material-ui/core';
@@ -14,7 +14,7 @@ import { GetAllNftsAndDetails } from '../../redux/action';
 import { useDispatch } from 'react-redux'
 import MyLoader from '../Loader/MyLoader';
 import environment from '../../utils/Environment';
- 
+
 const Create = () => {
 
     const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const Create = () => {
     const [fudgeDropDown, setFudgeDropDown] = useState('FUDGE');
     const [fileUrl, updateFileUrl] = useState(``);
     const { mintPro } = MintPro(fileUrl);
+    const [loaderText, setloaderText] = useState("Please Wait. Transaction in Process!");
     const [allFormData, setAllFormData] = useState({
         formData: { price: '', nftName: '', description: '', royalties: '', putOnMarketplace: false },
     })
@@ -60,7 +61,7 @@ const Create = () => {
     // const [tokenId, setTokenId] = useState('')
     const { ApproveAllTokenID } = ApproveForAll()
     const { BNBSale } = BNBSalePrice()
-    const {FudgeSale}=FudgeSalePrice()
+    const { FudgeSale } = FudgeSalePrice()
     const Item = [
         {
             itemList: 'Art'
@@ -90,6 +91,7 @@ const Create = () => {
         },
     ]
     // src/assets/bnb-logo.png
+    const delay = ms => new Promise(res => setTimeout(res, ms));
     const handleSubmit = useCallback(async () => {
         formValidation();
         if (account) {
@@ -115,83 +117,103 @@ const Create = () => {
                 });
                 return
             }
-
             try {
                 if (allFormData.formData.putOnMarketplace) {
                     const getPrice = allFormData.formData.price
-                    setOpen(true)
+                    setOpen(true);
+                    setloaderText("Waiting for NFT mint")
+                    // await delay(3000)
                     const tokenID = await mintPro();
                     if (tokenID) {
-                        setOpen(false)
+                        // setOpen(false)
                     }
-                    setOpen(true)
+                    setloaderText("Waiting for Marketplace Approval")
                     const approve = await ApproveAllTokenID();
                     //  console.log("approve",approve.status)
                     if (approve.status) {
-                        setOpen(false)
+                        // setOpen(false)
                     }
-                    setOpen(true)
-                    if(fudgeDropDown==='FUDGE'){
-                        const fudgeSale= await FudgeSale(tokenID, getPrice)
+                    if (fudgeDropDown === 'FUDGE') {
+                        const fudgeSale = await FudgeSale(tokenID, getPrice);
+                        setloaderText("Puuting NFT on Marketplace")
+                        // await delay(3000)
                         if (fudgeSale.status) {
-                            setOpen(false)
                             await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown, fudgeDropDown);
                             toast.success('Created Item Successfully', {
                                 position: "top-center",
                                 autoClose: 5000,
                             });
+                            setOpen(false)
                             dispatch(GetAllNftsAndDetails());
+                        } else {
+                            toast.error('Can not put on sale', {
+                                position: "top-center",
+                                autoClose: 5000,
+                            });
+                            setOpen(false)
                         }
 
-                    }
-                    else{
+                    } else {
+                        setloaderText("Puuting NFT on Marketplace")
+                        // await delay(3000)
                         const sale = await BNBSale(tokenID, getPrice);
                         if (sale.status) {
-                            setOpen(false)
                             await addTokenAndPutOnSale(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenID, dropDown, fudgeDropDown);
                             toast.success('Created Item Successfully', {
                                 position: "top-center",
                                 autoClose: 5000,
                             });
+                            setOpen(false)
                             dispatch(GetAllNftsAndDetails());
+                        } else {
+                            toast.error('Can not put on sale', {
+                                position: "top-center",
+                                autoClose: 5000,
+                            });
+                            setOpen(false)
                         }
                     }
-                   
-
                 }
                 else {
+                    setOpen(true)
+                    setloaderText("Waiting fo NFT mint")
                     const tokenId = await mintPro();
+                    // await delay(3000)
                     await addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, tokenId, dropDown, fudgeDropDown);
                     toast.success('Created Item Successfully', {
                         position: "top-center",
                         autoClose: 5000,
                     });
+                    setOpen(false)
                 }
             }
             catch (err) {
                 setOpen(false)
-                console.log("errrrrr==========",err)
+                console.log("errrrrr==========", err)
                 toast.error('User Denied Transaction', {
                     position: "top-center",
                     autoClose: 5000,
                 });
             }
-        }
-
-        else {
+        } else {
             toast.error('Please Connect the wallet', {
                 position: "top-right",
                 autoClose: 5000,
             });
+            setOpen(false)
         }
-    }, [ApproveAllTokenID, BNBSale,FudgeSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
+    }, [ApproveAllTokenID, BNBSale, FudgeSale, account, allFormData.formData, dropDown, fileUrl, formValidation, mintPro])
 
     async function onChange(e) {
         const file = e.target.files[0]
-        setToggle(true)
+        setToggle(true);
+        // updateFileUrl("salman")
         IpfsStorage(file).then((res) => {
-            updateFileUrl(res)
-            // setOpen(false)
+            updateFileUrl(res);
+            console.log("==========>", res)
+            setOpen(false)
+        }).catch((e) => {
+            console.log("==========>", e)
         });
     }
 
@@ -201,12 +223,11 @@ const Create = () => {
         updateFileUrl('');
         setToggle(false)
     }
-
     return (
         <>
-            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>Please Wait. Transaction in Process.</h1>
-            {/* <CircularProgress color="inherit" style={{ marginLeft: 20 }} /> */}
-            <MyLoader toggle={open}/>
+            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}> <h1>{loaderText}</h1>
+                {/* <CircularProgress color="inherit" style={{ marginLeft: 20 }} /> */}
+                <MyLoader toggle={open} />
 
             </Backdrop>
 
