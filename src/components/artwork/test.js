@@ -13,14 +13,10 @@ import { API_URL } from "../../ApiURL";
 import axios from "axios";
 import { useParams } from "react-router";
 import "./artwork.scss";
-import { useHistory } from "react-router-dom";
 import { GetAllNftsAndDetails } from "../../redux/action";
-import {
-  BlueMoonProContract,
-  FudgeTokenContract,
-  FudgeContract,
-} from "../../utils/contractHelpers";
-import useWeb3 from "../../hooks/useWeb3";
+import { BlueMoonProContract,FudgeTokenContract,FudgeContract
+ } from "../../utils/contractHelpers";
+ import useWeb3 from "../../hooks/useWeb3";
 import {
   ApproveForAll,
   BNBSalePrice,
@@ -46,7 +42,6 @@ const ArtWork = () => {
   const { BNBSale } = BNBSalePrice();
   const { FudgeSale } = FudgeSalePrice();
   const [price, setPrice] = useState("");
-  const history = useHistory();
   const handleChange1 = (e) => {
     setPrice(e.target.value);
   };
@@ -185,11 +180,10 @@ const ArtWork = () => {
   const web3 = useWeb3();
   let tokenAddress = environment.BlueMoonPro;
   const Fudge = environment.FudgeToken;
+  const Fcontract = FudgeTokenContract(Fudge, web3)
   const fudgeMarketplace = environment.Fudge;
-  const ProContract = BlueMoonProContract(tokenAddress, web3);
-  const Fcontract = FudgeContract(fudgeMarketplace, web3);
 
-  //   const contractForProApproval=BlueMoonProContract(tokenAddress,web3)
+//   const contractForProApproval=BlueMoonProContract(tokenAddress,web3)
   const PutOnSale = useCallback(async () => {
     if (account) {
       if (price === "") {
@@ -199,266 +193,65 @@ const ArtWork = () => {
         });
         return;
       }
-      const priceToUse = web3.utils.toWei(price, "ether");
-      if (environment.BlueMoonPro == contractAddress) {
-        const isApprovedForAll = await ProContract.methods
-          .isApprovedForAll(account, fudgeMarketplace)
-          .call({ from: account });
-        if (isApprovedForAll) {
-          if (fudgeDropDown === "FUDGE") {
-            Fcontract.methods
-              .setSalePrice(contractAddress, tokenId, priceToUse)
-              .estimateGas({ from: account })
-              .then(async () => {
-                try {
-                  setOpen(true);
-                  Fcontract.methods
-                    .setSalePrice(contractAddress, tokenId, priceToUse)
-                    .send({ from: account })
-                    .catch((e) => {
-                      console.log("disconnect", e);
-                      setOpen(false);
-                    });
-                  Fcontract.events
-                    .SetSalePrice()
-                    .on("connection", () => {
-                      console.log("connected");
-                    })
-                    .on("data", (data) => {
-                      console.log("======>", data);
-                      //   putOnSale(account, contractAddress, tokenID, newPrice, true, newPrice, true, " BNB");
-                      AddOrder(
-                        account,
-                        environment.BlueMoonPro,
-                        tokenId,
-                        price,
-                        fudgeDropDown
-                      );
-                      //   window.$("#putonsale").modal("hide");
-                      //   GetSingleData();
-                      toast.success("Successfully added on sale!");
-                      //   setNewPrice("");
-                      setOpen(false);
-                    })
-                    .on("disconnect", () => {
-                      console.log("disconnect");
-                      setOpen(false);
-                      history.push("/");
-                    });
-                } catch (e) {
-                  setOpen(false);
-                  console.log(e);
-                }
-              })
-              .catch((err) => {
-                setOpen(false);
-                toast.error("Transaction failed!", {
-                  position: "top-center",
-                  autoClose: 5000,
-                });
-                console.log("err", err);
-              });
-          } else {
-            Fcontract.methods
-              .setSalePrice(contractAddress, tokenId, priceToUse)
-              .estimateGas({ from: account })
-              .then(async () => {
-                try {
-                  setOpen(true);
-                  Fcontract.methods
-                    .setSalePrice(
-                      contractAddress,
-                      tokenId,
-                      priceToUse
-                    )
-                    .send({ from: account })
-                    .catch((e) => {
-                      console.log("disconnect", e);
-                      setOpen(false);
-                    });
-                  Fcontract.events
-                    .SetSalePrice()
-                    .on("connection", () => {
-                      console.log("connected");
-                    })
-                    .on("data", (data) => {
-                      console.log("======>", data);
-                      AddOrder(
-                        account,
-                        environment.BlueMoonPro,
-                        tokenId,
-                        price,
-                        fudgeDropDown
-                      );
-                      toast.success("Successfully added on sale!");
-
-                      setOpen(false);
-                      //   setNewPrice("");
-                      setOpen(false);
-                    })
-                    .on("disconnect", () => {
-                      console.log("disconnect");
-                      history.push("/");
-                      setOpen(false);
-                    });
-                } catch (e) {
-                  setOpen(false);
-                  console.log(e);
-                }
-              })
-              .catch((err) => {
-                setOpen(false);
-                toast.error("Transaction failed!", {
-                  position: "top-center",
-                  autoClose: 5000,
-                });
-                console.log("err", err);
-              });
+      const priceToUse = web3.utils.toWei(price, 'ether');
+      try {      
+        if (environment.BlueMoonPro == contractAddress) {
+        const approve = await ApproveAllTokenID();
+        window.$("#putonsale").modal("hide");
+        setOpen(true);
+        if (fudgeDropDown === "FUDGE") {
+          // window.$("#success").modal('show');
+    
+          if (approve.status) {
+            setOpen(false);
           }
-        } else {
-          const mint = await ProContract.methods
-            .setApprovalForAll(fudgeMarketplace, true)
-            .estimateGas({ from: account })
-            .then(async () => {
-              try {
-                setOpen(true);
-                ProContract.methods
-                  .setApprovalForAll(fudgeMarketplace, true)
-                  .send({ from: account })
-                  .catch((e) => {
-                    setOpen(false);
-                    toast.error("User Rejected the Request!", {
-                      position: "top-center",
-                      autoClose: 5000,
-                    });
-                    window.$("#putonsale").modal("hide");
-                    console.log(e);
-                  });
-                if (fudgeDropDown === "FUDGE") {
-                    Fcontract.methods
-                    .setSalePriceForFudge(contractAddress, tokenId, priceToUse)
-                    .estimateGas({ from: account })
-                    .then(async () => {
-                      try {
-                        setOpen(true);
-                        Fcontract.methods
-                          .setSalePriceForFudge(contractAddress, tokenId, priceToUse)
-                          .send({ from: account })
-                          .catch((e) => {
-                            console.log("disconnect", e);
-                            setOpen(false);
-                          });
-                          Fcontract.events
-                          .setSalePriceForFudge()
-                          .on("connection", () => {
-                            console.log("connected");
-                          })
-                          .on("data", (data) => {
-                            console.log("======>", data);
-                            //   putOnSale(account, contractAddress, tokenID, newPrice, true, newPrice, true, " BNB");
-                            AddOrder(
-                              account,
-                              environment.BlueMoonPro,
-                              tokenId,
-                              price,
-                              fudgeDropDown
-                            );
-                            //   window.$("#putonsale").modal("hide");
-                            //   GetSingleData();
-                            toast.success("Successfully added on sale!");
-                            //   setNewPrice("");
-                            setOpen(false);
-                          })
-                          .on("disconnect", () => {
-                            console.log("disconnect");
-                            setOpen(false);
-                          });
-                      } catch (e) {
-                        setOpen(false);
-                        console.log(e);
-                      }
-                    })
-                    .catch((err) => {
-                      setOpen(false);
-                      toast.error("Transaction failed!", {
-                        position: "top-center",
-                        autoClose: 5000,
-                      });
-                      console.log("err", err);
-                    });
-                } else {
-                    Fcontract.methods
-                    .setSalePrice(
-                      contractAddress,
-                      tokenId,
-                      priceToUse
-                    )
-                    .estimateGas({ from: account })
-                    .then(async () => {
-                      try {
-                        setOpen(true);
-                        Fcontract.methods
-                          .setSalePrice(
-                            contractAddress,
-                            tokenId,
-                            priceToUse
-                          )
-                          .send({ from: account })
-                          .catch((e) => {
-                            console.log("disconnect", e);
-                            setOpen(false);
-                          });
-                          Fcontract.events
-                          .setSalePrice()
-                          .on("connection", () => {
-                            console.log("connected");
-                          })
-                          .on("data", (data) => {
-                            console.log("======>", data);
-                            AddOrder(
-                              account,
-                              environment.BlueMoonPro,
-                              tokenId,
-                              price,
-                              fudgeDropDown
-                            );
-                            toast.success("Successfully added on sale!");
-                            //   setNewPrice("");
-                            setOpen(false);
-                          })
-                          .on("disconnect", () => {
-                            console.log("disconnect");
+          setOpen(true);
+          const fudgeSale = await FudgeSale(
+            tokenId,
+            singleData[0]?.orders[0]?.price
+          );
+          if (fudgeSale.status) {
+            setOpen(false);
+            await AddOrder(
+              account,
+              environment.BlueMoonPro,
+              tokenId,
+              price,
+              fudgeDropDown
+            );
+            // toast.success('Created Item Successfully', {
+            //     position: "top-center",
+            //     autoClose: 5000,
+            // });
 
-                            setOpen(false);
-                          });
-                      } catch (e) {
-                        setOpen(false);
-                        console.log(e);
-                      }
-                    })
-                    .catch((err) => {
-                      setOpen(false);
-                      toast.error("Transaction failed!", {
-                        position: "top-center",
-                        autoClose: 5000,
-                      });
-                      console.log("err", err);
-                    });
-                }
-              } catch (e) {
-                setOpen(false);
-                console.log(e);
-              }
-            })
-            .catch((err) => {
-              setOpen(false);
-              toast.error("Your NFT Not created!", {
-                position: "top-center",
-                autoClose: 5000,
-              });
-              console.log("err", err);
-            });
+            dispatch(GetAllNftsAndDetails());
+          }
+          window.$("#success").modal("show");
+          setPrice("");
+        } else {
+          const sale = await BNBSale(tokenId, price);
+          if (sale.status) {
+            setOpen(false);
+            await AddOrder(
+              account,
+              environment.BlueMoonPro,
+              tokenId,
+              price,
+              fudgeDropDown
+            );
+            dispatch(GetAllNftsAndDetails());
+          }
+          window.$("#success").modal("show");
+          setPrice("");
         }
+    }
+      } catch (err) {
+        console.log("err", err);
+        setOpen(false);
+        toast.error("User Denied Transaction", {
+          position: "top-center",
+          autoClose: 5000,
+        });
       }
       // else{
       //     try {
