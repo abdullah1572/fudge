@@ -10,6 +10,7 @@ import { BNBSalePrice, FudgeSalePrice } from "../../hooks/FudgeBuyAndSale";
 import "./create.scss";
 import Header from "../header/Header";
 import { Backdrop } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import { GetAllNftsAndDetails } from "../../redux/action";
 import { useDispatch } from "react-redux";
 import MyLoader from "../Loader/MyLoader";
@@ -19,8 +20,10 @@ import { BlueMoonProContract } from '../../utils/contractHelpers'
 
 const Create = () => {
   const tokenAddr = environment.BlueMoonPro;
+  // ws = new WebSocket('wss://speedy-nodes-nyc.moralis.io/6e396a98bde2a5cde21c6207/bsc/testnet/ws')
   const web3 = useWeb3();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { account, active } = useWeb3React();
   const [open, setOpen] = useState(false);
   const [toggle, setToggle] = useState(false);
@@ -34,11 +37,9 @@ const Create = () => {
   );
   const [allFormData, setAllFormData] = useState({
     formData: {
-      price: "",
       nftName: "",
       description: "",
       royalties: "",
-      putOnMarketplace: false,
     },
   });
   const handleChange = (e) => {
@@ -102,6 +103,7 @@ const Create = () => {
   ];
   // src/assets/bnb-logo.png
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
   const handleSubmit = useCallback(async () => {
     formValidation();
     if (account) {
@@ -118,13 +120,6 @@ const Create = () => {
         });
         return;
       }
-      if (allFormData.formData.price === "0") {
-        toast.warning("Price Greater than 0", {
-          position: "top-right",
-          autoClose: 2000,
-        });
-        return;
-      }
       if (allFormData.formData.royalties === "0") {
         toast.warning("Royalties Greater than 0", {
           position: "top-right",
@@ -133,136 +128,46 @@ const Create = () => {
         return;
       }
       try {
-        if (allFormData.formData.putOnMarketplace) {
-          const getPrice = allFormData.formData.price;
-          setOpen(true);
-          setloaderText("Waiting for NFT mint");
-          // await delay(3000)
-          const tokenID = await mintPro();
-          if (tokenID) {
-            // setOpen(false)
-          }
-          setloaderText("Waiting for Marketplace Approval");
-          const approve = await ApproveAllTokenID();
-          //  console.log("approve",approve.status)
-          if (approve.status) {
-            // setOpen(false)
-          }
-          if (fudgeDropDown === "FUDGE") {
-            const fudgeSale = await FudgeSale(tokenID, getPrice);
-            setloaderText("Puuting NFT on Marketplace");
-            // await delay(3000)
-            if (fudgeSale.status) {
-              await addTokenAndPutOnSale(
-                allFormData.formData,
-                environment.BlueMoonPro,
-                account,
-                fileUrl,
-                tokenID,
-                dropDown,
-                fudgeDropDown
-              );
-              toast.success("Created Item Successfully", {
-                position: "top-center",
-                autoClose: 5000,
-              });
-              setOpen(false);
-              dispatch(GetAllNftsAndDetails());
-            } else {
-              toast.error("Can not put on sale", {
-                position: "top-center",
-                autoClose: 5000,
-              });
-              setOpen(false);
-            }
-          } else {
-            setloaderText("Puuting NFT on Marketplace");
-            // await delay(3000)
-            const sale = await BNBSale(tokenID, getPrice);
-            if (sale.status) {
-              await addTokenAndPutOnSale(
-                allFormData.formData,
-                environment.BlueMoonPro,
-                account,
-                fileUrl,
-                tokenID,
-                dropDown,
-                fudgeDropDown
-              );
-              toast.success("Created Item Successfully", {
-                position: "top-center",
-                autoClose: 5000,
-              });
-              setOpen(false);
-              dispatch(GetAllNftsAndDetails());
-            } else {
-              toast.error("Can not put on sale", {
-                position: "top-center",
-                autoClose: 5000,
-              });
-              setOpen(false);
-            }
-          }
-        } else {
-          setOpen(true);
-          setloaderText("Waiting fo NFT mint");
-          // const tokenId = await mintPro();
-          const mint = await contract.methods
-            .mint(account, fileUrl)
-            .estimateGas({ from: account })
-            .then(async () => {
-              try {
-                const mint0 = contract.methods
-                  .mint(account, fileUrl)
-                  .send({ from: account })
-                  .catch((e) => {
-                    console.log("disconnect", e);
-                    console.log("disconnect");
-                    setOpen(false);
-                  });
-                contract.events
-                  .Transfer()
-                  .on("connection", () => {
-                    console.log("connected");
-                  })
-                  .on("data", (data) => {
-                    console.log("data.returnValues.tokenId", data.returnValues.tokenId)
-                    addToken(
-                        allFormData.formData,
-                        environment.BlueMoonPro,
-                        account,
-                        fileUrl,
-                        data.returnValues.tokenId,
-                        dropDown,
-                        fudgeDropDown
-                      );
-                      toast.success("Created Item Successfully", {
-                        position: "top-center",
-                        autoClose: 5000,
-                      });
-                      setOpen(false);
-                  })
-                  .on("error", (error, receipt) => {
-                    console.log("disconnect", error);
-                    console.log("disconnect");
-                    setOpen(false);
-                  });
-              } catch (e) {
-                setOpen(false);
-                console.log("disconnect");
-              }
+        setOpen(true);
+        setloaderText("Waiting fo NFT mint");
+        // const tokenId = await mintPro();
+        await contract.methods.mint(account, fileUrl).estimateGas({ from: account })
+        // console.log("mintttt",mint)
+        contract.methods.mint(account, fileUrl).send({ from: account })
+        contract.setProvider('wss://speedy-nodes-nyc.moralis.io/6e396a98bde2a5cde21c6207/bsc/testnet/ws')
+        contract.events.Transfer()
+            .on("connection", () => {
+              console.log("connected");
             })
-            .catch((err) => {
-              setOpen(false);
-              toast.error("Your NFT Not created!", {
+            .on("data", (data) => {
+              if (data.returnValues.to == account) {
+              console.log("data.returnValues.tokenId", data.returnValues.tokenId)
+              addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, data.returnValues.tokenId,dropDown);
+              toast.success("Created Item Successfully", {
                 position: "top-center",
                 autoClose: 5000,
               });
-              console.log("err", err);
+              setOpen(false);
+              setAllFormData({
+                formData: {
+                  price: "",
+                  nftName: "",
+                  description: "",
+                  royalties: "",
+                },
+              })
+              updateFileUrl("");
+              setToggle(false)
+            }
+            })    
+            .on("error", (error, receipt) => {
+              console.log("disconnect", error);
+              console.log("disconnect");
+              setOpen(false);
             });
-          // await delay(3000)
-          await console.log('---------', mint)
-        }
+         
+        // await delay(3000)
+        // await console.log('---------', mint)
       } catch (err) {
         setOpen(false);
         console.log("errrrrr==========", err);
@@ -278,17 +183,7 @@ const Create = () => {
       });
       setOpen(false);
     }
-  }, [
-    ApproveAllTokenID,
-    BNBSale,
-    FudgeSale,
-    account,
-    allFormData.formData,
-    dropDown,
-    fileUrl,
-    formValidation,
-    mintPro,
-  ]);
+  })
 
   async function onChange(e) {
     const file = e.target.files[0];
@@ -376,6 +271,7 @@ const Create = () => {
                             name="first"
                             id="file"
                             type="file"
+                            accept="image/*"
                             onChange={onChange}
                           />
                         </div>
