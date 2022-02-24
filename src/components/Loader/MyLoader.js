@@ -17,7 +17,7 @@ import React from 'react'
 import './loader.scss'
 const MyLoader = (props) => {
     return (
-        <div>
+        <div style={{width:100}}>
         {props.toggle &&
             <div id='outer'>
                 <div id='middle'>

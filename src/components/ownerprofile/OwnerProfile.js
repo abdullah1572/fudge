@@ -225,6 +225,9 @@ const OwnerProfile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -262,6 +265,8 @@ const OwnerProfile = () => {
                     </ul>
                 </div>
             </div>
+             : ''}
+             </>
         )
     })
 
@@ -283,6 +288,9 @@ const OwnerProfile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -320,6 +328,8 @@ const OwnerProfile = () => {
                 </div>
 
             </div >
+             : ''}
+             </>
         )
     })
 
@@ -344,6 +354,9 @@ const OwnerProfile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -380,6 +393,8 @@ const OwnerProfile = () => {
                     </ul>
                 </div>
             </div>
+                : ''}
+                </>
         )
     })
 
@@ -408,6 +423,9 @@ const OwnerProfile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -444,6 +462,8 @@ const OwnerProfile = () => {
                     </ul>
                 </div>
             </div>
+                : ''}
+                </>
         )
     })
 
@@ -521,6 +541,12 @@ const OwnerProfile = () => {
                                     <img src={userDetail?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
                                 </div>
                                 <h2 className="pt-4">{userDetail?.displayName}</h2>
+                                {userDetail?.verified ?
+                                    <div>
+                                        verify<img src="/pegify/profile-assets/verify.png" />
+                                    </div>
+
+                                    : 'Unverified User'}
                                 <p className="ptb20">{userDetail?.bio}</p>
                                 <ul className="list-inline">
                                     <li className="list-inline-item">

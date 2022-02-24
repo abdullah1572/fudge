@@ -16,12 +16,12 @@ const MainLanding = () => {
     const [discover, setDiscover] = useState([]);
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
-    const [count,setCount]=useState(20);
-    const LoadMore=()=>{
-        setCount(count+4)
+    const [count, setCount] = useState(20);
+    const LoadMore = () => {
+        setCount(count + 4)
     }
 
-    
+
     const getDiscover = async () => {
         setOpen(true)
         axios.get(`${API_URL}/token/getAllTokensAndDetails`)
@@ -85,8 +85,8 @@ const MainLanding = () => {
         }
     };
 
- 
-   
+
+
     const getArt = async () => {
         setOpen(true)
         axios.get(`${API_URL}/token/getAllTokensOfArt`)
@@ -137,8 +137,9 @@ const MainLanding = () => {
                 return err;
             })
     }
-  
-    const display = discover?.slice(0,count)?.map((elem, index) => {
+
+    const display = discover?.slice(0, count)?.map((elem, index) => {
+        console.log("status", elem.status)
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -161,42 +162,47 @@ const MainLanding = () => {
 
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
-            <div className="col-sm-3" key={index}>
-                <div className="inner-card image-width">
-                    <ul className="list-inline ">
-                        <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item ">
-                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-                        <h4>{elem?.nftName}</h4>
-                        {price}
-                        <hr />
-                    </Link>
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
-                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
-                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <>
+                {elem.status === false
+                    ?
+                     <div className="col-sm-3" key={index}>
+                        <div className="inner-card image-width">
+                            <ul className="list-inline ">
+                                <li className="list-inline-item">
+                                    <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                        {creator}
+                                    </div>
+                                </li>
+                                <li className="list-inline-item ">
+                                    <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                        {owner}
+                                    </div>
+                                </li>
+                            </ul>
+                            <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                                <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                                <h4>{elem?.nftName}</h4>
+                                {price}
+                                <hr />
+                            </Link>
+                            <ul className="list-inline">
+                                <li className="list-inline-item">
+                                    {!userLike ?
+                                        <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
+                                            <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button> :
+                                        <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
+                                            <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>:''}
+                    </>
+
         )
     })
 
@@ -224,45 +230,45 @@ const MainLanding = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
-            <div className="col-sm-3">
-                <div className="inner-card image-width">
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item">
-                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`} >
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-
-                        <h4>{elem?.nftName}</h4>
-                        <h6 className="clr">{price}</h6>
-                        <hr />
-                    </Link>
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
-                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
-                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-
-                                </button>
-                            }
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
+            <>
+                {elem.status === false
+                    ? <div className="col-sm-3" key={index}>
+                        <div className="inner-card image-width">
+                            <ul className="list-inline ">
+                                <li className="list-inline-item">
+                                    <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                        {creator}
+                                    </div>
+                                </li>
+                                <li className="list-inline-item ">
+                                    <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                        {owner}
+                                    </div>
+                                </li>
+                            </ul>
+                            <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                                <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                                <h4>{elem?.nftName}</h4>
+                                {price}
+                                <hr />
+                            </Link>
+                            <ul className="list-inline">
+                                <li className="list-inline-item">
+                                    {!userLike ?
+                                        <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
+                                            <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button> :
+                                        <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
+                                            <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>:''}
+                    </>
         )
     })
 
@@ -367,47 +373,47 @@ const MainLanding = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="tab-content" id="pills-tabContent">
 
                                     <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                                         <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
-                                              
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
+
                                         </div>
 
                                     </div>
 
                                     <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                         <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
-                                        
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
+
 
                                         </div>
                                     </div>
 
                                     <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                                         <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
 
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
                                         <div class="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
 
 
                                         </div>
@@ -415,18 +421,18 @@ const MainLanding = () => {
                                     <div className="tab-pane fade" id="pills-Photography" role="tabpanel"
                                         aria-labelledby="pills-Photography-tab">
                                         <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-sports" role="tabpanel" aria-labelledby="pills-sports-tab">
                                         <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
-                                        }
+                                            {open ?
+                                                <MyLoader toggle={open} /> :
+                                                display
+                                            }
 
                                         </div>
                                     </div>
@@ -438,16 +444,16 @@ const MainLanding = () => {
                     <div className="row ptb20">
                         <div className="col-sm-12 text-center">
                             <ul className="list-inline">
-                            {/* {display.length>0 && */}
-                                <li className="list-inline-item">  
-                                 {discover.length > count 
-                                      ? <button className="btn-common"  onClick={LoadMore}>LOAD MORE</button>
-                                       : <button className="btn-common" >No More Items</button>
-                                          } 
-                                  
+                                {/* {display.length>0 && */}
+                                <li className="list-inline-item">
+                                    {discover.length > count
+                                        ? <button className="btn-common" onClick={LoadMore}>LOAD MORE</button>
+                                        : <button className="btn-common" >No More Items</button>
+                                    }
+
                                 </li>
-                            {/* } */}
-                          {/* {art.length>0 &&
+                                {/* } */}
+                                {/* {art.length>0 &&
                                 <li className="list-inline-item">  
                                  {artsData.length > count 
                                       ? <button className="btn-common"  onClick={LoadMoreArt}>LOAD MORE</button>
@@ -455,7 +461,7 @@ const MainLanding = () => {
                                           } 
                                   
                                 </li> */}
-                            {/* } */}
+                                {/* } */}
                             </ul>
                         </div>
                     </div>
@@ -469,8 +475,8 @@ const MainLanding = () => {
                             <div className="inner-content text-center">
                                 <h2>GET YOUR VERY FIRST NFT!</h2>
                                 <h4 className="grey">Here's how it works</h4>
-                                <iframe className="main-images-ss" width="100%" height="550px" src="https://www.youtube.com/embed/NNQLJcJEzv0" 
-                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                                <iframe className="main-images-ss" width="100%" height="550px" src="https://www.youtube.com/embed/NNQLJcJEzv0"
+                                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
                                 clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 {/* <img src="pegify\landing-assets\video.png" alt="" className="img-fluid" /> */}
                             </div>
@@ -562,7 +568,7 @@ const MainLanding = () => {
                                 <ul class="list-inline ptb20">
                                     <li class="list-inline-item">
                                         <div class="inner-icon">
-                                            <a href="">
+                                            <a href="https://www.facebook.com/FUDGE-109913607947898" target='_blank'>
                                                 <img src="/pegify/landing-assets/artist-social-facebook.png" alt=""
                                                     class="img-fluid" />
                                             </a>
@@ -570,20 +576,20 @@ const MainLanding = () => {
                                     </li>
                                     <li className="list-inline-item">
                                         <div className="inner-icon">
-                                            {/* <a href=""> */}
-                                            <img src="/pegify/landing-assets/artist-social-twitter.png" alt=""
-                                                className="img-fluid" />
-                                            {/* </a> */}
+                                            <a href="https://twitter.com/FudgeToken" target='_blank'>
+                                                <img src="/pegify/landing-assets/artist-social-twitter.png" alt=""
+                                                    className="img-fluid" />
+                                            </a>
                                         </div>
                                     </li>
-                                    <li className="list-inline-item">
+                                    {/* <li className="list-inline-item">
                                         <div className="inner-icon">
-                                            {/* <a href=""> */}
+                                            <a href="">
                                             <img src="/pegify/landing-assets/artist-social-dribbble.png" alt=""
                                                 className="img-fluid" />
-                                            {/* </a> */}
+                                            </a>
                                         </div>
-                                    </li>
+                                    </li> */}
                                 </ul>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">

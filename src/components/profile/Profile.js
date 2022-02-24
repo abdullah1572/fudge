@@ -17,6 +17,7 @@ const Profile = () => {
     const { account } = useWeb3React()
     const [tocheck, setTocheck] = useState([]);
     const [userDetail, setUserDetail] = useState()
+    console.log("usedetail", userDetail)
     const [open, setOpen] = useState(false);
     const [followed, setFollowed] = useState()
     const HasFollowed = async () => {
@@ -106,7 +107,7 @@ const Profile = () => {
                 return false;
             })
     }
-    
+
     const [followers, setFollowers] = useState([]);
     const Followers = () => {
         setOpen(true)
@@ -200,7 +201,7 @@ const Profile = () => {
     }, [walletAddress, account])
 
 
-  
+
 
     const fbLink = userDetail?.facebookUserName?.includes('https://') ? userDetail?.facebookUserName : `https://${userDetail?.facebookUserName}`;
     const twitterLink = userDetail?.twitterUserName?.includes('https://') ? userDetail?.twitterUserName : `https://${userDetail?.twitterUserName}`;
@@ -230,43 +231,48 @@ const Profile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
-            <div className="col-sm-3">
-                <div className="inner-card image-width">
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item">
-                            <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+            <>
+                {elem.status === false
+                    ?
+                    <div className="col-sm-3">
+                        <div className="inner-card image-width">
+                            <ul className="list-inline">
+                                <li className="list-inline-item">
+                                    <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                        {creator}
+                                    </div>
+                                </li>
+                                <li className="list-inline-item">
+                                    <div className="inner-tile2" data-toggle="tooltip" data-placement="top" title="Owner">
+                                        {owner}
+                                    </div>
+                                </li>
+                            </ul>
+                            <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                                <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
 
-                        <h4>{elem?.nftName}</h4>
-                        <h6 className="clr">{price}</h6>
-                        <hr />
-                    </Link>
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            {!userLike ?
-                                <button className="for-style11"  >
-                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button> :
-                                <button className="for-style11" >
-                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                                <h4>{elem?.nftName}</h4>
+                                <h6 className="clr">{price}</h6>
+                                <hr />
+                            </Link>
+                            <ul className="list-inline">
+                                <li className="list-inline-item">
+                                    {!userLike ?
+                                        <button className="for-style11"  >
+                                            <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button> :
+                                        <button className="for-style11" >
+                                            <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    : ''}
+            </>
         )
     })
 
@@ -292,6 +298,9 @@ const Profile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -328,6 +337,8 @@ const Profile = () => {
                     </ul>
                 </div>
             </div>
+                    : ''}
+                    </>
         )
     })
 
@@ -354,6 +365,9 @@ const Profile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <div className="inner-card image-width">
                     <ul className="list-inline">
@@ -390,6 +404,8 @@ const Profile = () => {
                     </ul>
                 </div>
             </div>
+                    : ''}
+                    </>
         )
     })
 
@@ -416,6 +432,9 @@ const Profile = () => {
         })
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
+            <>
+            {elem.status === false
+                ?
             <div className="col-sm-3">
                 <Link to="/artwork">
                     <div className="inner-card image-width">
@@ -454,6 +473,8 @@ const Profile = () => {
                     </div>
                 </Link>
             </div>
+            : ''}
+            </>
         )
     })
 
@@ -469,10 +490,10 @@ const Profile = () => {
                     <hr />
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                        {account === elem?.walletAddress ? '' : follow ?
-                         <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
-                          : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
-                          }
+                            {account === elem?.walletAddress ? '' : follow ?
+                                <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
+                                : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -492,10 +513,10 @@ const Profile = () => {
                     <hr />
                     <ul className="list-inline">
                         <li className="list-inline-item">
-                        {account === elem.walletAddress ? '' : follow ?
-                         <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
-                          : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
-                          }
+                            {account === elem.walletAddress ? '' : follow ?
+                                <button className="btn-common3" type="submit" onClick={() => Remove1(elem.walletAddress)} >UnFollow</button>
+                                : <button className="btn-common3" type="submit" onClick={() => AddFollower1(elem.walletAddress)} >Follow</button>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -524,7 +545,14 @@ const Profile = () => {
                             <div className="inner-content">
                                 <img src={userDetail?.ipfsImageUrl} alt="" width="200" height="200" style={{ borderRadius: '50%' }} />
                                 <h2 className="pt-4">{userDetail?.displayName}</h2>
+                                {userDetail?.verified ?
+                                    <div>
+                                        verify<img src="/pegify/profile-assets/verify.png" />
+                                    </div>
+
+                                    : 'Unverified User'}
                                 <p className="ptb20">{userDetail?.bio}</p>
+                                <p className="ptb20"></p>
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
 

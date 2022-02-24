@@ -13,6 +13,8 @@ const Collection = () => {
     const [dropDown, setDropDown] = useState('Recently');
     const [discover, setDiscover] = useState([]);
 
+    const [searchTerm, setSearchTerm] = useState('')
+
     const sortBy = [
 
         {
@@ -31,12 +33,12 @@ const Collection = () => {
 
     const { account } = useWeb3React();
     const [open, setOpen] = useState(false);
-    const [count,setCount]=useState(20);
-    const LoadMore=()=>{
-        setCount(count+4)
+    const [count, setCount] = useState(20);
+    const LoadMore = () => {
+        setCount(count + 4)
     }
 
-    
+
     const getDiscover = async () => {
         setOpen(true)
         axios.get(`${API_URL}/token/getAllTokensAndDetails`)
@@ -100,8 +102,8 @@ const Collection = () => {
         }
     };
 
- 
-   
+
+
     const getArt = async () => {
         setOpen(true)
         axios.get(`${API_URL}/token/getAllTokensOfArt`)
@@ -152,8 +154,76 @@ const Collection = () => {
                 return err;
             })
     }
-  
-    const display = discover?.slice(0,count)?.map((elem, index) => {
+
+    const display = discover?.slice(0, count)?.filter((elem, index) => {
+        if (searchTerm === "") {
+            return elem
+        }
+        else if (elem.nftName.toLowerCase().includes(searchTerm.toLowerCase())) {
+            const creator = elem.creators.map((elem) => {
+                return (
+                    <Link to={`/creatorprofile/${elem.walletAddress}`}>
+                        <img src={elem?.ipfsImageUrl} alt="" width="20px" height="20px" className="inner-tiless" />
+                    </Link>
+                )
+            })
+            const owner = elem?.users.map((elem) => {
+                return (
+                    <Link to={`/ownerprofile/${elem.walletAddress}`}>
+                        <img src={elem?.ipfsImageUrl} className="img-fluid inner-tiless" alt="" />
+                    </Link>
+                )
+            })
+            const price = elem.orders.map((elem) => {
+                return (
+                    <h6 className="clr">{elem?.price} {elem?.currency}</h6>
+                )
+            })
+
+            let userLike = elem?.likedBy?.find(e => e.address === account)
+            return (
+                <>
+                {elem.status === false
+                    ? <div className="col-sm-3" key={index}>
+                        <div className="inner-card image-width">
+                            <ul className="list-inline ">
+                                <li className="list-inline-item">
+                                    <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                        {creator}
+                                    </div>
+                                </li>
+                                <li className="list-inline-item ">
+                                    <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                        {owner}
+                                    </div>
+                                </li>
+                            </ul>
+                            <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                                <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                                <h4>{elem?.nftName}</h4>
+                                {price}
+                                <hr />
+                            </Link>
+                            <ul className="list-inline">
+                                <li className="list-inline-item">
+                                    {!userLike ?
+                                        <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
+                                            <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button> :
+                                        <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
+                                            <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                            <span className="grey"> {elem?.numerOfLikes} </span>
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>:''}
+                    </>
+            )
+        }
+    }).map((elem, index) => {
         const creator = elem.creators.map((elem) => {
             return (
                 <Link to={`/creatorprofile/${elem.walletAddress}`}>
@@ -176,55 +246,47 @@ const Collection = () => {
 
         let userLike = elem?.likedBy?.find(e => e.address === account)
         return (
-            <div className="col-sm-3" key={index}>
-                <div className="inner-card image-width">
-                    <ul className="list-inline ">
-                        <li className="list-inline-item">
-                            <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
-                                {creator}
-                            </div>
-                        </li>
-                        <li className="list-inline-item ">
-                            <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
-                                {owner}
-                            </div>
-                        </li>
-                    </ul>
-                    <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
-                        <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
-                        <h4>{elem?.nftName}</h4>
-                        {price}
-                        <hr />
-                    </Link>
-                    <ul className="list-inline">
-                        <li className="list-inline-item">
-                            {!userLike ?
-                                <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
-                                    <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button> :
-                                <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
-                                    <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
-                                    <span className="grey"> {elem?.numerOfLikes} </span>
-                                </button>
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <>
+            {elem.status === false
+                ? <div className="col-sm-3" key={index}>
+                    <div className="inner-card image-width">
+                        <ul className="list-inline ">
+                            <li className="list-inline-item">
+                                <div className="inner-tile" data-toggle="tooltip" data-placement="top" title="Creator">
+                                    {creator}
+                                </div>
+                            </li>
+                            <li className="list-inline-item ">
+                                <div className="inner-tile2" data-toggle="tooltip" width="20px" height="20px" data-placement="top" title="Owner">
+                                    {owner}
+                                </div>
+                            </li>
+                        </ul>
+                        <Link to={`/artwork/${elem.contractAddress}/${elem.tokenID}`}>
+                            <img src={elem?.imageUrl} alt="" className="img-fluid mb10 set_width_height" />
+                            <h4>{elem?.nftName}</h4>
+                            {price}
+                            <hr />
+                        </Link>
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                                {!userLike ?
+                                    <button className="for-style11" onClick={() => LikeToken(elem.contractAddress, account, elem.tokenID, index)} >
+                                        <img id={elem._id} src={elem?.unLikedImage} alt="" className="img-fluid" />
+                                        <span className="grey"> {elem?.numerOfLikes} </span>
+                                    </button> :
+                                    <button className="for-style11" onClick={() => UnlikeToken(elem.contractAddress, account, elem.tokenID, index)}>
+                                        <img id={elem._id} src={elem?.likedImage} alt="" className="img-fluid" />
+                                        <span className="grey"> {elem?.numerOfLikes} </span>
+                                    </button>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </div>:''}
+                </>
         )
     })
-
-
-
-    
-
-
-
-
-
-   
-
 
     return (
         <>
@@ -261,7 +323,7 @@ const Collection = () => {
                                             </li>
                                             <li className="nav-item">
                                                 <a className="btn-common-2" id="pills-Photography-tab" data-toggle="pill"
-                                                    href="#pills-Photography" role="tab" aria-controls="pills-Photography"onClick={getSports}
+                                                    href="#pills-Photography" role="tab" aria-controls="pills-Photography" onClick={getSports}
                                                     aria-selected="false" >Sports</a>
                                             </li>
                                             <li className="nav-item">
@@ -296,6 +358,7 @@ const Collection = () => {
                                             <div className="form-group has-search">
                                                 <span className="fa fa-search form-control-feedback"></span>
                                                 <input type="text" className="form-control" placeholder="Search Fudge"
+                                                    value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -315,14 +378,14 @@ const Collection = () => {
                                                     )
                                                 }
                                                 )}
-                                              
+
                                             </div>
-                                      
+
                                         </div>
                                     </div>
                                     <hr></hr>
                                     <div className="col-sm-4 d-block d-sm-none d-md-none d-lg-none d-xl-none">
-                                    
+
                                         <div className="main-outer-fort ptb20 pl-0">
 
                                             <div className="switch ttt">
@@ -345,7 +408,7 @@ const Collection = () => {
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <div className="main-outer-fort">
                                                         <div className="input-main main-input-two">
-                                                            <input type="number" class="form-control " id="number" placeholder="From"  />
+                                                            <input type="number" class="form-control " id="number" placeholder="From" />
                                                         </div>
                                                         <div className="input-main  main-input-one">
                                                             <input type="number" class="form-control" id="number" placeholder="To" />
@@ -365,59 +428,80 @@ const Collection = () => {
                                 <div className="tab-content" id="pills-tabContent">
                                     <div className="tab-pane fade show active" id="pills-home" role="tabpanel"
                                         aria-labelledby="pills-home-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+
+                                        {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-                                        </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-profile" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+                                        {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-                                        </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-contact" role="tabpanel"
                                         aria-labelledby="pills-contact-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+                                         {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-
-
-                                        </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-meme" role="tabpanel" aria-labelledby="pills-meme-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+                                    {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-
-
-                                        </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-Photography" role="tabpanel"
                                         aria-labelledby="pills-Photography-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+                                         {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-                                        </div>
                                     </div>
                                     <div className="tab-pane fade" id="pills-sports" role="tabpanel" aria-labelledby="pills-sports-tab">
-                                        <div className="row ptb20">
-                                        {open ?
-                                               <MyLoader toggle={open} />:
-                                               display
+                                    {display.length > 0 ?
+                                            <div className="row ptb20">
+                                                {open ?
+                                                    <MyLoader toggle={open} /> :
+                                                    display
+                                                }
+                                            </div>
+                                            :
+                                            <div>No item</div>
                                         }
-                                        </div>
                                     </div>
                                 </div>
 
@@ -427,10 +511,10 @@ const Collection = () => {
                                 <div className="col-sm-12 text-center">
                                     <ul className="list-inline">
                                         <li className="list-inline-item">
-                                        {discover.length > count 
-                                      ? <button className="btn-common"  onClick={LoadMore}>LOAD MORE</button>
-                                       : <button className="btn-common" >No More Items</button>
-                                          } 
+                                            {discover.length > count
+                                                ? <button className="btn-common" onClick={LoadMore}>LOAD MORE</button>
+                                                : <button className="btn-common" >No More Items</button>
+                                            }
                                         </li>
                                     </ul>
                                 </div>

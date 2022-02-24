@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './profiledetail.scss';
 import { IpfsStorage } from '../../IPFSStorage/ipfs';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -6,39 +6,81 @@ import { EditProfile } from '../../services/services';
 import { useWeb3React } from '@web3-react/core'
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import axios from 'axios'
+import { useHistory } from "react-router-dom";
+
+import { API_URL } from '../../ApiURL';
 
 import Header from '../header/Header';
 const ProfileDetail = () => {
+
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    let history = useHistory();
+    const { walletAddress } = useParams();
     const {account} = useWeb3React();
 
-    const userData = useSelector(state => state.CollectionReducer.GetUserData);
-    const [fileUrl, updateFileUrl] = useState(userData?.ipfsImageUrl);
+    let image = ``;
+    const GetUserDetail = async () => {
+        // setMainLoader(true)
+        axios.post(`${API_URL}/user/getUser`, { walletAddress: walletAddress })
+            .then((res) => {
+                setAllFormData(res.data.data)
+                image = updateFileUrl(res.data.data?.ipfsImageUrl)
+                // setMainLoader(false)
+            }).catch((err) => {
+                return false;
+            })
+    }
+
+
+    useEffect(() => {
+        GetUserDetail()
+        history.push(account)
+    }, [walletAddress, account])
+
+
+
+    // const userData = useSelector(state => state.CollectionReducer.GetUserData);
+    const [fileUrl, updateFileUrl] = useState(image);
     const [allFormData, setAllFormData] = useState({
-        formData: {
-            displayName: userData?.displayName, bio: userData?.bio, twitterUserName: userData?.twitterUserName,
-            instagramUserName: userData?.instagramUserName, facebookUserName: userData?.facebookUserName,
-            telegramChannel: userData?.telegramChannel, email: userData?.email
-        },
+            displayName:'',
+            bio:'', 
+            twitterUserName:'',
+            instagramUserName:'',
+            facebookUserName:'',
+            telegramChannel:'', 
+            email:'',
     })
+    // const handleChange = (event) => {
+    //     const { formData } = allFormData;
+    //     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    //     formData[event.target.name] = value;
+    //     setAllFormData({ formData });
+    // }
+
+    
     const handleChange = (event) => {
-        const { formData } = allFormData;
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        formData[event.target.name] = value;
-        setAllFormData({ formData });
+        allFormData[event.target.name] = event.target.value;
+        setAllFormData({ ...allFormData });
     }
 
     const handleSubmit = async() => {
         formValidation()
         if(account){
             try{
-                if(allFormData.formData.displayName === userData?.displayName  ){
-                    toast.warning("Fill the Required Fileds",{
-                        position: "top-right",
-                        autoClose: 2000,
-                    })
-                    return
-                }
-                    await EditProfile(allFormData.formData, fileUrl,account)
+                // if(allFormData.formData.displayName === userData?.displayName  ){
+                //     toast.warning("Fill the Required Fileds",{
+                //         position: "top-right",
+                //         autoClose: 2000,
+                //     })
+                //     return
+                // }
+                    await EditProfile(allFormData, fileUrl,account)
                     toast.success('EditProfile !', {
                         position: "top-center",
                         autoClose: 5000,
@@ -48,10 +90,10 @@ const ProfileDetail = () => {
                         draggable: true,
                         progress: undefined,
                         });
+                        history.push(`/profile/${account}`)
                 }
             
             catch(err){
-                console.log("err",err)
                 toast.error('Profile Not Edit!', {
                     position: "top-right",
                     autoClose: 2000,
@@ -94,8 +136,13 @@ const ProfileDetail = () => {
         setImageUrlError(imageUrlError)
         return isValid;
     }
+
+    const Cancel=()=>{
+        history.push(`/profile/${account}`)
+       }
    const Remove=()=>{
     updateFileUrl('');
+    GetUserDetail()
    }
 
     return (
@@ -125,13 +172,13 @@ const ProfileDetail = () => {
                                                 type="text"
                                                 name="displayName"
                                                 autoComplet="off"
-                                                value={allFormData.formData.displayName}
+                                                value={allFormData.displayName}
                                                 onChange={handleChange}
                                                 variant="outlined"
                                                 placeholder="Enter Name"
                                                 className="input-fields"
-                                                validators={['required']}
-                                                errorMessages={['Name is required']}
+                                                // validators={['required']}
+                                                // errorMessages={['Name is required']}
                                             />
                                             {/* </div> */}
                                             <div className="form-group ptb20">
@@ -146,7 +193,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="bio"
-                                                    value={allFormData.formData.bio}
+                                                    value={allFormData.bio}
                                                     onChange={handleChange}
                                                     placeholder="Enter Your Bio..."
                                                     className="input-fields"
@@ -169,7 +216,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="twitterUserName"
-                                                    value={allFormData.formData.twitterUserName}
+                                                    value={allFormData.twitterUserName}
                                                     onChange={handleChange}
                                                     placeholder="Enter your twitter username"
                                                     className="input-fields"
@@ -186,7 +233,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="instagramUserName"
-                                                    value={allFormData.formData.instagramUserName}
+                                                    value={allFormData.instagramUserName}
                                                     onChange={handleChange}
                                                     placeholder="Enter your instagram username"
                                                     className="input-fields"
@@ -203,7 +250,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="facebookUserName"
-                                                    value={allFormData.formData.facebookUserName}
+                                                    value={allFormData.facebookUserName}
                                                     onChange={handleChange}
                                                     placeholder="Enter your facebook username"
                                                     className="input-fields"
@@ -221,7 +268,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="telegramChannel"
-                                                    value={allFormData.formData.telegramChannel}
+                                                    value={allFormData.telegramChannel}
                                                     onChange={handleChange}
                                                     placeholder="Enter your telegram username"
                                                     className="input-fields"
@@ -238,7 +285,7 @@ const ProfileDetail = () => {
                                                     fullWidth
                                                     type="text"
                                                     name="email"
-                                                    value={allFormData.formData.email}
+                                                    value={allFormData.email}
                                                     onChange={handleChange}
                                                     placeholder="Enter your Email Address"
                                                     className="input-fields"
@@ -252,7 +299,7 @@ const ProfileDetail = () => {
                                                     <button className="btn-common" type="submit" onClick={handleSubmit}>Save Changes</button>
                                                 </li>
                                                 <li className="list-inline-item">
-                                                    <button className="remove">Cancel</button>
+                                                    <button className="remove" type="submit" onClick={Cancel}>Cancel</button>
                                                 </li>
                                             </ul>
                                             {/* </form> */}
@@ -281,7 +328,7 @@ const ProfileDetail = () => {
                                                     Upload Image <i className="fa fa-cloud-upload"></i>
                                                 </label>
                                                {Object.keys(imageUrlError).map((key) => { return <p className="inputErrors">{imageUrlError[key]}</p> })}
-                                                <input className="form-control" id="file" type="file" onChange={onChange} />
+                                                <input className="form-control" id="file" type="file" onChange={onChange} accept="image/*,image/gif"/>
                                                 {fileUrl && (<img src={fileUrl}  className="image-edit-pro" alt=""/>)}
                                             </div>
                                         </li>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { IpfsStorage } from "../../IPFSStorage/ipfs";
 import { useWeb3React } from "@web3-react/core";
 import { addToken, addTokenAndPutOnSale } from "../../services/services";
@@ -19,6 +19,11 @@ import useWeb3 from '../../hooks/useWeb3';
 import { BlueMoonProContract } from '../../utils/contractHelpers'
 
 const Create = () => {
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const tokenAddr = environment.BlueMoonPro;
   // ws = new WebSocket('wss://speedy-nodes-nyc.moralis.io/6e396a98bde2a5cde21c6207/bsc/testnet/ws')
   const web3 = useWeb3();
@@ -70,6 +75,7 @@ const Create = () => {
   }, [fileUrl, dropDown]);
 
   // const [tokenId, setTokenId] = useState('')
+
   const { ApproveAllTokenID } = ApproveForAll();
   const { BNBSale } = BNBSalePrice();
   const { FudgeSale } = FudgeSalePrice();
@@ -102,7 +108,7 @@ const Create = () => {
     },
   ];
   // src/assets/bnb-logo.png
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  // const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const handleSubmit = useCallback(async () => {
     formValidation();
@@ -129,43 +135,54 @@ const Create = () => {
       }
       try {
         setOpen(true);
-        setloaderText("Waiting fo NFT mint");
+        setloaderText("Waiting for NFT mint");
         // const tokenId = await mintPro();
-        await contract.methods.mint(account, fileUrl).estimateGas({ from: account })
+       contract.methods.mint(account, fileUrl).estimateGas({ from: account })
         // console.log("mintttt",mint)
         contract.methods.mint(account, fileUrl).send({ from: account })
+        .catch((err)=>{
+          setOpen(false)
+          console.log("err",err)
+          toast.error("User Denied Transaction", {
+            position: "top-center",
+            autoClose: 5000,
+          });
+        })
         contract.setProvider('wss://speedy-nodes-nyc.moralis.io/6e396a98bde2a5cde21c6207/bsc/testnet/ws')
         contract.events.Transfer()
-            .on("connection", () => {
-              console.log("connected");
-            })
-            .on("data", (data) => {
-              if (data.returnValues.to == account) {
-              console.log("data.returnValues.tokenId", data.returnValues.tokenId)
-              addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, data.returnValues.tokenId,dropDown);
+          .on("connection", () => {
+            console.log("connected");
+          })
+          .on("data", (data) => {
+            if (data.returnValues.to == account) {
+              // console.log("data.returnValues.tokenId", data.returnValues.tokenId)
+              // console.log("data.returnValues.tokenId", data)
+             addToken(allFormData.formData, environment.BlueMoonPro, account, fileUrl, data.returnValues.tokenId, dropDown);
               toast.success("Created Item Successfully", {
                 position: "top-center",
                 autoClose: 5000,
-              });
-              setOpen(false);
-              setAllFormData({
-                formData: {
-                  price: "",
-                  nftName: "",
-                  description: "",
-                  royalties: "",
-                },
               })
-              updateFileUrl("");
-              setToggle(false)
-            }
-            })    
-            .on("error", (error, receipt) => {
-              console.log("disconnect", error);
-              console.log("disconnect");
               setOpen(false);
-            });
-         
+              window.location.href=`https://fudge.gallery/artwork/${environment.BlueMoonPro}/${data.returnValues.tokenId}`
+              // setAllFormData({
+              //   formData: {
+              //     price: "",
+              //     nftName: "",
+              //     description: "",
+              //     royalties: "",
+              //   },
+              // })
+              // updateFileUrl("");
+              // setToggle(false)
+            }
+          })
+          .on('disconnect', () => { console.log("disconnect") })
+          .on("error", (error) => {
+            console.log("disconnect", error);
+            console.log("disconnect");
+            setOpen(false);
+          });
+
         // await delay(3000)
         // await console.log('---------', mint)
       } catch (err) {
@@ -192,11 +209,9 @@ const Create = () => {
     IpfsStorage(file)
       .then((res) => {
         updateFileUrl(res);
-        console.log("==========>", res);
         setOpen(false);
       })
       .catch((e) => {
-        console.log("==========>", e);
       });
   }
 
@@ -207,7 +222,6 @@ const Create = () => {
   return (
     <>
       <Backdrop className="loader" sx={{ color: "#fff" }} open={open}>
-        {" "}
         <h1>{loaderText}</h1>
         {/* <CircularProgress color="inherit" style={{ marginLeft: 20 }} /> */}
         <MyLoader toggle={open} />
@@ -271,7 +285,7 @@ const Create = () => {
                             name="first"
                             id="file"
                             type="file"
-                            accept="image/*"
+                            accept="image/gif, image/jpg, image/jpeg, image/png"
                             onChange={onChange}
                           />
                         </div>

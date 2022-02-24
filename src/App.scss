@@ -369,7 +369,7 @@ h2 {
   right: 0;
   bottom: 0;
   display: flex;
-  z-index: 1 !important;
+  z-index: 1060 !important;
   color: #fff;
   position: fixed;
   align-items: center;
@@ -380,4 +380,15 @@ h2 {
 
 .items{
   display: inline-flex !important;
+}
+
+
+
+
+iframe{
+  position: unset!important;
+  top: 0px!important;
+  left: 0px!important;
+  width: 0px!important;
+  height: 0px!important;
 }
